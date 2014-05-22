@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+    </dependencies>
+    <scenes>
+        <!--Switched Image View Controller-->
+        <scene sceneID="5">
+            <objects>
+                <viewController storyboardIdentifier="0" id="2" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="18">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="hand_on_shoulder.png" id="U7p-kl-i4X">
+                                <rect key="frame" x="0.0" y="95" width="775" height="388"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="YIa-3D-7PH">
+                                <rect key="frame" x="-98" y="345" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I was given clear information about the program when I started." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="h9w-bV-ClS">
+                                <rect key="frame" x="-25" y="50" width="843" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="18" id="22"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="-1080"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="9">
+            <objects>
+                <viewController storyboardIdentifier="1" id="6" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" image="status_bg-1024.png" id="26">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="care7.png" id="zp6-z8-aKK">
+                                <rect key="frame" x="451" y="69" width="317" height="352"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="EYd-tj-Ucx">
+                                <rect key="frame" x="-79" y="366" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="clean and well maintained." adjustsFontSizeToFit="NO" minimumFontSize="17" id="E4R-4M-oL7">
+                                <rect key="frame" x="26" y="112" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The facilities were comfortable," adjustsFontSizeToFit="NO" minimumFontSize="17" id="OCr-OK-Ubn">
+                                <rect key="frame" x="20" y="69" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="26" id="33"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="148" y="50"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="13">
+            <objects>
+                <viewController storyboardIdentifier="2" id="10" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="11">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="30">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="My unique treatment needs were addressed." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gfc-9C-Vzd">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="IPh-4T-b6p">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="30" id="36"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="12" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="1202"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="h9b-Y9-oqV">
+            <objects>
+                <viewController storyboardIdentifier="3" id="cjV-ef-EhH" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ydb-i7-C9b">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="den-LM-fKI">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The staff involved me in setting my treatment goals." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="vvk-cT-CPt">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="8j6-kn-caB">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="den-LM-fKI" id="V5b-cw-wut"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BGu-kA-8a9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="2322"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="712-Hb-Lnu">
+            <objects>
+                <viewController storyboardIdentifier="4" id="6hZ-0B-VvT" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rmr-tW-uqJ">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="QAx-Rn-wYb">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="My family was included in my treatment program." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="XEZ-gs-6BX">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="nm3-in-BOG">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="QAx-Rn-wYb" id="pQw-mv-OMu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ysV-0d-e9K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="3434"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="BLe-ft-BdP">
+            <objects>
+                <viewController storyboardIdentifier="5" id="yhJ-Jf-mvT" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fHj-EZ-LLA">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="bz6-rc-vOC">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The staff treated me with respect." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="Rp3-Sg-7iw">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="eaN-hm-f9h">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="bz6-rc-vOC" id="P5n-x9-VUg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QMd-F3-m0U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="4552"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="Q73-st-ceY">
+            <objects>
+                <viewController storyboardIdentifier="6" id="Rgb-9d-Goo" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bAm-gF-hNj">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="TMo-ar-YPy">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I received high quality care." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="5sq-9z-son">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="pca-6R-hK5">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="TMo-ar-YPy" id="TPG-qG-aam"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ykz-zo-e1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="5670"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="7A6-e7-Myi">
+            <objects>
+                <viewController storyboardIdentifier="7" id="HNg-vb-1u3" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aN2-0g-Izd">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="Hjc-ly-vey">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The staff provided me with emotional support." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="9N6-n3-B1L">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="DTY-RE-bSE">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="Hjc-ly-vey" id="UVJ-NG-YU5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AM9-zf-lb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="6784"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="sbr-Bm-ag4">
+            <objects>
+                <viewController storyboardIdentifier="8" id="gzb-01-9eZ" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0cL-Kh-QHE">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="7o1-K0-sSj">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I was satisfied with the medical care I received." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="yVh-WR-1IH">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="NLs-fK-hbC">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="7o1-K0-sSj" id="Je0-Dh-DGl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OoJ-kc-okp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="7908"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="SvV-zt-Tsh">
+            <objects>
+                <viewController storyboardIdentifier="9" id="ebp-0W-o8g" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dJk-bu-AGJ">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="NZk-mY-hjE">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I am pleased with the progress I made." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="UK9-S7-yel">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="h2Y-2V-QoK">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="NZk-mY-hjE" id="DUX-1P-TH0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4q0-pd-Y8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="9022"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="AuG-3R-3CI">
+            <objects>
+                <viewController storyboardIdentifier="10" id="44j-cv-AFb" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Jqb-D1-a9d">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="Ahm-a7-qYc">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I know my own strengths and limitations better." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="k1R-cx-aP5">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="pls-th-Njt">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="Ahm-a7-qYc" id="Neo-dv-GyR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Uv-Bb-CQc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="10132"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="0mP-H6-QEp">
+            <objects>
+                <viewController storyboardIdentifier="11" id="pry-Jf-d84" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="a4g-hD-gxW">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="7kF-Go-BbA">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I learned how to better compensate for my disabilities." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="u4O-Vf-bi4">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="pYs-nG-4yG">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="7kF-Go-BbA" id="He0-RG-Wu5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="adh-uO-mM4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="11244"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="nAy-qS-Asb">
+            <objects>
+                <viewController storyboardIdentifier="12" id="ZGI-ru-4lK" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VLD-sg-oKf">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="e5k-rZ-NBd">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The military liaison with services was helpful." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="Py5-WL-MWh">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="OVr-7A-7Ex">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="e5k-rZ-NBd" id="Twt-IG-zw3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c0H-7n-2aU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="12362"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="ICu-dQ-49y">
+            <objects>
+                <viewController storyboardIdentifier="13" id="OUH-Jl-wyL" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wD0-xL-Yrh">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="Cf4-L6-egW">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I was helped by the recreational activities." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="jeM-9I-Lvm">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9eN-av-itF">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="Cf4-L6-egW" id="dgX-Ag-xEp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iPG-h7-iTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="13482"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="CSs-de-qa2">
+            <objects>
+                <viewController storyboardIdentifier="14" id="bWq-X6-haP" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fXm-cl-EzN">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="3un-Ma-EMr">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I was helped to improve my social skills." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="z4N-fs-mfE">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="8k3-eT-PM8">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="3un-Ma-EMr" id="AQV-x3-rzA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SY0-5c-jwi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="14594"/>
+        </scene>
+        <!--Switched Image View Controller-->
+        <scene sceneID="Jr3-DA-eGI">
+            <objects>
+                <viewController storyboardIdentifier="15" id="clA-lM-Ljd" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vJH-fc-qnx">
+                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="status_bg-1024.png" id="zVe-gd-ajh">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I was helped to prepare for work or school." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="l3z-bh-eNc">
+                                <rect key="frame" x="-21" y="95" width="827" height="112"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="smw-8y-3FA">
+                                <rect key="frame" x="-103" y="302" width="1019" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Strongly Disagree"/>
+                                    <segment title="Disagree"/>
+                                    <segment title="Neutral"/>
+                                    <segment title="Agree"/>
+                                    <segment title="Strongly Agree"/>
+                                    <segment title="Does Not Apply"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="iv" destination="zVe-gd-ajh" id="93z-ID-5Zf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqZ-cM-LKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="164" y="15712"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="care7.png" width="438" height="611"/>
+        <image name="hand_on_shoulder.png" width="1500" height="1125"/>
+        <image name="status_bg-1024.png" width="1024" height="768"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

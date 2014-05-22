@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Background</key>
+	<string>Dr. Chao has 5 years of experience and practices in Neurology.</string>
+	<key>Education and Affiliations</key>
+	<string>Dr. Chao graduated from Rosalind Franklin University, in North Chicago.  His affiliations include Stanford Hospital, Stanford Medical Center, UCSF Medical Center, and the Palo Alto Veterans Affairs Medical Center.</string>
+	<key>Credentials</key>
+	<string>Dr. Chao is board certified in Neurology.</string>
+</dict>
+</plist>

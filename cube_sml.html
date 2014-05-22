@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>
+        </title>
+        <style>
+            div{
+                color:white;
+                opacity: 0.97;
+                border-radius:15px;
+            }
+            
+            @-webkit-keyframes rotating {
+                from{
+                    
+                    -webkit-transform: rotateX(-35deg) rotateY(-45deg);
+                    
+                }
+                to{
+                    -webkit-transform: rotateX(325deg) rotateY(315deg);
+                }
+            }
+            
+            .rotating {
+                -webkit-animation: rotating 16s linear infinite;
+            }
+            
+            /*
+             <div id='test' class='rotating'></div>
+             */
+            
+            #experiment {
+                -webkit-perspective: 900;
+                -webkit-perspective-origin: 50% 200px;
+                margin: 50 auto;
+            }
+            #cube {
+                position: relative;
+                margin: 0 auto;
+                height: 200px;
+                width: 200px;
+                -webkit-transition: -webkit-transform 3s linear;
+                -webkit-transform-style: preserve-3d;
+            }
+            .face {
+                position: absolute;
+                height: 200px;
+                width: 200px;
+                padding: 0px;
+                background-color: rgba(50, 50, 50, 0.7);
+            }
+            #cube .one  {
+                -webkit-transform: rotateX(90deg) translateZ(100px);
+            }
+            
+            #cube .two {
+                -webkit-transform: translateZ(100px);
+            }
+            
+            #cube .three {
+                -webkit-transform: rotateY(90deg) translateZ(100px);
+            }
+            
+            #cube .four {
+                -webkit-transform: rotateY(180deg) translateZ(100px);
+            }
+            
+            #cube .five {
+                -webkit-transform: rotateY(-90deg) translateZ(100px);
+            }
+            
+            #cube .six {
+                -webkit-transform: rotateX(-90deg) translateZ(100px);
+            }
+            </style>
+        
+    </head>
+    
+    <body style="padding-top: 60px;background-color:transparent;">
+        
+        
+        <br/>
+        <br/>
+        
+        <div id="experiment" style='height:350px;width:400px;border:0px solid black;text-align:center;'>
+            <div id="cube" class="rotating">
+		 		<div class="face one">
+					<img src='glossy_psc_cropped2.png' height=200 width=200></img><br/>
+                </div>
+                <div class="face two">
+                    <img src='glossy_plus_cropped2.png' height=200 width=200></img>
+                </div>
+                <div class="face three">
+                    <img src='glossy_minus_cropped2.png' height=200 width=200></img><br/>
+                </div>
+                <div class="face four">
+                    <img src='glossy_plus_cropped2.png' height=200 width=200></img>
+                </div>
+                <div class="face five">
+                    <img src='glossy_minus_cropped2.png' height=200 width=200></img><br/>
+                </div>
+                <div class="face six">
+                    <img src='glossy_psc_cropped2.png' height=200 width=200></img>
+                </div>
+            </div>
+		</div>
+        
+    </body>
+</html>
