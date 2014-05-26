@@ -1948,6 +1948,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = C762TUPWKT;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "satisfaction_survey" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2423,7 +2428,7 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = /Users/dhorton/Documents/iPhone/apps/three20/Build/Products/three20;
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Waiting Room";
 				PROVISIONING_PROFILE = "";
@@ -2443,7 +2448,7 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = /Users/dhorton/Documents/iPhone/apps/three20/Build/Products/three20;
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Waiting Room";
 				PROVISIONING_PROFILE = "";

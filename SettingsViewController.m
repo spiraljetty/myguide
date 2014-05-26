@@ -254,7 +254,7 @@
 }
 
 - (void)createSoundMenu {
-    soundViewController = [[YLViewController alloc] initWithNibName:@"YLViewController_iPad" bundle:nil];
+   soundViewController = [[YLViewController alloc] initWithNibName:@"YLViewController_iPad" bundle:nil];
 //    soundViewController.view.frame = CGRectMake(80, 200, 500, 200);
     soundViewController.view.frame = CGRectMake(0, kInvisibleButtonExtraWidth, self.view.frame.size.width, self.view.frame.size.height);
 //    soundViewController.view.backgroundColor = [UIColor greenColor];
