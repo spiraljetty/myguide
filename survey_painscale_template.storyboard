@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Switched Image View Controller-->
         <scene sceneID="5">
             <objects>
                 <viewController storyboardIdentifier="0" id="2" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QRX-nl-gxk"/>
+                        <viewControllerLayoutGuide type="bottom" id="4gQ-eG-xNR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="3">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" id="YIa-3D-7PH">
-                                <rect key="frame" x="-125" y="553" width="1019" height="44"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" translatesAutoresizingMaskIntoConstraints="NO" id="YIa-3D-7PH">
+                                <rect key="frame" x="-139" y="626" width="991" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Strongly Disagree"/>
@@ -27,21 +31,21 @@
                                     <action selector="segmentedControlIndexChanged:" destination="2" eventType="valueChanged" id="JSE-h3-eeL"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="I received high quality care." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SVj-r0-ZGy">
-                                <rect key="frame" x="9" y="80" width="750" height="340"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" text="I received high quality care." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="959" translatesAutoresizingMaskIntoConstraints="NO" id="SVj-r0-ZGy">
+                                <rect key="frame" x="-123" y="333" width="959" height="124"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Prompt" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5OI-sl-Mp4">
-                                <rect key="frame" x="9" y="15" width="750" height="150"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Prompt" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="894" translatesAutoresizingMaskIntoConstraints="NO" id="5OI-sl-Mp4">
+                                <rect key="frame" x="-91" y="202" width="894" height="123"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TSn-AL-JrJ">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TSn-AL-JrJ">
                                 <rect key="frame" x="-116" y="217" width="66" height="66"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -55,8 +59,8 @@
                                     <action selector="pressedSatisfactionReplayButton:" destination="2" eventType="touchUpInside" id="eWh-y3-Fdc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fUC-2T-0MA" userLabel="StronglyDisagreeButton">
-                                <rect key="frame" x="4" y="389" width="160" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fUC-2T-0MA" userLabel="StronglyDisagreeButton">
+                                <rect key="frame" x="-148" y="458" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="strongly_disagree_face.png">
@@ -70,8 +74,8 @@
                                     <action selector="stronglyDisagreeFaceButtonPressed:" destination="2" eventType="touchUpInside" id="QlP-nd-Qxc"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MX8-RU-CeK" userLabel="DisagreeButton">
-                                <rect key="frame" x="177" y="389" width="160" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MX8-RU-CeK" userLabel="DisagreeButton">
+                                <rect key="frame" x="20" y="458" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="disagree_face.png">
@@ -85,8 +89,8 @@
                                     <action selector="disagreeFaceButtonPressed:" destination="2" eventType="touchUpInside" id="9ws-Zs-CXv"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Ln2-tx-lPT" userLabel="NeutralButton">
-                                <rect key="frame" x="344" y="389" width="160" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ln2-tx-lPT" userLabel="NeutralButton">
+                                <rect key="frame" x="188" y="458" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="neutral_face.png">
@@ -100,8 +104,8 @@
                                     <action selector="neutralFaceButtonPressed:" destination="2" eventType="touchUpInside" id="TPE-dX-I9p"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b3q-v2-Ndv" userLabel="AgreeButton">
-                                <rect key="frame" x="517" y="389" width="160" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3q-v2-Ndv" userLabel="AgreeButton">
+                                <rect key="frame" x="356" y="458" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="agree_face.png">
@@ -115,8 +119,8 @@
                                     <action selector="agreeFaceButtonPressed:" destination="2" eventType="touchUpInside" id="d4J-91-k34"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TA3-Gd-iV6" userLabel="StronglyAgreeButton">
-                                <rect key="frame" x="689" y="389" width="160" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TA3-Gd-iV6" userLabel="StronglyAgreeButton">
+                                <rect key="frame" x="524" y="458" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="strongly_agree_face.png">
@@ -130,8 +134,8 @@
                                     <action selector="stronglyAgreeFaceButtonPressed:" destination="2" eventType="touchUpInside" id="yOj-tN-fKy"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Jqb-i9-sJc" userLabel="DoesNotApplyButton">
-                                <rect key="frame" x="860" y="389" width="160" height="160"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jqb-i9-sJc" userLabel="DoesNotApplyButton">
+                                <rect key="frame" x="692" y="458" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="does_not_apply.png">
@@ -147,7 +151,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="currentPromptLabel" destination="5OI-sl-Mp4" id="kLb-LG-z58"/>
                         <outlet property="currentReplayButton" destination="TSn-AL-JrJ" id="VXH-Pu-NHL"/>
@@ -157,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="-1080"/>
+            <point key="canvasLocation" x="-8" y="-1440"/>
         </scene>
     </scenes>
     <resources>
@@ -169,150 +176,8 @@
         <image name="strongly_agree_face.png" width="158" height="159"/>
         <image name="strongly_disagree_face.png" width="158" height="159"/>
     </resources>
-    <classes>
-        <class className="SwitchedImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SwitchedImageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="agreeButtonPressed:"/>
-                <relationship kind="action" name="agreeFaceButtonPressed:"/>
-                <relationship kind="action" name="disagreeButtonPressed:"/>
-                <relationship kind="action" name="disagreeFaceButtonPressed:"/>
-                <relationship kind="action" name="doesNotApplyFaceButtonPressed:"/>
-                <relationship kind="action" name="faceButtonPressed:"/>
-                <relationship kind="action" name="goal10ButtonPressed:"/>
-                <relationship kind="action" name="goal1ButtonPressed:"/>
-                <relationship kind="action" name="goal2ButtonPressed:"/>
-                <relationship kind="action" name="goal3ButtonPressed:"/>
-                <relationship kind="action" name="goal4ButtonPressed:"/>
-                <relationship kind="action" name="goal5ButtonPressed:"/>
-                <relationship kind="action" name="goal6ButtonPressed:"/>
-                <relationship kind="action" name="goal7ButtonPressed:"/>
-                <relationship kind="action" name="goal8ButtonPressed:"/>
-                <relationship kind="action" name="goal9ButtonPressed:"/>
-                <relationship kind="action" name="goalRatingSegmentedControlIndexChanged:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="helpfulSegmentedControlIndexChanged:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="module1ButtonPressed:"/>
-                <relationship kind="action" name="module2ButtonPressed:"/>
-                <relationship kind="action" name="neutralFaceButtonPressed:"/>
-                <relationship kind="action" name="noButtonPressed:"/>
-                <relationship kind="action" name="okButtonPressed:"/>
-                <relationship kind="action" name="playFourthMovie:"/>
-                <relationship kind="action" name="playMovie:"/>
-                <relationship kind="action" name="playSecondMovie:"/>
-                <relationship kind="action" name="playThirdMovie:"/>
-                <relationship kind="action" name="pressedSatisfactionReplayButton:"/>
-                <relationship kind="action" name="provider1ButtonPressed:"/>
-                <relationship kind="action" name="provider2ButtonPressed:"/>
-                <relationship kind="action" name="provider3ButtonPressed:"/>
-                <relationship kind="action" name="provider4ButtonPressed:"/>
-                <relationship kind="action" name="segmentedControlIndexChanged:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="segmentedControlPressedWithIndex:"/>
-                <relationship kind="action" name="stopMovie:"/>
-                <relationship kind="action" name="stronglyAgreeFaceButtonPressed:"/>
-                <relationship kind="action" name="stronglyDisagreeFaceButtonPressed:"/>
-                <relationship kind="action" name="subclinic1ButtonPressed:"/>
-                <relationship kind="action" name="subclinic2ButtonPressed:"/>
-                <relationship kind="action" name="subclinic3ButtonPressed:"/>
-                <relationship kind="action" name="subclinic4ButtonPressed:"/>
-                <relationship kind="action" name="switchChanged:" candidateClass="UISwitch"/>
-                <relationship kind="action" name="yesButtonPressed:"/>
-                <relationship kind="outlet" name="agreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="chooseModuleLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="chooseModuleText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="currentPromptLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="currentReplayButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="currentSatisfactionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="currentSatisfactionString" candidateClass="NSString"/>
-                <relationship kind="outlet" name="disagreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="doesNotApplyButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="extraModule1Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="extraModule1Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="extraModule2Label" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="extraModule2Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="extraNoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="extraNoText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="extraYesLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="extraYesText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal10Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal10TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal1Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal1TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal2Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal2TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal3Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal3TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal4Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal4TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal5Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal5TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal6Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal6TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal7Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal7TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal8Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal8TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goal9Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goal9TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="goalChooseLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="goalChooseText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goalRateLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="goalRateText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="goalRating" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="helpfulLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="helpfulRating" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="helpfulText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="iv" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="module1Badge" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="module1Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="module2Badge" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="module2Button" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="neutralButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="newAgreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="newAgreeDisagreeLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newAgreeDisagreeText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="newDisagreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="newNoButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="newYesButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="newYesNoLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="newYesNoText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="okButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider1ImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider1ImageThumb" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider1Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider1TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider2ImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider2ImageThumb" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider2Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider2TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider3ImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider3ImageThumb" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider3Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider3TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider4ImageButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="provider4ImageThumb" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider4Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="provider4TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="providerTestLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="providerTestText" candidateClass="NSString"/>
-                <relationship kind="outlet" name="s" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="satisfactionRating" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="stronglyAgreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stronglyDisagreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="subclinic1Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="subclinic1TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="subclinic2Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="subclinic2TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="subclinic3Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="subclinic3TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="subclinic4Text" candidateClass="NSString"/>
-                <relationship kind="outlet" name="subclinic4TextButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="subclinicTestLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="subclinicTestText" candidateClass="NSString"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>

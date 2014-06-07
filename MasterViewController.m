@@ -26,12 +26,22 @@ Abstract: A simple view controller that manages a table view
             self.clearsSelectionOnViewWillAppear = NO;
         }
         
-        subClinicNames = [@[@"All",
+        subClinicNames = [@[@"",@"",@"All",
                        @"PM&R",
                        @"EMG",
                        @"PNS",
                        @"Acupuncture",
                           @"AT Center"] mutableCopy];
+        
+       // sandy - I added these two blank lines because the view was shifted up under the tab bar and this forced it down
+        //subClinicNames = [@[@"",@"",@"All",
+        //                    @"PM&R",
+       //                     @"EMG",
+        //                    @"PNS",
+        //                    @"Acupuncture",
+         //                   @"AT Center"] mutableCopy];
+        
+        
     }
     return self;
 }

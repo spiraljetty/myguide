@@ -314,6 +314,8 @@
     // Create a basic background.
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view.backgroundColor = [UIColor whiteColor];
+    //sandy
+    //self.view.backgroundColor = [UIColor clearColor];
     //    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     // Create backsplash for animation support

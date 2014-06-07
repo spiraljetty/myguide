@@ -39,7 +39,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
-	<string>MainWindow_Phone</string>
+	<string>MainWindow_Pad</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow_Pad</string>
 	<key>UIFileSharingEnabled</key>

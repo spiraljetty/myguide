@@ -66,11 +66,14 @@
     // Create a basic background.
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] applicationFrame]];
     self.view.backgroundColor = [UIColor whiteColor];
+    //sandy
+    //self.view.backgroundColor = [UIColor clearColor];
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     
     // Create backsplash for animation support
     backsplash = [[ReflectingView alloc] initWithFrame:CGRectInset(self.view.frame, 0.0f, 75.0f)];
     backsplash.usesGradientOverlay = NO;
+    //backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
     backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
     backsplash.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:backsplash];
@@ -108,7 +111,9 @@
     // Set each child as a child view controller, setting its tag and frame
     for (SwitchedImageViewController *controller in newChildControllers)
     {
+       //sandy resetting this just to see what happens
         controller.view.tag = 1066;
+        //controller.view.tag = 1024;
         controller.view.frame = backsplash.bounds;
         
         [self addChildViewController:controller];
@@ -289,7 +294,7 @@
 - (void)addNewActionsToButtons {
     for (SwitchedImageViewController *switchedController in newChildControllers)
     {
-        
+        NSLog(@"Call to RootViewController_Pad.addNewActionsToButtons");
         [switchedController.stronglyDisagreeButton addTarget:self action:@selector(testButtonMethod) forControlEvents:UIControlEventTouchUpInside];
         [switchedController.disagreeButton addTarget:self action:@selector(testButtonMethod) forControlEvents:UIControlEventTouchUpInside];
         [switchedController.agreeButton addTarget:self action:@selector(testButtonMethod) forControlEvents:UIControlEventTouchUpInside];
@@ -377,7 +382,9 @@
 //	databaseName = @"new_satisfaction_responses_deid.sql";
 //    databaseName = @"testdb.sql";
     
-    databaseName = @"myguide_WR_db_d.sql";
+   // databaseName = @"myguide_WR_db_d.sql";
+    //sandy updated dbase name
+databaseName = @"myguide_WR_db_e.sql";
     mainTable = @"sessiondata";
     csvpath = @"satisfactiondata.csv";
     
@@ -1918,7 +1925,7 @@
 }
 
 -(void)madeSatisfactionRatingForVC:(id)currentVC withSegmentIndex:(int)selectedIndex {
-    NSLog(@"Satisfaction Rating Selected: %d", selectedIndex);
+    NSLog(@"RootViewController_Pad.made SatisfactionRatingForVC Satisfaction Rating Selected: %d", selectedIndex);
     NSString *fieldToUpdate;
     
     switch (vcIndex) {
@@ -2173,7 +2180,7 @@
     //    // Define path to sounds
 
     NSString *welcome_sound;
-    NSString *vapahcs_sound = @"vapahcs_new";;
+    NSString *vapahcs_sound = @"vapahcs_new";
     NSString *main_clinic_sound;
     
     switch ([[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentMainClinic]) {

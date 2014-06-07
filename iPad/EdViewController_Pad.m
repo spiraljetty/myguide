@@ -71,7 +71,9 @@
     
     // Create small view to control AVPlayerQueue
     self.playerView = [[NewPlayerView alloc] initWithFrame:CGRectInset(self.view.frame, 100.0f, 150.0f)];
-    self.playerView.frame = CGRectOffset(self.playerView.frame, 0.0f, 80.0f);
+    //sandy trying to offset av player
+    // self.playerView.frame = CGRectOffset(self.playerView.frame, 0.0f, 80.0f);
+    self.playerView.frame = CGRectOffset(self.playerView.frame, 0.0f, 130.0f);
     self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.playerView];
     [self.view sendSubviewToBack:self.playerView];
@@ -533,7 +535,7 @@
 }
 
 -(void)madeSatisfactionRatingForVC:(id)currentVC withSegmentIndex:(int)selectedIndex {
-    NSLog(@"Satisfaction Rating Selected: %d", selectedIndex);
+    NSLog(@"EdViewController.madeSatisfactionRatingForVC Satisfaction Rating Selected: %d", selectedIndex);
     NSString *fieldToUpdate;
     
     switch (vcIndex) {

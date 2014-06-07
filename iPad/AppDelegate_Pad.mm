@@ -118,7 +118,9 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];    
+    [[UIDevice currentDevice] setProximityMonitoringEnabled:YES];
+    //sandy tried this but it actually added the status bar instead of hiding it
+    [UIApplication sharedApplication].statusBarHidden = YES;
     application.idleTimerDisabled = YES;
     
 	

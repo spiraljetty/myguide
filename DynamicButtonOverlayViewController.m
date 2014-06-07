@@ -179,7 +179,9 @@
         float angle =  270 * M_PI  / 180;
         progressVC.view.backgroundColor = [UIColor clearColor];
         CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-        [progressVC.view setCenter:CGPointMake(631.0f, 310.0f)];
+        // original [progressVC.view setCenter:CGPointMake(631.0f, 310.0f)];
+        // sandy - shifted -50,-50
+        [progressVC.view setCenter:CGPointMake(581.0f, 240.0f)];
 //        progressVC.view.transform = rotateRight;
         [self.view addSubview:progressVC.view];
         

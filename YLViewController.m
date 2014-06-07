@@ -418,6 +418,8 @@
 - (void)disableUploadDataButton {
     NSLog(@"disabling uploaddata button...");
     
+    //sandy changed to yes and it crashed because it depends on the network connection
+    //uploadDataButton.enabled = YES;
     uploadDataButton.enabled = NO;
     uploadDataButton.alpha = 0.5;
 }

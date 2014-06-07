@@ -34,7 +34,11 @@
         edText = @"Default";
         satisfactionText = @"Default";
         
+        //original setting - enables demo menu in all screens
         showingMiniMenu = NO;
+        // sandy
+        //toggle this off and it removes it from the system -argh
+        //showingMiniMenu = YES;
         
         [self updateAllMiniMenuLabels];
     }
@@ -74,6 +78,7 @@
 
 - (void)viewDidLoad
 {
+        NSLog(@"MiniDemoViewControler.viewDidLoad");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }

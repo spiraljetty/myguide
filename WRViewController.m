@@ -56,7 +56,7 @@
 @synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, currentDynamicWhatsNewModuleSpecFilename;
 @synthesize agreeButton, disagreeButton, badgeImageView, badgeLabel, completedBadgeImageView, completedBadgeImageViewEdModule, completedBadgeImageViewDynEdModule, completedBadgeImageViewWhatsNewModule, edModuleCompleteLabel, edModuleIntroLabel, playMovieIcon;
 @synthesize odetteButton, calvinButton, lauraButton, clinicianLabel, doctorButton, pscButton, appointmentButton;
-@synthesize masterViewController, arrayDetailVCs, allClinicPhysicians, pmnrSubClinicPhysicians, splitViewController, allClinicPhysiciansThumbs, allClinicPhysiciansImages, allClinicPhysiciansBioPLists, attendingPhysicianSoundFile, allClinicPhysiciansSoundFiles;
+@synthesize masterViewController, arrayDetailVCs, allClinicPhysicians, pmnrSubClinicPhysicians, splitViewController, allClinicPhysiciansThumbs, allClinicPhysiciansImages, allClinicPhysiciansBioPLists, attendingPhysicianSoundFile, allClinicPhysiciansSoundFiles,splitviewclugeButton;
 @synthesize mainClinicName, subClinicName, attendingPhysicianName, attendingPhysicianThumb, attendingPhysicianImage, attendingPhysicianIndex, physicianDetailVC, physicianModuleCompleted, physicianModuleInProgress;
 @synthesize mainTTSPlayer, allTTSItemsDict, baseTTSItemsDict, brainTTSItemsDict, physiciansTTSItemsDict, updateTTSItemsArray, surveyTTSItemsDict, dynamicSurveyTTSItemsDict;
 @synthesize dynamicSurveyModule, alarmSounding, underUserControl, revealSettingsButtonPressed;
@@ -470,9 +470,12 @@ int indexCount;
     
     settingsVC = [[SettingsViewController alloc] init];
     settingsVC.view.frame = CGRectMake(0, 0, 1024, 1040);
+    
     settingsVC.view.backgroundColor = [UIColor clearColor];
 //    [settingsVC.view setCenter:CGPointMake(270.0f, 640.0f)];
+
     [settingsVC.view setCenter:CGPointMake(1205.0f, 512.0f)];
+
     settingsVC.view.transform = rotateRight;
     [self.view addSubview:settingsVC.view];
     
@@ -481,6 +484,21 @@ int indexCount;
     splitViewController.view.alpha = 0.0;
     [self.view addSubview:splitViewController.view];
     [self.view sendSubviewToBack:splitViewController.view];
+    
+    //cluge for offset of splitview
+    splitviewclugeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	splitviewclugeButton.frame = CGRectMake(0, 0, 130, 1024);
+	splitviewclugeButton.showsTouchWhenHighlighted = YES;
+	splitviewclugeButton.backgroundColor = [UIColor blackColor];
+	[splitviewclugeButton setCenter:CGPointMake(512.0f, 66.0f)];
+	[splitviewclugeButton addTarget:self action:@selector(splitviewclugeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	splitviewclugeButton.enabled = NO;
+	splitviewclugeButton.hidden = NO;
+    splitviewclugeButton.alpha = 0.0;
+	[splitviewclugeButton retain];
+    splitviewclugeButton.transform = rotateRight;
+    [self.view addSubview:splitviewclugeButton];
+    [self.view sendSubviewToBack:splitviewclugeButton];
     
     //readyAppButton - launch splashView images and prompts once staff have been selected
 	readyAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -507,6 +525,7 @@ int indexCount;
             runningAppInDemoMode = YES;
             NSLog(@"Demo Mode ON");
         } else {
+           // sandy making this line skipped forces mini demo mode to display, but buttons dont work
             runningAppInDemoMode = NO;
             NSLog(@"Collecting pilot data with atypical settings - Demo Mode OFF");
         }
@@ -536,6 +555,7 @@ int indexCount;
 
 - (void)createClinicSplitViewController {
     masterViewController = [[MasterViewController alloc] initWithStyle:UITableViewStylePlain];
+    
     
     allClinicPhysicians = [@[@"Lawrence Huang, M.D.",
                            @"Steven Chao, M.D., Ph.D.",
@@ -653,6 +673,21 @@ int indexCount;
                                 @"Wade Kingery, M.D.",
                                 @"Roger Klima, M.D.",
                                 @"Oanh Mandal, M.D.",nil],
+                               [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
+                                                           @"Ninad Karandikar, M.D.",
+                                                           @"Wade Kingery, M.D.",
+                                                           @"Roger Klima, M.D.",
+                                                           @"Oanh Mandal, M.D.",nil],
+                               [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
+                                @"Ninad Karandikar, M.D.",
+                                @"Wade Kingery, M.D.",
+                                @"Roger Klima, M.D.",
+                                @"Oanh Mandal, M.D.",nil],
+                               [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
+                                @"Ninad Karandikar, M.D.",
+                                @"Wade Kingery, M.D.",
+                                @"Roger Klima, M.D.",
+                                @"Oanh Mandal, M.D.",nil],
                                [NSArray arrayWithObjects:@"Ninad Karandikar, M.D.",
                                 @"Roger Klima, M.D.",
                                 @"Ted Scott, M.D.",
@@ -671,8 +706,11 @@ int indexCount;
     PhysicianCellViewController *newDetailViewController3 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController4 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController5 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController6 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController7 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+
     
-    arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, nil];
+    arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, newDetailViewController6, newDetailViewController7, nil];
     
     masterViewController.myDetailViewController = newDetailViewController0;
     
@@ -960,6 +998,7 @@ int indexCount;
 }
 
 - (void)demoSwitchFlipped:(id)sender {
+    
     if (demoSwitch.isOn) {
         runningAppInDemoMode = YES;
         NSLog(@"Demo Mode ON");
@@ -1131,10 +1170,12 @@ int indexCount;
 }
 
 - (void)activateLaunchButton {
+    splitviewclugeButton.enabled = YES;
     readyAppButton.enabled = YES;
 }
 
 - (void)deactivateLaunchButton {
+    splitviewclugeButton.enabled = NO;
     readyAppButton.enabled = NO;
 }
 
@@ -1164,7 +1205,7 @@ int indexCount;
 - (void)fadePhysicianSelectorAndLaunchButtonIn {
     
     [self.view bringSubviewToFront:splitViewController.view];
-    
+    [self.view bringSubviewToFront:splitviewclugeButton];
     [self.view bringSubviewToFront:readyAppButton];
 
     
@@ -1172,7 +1213,7 @@ int indexCount;
 	{
 		[UIView	setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-		
+		splitviewclugeButton.alpha = 1.0;
         readyAppButton.alpha = 1.0;
 
         
@@ -2573,6 +2614,8 @@ int indexCount;
 
 - (void)slideClinicianSelectorAndReadyButtonOut {
     CGRect launchFrame = readyAppButton.frame;
+    
+    //sandy tried offseting here
     launchFrame.origin.y = 1500;
     
     [UIView beginAnimations:nil context:NULL];
@@ -5958,14 +6001,26 @@ int indexCount;
     if ([[AppDelegate_Pad sharedAppDelegate] isConnectivityEstablished]) {
         
         SKPSMTPMessage *testMsg = [[SKPSMTPMessage alloc] init];
-        testMsg.fromEmail = @"psc.waitingroom.app@gmail.com";
-        testMsg.toEmail = @"dmhorton@gmail.com";
+        //testMsg.fromEmail = @"psc.waitingroom.app@gmail.com";
+        //testMsg.toEmail = @"dmhorton@gmail.com";
+        //testMsg.relayHost = @"smtp.gmail.com";
+        //testMsg.requiresAuth = YES;
+        //testMsg.login = @"psc.waitingroom.app@gmail.com";
+        //testMsg.pass = @"polytrauma3801";
+        
+        //sandy's edits
+        
+        testMsg.fromEmail = @"psc.waitingroom.app2014@gmail.com";
+        testMsg.toEmail = @"spiraljetty@yahoo.com";
         testMsg.relayHost = @"smtp.gmail.com";
         testMsg.requiresAuth = YES;
-        testMsg.login = @"psc.waitingroom.app@gmail.com";
-        testMsg.pass = @"polytrauma3801";
+        testMsg.login = @"psc.waitingroom.app2014@gmail.com";
+        testMsg.pass = @"polytrauma38012014";
+        
         testMsg.subject = [NSString stringWithFormat:@"myGuide - Waiting Room App - DB Export from %@",[[UIDevice currentDevice] name]];
-        testMsg.bccEmail = @"dmhorton@gmail.com";
+        //testMsg.bccEmail = @"dmhorton@gmail.com";
+        //sandy edit
+        testMsg.bccEmail = @"spiraljetty@yahoo.com";
         testMsg.wantsSecure = YES; // smtp.gmail.com doesn't work without TLS!
         
         // Only do this for self-signed certs!

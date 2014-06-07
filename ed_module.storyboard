@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Switched Image View Controller-->
         <scene sceneID="5">
             <objects>
                 <viewController storyboardIdentifier="0" id="2" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UwV-i1-tY7"/>
+                        <viewControllerLayoutGuide type="bottom" id="H1z-2T-s9h"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="what_is_tbi.png" id="4yg-rV-tZQ">
-                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="what_is_tbi.png" translatesAutoresizingMaskIntoConstraints="NO" id="4yg-rV-tZQ">
+                                <rect key="frame" x="-84" y="0.0" width="809" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -22,23 +26,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="-1080"/>
+            <point key="canvasLocation" x="148" y="-1080"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="9">
             <objects>
                 <viewController storyboardIdentifier="1" id="6" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z0z-b4-aNv"/>
+                        <viewControllerLayoutGuide type="bottom" id="lhZ-jg-Iew"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="7">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" image="all_white.png" id="26">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" image="all_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="26">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1044"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                             </imageView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="EYd-tj-Ucx">
-                                <rect key="frame" x="-126" y="553" width="1019" height="44"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="EYd-tj-Ucx">
+                                <rect key="frame" x="0.0" y="553" width="1019" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Strongly Disagree"/>
@@ -52,8 +60,8 @@
                                     <action selector="segmentedControlIndexChanged:" destination="6" eventType="valueChanged" id="zdx-AE-2YR"/>
                                 </connections>
                             </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I am pleased with the progress I have made." adjustsFontSizeToFit="NO" minimumFontSize="17" id="OCr-OK-Ubn">
-                                <rect key="frame" x="146" y="134" width="827" height="112"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="I am pleased with the progress I have made." adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OCr-OK-Ubn">
+                                <rect key="frame" x="105" y="133" width="771" height="112"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
@@ -68,29 +76,33 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="148" y="50"/>
+            <point key="canvasLocation" x="148" y="48"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="13">
             <objects>
                 <viewController storyboardIdentifier="2" id="10" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LEp-Pp-gEc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yip-Oy-dZp"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="11">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="all_white.png" id="30">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" fixedFrame="YES" image="all_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="30">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1044"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The overall quality of my life has improved." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" id="gfc-9C-Vzd">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="The overall quality of my life has improved." textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gfc-9C-Vzd">
                                 <rect key="frame" x="0.0" y="180" width="768" height="112"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="IPh-4T-b6p">
-                                <rect key="frame" x="-126" y="553" width="1019" height="44"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IPh-4T-b6p">
+                                <rect key="frame" x="0.0" y="553" width="1019" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Strongly Disagree"/>
@@ -119,26 +131,34 @@
         <scene sceneID="h9b-Y9-oqV">
             <objects>
                 <viewController storyboardIdentifier="3" id="cjV-ef-EhH" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ydb-i7-C9b">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U1X-Ff-JIB"/>
+                        <viewControllerLayoutGuide type="bottom" id="e3v-B8-3Vo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="bottomLeft" id="Ydb-i7-C9b">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BGu-kA-8a9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="2322"/>
+            <point key="canvasLocation" x="156" y="2296"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="712-Hb-Lnu">
             <objects>
                 <viewController storyboardIdentifier="4" id="6hZ-0B-VvT" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Rmr-tW-uqJ">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ucg-kW-INP"/>
+                        <viewControllerLayoutGuide type="bottom" id="prB-Y9-aYm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="center" id="Rmr-tW-uqJ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6DA-BD-pVs">
-                                <rect key="frame" x="-128" y="40" width="1024" height="580"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DA-BD-pVs">
+                                <rect key="frame" x="12" y="200" width="751" height="453"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="anatomy_of_brain-play.png">
@@ -164,12 +184,16 @@
         <scene sceneID="BLe-ft-BdP">
             <objects>
                 <viewController storyboardIdentifier="5" id="yhJ-Jf-mvT" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fHj-EZ-LLA">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qmu-ky-VgA"/>
+                        <viewControllerLayoutGuide type="bottom" id="UlN-li-NPz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="fHj-EZ-LLA">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="parts_of_brain.png" id="XHQ-ud-tMv">
-                                <rect key="frame" x="0.0" y="-177" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="parts_of_brain.png" translatesAutoresizingMaskIntoConstraints="NO" id="XHQ-ud-tMv">
+                                <rect key="frame" x="14" y="148" width="754" height="710"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -178,18 +202,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QMd-F3-m0U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="4552"/>
+            <point key="canvasLocation" x="156" y="4524"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="Q73-st-ceY">
             <objects>
                 <viewController storyboardIdentifier="6" id="Rgb-9d-Goo" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bAm-gF-hNj">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uZ7-ne-7qk"/>
+                        <viewControllerLayoutGuide type="bottom" id="vEy-P8-bhf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="bAm-gF-hNj">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mod_severe_tbi_details.png" id="hSJ-wd-sLU">
-                                <rect key="frame" x="0.0" y="-188" width="768" height="1095"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mod_severe_tbi_details.png" translatesAutoresizingMaskIntoConstraints="NO" id="hSJ-wd-sLU">
+                                <rect key="frame" x="62" y="-63" width="671" height="1095"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -204,19 +232,23 @@
         <scene sceneID="7A6-e7-Myi">
             <objects>
                 <viewController storyboardIdentifier="7" id="HNg-vb-1u3" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="aN2-0g-Izd">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="XIe-Bl-xdc"/>
+                        <viewControllerLayoutGuide type="bottom" id="MQq-M3-46S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="aN2-0g-Izd">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Moderate/Severe TBI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CXX-rM-FWT">
-                                <rect key="frame" x="219" y="20" width="342" height="27"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Moderate/Severe TBI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXX-rM-FWT">
+                                <rect key="frame" x="219" y="214" width="342" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mod_severe_TBI_intro.png" id="43u-AZ-1Fu">
-                                <rect key="frame" x="0.0" y="-271" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mod_severe_TBI_intro.png" translatesAutoresizingMaskIntoConstraints="NO" id="43u-AZ-1Fu">
+                                <rect key="frame" x="8" y="249" width="752" height="481"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -225,25 +257,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AM9-zf-lb2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="6784"/>
+            <point key="canvasLocation" x="156" y="6764"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="sbr-Bm-ag4">
             <objects>
                 <viewController storyboardIdentifier="8" id="gzb-01-9eZ" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0cL-Kh-QHE">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mWh-9V-hDn"/>
+                        <viewControllerLayoutGuide type="bottom" id="o5b-xq-UAI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="0cL-Kh-QHE">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mild TBI or Concussion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zCO-nN-kjR">
-                                <rect key="frame" x="219" y="20" width="330" height="27"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Mild TBI or Concussion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCO-nN-kjR">
+                                <rect key="frame" x="219" y="170" width="330" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mTBI_signs_symptoms.png" id="Hda-em-4KZ">
-                                <rect key="frame" x="0.0" y="-170" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mTBI_signs_symptoms.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hda-em-4KZ">
+                                <rect key="frame" x="48" y="151" width="687" height="712"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -258,19 +294,23 @@
         <scene sceneID="SvV-zt-Tsh">
             <objects>
                 <viewController storyboardIdentifier="9" id="ebp-0W-o8g" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dJk-bu-AGJ">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KsO-bn-r21"/>
+                        <viewControllerLayoutGuide type="bottom" id="vda-YY-z8m"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="dJk-bu-AGJ">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Mild TBI or Concussion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nh4-Jz-95f">
-                                <rect key="frame" x="219" y="20" width="330" height="27"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Mild TBI or Concussion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nh4-Jz-95f">
+                                <rect key="frame" x="219" y="153" width="330" height="49"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="mTBI_GCS.png" id="fVO-wY-S4w">
-                                <rect key="frame" x="0.0" y="-170" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mTBI_GCS.png" translatesAutoresizingMaskIntoConstraints="NO" id="fVO-wY-S4w">
+                                <rect key="frame" x="0.0" y="-61" width="768" height="1004"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -285,12 +325,16 @@
         <scene sceneID="AuG-3R-3CI">
             <objects>
                 <viewController storyboardIdentifier="10" id="44j-cv-AFb" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Jqb-D1-a9d">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cWW-tN-WGk"/>
+                        <viewControllerLayoutGuide type="bottom" id="VFx-d4-O5I"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="Jqb-D1-a9d">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GdT-90-k9p">
-                                <rect key="frame" x="-128" y="40" width="1024" height="580"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdT-90-k9p">
+                                <rect key="frame" x="20" y="172" width="712" height="441"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="mTBI_video-play.png">
@@ -316,12 +360,16 @@
         <scene sceneID="0mP-H6-QEp">
             <objects>
                 <viewController storyboardIdentifier="11" id="pry-Jf-d84" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="a4g-hD-gxW">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VKe-rP-K7v"/>
+                        <viewControllerLayoutGuide type="bottom" id="ruI-Iz-4Y1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="a4g-hD-gxW">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="how_rated-mTBI_intro.png" id="FJG-9E-F97">
-                                <rect key="frame" x="0.0" y="-170" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="how_rated-mTBI_intro.png" translatesAutoresizingMaskIntoConstraints="NO" id="FJG-9E-F97">
+                                <rect key="frame" x="-46" y="137" width="839" height="688"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -336,12 +384,16 @@
         <scene sceneID="nAy-qS-Asb">
             <objects>
                 <viewController storyboardIdentifier="12" id="ZGI-ru-4lK" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VLD-sg-oKf">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Oaz-7I-E57"/>
+                        <viewControllerLayoutGuide type="bottom" id="H73-vl-PjB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="bottomLeft" id="VLD-sg-oKf">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="how_common.png" id="0Mc-Ff-ZMo">
-                                <rect key="frame" x="0.0" y="-170" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="how_common.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Mc-Ff-ZMo">
+                                <rect key="frame" x="0.0" y="-45" width="768" height="1004"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -350,18 +402,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c0H-7n-2aU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="12362"/>
+            <point key="canvasLocation" x="164" y="12342"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="ICu-dQ-49y">
             <objects>
                 <viewController storyboardIdentifier="13" id="OUH-Jl-wyL" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qwg-N8-i80"/>
+                        <viewControllerLayoutGuide type="bottom" id="Khc-om-GuI"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wD0-xL-Yrh">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="what_is_tbi-how_long.png" id="jR9-Wz-72r">
-                                <rect key="frame" x="0.0" y="-170" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="what_is_tbi-how_long.png" translatesAutoresizingMaskIntoConstraints="NO" id="jR9-Wz-72r">
+                                <rect key="frame" x="0.0" y="-38" width="768" height="1004"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -370,18 +426,22 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPG-h7-iTG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="13482"/>
+            <point key="canvasLocation" x="164" y="13436"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="CSs-de-qa2">
             <objects>
                 <viewController storyboardIdentifier="14" id="bWq-X6-haP" customClass="SwitchedImageViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fXm-cl-EzN">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LUq-ON-AYf"/>
+                        <viewControllerLayoutGuide type="bottom" id="WAN-Ol-Cu1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleAspectFit" id="fXm-cl-EzN">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="tbi_key_points.png" id="rVW-NY-cMP">
-                                <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="tbi_key_points.png" translatesAutoresizingMaskIntoConstraints="NO" id="rVW-NY-cMP">
+                                <rect key="frame" x="-31" y="-20" width="769" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -390,22 +450,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SY0-5c-jwi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="14594"/>
+            <point key="canvasLocation" x="164" y="14586"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="Jr3-DA-eGI">
             <objects>
                 <viewController storyboardIdentifier="15" id="clA-lM-Ljd" customClass="SwitchedImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KPX-0y-XtK"/>
+                        <viewControllerLayoutGuide type="bottom" id="my9-Sk-apO"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vJH-fc-qnx">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFill" image="all_white.png" id="zVe-gd-ajh">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFit" fixedFrame="YES" image="all_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="zVe-gd-ajh">
+                                <rect key="frame" x="-15" y="7" width="783" height="1044"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hlZ-Pt-9MT">
-                                <rect key="frame" x="-128" y="40" width="1024" height="580"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Pt-9MT">
+                                <rect key="frame" x="15" y="188" width="723" height="461"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="what_is_tbi_video-play.png">
@@ -428,7 +492,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VqZ-cM-LKu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="164" y="15712"/>
+            <point key="canvasLocation" x="164" y="15704"/>
         </scene>
     </scenes>
     <resources>
@@ -447,43 +511,8 @@
         <image name="what_is_tbi.png" width="2048" height="1129"/>
         <image name="what_is_tbi_video-play.png" width="1271" height="720"/>
     </resources>
-    <classes>
-        <class className="SwitchedImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SwitchedImageViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="agreeFaceButtonPressed:"/>
-                <relationship kind="action" name="disagreeFaceButtonPressed:"/>
-                <relationship kind="action" name="doesNotApplyFaceButtonPressed:"/>
-                <relationship kind="action" name="faceButtonPressed:"/>
-                <relationship kind="action" name="neutralFaceButtonPressed:"/>
-                <relationship kind="action" name="playFourthMovie:"/>
-                <relationship kind="action" name="playMovie:"/>
-                <relationship kind="action" name="playSecondMovie:"/>
-                <relationship kind="action" name="playThirdMovie:"/>
-                <relationship kind="action" name="pressedSatisfactionReplayButton:"/>
-                <relationship kind="action" name="segmentedControlIndexChanged:" candidateClass="UISegmentedControl"/>
-                <relationship kind="action" name="segmentedControlPressedWithIndex:"/>
-                <relationship kind="action" name="stopMovie:"/>
-                <relationship kind="action" name="stronglyAgreeFaceButtonPressed:"/>
-                <relationship kind="action" name="stronglyDisagreeFaceButtonPressed:"/>
-                <relationship kind="action" name="switchChanged:" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="agreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="currentPromptLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="currentReplayButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="currentSatisfactionLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="disagreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="doesNotApplyButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="iv" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="neutralButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="s" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="satisfactionRating" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="stronglyAgreeButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="stronglyDisagreeButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>

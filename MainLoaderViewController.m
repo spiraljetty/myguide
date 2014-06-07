@@ -43,7 +43,11 @@
         miniDemoVC.view.alpha = 1.0;
         miniDemoVC.view.frame = CGRectMake(200, 200, 410, 262);
         miniDemoVC.view.backgroundColor = [UIColor clearColor];
+        //sandy tried moving this over to see if it shifts like other but it didn't work and crashed compiler
         [miniDemoVC.view setCenter:CGPointMake(-80.0f, 1109.0f)];
+        // attempted
+        //[miniDemoVC.view setCenter:CGPointMake(100.0f, 900.0f)];
+        
         miniDemoVC.view.transform = rotateRight;
         
         [self.view addSubview:miniDemoVC.view];
@@ -594,6 +598,9 @@
 
 - (void)showMiniDemoMenu {
     CGRect miniFrame = miniDemoVC.view.frame;
+    //miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
+    //miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
+    //sandy
     miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
     miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
     
@@ -609,6 +616,9 @@
 
 - (void)hideMiniDemoMenu {
     CGRect miniFrame = miniDemoVC.view.frame;
+    //miniFrame.origin.x = miniFrame.origin.x - miniDemoVC.view.frame.size.width + 50;
+    //miniFrame.origin.y = miniFrame.origin.y + miniDemoVC.view.frame.size.height - 130;
+    //sandy
     miniFrame.origin.x = miniFrame.origin.x - miniDemoVC.view.frame.size.width + 50;
     miniFrame.origin.y = miniFrame.origin.y + miniDemoVC.view.frame.size.height - 130;
     
