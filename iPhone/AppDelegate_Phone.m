@@ -24,7 +24,7 @@
 	[window addSubview:[navigationController view]];	
     [window makeKeyAndVisible];
     // sandy added but it didn't work
-    //[UIApplication sharedApplication].statusBarHidden = YES;
+    [UIApplication sharedApplication].statusBarHidden = YES;
 	
 	return YES;
 }

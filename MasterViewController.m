@@ -26,21 +26,12 @@ Abstract: A simple view controller that manages a table view
             self.clearsSelectionOnViewWillAppear = NO;
         }
         
-        subClinicNames = [@[@"",@"",@"All",
+        subClinicNames = [@[@"All",
                        @"PM&R",
                        @"EMG",
                        @"PNS",
                        @"Acupuncture",
-                          @"AT Center"] mutableCopy];
-        
-       // sandy - I added these two blank lines because the view was shifted up under the tab bar and this forced it down
-        //subClinicNames = [@[@"",@"",@"All",
-        //                    @"PM&R",
-       //                     @"EMG",
-        //                    @"PNS",
-        //                    @"Acupuncture",
-         //                   @"AT Center"] mutableCopy];
-        
+                          @"AT Center"] mutableCopy];        
         
     }
     return self;
@@ -73,7 +64,7 @@ Abstract: A simple view controller that manages a table view
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return YES;
+    return YES; 
 }
 #endif
 

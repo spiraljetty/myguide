@@ -25,6 +25,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     UIStoryboard *aStoryboard = [UIStoryboard storyboardWithName:@"CollectionStoryboard" bundle:[NSBundle mainBundle]];
     
     self = [aStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        NSLog(@"PhysicianCellViewController.initWithCollectionViewLayout()");
     
     return self;
 }

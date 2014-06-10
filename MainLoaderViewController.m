@@ -434,7 +434,7 @@
 }
 
 - (void)showNextButton {
-    NSLog(@"showNextButton...");
+    NSLog(@"MainLoaderViewController.showNextButton...");
     
     [UIView beginAnimations:nil context:nil];
     {

@@ -60,7 +60,9 @@
         [nextPageButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
         [nextPageButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
         nextPageButton.backgroundColor = [UIColor clearColor];
-        [nextPageButton setCenter:CGPointMake(950.0f, 85.0f)];
+       // sandy shifted [nextPageButton setCenter:CGPointMake(950.0f, 85.0f)];
+        // this button is on the lower nav bar
+                [nextPageButton setCenter:CGPointMake(950.0f, 80.0f)];
 //        [nextPageButton setCenter:CGPointMake(385.0f, 80.0f)];
         //	[nextPageButton addTarget:physicianModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
         //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];

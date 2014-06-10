@@ -1511,7 +1511,7 @@
 }
 
 - (void)handleButtonOverlayForPageIndex:(int)thisPageIndex {
-    NSLog(@"In handleButtonOverlayForPageIndex: %d...",thisPageIndex);
+    NSLog(@"In SynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex: %d...",thisPageIndex);
     SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:thisPageIndex];
     if (currentSwitchedController.hidePreviousButton) {
         //        [standardPageButtonOverlay fadeThisObjectOut:standardPageButtonOverlay.previousPageButton];

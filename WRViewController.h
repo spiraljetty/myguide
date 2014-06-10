@@ -204,7 +204,6 @@ typedef enum {
     IBOutlet UIButton *firstVisitButton;
     IBOutlet UIButton *returnVisitButton;
     IBOutlet UIButton *readyAppButton;
-    IBOutlet UIButton *splitviewclugeButton;
     IBOutlet UIButton *voiceAssistButton;
     IBOutlet UIButton *fontsizeButton;
     
@@ -472,7 +471,6 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UIButton *firstVisitButton;
 @property (nonatomic, retain) IBOutlet UIButton *returnVisitButton;
 @property (nonatomic, retain) IBOutlet UIButton *readyAppButton;
-@property (nonatomic, retain) IBOutlet UIButton *splitviewclugeButton;
 @property (nonatomic, retain) IBOutlet UIButton *voiceAssistButton;
 @property (nonatomic, retain) IBOutlet UIButton *fontsizeButton;
 

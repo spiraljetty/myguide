@@ -56,7 +56,7 @@
 @synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, currentDynamicWhatsNewModuleSpecFilename;
 @synthesize agreeButton, disagreeButton, badgeImageView, badgeLabel, completedBadgeImageView, completedBadgeImageViewEdModule, completedBadgeImageViewDynEdModule, completedBadgeImageViewWhatsNewModule, edModuleCompleteLabel, edModuleIntroLabel, playMovieIcon;
 @synthesize odetteButton, calvinButton, lauraButton, clinicianLabel, doctorButton, pscButton, appointmentButton;
-@synthesize masterViewController, arrayDetailVCs, allClinicPhysicians, pmnrSubClinicPhysicians, splitViewController, allClinicPhysiciansThumbs, allClinicPhysiciansImages, allClinicPhysiciansBioPLists, attendingPhysicianSoundFile, allClinicPhysiciansSoundFiles,splitviewclugeButton;
+@synthesize masterViewController, arrayDetailVCs, allClinicPhysicians, pmnrSubClinicPhysicians, splitViewController, allClinicPhysiciansThumbs, allClinicPhysiciansImages, allClinicPhysiciansBioPLists, attendingPhysicianSoundFile, allClinicPhysiciansSoundFiles;
 @synthesize mainClinicName, subClinicName, attendingPhysicianName, attendingPhysicianThumb, attendingPhysicianImage, attendingPhysicianIndex, physicianDetailVC, physicianModuleCompleted, physicianModuleInProgress;
 @synthesize mainTTSPlayer, allTTSItemsDict, baseTTSItemsDict, brainTTSItemsDict, physiciansTTSItemsDict, updateTTSItemsArray, surveyTTSItemsDict, dynamicSurveyTTSItemsDict;
 @synthesize dynamicSurveyModule, alarmSounding, underUserControl, revealSettingsButtonPressed;
@@ -280,7 +280,7 @@ int indexCount;
 
 - (void)prepareAppBeforeSplashView {
     
-    float angle =  270 * M_PI  / 180;
+    float angle =   270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
     allWhiteBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"all_white.png"]];
@@ -315,6 +315,7 @@ int indexCount;
 
     [self.view addSubview:specialtyClinicSegmentedControl];
     
+//    initialSettingsLabel = [[KSLabel alloc] initWithFrame:f];
     initialSettingsLabel = [[KSLabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 100)];
     initialSettingsLabel.drawBlackOutline = YES;
     initialSettingsLabel.drawGradient = YES;
@@ -392,7 +393,8 @@ int indexCount;
 	[nextSettingsButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[nextSettingsButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextSettingsButton.backgroundColor = [UIColor clearColor];
-    [nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
+    // sandy shifted this to match others[nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
+    [nextSettingsButton setCenter:CGPointMake(685.0f, 80.0f)];
 	[nextSettingsButton addTarget:self action:@selector(slideVisitButtonsOut) forControlEvents:UIControlEventTouchUpInside];
 	nextSettingsButton.enabled = NO;
 	nextSettingsButton.hidden = NO;
@@ -480,25 +482,11 @@ int indexCount;
     [self.view addSubview:settingsVC.view];
     
     [self createClinicSplitViewController];
+    
     splitViewController.view.transform = rotateRight;
     splitViewController.view.alpha = 0.0;
     [self.view addSubview:splitViewController.view];
-    [self.view sendSubviewToBack:splitViewController.view];
-    
-    //cluge for offset of splitview
-    splitviewclugeButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	splitviewclugeButton.frame = CGRectMake(0, 0, 130, 1024);
-	splitviewclugeButton.showsTouchWhenHighlighted = YES;
-	splitviewclugeButton.backgroundColor = [UIColor blackColor];
-	[splitviewclugeButton setCenter:CGPointMake(512.0f, 66.0f)];
-	[splitviewclugeButton addTarget:self action:@selector(splitviewclugeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	splitviewclugeButton.enabled = NO;
-	splitviewclugeButton.hidden = NO;
-    splitviewclugeButton.alpha = 0.0;
-	[splitviewclugeButton retain];
-    splitviewclugeButton.transform = rotateRight;
-    [self.view addSubview:splitviewclugeButton];
-    [self.view sendSubviewToBack:splitviewclugeButton];
+//    [self.view sendSubviewToBack:splitViewController.view];
     
     //readyAppButton - launch splashView images and prompts once staff have been selected
 	readyAppButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -673,21 +661,6 @@ int indexCount;
                                 @"Wade Kingery, M.D.",
                                 @"Roger Klima, M.D.",
                                 @"Oanh Mandal, M.D.",nil],
-                               [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
-                                                           @"Ninad Karandikar, M.D.",
-                                                           @"Wade Kingery, M.D.",
-                                                           @"Roger Klima, M.D.",
-                                                           @"Oanh Mandal, M.D.",nil],
-                               [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
-                                @"Ninad Karandikar, M.D.",
-                                @"Wade Kingery, M.D.",
-                                @"Roger Klima, M.D.",
-                                @"Oanh Mandal, M.D.",nil],
-                               [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
-                                @"Ninad Karandikar, M.D.",
-                                @"Wade Kingery, M.D.",
-                                @"Roger Klima, M.D.",
-                                @"Oanh Mandal, M.D.",nil],
                                [NSArray arrayWithObjects:@"Ninad Karandikar, M.D.",
                                 @"Roger Klima, M.D.",
                                 @"Ted Scott, M.D.",
@@ -700,25 +673,25 @@ int indexCount;
                                 @"Eve Klein, MA, CCC-SLP",nil],nil];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+
     PhysicianCellViewController *newDetailViewController0 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController1 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController2 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController3 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController4 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController5 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
-    PhysicianCellViewController *newDetailViewController6 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
-    PhysicianCellViewController *newDetailViewController7 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
 
     
-    arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, newDetailViewController6, newDetailViewController7, nil];
+    arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, nil];
     
     masterViewController.myDetailViewController = newDetailViewController0;
     
     splitViewController = [[UISplitViewController alloc] init];
     splitViewController.viewControllers = @[
-    [[UINavigationController alloc] initWithRootViewController:masterViewController],
+   [[UINavigationController alloc] initWithRootViewController:masterViewController],
     [[UINavigationController alloc] initWithRootViewController:newDetailViewController0]
     ];
+
     splitViewController.delegate = self;
 }
 
@@ -778,6 +751,7 @@ int indexCount;
 #pragma mark HorizontalPickerView DataSource Methods
 
 - (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
+    NSLog(@"WRViewController.numberOfElementsInHorizontalPickerView()");
 	return [titleArray count];
 }
 
@@ -787,6 +761,7 @@ int indexCount;
 }
 
 - (NSInteger) horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index {
+    NSLog(@"WRViewController.horizontalPickerView()");
 	CGSize constrainedSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
 	NSString *text = [titleArray objectAtIndex:index];
 	CGSize textSize = [text sizeWithFont:[UIFont boldSystemFontOfSize:14.0f]
@@ -1140,6 +1115,7 @@ int indexCount;
     returnVisitFrame.origin.y = -500;
     labelFrame.origin.x = 1500;
     
+    NSLog(@"WRViewController.slideVisitButtonsOut()");
     [UIView beginAnimations:nil context:NULL];
     {
         [UIView setAnimationDuration:.3];
@@ -1170,12 +1146,10 @@ int indexCount;
 }
 
 - (void)activateLaunchButton {
-    splitviewclugeButton.enabled = YES;
     readyAppButton.enabled = YES;
 }
 
 - (void)deactivateLaunchButton {
-    splitviewclugeButton.enabled = NO;
     readyAppButton.enabled = NO;
 }
 
@@ -1203,9 +1177,9 @@ int indexCount;
 }
 
 - (void)fadePhysicianSelectorAndLaunchButtonIn {
-    
+    NSLog(@"WRViewController.fadePhysicianSelectorAndLaunchButtonIn()");
+    splitViewController.view.frame = [[UIScreen mainScreen] applicationFrame]; //CGRectMake(0, 0, 800, 1000); // rjl
     [self.view bringSubviewToFront:splitViewController.view];
-    [self.view bringSubviewToFront:splitviewclugeButton];
     [self.view bringSubviewToFront:readyAppButton];
 
     
@@ -1213,7 +1187,7 @@ int indexCount;
 	{
 		[UIView	setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-		splitviewclugeButton.alpha = 1.0;
+
         readyAppButton.alpha = 1.0;
 
         
@@ -6011,6 +5985,7 @@ int indexCount;
         //sandy's edits
         
         testMsg.fromEmail = @"psc.waitingroom.app2014@gmail.com";
+//        testMsg.toEmail = @"rich@brainaid.com";
         testMsg.toEmail = @"spiraljetty@yahoo.com";
         testMsg.relayHost = @"smtp.gmail.com";
         testMsg.requiresAuth = YES;
@@ -6020,7 +5995,7 @@ int indexCount;
         testMsg.subject = [NSString stringWithFormat:@"myGuide - Waiting Room App - DB Export from %@",[[UIDevice currentDevice] name]];
         //testMsg.bccEmail = @"dmhorton@gmail.com";
         //sandy edit
-        testMsg.bccEmail = @"spiraljetty@yahoo.com";
+        //testMsg.bccEmail = @"spiraljetty@yahoo.com";
         testMsg.wantsSecure = YES; // smtp.gmail.com doesn't work without TLS!
         
         // Only do this for self-signed certs!
@@ -6104,7 +6079,7 @@ int indexCount;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    NSLog(@"WRViewController.viewDidLoad()");
     if (forceToDemoMode) {
 //        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInMiniDemoMenu];
         NSLog(@"Forcing mini demo menu to appear...");

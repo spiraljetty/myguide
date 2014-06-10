@@ -74,6 +74,7 @@
     backsplash = [[ReflectingView alloc] initWithFrame:CGRectInset(self.view.frame, 0.0f, 75.0f)];
     backsplash.usesGradientOverlay = NO;
     //backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
+    // sandy why is this shifted by 75?
     backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
     backsplash.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:backsplash];
@@ -111,9 +112,9 @@
     // Set each child as a child view controller, setting its tag and frame
     for (SwitchedImageViewController *controller in newChildControllers)
     {
-       //sandy resetting this just to see what happens
-        controller.view.tag = 1066;
-        //controller.view.tag = 1024;
+       //sandy resetting this just to see what happens changed back to 1024
+       // controller.view.tag = 1066;
+        controller.view.tag = 1024;
         controller.view.frame = backsplash.bounds;
         
         [self addChildViewController:controller];
