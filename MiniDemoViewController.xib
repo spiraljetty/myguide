@@ -25,7 +25,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4">
                     <rect key="frame" x="290" y="211" width="110" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Demo Menu" backgroundImage="blue_glow.png">
+                    <state key="normal" title="Demo Menu" backgroundImage="Default-Landscape.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -91,7 +91,7 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65">
                     <rect key="frame" x="153" y="211" width="99" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Reset App" backgroundImage="button.png">
+                    <state key="normal" title="Reset App" backgroundImage="Default-Landscape.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -166,7 +166,6 @@
         </view>
     </objects>
     <resources>
-        <image name="blue_glow.png" width="1045" height="112"/>
-        <image name="button.png" width="100" height="10"/>
+        <image name="Default-Landscape.png" width="1024" height="768"/>
     </resources>
 </document>

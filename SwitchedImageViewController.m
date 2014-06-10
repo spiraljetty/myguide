@@ -216,7 +216,7 @@
     rotationView.animationSpeed = (int)((UISlider *)sender).value;
 }
 
--(void)rotationViewDidStartDecelerating:(RVRotationView *)rotationView
+-(void)rotationViewDidStartDedemocelerating:(RVRotationView *)rotationView
 {
     NSLog(@"Rotation View did start decelerating");
 }
