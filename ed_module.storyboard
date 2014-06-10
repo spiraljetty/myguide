@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="what_is_tbi.png" translatesAutoresizingMaskIntoConstraints="NO" id="4yg-rV-tZQ">
-                                <rect key="frame" x="-84" y="0.0" width="809" height="1024"/>
+                                <rect key="frame" x="-44" y="202" width="817" height="452"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -26,7 +26,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="148" y="-1080"/>
+            <point key="canvasLocation" x="148" y="-1090"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="9">
@@ -135,7 +135,7 @@
                         <viewControllerLayoutGuide type="top" id="U1X-Ff-JIB"/>
                         <viewControllerLayoutGuide type="bottom" id="e3v-B8-3Vo"/>
                     </layoutGuides>
-                    <view key="view" contentMode="bottomLeft" id="Ydb-i7-C9b">
+                    <view key="view" contentMode="center" id="Ydb-i7-C9b">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -158,7 +158,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6DA-BD-pVs">
-                                <rect key="frame" x="12" y="200" width="751" height="453"/>
+                                <rect key="frame" x="9" y="202" width="751" height="453"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="anatomy_of_brain-play.png">
@@ -193,7 +193,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="parts_of_brain.png" translatesAutoresizingMaskIntoConstraints="NO" id="XHQ-ud-tMv">
-                                <rect key="frame" x="14" y="148" width="754" height="710"/>
+                                <rect key="frame" x="0.0" y="262" width="768" height="404"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -217,7 +217,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mod_severe_tbi_details.png" translatesAutoresizingMaskIntoConstraints="NO" id="hSJ-wd-sLU">
-                                <rect key="frame" x="62" y="-63" width="671" height="1095"/>
+                                <rect key="frame" x="2" y="160" width="763" height="601"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -226,7 +226,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ykz-zo-e1Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="156" y="5670"/>
+            <point key="canvasLocation" x="156" y="5662"/>
         </scene>
         <!--Switched Image View Controller-->
         <scene sceneID="7A6-e7-Myi">
@@ -241,14 +241,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Moderate/Severe TBI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXX-rM-FWT">
-                                <rect key="frame" x="219" y="214" width="342" height="60"/>
+                                <rect key="frame" x="213" y="214" width="342" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mod_severe_TBI_intro.png" translatesAutoresizingMaskIntoConstraints="NO" id="43u-AZ-1Fu">
-                                <rect key="frame" x="8" y="249" width="752" height="481"/>
+                                <rect key="frame" x="3" y="282" width="762" height="197"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -272,14 +272,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Mild TBI or Concussion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCO-nN-kjR">
-                                <rect key="frame" x="219" y="170" width="330" height="52"/>
+                                <rect key="frame" x="219" y="151" width="330" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mTBI_signs_symptoms.png" translatesAutoresizingMaskIntoConstraints="NO" id="Hda-em-4KZ">
-                                <rect key="frame" x="48" y="151" width="687" height="712"/>
+                                <rect key="frame" x="11" y="151" width="720" height="712"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -303,14 +303,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Mild TBI or Concussion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nh4-Jz-95f">
-                                <rect key="frame" x="219" y="153" width="330" height="49"/>
+                                <rect key="frame" x="213" y="213" width="342" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="28"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="mTBI_GCS.png" translatesAutoresizingMaskIntoConstraints="NO" id="fVO-wY-S4w">
-                                <rect key="frame" x="0.0" y="-61" width="768" height="1004"/>
+                                <rect key="frame" x="8" y="249" width="751" height="482"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -334,7 +334,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdT-90-k9p">
-                                <rect key="frame" x="20" y="172" width="712" height="441"/>
+                                <rect key="frame" x="8" y="201" width="752" height="453"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="mTBI_video-play.png">
@@ -369,7 +369,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="how_rated-mTBI_intro.png" translatesAutoresizingMaskIntoConstraints="NO" id="FJG-9E-F97">
-                                <rect key="frame" x="-46" y="137" width="839" height="688"/>
+                                <rect key="frame" x="-28" y="177" width="823" height="502"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -393,7 +393,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="how_common.png" translatesAutoresizingMaskIntoConstraints="NO" id="0Mc-Ff-ZMo">
-                                <rect key="frame" x="0.0" y="-45" width="768" height="1004"/>
+                                <rect key="frame" x="8" y="228" width="752" height="524"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -417,7 +417,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="what_is_tbi-how_long.png" translatesAutoresizingMaskIntoConstraints="NO" id="jR9-Wz-72r">
-                                <rect key="frame" x="0.0" y="-38" width="768" height="1004"/>
+                                <rect key="frame" x="0.0" y="229" width="768" height="470"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -441,7 +441,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="tbi_key_points.png" translatesAutoresizingMaskIntoConstraints="NO" id="rVW-NY-cMP">
-                                <rect key="frame" x="-31" y="-20" width="769" height="1024"/>
+                                <rect key="frame" x="-57" y="138" width="851" height="580"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -465,11 +465,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleAspectFit" fixedFrame="YES" image="all_white.png" translatesAutoresizingMaskIntoConstraints="NO" id="zVe-gd-ajh">
-                                <rect key="frame" x="-15" y="7" width="783" height="1044"/>
+                                <rect key="frame" x="12" y="201" width="741" height="453"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hlZ-Pt-9MT">
-                                <rect key="frame" x="15" y="188" width="723" height="461"/>
+                                <rect key="frame" x="12" y="201" width="743" height="453"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="what_is_tbi_video-play.png">

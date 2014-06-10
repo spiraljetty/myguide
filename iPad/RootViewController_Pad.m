@@ -73,9 +73,9 @@
     // Create backsplash for animation support
     backsplash = [[ReflectingView alloc] initWithFrame:CGRectInset(self.view.frame, 0.0f, 75.0f)];
     backsplash.usesGradientOverlay = NO;
-    //backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
+    // original backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
     // sandy why is this shifted by 75?
-    backsplash.frame = CGRectOffset(backsplash.frame, 0.0f, -75.0f);
+    backsplash.frame = CGRectOffset(backsplash.frame, -40.0f, -75.0f);
     backsplash.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:backsplash];
 //    [backsplash setupReflection];
@@ -115,8 +115,11 @@
        //sandy resetting this just to see what happens changed back to 1024
        // controller.view.tag = 1066;
         controller.view.tag = 1024;
+       // trying to shift survey_painscale_template back to correct place like rjl
+        // original controller.view.frame = backsplash.bounds;
+        //controller.view.frame = [[UIScreen mainScreen] applicationFrame];
+        //backsplash.frame = CGRectOffset(backsplash.frame, -40.0f, -75.0f);
         controller.view.frame = backsplash.bounds;
-        
         [self addChildViewController:controller];
     }
     
