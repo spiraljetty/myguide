@@ -2426,7 +2426,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = /Users/dhorton/Documents/iPhone/apps/three20/Build/Products/three20;
+				HEADER_SEARCH_PATHS = /Users/richardlevinson/Documents/iPhone/apps/three20/Build/Products/three20;
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";
@@ -2447,7 +2447,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = /Users/dhorton/Documents/iPhone/apps/three20/Build/Products/three20;
+				HEADER_SEARCH_PATHS = /Users/richardlevinson/Documents/iPhone/apps/three20/Build/Products/three20;
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-ObjC";

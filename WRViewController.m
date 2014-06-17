@@ -123,7 +123,9 @@ int indexCount;
         
         updateTTSItemsArray = [[NSMutableArray alloc] initWithObjects: nil];
         
-        appVersion = @"1.9.2";
+        //appVersion = @"1.9.2";
+        // sandy updated
+        appVersion = @"2.0.0";
         deviceName = [[UIDevice currentDevice] name];
         secondsDur = 0.0;
         
@@ -1778,7 +1780,8 @@ int indexCount;
 //    }
     [baseTTSItemsDict setObject:@"Physical Medicine and Rehabilitation" forKey:@"pmnr_main_clinic"];
     [baseTTSItemsDict setObject:@"Polytrauma Network Site" forKey:@"pns_main_clinic"];
-//    [baseTTSItemsDict setObject:@"Assistive Technology Center" forKey:@"at_main_clinic"];
+    //sandy tried uncommenting this
+    [baseTTSItemsDict setObject:@"Assistive Technology Center" forKey:@"at_main_clinic"];
     
     [baseTTSItemsDict setObject:@"acupuncture" forKey:@"sub_clinic_acupuncture"];
     [baseTTSItemsDict setObject:@"PNS" forKey:@"sub_clinic_pns"];
@@ -4541,7 +4544,7 @@ int indexCount;
 }
 
 - (void)showDataSentAlert {
-    UIAlertView *dataSentAlert = [[UIAlertView alloc] initWithTitle:@"Send Data Results" message:@"Datafile successfully emailed to: david.horton3@va.gov." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *dataSentAlert = [[UIAlertView alloc] initWithTitle:@"Send Data Results" message:@"Datafile successfully emailed to: spiraljetty@yahoo.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     dataSentAlert.delegate = self;
     [dataSentAlert show];
     [dataSentAlert release];
@@ -5934,6 +5937,7 @@ int indexCount;
 }
 
 - (void)adminSendDataButtonPressed:(id)sender {
+    NSLog(@"WRViewController.adminSendDataButtonPressed is called");
     [self showSpinner];
 //    [tbvc writeLocalDbToCSVFile];
     [self sendEmailWithDataAttached];

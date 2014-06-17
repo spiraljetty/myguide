@@ -227,6 +227,7 @@ rowHeightForComponent:(NSInteger)component {
 }
 
 - (void)sendDataButtonPressed:(id)sender {
+    NSLog(@"PopoverContentViewController.sendDataButtonPressed");
     sendDataButton.enabled = NO;
 //    [[AppDelegate_Pad sharedAppDelegate] adminSendDataButtonPressed:sender];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminSendDataButtonPressed:sender];

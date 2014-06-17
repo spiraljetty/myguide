@@ -341,6 +341,9 @@
     [self.view sendSubviewToBack:self.playerView];
     
     // Add a page view controller
+    NSLog(@"----------size of width @%f",self.view.frame.size.width);
+    // Sandy Attempting to make view wider so buttons are fully enabled
+ // original   pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 800.0f)];
     pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 800.0f)];
     pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     pageControl.currentPage = 0;
@@ -1295,8 +1298,9 @@
 #pragma mark DynamicButtonOverlayDelegate Methods
 
 - (void)overlayNextPressed {
-    NSLog(@"overlayNextPressed...");
+    NSLog(@"DynamicSurveyViewController_Pad.overlayNextPressed()"); //rjl
     [self progress:self];
+  //  currentWRViewController.view.frame = [[UIScreen mainScreen] applicationFrame];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
 }
 
@@ -1478,8 +1482,11 @@
         RotatingSegue *segue = [[RotatingSegue alloc] initWithIdentifier:@"segue" source:source destination:destination];
         segue.goesForward = goesForward;
         segue.delegate = self;
+        source.view.frame = [[UIScreen mainScreen] applicationFrame];  //rjl
+        destination.view.frame = [[UIScreen mainScreen] applicationFrame];  //rjl
+        [destination.view layoutSubviews];
         [segue perform];
-        
+
         vcIndex = newIndex;
         
         [self handleButtonOverlayForPageIndex:vcIndex];
@@ -1588,6 +1595,7 @@
 }
 
 - (void)stopMoviePlayback {
+     NSLog(@"DynamicSurveyViewController_Pad.stopMoviePlayback ...");
     if (playingMovie) {
         NSLog(@"Stopping currently playing movie...");
         SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];

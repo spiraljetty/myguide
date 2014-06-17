@@ -386,9 +386,9 @@
 //	databaseName = @"new_satisfaction_responses_deid.sql";
 //    databaseName = @"testdb.sql";
     
-   // databaseName = @"myguide_WR_db_d.sql";
+   databaseName = @"myguide_WR_db_d.sql";
     //sandy updated dbase name
-databaseName = @"myguide_WR_db_e.sql";
+    //databaseName = @"myguide_WR_db_f.sql";
     mainTable = @"sessiondata";
     csvpath = @"satisfactiondata.csv";
     
@@ -461,7 +461,7 @@ databaseName = @"myguide_WR_db_e.sql";
     
     NSString *sqlStr=[NSString stringWithFormat:@"INSERT INTO '%@'('%@','%@')VALUES(?,?)",tableName,field1,field2];
     const char *sql=[sqlStr UTF8String];
-    
+    NSLog(@"RootViewController_Pad.insertrecordInTable() sqlStr is %@", sqlStr);
     sqlite3_stmt *statement1;
     
     if(sqlite3_prepare_v2(db, sql, -1, &statement1, nil)==SQLITE_OK)
@@ -479,7 +479,7 @@ databaseName = @"myguide_WR_db_e.sql";
     ////const char *sql = "update Coffee Set CoffeeName = ?, Price = ? Where CoffeeID = ?";
     NSString *sqlStr=[NSString stringWithFormat:@"UPDATE '%@' Set '%@' = ? Where '%@' = ?",tableName, newField, IDField];
     const char *sql=[sqlStr UTF8String];
-    
+    NSLog(@"RootViewController_Pad.updaterecordInTable() sqlStr is %@", sqlStr);
     sqlite3_stmt *statement1;
     
     if(sqlite3_prepare_v2(db, sql, -1, &statement1, nil)==SQLITE_OK)
@@ -497,6 +497,8 @@ databaseName = @"myguide_WR_db_e.sql";
     currentUniqueID = [self getUniqueIDFromCurrentTime];
     NSString *uniqueIDString = [NSString stringWithFormat:@"%d", currentUniqueID];
     [self insertrecordIntoTable:mainTable withField1:@"uniqueid" field1Value:uniqueIDString andField2:@"respondenttype" field2Value:currentRespondentType];
+   // NSLog(@"RootViewController_Pad.createNewRespondentWithRespondentType %d %@", currentUniqueID, uniqueIDString);
+
 }
 
 - (void)updateSurveyNumberForField:(NSString *)surveyItem withThisRatingNum:(int)thisRating {
@@ -541,7 +543,9 @@ databaseName = @"myguide_WR_db_e.sql";
     sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
-    if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+    int result = sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL);
+    NSLog(@"======== sqlite_prepare result %d ", result);
+    if(result == SQLITE_OK) {
         // Loop through the results and add them to the feeds array
         if(sqlite3_step(compiledStatement) == SQLITE_DONE) {
             NSLog(@"======== Updated row for respondent %d (%@ = %d) ! =========", currentUniqueID, satisfactionItem, currentIndex);
@@ -607,7 +611,9 @@ databaseName = @"myguide_WR_db_e.sql";
     sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name], currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentYear], [[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
-    if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
+    int result = sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL);
+    NSLog(@"Database returned error %d: %s", sqlite3_errcode(db), sqlite3_errmsg(db));
+    if(result == SQLITE_OK) {
         // Loop through the results and add them to the feeds array
         if(sqlite3_step(compiledStatement) == SQLITE_DONE) {
             NSLog(@"======== New respondent (%d = %@) inserted in db! =========", currentUniqueID, respondentType);
@@ -749,7 +755,7 @@ databaseName = @"myguide_WR_db_e.sql";
     
     for (NSNumber *thisUniqueId in allUniqueIds)
     {
-        NSLog(@"- %d",[thisUniqueId intValue]);
+        NSLog(@"thisUniqueID is - %d",[thisUniqueId intValue]);
     }
     
     return allUniqueIds;
@@ -2190,7 +2196,8 @@ databaseName = @"myguide_WR_db_e.sql";
     switch ([[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentMainClinic]) {
         case kATLab:
             main_clinic_sound = @"silence_quarter_second";
-//            main_clinic_sound = @"at_main_clinic";
+            //sandy tried uncommenting this
+            main_clinic_sound = @"at_main_clinic";
             break;
         case kPMNRClinic:
             main_clinic_sound = @"pmnr_main_clinic";
