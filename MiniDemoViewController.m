@@ -53,7 +53,8 @@
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showMiniDemoMenu];
     } else {
         showingMiniMenu = NO;
-        miniMenuButton.titleLabel.text = @"Demo Menu";
+        // sandy truncated label miniMenuButton.titleLabel.text = @"Demo Menu";
+        miniMenuButton.titleLabel.text = @"Demo";
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideMiniDemoMenu];
     }
 }

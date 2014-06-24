@@ -62,6 +62,7 @@
 @synthesize dynamicSurveyModule, alarmSounding, underUserControl, revealSettingsButtonPressed;
 @synthesize totalSlidesInThisSection, slidesCompleted, progressSoFar, firstVisitSlides, forceToDemoMode;
 
+
 #pragma mark - INIT
 NSMutableArray *titleArray;
 int indexCount;
@@ -377,7 +378,8 @@ int indexCount;
     [self.view addSubview:demoSwitch];
     
     demoModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
-	demoModeLabel.text = @"Demo Mode:";
+    // sandy removed mode to fit was "Demo Mode:"
+	demoModeLabel.text = @"Demo:";
 	demoModeLabel.textAlignment = UITextAlignmentCenter;
 	demoModeLabel.textColor = [UIColor blackColor];
 	demoModeLabel.backgroundColor = [UIColor clearColor];
@@ -2347,7 +2349,7 @@ int indexCount;
     
     int currentSurveyPageIndex = 11;
     [dynamicSurveyModule startOnSurveyPageWithIndex:currentSurveyPageIndex withFinishingIndex:currentSurveyPageIndex+8];
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hidePreviousButton];
+  //  [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hidePreviousButton];//rjl
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
     
     [self fadeDynamicSurveyIn];
@@ -3823,9 +3825,31 @@ int indexCount;
 - (void)fontsizeButtonPressed:(id)sender {
 //    [self showComingSoonAlert];
     [tbvc cycleFontSizeForAllLabels];
-    NSLog(@"fontsizeButton Pressed - current font size: %d",tbvc.currentFontSize);
+    NSLog(@"WRViewController.fontsizeButtonPressed() - current font size: %d",tbvc.currentFontSize);
 }
-
+//sandy still need to add this method but not sure if it will work
+//- (void)cycleFontSizeForAllLabels {
+//    CGFloat newFontSize,currentFontSize;
+    
+//    // 1 = avenir medium 30
+//    if (currentFontSize == 1) {
+//        newFontSize = 40.0f;
+//        currentFontSize = 2;
+ //   } else if (currentFontSize == 2) {
+ //       newFontSize = 50.0f;
+//        currentFontSize = 3;
+//    } else {
+//        newFontSize = 30.0f;
+//        currentFontSize = 1;
+//    }
+//
+//    for (SwitchedImageViewController *switchedController in _newChildController)
+ //   {
+//        switchedController.currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+        //sandy added prompt resizing
+ //       switchedController.currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+//    }
+//}
 - (void)respondentButtonPressed:(id)sender {
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton];
     
@@ -5572,13 +5596,15 @@ int indexCount;
     
     
     if (completedFinalSurvey) {
-//        modalUnlockSettingsView.view.transform = rotateRight;
+//       modalUnlockSettingsView.view.transform = rotateRight;
         
         keycodeField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 135, 30)];
         keycodeField.borderStyle = UITextBorderStyleBezel;
         keycodeField.backgroundColor = [UIColor whiteColor];
         keycodeField.textAlignment = UITextAlignmentLeft;
-        [keycodeField setCenter:CGPointMake(150.0f, 550.0f)];
+        // sandy moving this to allow user to see text entry field at end
+        // original [keycodeField setCenter:CGPointMake(150.0f, 550.0f)];
+        [keycodeField setCenter:CGPointMake(320.0f, 400.0f)];
         keycodeField.alpha = 0.0;
         [modalUnlockSettingsView.view addSubview:keycodeField];
         
@@ -5998,7 +6024,7 @@ int indexCount;
         
         testMsg.subject = [NSString stringWithFormat:@"myGuide - Waiting Room App - DB Export from %@",[[UIDevice currentDevice] name]];
         //testMsg.bccEmail = @"dmhorton@gmail.com";
-        //sandy edit
+        //sandy edit bcc no longer supported in os7
         //testMsg.bccEmail = @"spiraljetty@yahoo.com";
         testMsg.wantsSecure = YES; // smtp.gmail.com doesn't work without TLS!
         
@@ -6082,6 +6108,7 @@ int indexCount;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 	// Do any additional setup after loading the view.
     NSLog(@"WRViewController.viewDidLoad()");
     if (forceToDemoMode) {

@@ -1,4 +1,4 @@
-//
+ //
 //  DynamicSurveyViewController_Pad.m
 //  ___PROJECTNAME___
 //
@@ -398,6 +398,8 @@
         providerTest.delegate = self;
         providerTest.isSurveyPage = YES;
         providerTest.hidePreviousButton = YES;
+ //sandy hide the next button here and then show it again after the selection
+        providerTest.hideNextButton = YES;
         
         int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
         int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] count];
@@ -414,6 +416,9 @@
         if (provider4Index < 0) {
             provider4Index = numAttendingPhysicians - 1;
         }
+ 
+        //sandy hide the next button here and then show it again after the selection
+        providerTest.hideNextButton = YES;
         
         providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
         
@@ -447,6 +452,9 @@
         subclinicTest.delegate = self;
         subclinicTest.isSurveyPage = YES;
         subclinicTest.hidePreviousButton = NO;
+        //sandy hide the next button here and then show it again after the selection
+        subclinicTest.hidePreviousButton = YES;
+        subclinicTest.hideNextButton = YES;
         
         subclinicTest.subclinicTestText = @"Based on the information you have been given, please tap the clinic you will be seen in today.";
         subclinicTest.subclinicTestLabel.text = subclinicTest.subclinicTestText;
@@ -505,7 +513,9 @@
         chooseGoalPatient.delegate = self;
         chooseGoalPatient.isSurveyPage = YES;
         chooseGoalPatient.hideNextButton = YES;
-        chooseGoalPatient.hidePreviousButton = NO;
+        //sandy hiding previous button here to ensure a selection
+        // original chooseGoalPatient.hidePreviousButton = NO;
+        chooseGoalPatient.hidePreviousButton = YES;
         
         chooseGoalPatient.goalChooseText = @"To better understand your sense of comfort for today's visit, which of the following would you like help with today?";
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
@@ -545,7 +555,10 @@
         miniSurveyPage2.surveyPageIndex = pageIndex;
         miniSurveyPage2.delegate = self;
         miniSurveyPage2.isSurveyPage = YES;
-        miniSurveyPage2.hidePreviousButton = NO;
+        // sandy be consistent with hiding previous so they don't go back into selections
+        // original        miniSurveyPage2.hidePreviousButton = NO;
+        miniSurveyPage2.hidePreviousButton = YES;
+        // sandy need to read fontsize button here
         miniSurveyPage2.currentPromptString = @"Please indicate how much you agree or disagree with the following statement:";
         miniSurveyPage2.currentPromptLabel.text = miniSurveyPage2.currentPromptString;
         miniSurveyPage2.currentSatisfactionString = @"I understand the reason or reasons for today's visit.";
@@ -596,8 +609,11 @@
         miniSurveyPageTransition.surveyPageIndex = pageIndex;
         miniSurveyPageTransition.delegate = self;
         miniSurveyPageTransition.isSurveyPage = YES;
-        miniSurveyPageTransition.hidePreviousButton = NO;
-        
+        //sandy hide previous button here too
+        // original miniSurveyPageTransition.hidePreviousButton = NO;
+        miniSurveyPageTransition.hidePreviousButton = YES;
+ 
+        //sandy right before ready button is enabled
         if ([[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] isFirstVisit]) {
             miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press next to learn more about your doctor and the clinic where you will be seen today.";
         } else {
@@ -861,6 +877,8 @@
         
         pageIndex++;
         numberOfPostTreatmentItems++;
+        //sandy tried to turn of next button at end of survey This is the front button. It gets set at the start of the survey page presentation,
+       // miniSurveyPage8.hideNextButton = YES;
         
     }
     
@@ -875,8 +893,11 @@
     NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
     //    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit with Dr. %@, you shared that you wanted to: %@", thisPhysicianNameAlone,todaysGoal];
     
-    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit you shared this goal:", thisPhysicianNameAlone,todaysGoal];
+//    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Hello, before your visit you shared this goal:", thisPhysicianNameAlone,todaysGoal];
     
+//    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit you shared this goal: %@", thisPhysicianNameAlone,todaysGoal];// rjl
+
+    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit you shared this goal: %@",todaysGoal];// rjl
     if ([todaysGoal isEqualToString:@"None of the Above"]) {
         miniSurveyPage1.currentPromptString = [NSString stringWithFormat:@""];
         miniSurveyPage1.currentPromptLabel.text = miniSurveyPage1.currentPromptString;
@@ -1306,6 +1327,7 @@
 
 - (void)overlayPreviousPressed {
     NSLog(@"overlayPreviousPressed...");
+    finishingLastItem = false; //rjl
     [self regress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] decrementProgressBar];
 }
@@ -1330,7 +1352,7 @@
 }
 
 - (void)overlayFontsizePressed {
-    NSLog(@"overlayFontsizePressed...");
+    NSLog(@"DynamicSurveyViewController_Pad.overlayFontsizePressed()...");
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fontsizeButtonPressed:self];
 }
 
@@ -1495,6 +1517,9 @@
         if (vcIndex == currentFinishingIndex) {
             NSLog(@"LAST PAGE");
             finishingLastItem = YES;
+            // sandy turn off previous button if finished with survey - too late here
+            //standardPageButtonOverlay.previousPageButton.enabled = NO;
+            
             //        } else if (vcIndex == ([newChildControllers count] - 10)) {
             
             
@@ -1518,7 +1543,7 @@
 }
 
 - (void)handleButtonOverlayForPageIndex:(int)thisPageIndex {
-    NSLog(@"In SynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex: %d...",thisPageIndex);
+    NSLog(@"In DynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex: %d...",thisPageIndex);
     SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:thisPageIndex];
     if (currentSwitchedController.hidePreviousButton) {
         //        [standardPageButtonOverlay fadeThisObjectOut:standardPageButtonOverlay.previousPageButton];
@@ -1597,8 +1622,9 @@
 - (void)stopMoviePlayback {
      NSLog(@"DynamicSurveyViewController_Pad.stopMoviePlayback ...");
     if (playingMovie) {
-        NSLog(@"Stopping currently playing movie...");
+        NSLog(@"Stopping currently playing movie if movie is playing...");
         SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
+        NSLog(@"vcindex=%d",vcIndex);
         [currentSwitchedController stopMovie:self];
     }
 }
@@ -1641,7 +1667,8 @@
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
+   
+
     // Release any cached data, images, etc that aren't in use.
 }
 

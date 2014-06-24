@@ -380,7 +380,7 @@
     [self segmentedControlPressedWithIndex:segmentedControlEquivalentIndexSelected];
     
 }
-
+//removed from surveys in build 2.0.0
 -(void)doesNotApplyFaceButtonPressed:(id)sender {
     NSLog(@"Does not apply pressed...");
     
@@ -683,12 +683,18 @@
 
 -(IBAction)stopMovie:(id)sender
 {
+    NSLog(@"SwitchedImageViewController.stopMovie()");
     [moviePlayerController stop];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
 													name:MPMoviePlayerPlaybackDidFinishNotification
 												  object:moviePlayerController];
-    [moviePlayerController.view removeFromSuperview];
+    @try {
+       [moviePlayerController.view removeFromSuperview];
+    }
+    @catch(NSException *ne){
+        NSLog(@"SwitchedImageViewController.stopMovie() ERROR");
+    }
     //    [moviePlayerController release];
     [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] edModule] setPlayingMovie:NO];
     
@@ -726,6 +732,7 @@
                 break;
             case kAgreementPainScale:
                 NSLog(@"Loading view content for agreement-painscale survey page with index=%d...", surveyPageIndex);
+                NSLog(@"sandy Verify that this is new_painscale_template and set fontsize here");
                 currentPromptLabel.text = currentPromptString;
                 currentSatisfactionLabel.text = currentSatisfactionString;
                 break;
@@ -1426,12 +1433,15 @@
 //    [self disableAllProviderButtons];
     
     
+    
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 3;
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalProviderTestIncorrectView];
+    // sandy testing showing the next button after the provider is selected
+    //[currentDelegate showOverlayNextButton];
     [currentDelegate overlayNextPressed];
 }
 

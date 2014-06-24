@@ -51,8 +51,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 - (void)viewDidLoad {
 
     int masterRowSelected = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] masterViewController] currentlySelectedRow];
-    //sandy hack added two here to make up for missing data but it didn't work
-    //masterRowSelected = masterRowSelected +2;
+
     
     [self initNumberOfCellsForCurrentlySelectedRowWithIndex:masterRowSelected];
      NSLog(@"Loading detail VC for master row: %d", masterRowSelected);

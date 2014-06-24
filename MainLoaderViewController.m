@@ -514,7 +514,7 @@
 }
 
 - (void)overlayFontsizePressed {
-    NSLog(@"overlayFontsizePressed...");
+    NSLog(@"MainLoaderViewController.overlayFontsizePressed()...");
     [currentWRViewController fontsizeButtonPressed:self];
 }
 

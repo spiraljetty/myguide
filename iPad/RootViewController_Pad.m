@@ -1,4 +1,4 @@
-    //
+//
 //  RootViewController_Pad.m
 //  ___PROJECTNAME___
 //
@@ -373,6 +373,8 @@
     for (SwitchedImageViewController *switchedController in newChildControllers)
     {
         switchedController.currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+        //sandy added prompt resizing
+        switchedController.currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
     }
 }
 
@@ -387,7 +389,7 @@
 //    databaseName = @"testdb.sql";
     
    databaseName = @"myguide_WR_db_d.sql";
-    //sandy updated dbase name
+    //sandy updated dbase name but the table is not being written properly
     //databaseName = @"myguide_WR_db_f.sql";
     mainTable = @"sessiondata";
     csvpath = @"satisfactiondata.csv";
@@ -452,8 +454,14 @@
 }
 
 -(void)closeDB {
-    sqlite3_close(db);
-    NSLog(@"====== DB Closed ======");
+    @try {
+        sqlite3_close(db);
+        NSLog(@"====== DB Closed ======");
+    }
+    @catch(NSException *ne){
+        NSLog(@"RootViewController.closeDB() ERROR");
+    }
+
 }
 
 -(void)insertrecordIntoTable:(NSString*) tableName withField1:(NSString*) field1 field1Value:(NSString*)field1Vaue andField2:(NSString*)field2 field2Value:(NSString*)field2Value
@@ -540,6 +548,7 @@
     sqlite3_stmt *compiledStatement;
     NSString *sqlStatementString;
     // Setup the SQL Statement and compile it for faster access
+    //rjl possible crash here
     sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
@@ -1112,6 +1121,7 @@
     
     BOOL shouldCurrentlyPlayMidwaySound = NO;
     
+    //rjl the following call to isCurrentSatisfactionItemMidwayWithIndex always inserts the phrase "as a result"  in case of patient index < 22 (its 21 here)
     shouldCurrentlyPlayMidwaySound = [self isCurrentSatisfactionItemMidwayWithIndex:thisPageIndex];
     
     NSString *currentQuestionKey = [NSString stringWithFormat:@"%@_q_%d",respondentType,thisPageIndex];
@@ -1169,6 +1179,8 @@
 
     if (finishingLastItem )
     {
+        
+        NSLog(@"RootViewController.switchToView() finishingLastItem");
         vcIndex = newIndex;
         
 //        // Back to menu
@@ -1193,6 +1205,9 @@
         item.rightBarButtonItem.enabled = NO;
         item.leftBarButtonItem.enabled = NO;
         
+        //rjl this is where the display and audio are sequed to the next index
+        // the phrase "as a result" is always used in case of patient index < 22 (its 21 here)
+        
         // Segue to the new controller
         UIViewController *source = [newChildControllers objectAtIndex:vcIndex];
         UIViewController *destination = [newChildControllers objectAtIndex:newIndex];
@@ -1203,7 +1218,13 @@
         
         vcIndex = newIndex;
         
-        [self playSoundForIndex:vcIndex];
+        // rjl
+        int soundIndex = vcIndex;
+        if (soundIndex ==24)
+            soundIndex = 23;
+        else
+            soundIndex = vcIndex +6;
+        [self playSoundForIndex:vcIndex] ; //]soundIndex]; //rjl
         
         // Update to new sound
         if (vcIndex == 0) {
@@ -1809,7 +1830,7 @@
 }
 
 - (BOOL)isCurrentSatisfactionItemMidwayWithIndex:(int)thisIndex {
-    
+     NSLog(@"RootViewController_Pad.isCurrentSatisfactionItemMidwayWithIndex() index: %d", thisIndex);
     BOOL isCurrentIndexMidway = NO;
     
     if (thisIndex == 0) {
@@ -1817,15 +1838,15 @@
     } else {
     
         if ([respondentType isEqualToString:@"patient"]) {
-            if (thisIndex <= 22) {
+            if (thisIndex <= 17) {//rjl
                 isCurrentIndexMidway = YES;
             }
         } else if ([respondentType isEqualToString:@"family"]) {
-            if (thisIndex <= 17 ) {
+            if (thisIndex <= 11 ) {
                 isCurrentIndexMidway = YES;
             }
         } else {
-            if (thisIndex <= 13) {
+            if (thisIndex <= 7) {
                 isCurrentIndexMidway = YES;
             }
         }
@@ -2081,7 +2102,7 @@
     [self putNewRespondentInDB];
     
     [self updateAllSatisfactionLabelItems];
-    
+    // sandy thiese will have to be a variable value for new clinics -> currentclinic.totalSurveyItems
     totalSurveyItems = 14;
     surveyItemsRemaining = 14;
 }
@@ -2278,6 +2299,7 @@
 
 - (void)overlayPreviousPressed {
     NSLog(@"overlayPreviousPressed...");
+    finishingLastItem = false;
     [self progress:self];
     
 }
@@ -2302,7 +2324,7 @@
 }
 
 - (void)overlayFontsizePressed {
-    NSLog(@"overlayFontsizePressed...");
+    NSLog(@"RootViewController_Pad.overlayFontsizePressed()...");
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fontsizeButtonPressed:self];
 }
 

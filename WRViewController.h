@@ -568,7 +568,7 @@ typedef enum {
 - (void)menuButtonPressed:(id)sender;
 - (void)voiceassistButtonPressed:(id)sender;
 - (void)fontsizeButtonPressed:(id)sender;
-
+- (void)cycleFontSizeForAllLabels;  //sandy added
 - (void)beginSatisfactionSurvey:(id)sender;
 - (void)requestSurveyAgreement:(NSTimer*)theTimer;
 

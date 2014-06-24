@@ -62,7 +62,7 @@
         nextPageButton.backgroundColor = [UIColor clearColor];
        // sandy shifted [nextPageButton setCenter:CGPointMake(950.0f, 85.0f)];
         // this button is on the lower nav bar
-                [nextPageButton setCenter:CGPointMake(950.0f, 80.0f)];
+                [nextPageButton setCenter:CGPointMake(945.0f, 80.0f)];
 //        [nextPageButton setCenter:CGPointMake(385.0f, 80.0f)];
         //	[nextPageButton addTarget:physicianModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
         //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
@@ -115,6 +115,7 @@
 //        [self.view sendSubviewToBack:returnToMenuButton];
         
         //voiceAssistButton - turn voice assist on and off
+        // sandy - removed from storyboards because it was not needed currently
         voiceAssistButton = [UIButton buttonWithType:UIButtonTypeCustom];
         voiceAssistButton.frame = CGRectMake(0, 0, 80, 80);
         voiceAssistButton.showsTouchWhenHighlighted = YES;

@@ -789,10 +789,34 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 }
 
 - (void)overlayFontsizePressed {
-    NSLog(@"overlayFontsizePressed...");
+    NSLog(@"DynamicModuleViewController_Pad.overlayFontsizePressed()...");
+    // sandy should call something similar    [tbvc cycleFontSizeForAllLabels];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fontsizeButtonPressed:self];
 }
-
+// sandy accidentally put this here I think
+//- (void)cycleFontSizeForAllLabels {
+//    CGFloat newFontSize;
+    
+    // 1 = avenir medium 30
+ //   if (currentFontSize == 1) {
+//        newFontSize = 40.0f;
+//        currentFontSize = 2;
+//    } else if (currentFontSize == 2) {
+//        newFontSize = 50.0f;
+ //       currentFontSize = 3;
+ //   } else {
+ //       newFontSize = 30.0f;
+ //       currentFontSize = 1;
+ //   }
+ //
+ //   for (SwitchedImageViewController *switchedController in newChildControllers)
+ //   {
+//        switchedController.currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+        //sandy added prompt resizing
+//        switchedController.currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+//    }
+    
+//}
 - (void)overlayVoicePressed {
     NSLog(@"overlayVoicePressed...");
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] voiceassistButtonPressed:self];

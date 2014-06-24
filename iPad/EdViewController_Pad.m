@@ -438,8 +438,8 @@
 //            self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:pt_sound_14_item,nil]];
             finishingLastItem = YES;
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] activateEdBackButton];
-            
-            [self.view bringSubviewToFront:rotationViewController.view];
+            rotationViewController.view.frame = [[UIScreen mainScreen] applicationFrame]; //rjl set the 3D brain view frame to the application frame
+            [self.view bringSubviewToFront:rotationViewController.view]; //rjl this line shows the 3D brain
             
             [UIView beginAnimations:nil context:nil];
             {
@@ -497,6 +497,7 @@
 
 - (void)goBackward {
     NSLog(@"goBackward edModule...");
+    finishingLastItem = NO; // rjl enable previous button from 3D brain view
     [self progress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] decrementProgressBar];
 }
