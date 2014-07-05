@@ -29,7 +29,7 @@
         CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
         
         // Custom initialization
-        NSLog(@"In MainLoaderViewController initWithNibName...");
+        NSLog(@"MainLoaderViewController.initWithNibName() %S", nibNameOrNil);
         
         shouldShowReadyButton = YES;
         
@@ -108,7 +108,7 @@
 }
 
 - (void)revealSettingsButtonPressed {
-    NSLog(@"revealSettingsButtonPressed!");
+    NSLog(@"MainLoaderViewController.revealSettingsButtonPressed()");
     revealSettings.enabled = NO;
     [self fadeOutRevealSettingsButton];
     currentWRViewController.revealSettingsButtonPressed = YES;
@@ -116,7 +116,7 @@
 }
 
 - (void)fadeInRevealSettingsButton {
-    NSLog(@"Fading in revealsettingsbutton");
+    NSLog(@"MainLoaderViewController.fadeInRevealSettingsButton()");
     revealSettings.enabled = YES;
     
     [self.view bringSubviewToFront:revealSettings];
@@ -133,7 +133,7 @@
 }
 
 - (void)fadeOutRevealSettingsButton {
-    NSLog(@"Fading out revealsettingsbutton");
+    NSLog(@"MainLoaderViewController.fadeOutRevealSettingsButton()");
     revealSettings.enabled = NO;
     
 //    [self.view bringSubviewToFront:revealSettings];
@@ -362,13 +362,16 @@
 }
 
 - (void)createNewWaitingRoomViewController {
+    NSLog(@"MainLoaderViewController.createNewWaitingRoomViewController()");
+
     currentWRViewController = [[WRViewController alloc] initWithNibName:nil bundle:nil];
 //    currentWRViewController.view.frame = CGRectMake(0, 0, 1024, 768);
     [self.view addSubview:currentWRViewController.view];
 }
 
 - (void)createNewButtonOverlay {
-    NSLog(@"Loading MASTER standard button overlay...");
+    NSLog(@"MainLoaderViewController.createNewButtonOverlay()");
+
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     float leftAngle =  90 * M_PI  / 180;
@@ -387,7 +390,7 @@
 
 - (void)showCurrentButtonOverlay {
     
-    NSLog(@"Showing master button overlay...");
+    NSLog(@"MainLoaderViewController.showCurrentButtonOverlay()");
     
 //    standardPageButtonOverlay.view.alpha = 0.0;
     [self.view bringSubviewToFront:standardPageButtonOverlay.view];
@@ -407,8 +410,8 @@
 }
 
 - (void)hideCurrentButtonOverlay {
-    NSLog(@"Hiding master button overlay...");
-    
+    NSLog(@"MainLoaderViewController.hideCurrentButtonOverlay()");
+
     [UIView beginAnimations:nil context:nil];
     {
         [UIView	setAnimationDuration:0.3];
@@ -425,7 +428,7 @@
 }
 
 - (void)finishHideButtonOverlay:(NSTimer*)theTimer {
-
+    NSLog(@"MainLoaderViewController.finishHideButtonOverlay()");
     [self.view sendSubviewToBack:standardPageButtonOverlay.view];
     
     [theTimer release];
@@ -434,21 +437,25 @@
 }
 
 - (void)showNextButton {
-    NSLog(@"MainLoaderViewController.showNextButton...");
-    
-    [UIView beginAnimations:nil context:nil];
-    {
-        [UIView	setAnimationDuration:0.3];
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        
-        standardPageButtonOverlay.nextPageButton.alpha = 1.0;
-        
+    NSLog(@"MainLoaderViewController.showNextButton()");
+    @try {
+        [UIView beginAnimations:nil context:nil];
+        {
+            [UIView	setAnimationDuration:0.3];
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+            
+            standardPageButtonOverlay.nextPageButton.alpha = 1.0;
+            
+        }
+        [UIView commitAnimations];
     }
-    [UIView commitAnimations];
+    @catch(NSException *ne){
+        NSLog(@"MainLoaderViewController.showNextButton() ERROR");
+    }
 }
 
 - (void)hideNextButton {
-    NSLog(@"hideNextButton...");
+    NSLog(@"MainLoaderViewController()hideNextButton()");
     
     [UIView beginAnimations:nil context:nil];
     {
@@ -462,7 +469,7 @@
 }
 
 - (void)showPreviousButton {
-    NSLog(@"showPreviousButton...");
+    NSLog(@"MainLoaderViewController.showPreviousButton()");
     
     [UIView beginAnimations:nil context:nil];
     {
@@ -476,7 +483,7 @@
 }
 
 - (void)hidePreviousButton {
-    NSLog(@"hidePreviousButton...");
+    NSLog(@"MainLoaderViewController.hidePreviousButton()");
     
     [UIView beginAnimations:nil context:nil];
     {
@@ -499,27 +506,27 @@
 }
 
 - (void)overlayNextPressed {
-    NSLog(@"overlayNextPressed...");
+    NSLog(@"MainLoaderViewController.overlayNextPressed()");
     [activeViewController goForward];
 }
 
 - (void)overlayPreviousPressed {
-    NSLog(@"overlayPreviousPressed...");
+    NSLog(@"MainLoaderViewController.overlayPreviousPressed()");
     [activeViewController goBackward];
 }
 
 - (void)overlayMenuPressed {
-    NSLog(@"overlayMenuPressed...");
+    NSLog(@"MainLoaderViewController.overlayMenuPressed()");
 //    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] returnToMenu];
 }
 
 - (void)overlayFontsizePressed {
-    NSLog(@"MainLoaderViewController.overlayFontsizePressed()...");
+    NSLog(@"MainLoaderViewController.overlayFontsizePressed()");
     [currentWRViewController fontsizeButtonPressed:self];
 }
 
 - (void)overlayVoicePressed {
-    NSLog(@"overlayVoicePressed...");
+    NSLog(@"MainLoaderViewController.overlayVoicePressed()");
     [currentWRViewController voiceassistButtonPressed:self];
 }
 
@@ -565,8 +572,9 @@
 }
 
 - (void)fadeInMiniDemoMenu {
-    NSLog(@"Fading in miniDemoMenu");
-    
+    NSLog(@"MainLoaderViewController.fadeInMiniDemoMenu()");
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showMiniDemoMenu]; //rjl 6/26/14
+//    [miniDemoVC menuButtonPressed];  //rjl 6/29/14 Adding this causes demo button to do 3-way cycle
     [self.view bringSubviewToFront:miniDemoVC.view];
     
     [UIView beginAnimations:nil context:nil];
@@ -583,6 +591,8 @@
 }
 
 - (void)fadeOutMiniDemoMenu {
+    NSLog(@"MainLoaderViewController.fadeOutMiniDemoMenu()");
+
     [UIView beginAnimations:nil context:nil];
     {
         [UIView	setAnimationDuration:0.3];
@@ -597,12 +607,19 @@
 }
 
 - (void)showMiniDemoMenu {
+    NSLog(@"MainLoaderViewController.showMiniDemoMenu()");
+
     CGRect miniFrame = miniDemoVC.view.frame;
-    //miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
-    //miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
+//    miniDemoVC.view.frame = [[UIScreen mainScreen] applicationFrame]; //rjl
+//    miniFrame.origin.x = [[UIScreen mainScreen] applicationFrame].origin.x+miniDemoVC.view.frame.size.width - 300;
+//    miniFrame.origin.y = [[UIScreen mainScreen] applicationFrame].origin.y+miniDemoVC.view.frame.size.height+300; //300;
+//    miniFrame.origin.x = [[UIScreen mainScreen] applicationFrame].origin.x+200;
+//    miniFrame.origin.y = [[UIScreen mainScreen] applicationFrame].origin.y+miniDemoVC.view.frame.size.height+150; //300;
+//    miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
+//    miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
     //sandy
-    miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
-    miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
+    miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50; //rjl miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
+    miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130; //rjl miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
     
     [UIView beginAnimations:nil context:NULL];
     {
@@ -615,6 +632,8 @@
 }
 
 - (void)hideMiniDemoMenu {
+    NSLog(@"MainLoaderViewController.hideMiniDemoMenu()");
+
     CGRect miniFrame = miniDemoVC.view.frame;
     //miniFrame.origin.x = miniFrame.origin.x - miniDemoVC.view.frame.size.width + 50;
     //miniFrame.origin.y = miniFrame.origin.y + miniDemoVC.view.frame.size.height - 130;
@@ -633,6 +652,8 @@
 }
 
 - (void)fadeOutWRVC {
+    NSLog(@"MainLoaderViewController.fadeOutWRVC()");
+
     [UIView beginAnimations:nil context:NULL];
     {
         [UIView setAnimationDuration:.3];
@@ -643,6 +664,8 @@
 }
 
 - (void)showWaitScreen {
+    NSLog(@"MainLoaderViewController.showWaitScreen()");
+
     [self.view bringSubviewToFront:waitBlack];
     [self.view bringSubviewToFront:waitLabel];
     [self.view bringSubviewToFront:waitSpinner];
@@ -663,7 +686,8 @@
 }
 
 - (void)hideWaitScreen:(NSTimer*)theTimer {
-    
+    NSLog(@"MainLoaderViewController.hideWaitScreen()");
+
     [[AppDelegate_Pad sharedAppDelegate] startReachabilityNotifier];
     
     [UIView beginAnimations:nil context:nil];
@@ -697,7 +721,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    NSLog(@"In MainLoaderVC viewDidLoad...");
+    NSLog(@"MainLoaderViewController.viewDidLoad()");
     [readyForAppointmentButton setTitle:@"Ready for Appointment" forState:UIControlStateNormal];
     readyForAppointmentButton.titleLabel.text = @"Ready for Appointment";
     [readyForAppointmentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

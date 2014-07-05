@@ -980,7 +980,7 @@ int indexCount;
     
     if (demoSwitch.isOn) {
         runningAppInDemoMode = YES;
-        NSLog(@"Demo Mode ON");
+        NSLog(@"WRViewController.demoSwitchFlipped() runningAppInDemoMode = YES");
         [self.view bringSubviewToFront:switchToSectionSegmentedControl];
         [self.view bringSubviewToFront:settingsVC.view];
         
@@ -998,7 +998,7 @@ int indexCount;
         
     }  else {
         runningAppInDemoMode = NO;
-        NSLog(@"Demo Mode OFF");
+        NSLog(@"WRViewController.demoSwitchFlipped() runningAppInDemoMode = NO");
         
         [UIView beginAnimations:nil context:nil];
         {
@@ -1017,7 +1017,8 @@ int indexCount;
 }
 
 - (void)updateMiniDemoSettings {
-    
+    NSLog(@"WRViewController.updateMiniDemoSettings()");
+
 //    if (forceToDemoMode) {
 //        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInMiniDemoMenu];
 //    }
@@ -1934,6 +1935,8 @@ int indexCount;
 }
 
 - (void)hideMasterButtonOverlay {
+    if (!runningAppInDemoMode)
+        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu]; //rjl 7/2/14
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideCurrentButtonOverlay];
 }
 
@@ -3851,7 +3854,8 @@ int indexCount;
 //    }
 //}
 - (void)respondentButtonPressed:(id)sender {
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton];
+    if (!runningAppInDemoMode)
+        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton]; //7/2/14
     
     if (sender == patientButton) {
         [tbvc setRespondentToPatient:sender];
@@ -4204,12 +4208,16 @@ int indexCount;
 #pragma mark - TBI Education Module Methods
 
 - (void)setUpEducationModuleForFirstTime {
+    NSLog(@"WRViewController.setUpEducationModuleForFirstTime()");
+    if (!runningAppInDemoMode)
+        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu]; //rjl 6/29/14
+
     //        [self showComingSoonAlert];
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
     edModule.view.alpha = 0.0;
-    
+
     [self.view bringSubviewToFront:edModule.view];
     
 //    [self.view bringSubviewToFront:surveyResourceBack];
@@ -4284,7 +4292,10 @@ int indexCount;
 }
 
 - (void)showEducationModuleIntro {
-    
+    NSLog(@"WRViewController.showEducationModuleIntro()");
+    if (!runningAppInDemoMode)
+        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu]; //rjl 6/29/14
+
     [self hideMasterButtonOverlay];
     
     //    beginSurveyButton.alpha = 0.0;
@@ -4371,13 +4382,21 @@ int indexCount;
 
 - (void)beginEducationModule:(id)sender {
     
-    NSLog(@"In beginEducationModule...");
+    NSLog(@"WRViewController.beginEducationModule()");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:edModule];
     [self showMasterButtonOverlay];
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
+    @try {
+        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
+        //    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideMiniDemoMenu]; //rjl 6/26/14
+//        [[[AppDelegate_Pad sharedAppDelegate] miniDemoVC] menuButtonPressed];  //rjl 6/26/14
+    }
+    @catch(NSException *ne){
+        NSLog(@"WRViewController.beginEducationModule() ERROR");
+    }
+
     
-    
+
     [edModule sayFirstTBIItem];
     
     [nextEdItemButton removeTarget:self action:@selector(beginEducationModule:) forControlEvents:UIControlEventTouchUpInside];
@@ -4444,7 +4463,8 @@ int indexCount;
 }
 
 - (void)completeBeginEducationModule:(NSTimer*)theTimer {
-    
+    NSLog(@"WRViewController.completingBeginEducationModule()");
+
     [self.view sendSubviewToBack:playMovieIcon];
     [self.view sendSubviewToBack:allWhiteBack];
     [self.view sendSubviewToBack:initialSettingsLabel];
@@ -4457,6 +4477,7 @@ int indexCount;
 }
 
 - (void)launchEducationModule {
+    NSLog(@"WRViewController.launchEducationModule()");
     if (educationModuleInProgress) {
         [self reshowEducationModule];
     } else {
@@ -4466,7 +4487,8 @@ int indexCount;
 }
 
 - (void)edModuleFinished {
-    
+    NSLog(@"WRViewController.edModuleFinished()");
+
 //    if (cameFromMainMenu) {
 //        [tbvc sayEducationModuleCompletion];
         
@@ -4520,13 +4542,16 @@ int indexCount;
 }
 
 - (void)menuButtonPressed:(id)sender {
+    NSLog(@"WRViewController.menuButtonPressed()");
     if (sender == tbiEdButton) {
 //        [self hideMasterButtonOverlay];
-        
+        if (!runningAppInDemoMode)
+            [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu]; //rjl 6/29/14
+
         if (educationModuleInProgress) {
             [self reshowEducationModule];
         } else {
-            [self setUpEducationModuleForFirstTime];
+            [self setUpEducationModuleForFirstTime]; 
             [self showEducationModuleIntro];
         }
         
@@ -4558,6 +4583,15 @@ int indexCount;
     //    keypadViewController.view.frame = CGRectMake(0, 0, 500, 500);
     //    [self.view addSubview:keypadViewController.view];
 }
+
+- (void)showAlertMsg:(NSString *)msg {
+//    [tbvc sayComingSoon];
+    UIAlertView *msgAlert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"%@",msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    msgAlert.delegate = self;
+    [msgAlert show];
+    [msgAlert release];
+}
+
 
 - (void)showComingSoonAlert {
     [tbvc sayComingSoon];
@@ -5578,7 +5612,7 @@ int indexCount;
 }
 
 - (void)showModalUnlockSettingsView {
-    NSLog(@"In showModalUnlockSettingsView...");
+    NSLog(@"WRViewController.showModalUnlockSettingsView()");
             
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
@@ -5655,7 +5689,8 @@ int indexCount;
 }
 
 - (void)checkIfCorrectUnlockSettingsPassword {
-    
+    NSLog(@"WRViewController.checkIfCorrectUnlockSettingsPassword()");
+
     if ([keycodeField.text isEqualToString:@"3801"]) {
         NSLog(@"Keycode correct!");
         
@@ -5682,7 +5717,7 @@ int indexCount;
         NSLog(@"Unlock settings keycode incorrect! Please try again");
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton];
     }
-    
+//    [self showAlertMsg:[NSString stringWithFormat:@"Password OK"]];
     [self clearTextField];
     [self hideKeypad:self];
     [UIView beginAnimations:nil context:nil];

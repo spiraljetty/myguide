@@ -22,6 +22,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSLog(@"MiniDemoViewController.initWithNibName()");
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -46,7 +47,7 @@
 }
 
 - (void)menuButtonPressed {
-    NSLog(@"mini menu button pressed");
+    NSLog(@"MiniDemoViewController.menuButtonPressed()");
     if (!showingMiniMenu) {
         showingMiniMenu = YES;
         miniMenuButton.titleLabel.text = @"Dismiss";
@@ -60,11 +61,12 @@
 }
 
 - (void)resetButtonPressed {
-    NSLog(@"reset button pressed");
+    NSLog(@"MiniDemoViewController.resetButtonPressed()");
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] performAppReset];
 }
 
 - (void)updateAllMiniMenuLabels {
+    NSLog(@"MiniDemoViewController.updateAllMiniMenuLabels()");
     demoLabel.text = demoText;
     clinicLabel.text = clinicText;
     subClinicLabel.text = subClinicText;
@@ -73,13 +75,11 @@
     respondentLabel.text = respondentText;
     edLabel.text = edText;
     satisfactionLabel.text = satisfactionText;
-    
-    NSLog(@"mini menu labels updated");
-}
+ }
 
 - (void)viewDidLoad
 {
-        NSLog(@"MiniDemoViewControler.viewDidLoad");
+     NSLog(@"MiniDemoViewControler.viewDidLoad()");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }

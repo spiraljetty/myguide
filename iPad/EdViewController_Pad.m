@@ -681,11 +681,12 @@
 }
 
 - (void)sayTBIEdModuleIntro {
+    NSLog(@"EdViewController.sayTBIEdModuleIntro()");
     [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"~tbi_brain_intro", nil]];
 }
 
 - (void)sayFirstTBIItem {
-    NSLog(@"in sayFirstTBIItem...");
+    NSLog(@"EdViewController.sayFirstTBIItem()");
     if (speakItemsAloud) {
         [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"~tbi_brain_1", nil]];
     }

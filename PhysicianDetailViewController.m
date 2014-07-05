@@ -30,6 +30,7 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"PhysicianDetailViewController.viewDidLoad()");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     physicianImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianImage]]];
@@ -40,7 +41,7 @@
     
     double beginFadeOutInSeconds = 3.5;
     
-    NSLog(@"Fading out care handled by label in %1.2f seconds",beginFadeOutInSeconds);
+    NSLog(@"PhysicianDetailViewController.beginFadeOutOfCareHandledByLabel() in %1.2f seconds",beginFadeOutInSeconds);
     
     physicianTimer = [[NSTimer timerWithTimeInterval:beginFadeOutInSeconds target:self selector:@selector(continueFadeOutOfCareHandledByLabel:) userInfo:nil repeats:NO] retain];
     [[NSRunLoop currentRunLoop] addTimer:physicianTimer forMode:NSDefaultRunLoopMode];
@@ -48,7 +49,7 @@
 
 - (void)continueFadeOutOfCareHandledByLabel:(NSTimer*)theTimer {
     
-    NSLog(@"Fading out care handled by label...");
+    NSLog(@"PhysicianDetailViewController.continueFadeOutOfCareHandledByLabel()");
     
     [UIView beginAnimations:nil context:nil];
 	{
@@ -69,7 +70,7 @@
 
 - (void)finishFadeOutOfCareHandledByLabel:(NSTimer*)theTimer {
     
-    NSLog(@"Finished fading out care handled by label");
+    NSLog(@"PhysicianDetailViewController.finishFadeOutOfCareHandledByLabel()");
     
     [self.view sendSubviewToBack:todayCareHandledByLabel];
     

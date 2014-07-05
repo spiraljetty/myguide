@@ -690,10 +690,13 @@
 													name:MPMoviePlayerPlaybackDidFinishNotification
 												  object:moviePlayerController];
     @try {
-       [moviePlayerController.view removeFromSuperview];
+//       [moviePlayerController.view removeFromSuperview]; //rjl 6/29/14 this line caused flaky crash
     }
     @catch(NSException *ne){
         NSLog(@"SwitchedImageViewController.stopMovie() ERROR");
+    }
+    @finally {
+        NSLog(@"SwitchedImageViewController.stopMovie() try/catch/finally");
     }
     //    [moviePlayerController release];
     [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] edModule] setPlayingMovie:NO];
@@ -727,17 +730,17 @@
         
         switch (currentSurveyPageType) {
             case kOk:
-                NSLog(@"Loading view content for ok survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for ok survey page with index=%d...", surveyPageIndex);
                 currentPromptLabel.text = currentPromptString;
                 break;
             case kAgreementPainScale:
-                NSLog(@"Loading view content for agreement-painscale survey page with index=%d...", surveyPageIndex);
-                NSLog(@"sandy Verify that this is new_painscale_template and set fontsize here");
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for agreement-painscale survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() sandy Verify that this is new_painscale_template and set fontsize here");
                 currentPromptLabel.text = currentPromptString;
                 currentSatisfactionLabel.text = currentSatisfactionString;
                 break;
             case kAgreeDisagree:
-                NSLog(@"Loading view content for agree-disagree survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for agree-disagree survey page with index=%d...", surveyPageIndex);
                 //    IBOutlet UIButton *newDisagreeButton;
                 //    IBOutlet UIButton *newAgreeButton;
                 
@@ -747,7 +750,7 @@
                 //    IBOutlet NSString *newAgreeDisagreeText;
                 break;
             case kYesNo:
-                NSLog(@"Loading view content for yes-no survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for yes-no survey page with index=%d...", surveyPageIndex);
                 //    // Yes-No iVars
                 //    IBOutlet UIButton *newNoButton;
                 //    IBOutlet UIButton *newYesButton;
@@ -759,7 +762,7 @@
                 //    IBOutlet NSString *newYesNoText;
                 break;
             case kProviderTest:
-                NSLog(@"Loading view content for provider-test survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for provider-test survey page with index=%d...", surveyPageIndex);
                 //    // Provider Test iVars
                 //    provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb
                 [provider1ImageButton setImage:[UIImage imageNamed:provider1ImageThumb] forState:UIControlStateNormal];
@@ -803,11 +806,11 @@
                 //    IBOutlet NSString *providerTestText;
                 break;
             case kSubclinicTest:
-                NSLog(@"Loading view content for subclinic-test survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for subclinic-test survey page with index=%d...", surveyPageIndex);
                 //    // Subclinic Test iVars
                 //                subclinic1Text, subclinic2Text, subclinic3Text, subclinic4Text,
                 
-                NSLog(@"subclinic1Text=%@\nsubclinic2Text=%@\nsubclinic3Text=%@\nsubclinic4Text=%@",subclinic1Text,subclinic2Text,subclinic3Text,subclinic4Text);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() subclinic1Text=%@\nsubclinic2Text=%@\nsubclinic3Text=%@\nsubclinic4Text=%@",subclinic1Text,subclinic2Text,subclinic3Text,subclinic4Text);
                 
                 //                subclinic1TextButton.titleLabel.text = subclinic1Text;
                 [subclinic1TextButton setTitle:subclinic1Text forState:UIControlStateNormal];
@@ -826,7 +829,7 @@
                 //    IBOutlet NSString *subclinicTestText;
                 break;
             case kHelpfulPainScale:
-                NSLog(@"Loading view content for helpful-painscale survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for helpful-painscale survey page with index=%d...", surveyPageIndex);
                 //    // Helpful iVars
                 //    IBOutlet UISegmentedControl *helpfulRating;
                 
@@ -837,10 +840,10 @@
                 //                NSString *currentPromptString;
                 break;
             case kChooseGoal:
-                NSLog(@"Loading view content for choose-goal survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for choose-goal survey page with index=%d...", surveyPageIndex);
                 // Choose Goal iVars
                 //                goal1Text, goal2Text, goal3Text, goal4Text;
-                NSLog(@"goal1Text=%@\ngoal2Text=%@\ngoal3Text=%@\ngoal4Text=%@\ngoal5Text=%@",goal1Text,goal2Text,goal3Text,goal4Text,goal5Text);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() goal1Text=%@\ngoal2Text=%@\ngoal3Text=%@\ngoal4Text=%@\ngoal5Text=%@",goal1Text,goal2Text,goal3Text,goal4Text,goal5Text);
                 
                 NSString *currentRespondent = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType];
                 
@@ -884,7 +887,7 @@
                 
                 break;
             case kRateGoalPainScale:
-                NSLog(@"Loading view content for rate-goal-painscale survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for rate-goal-painscale survey page with index=%d...", surveyPageIndex);
                 //
                 //    // Rate Goal iVars
                 //    IBOutlet UISegmentedControl *goalRating;
@@ -896,7 +899,7 @@
                 //    IBOutlet NSString *goalRateText;
                 break;
             case kGeneralSurveyPage:
-                NSLog(@"Loading view content for general survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for general survey page with index=%d...", surveyPageIndex);
                 
                 currentPromptLabel.text = currentPromptString;
                 
@@ -904,7 +907,7 @@
                 //                NSString *currentPromptString;
                 break;
             case kChooseModule:
-                NSLog(@"Loading view content for choose module survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for choose module survey page with index=%d...", surveyPageIndex);
                 chooseModuleLabel.text = chooseModuleText;
                 extraModule1Label.text = extraModule1Text;
                 extraModule2Label.text = extraModule2Text;
@@ -912,7 +915,7 @@
                 //                module1Button, module2Button, chooseModuleLabel, chooseModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text;
                 break;
             case kEnterGoal:
-                NSLog(@"Loading view content for enter goal survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for enter goal survey page with index=%d...", surveyPageIndex);
                 
 //                currentPromptLabel.text = currentPromptString;
                 
@@ -1571,7 +1574,7 @@
 }
 
 - (IBAction)module1ButtonPressed:(id)sender {
-    NSLog(@"module1ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.module1ButtonPressed()");
     
     module1Button.enabled = NO;
     

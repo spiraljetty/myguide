@@ -141,6 +141,7 @@
     [self.view addSubview:bar];
     
     [self createAdditionalSurveyLabelArrays];
+
     
 //    [self addNewActionsToButtons];
 	
@@ -548,7 +549,6 @@
     sqlite3_stmt *compiledStatement;
     NSString *sqlStatementString;
     // Setup the SQL Statement and compile it for faster access
-    //rjl possible crash here
     sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
@@ -1121,7 +1121,6 @@
     
     BOOL shouldCurrentlyPlayMidwaySound = NO;
     
-    //rjl the following call to isCurrentSatisfactionItemMidwayWithIndex always inserts the phrase "as a result"  in case of patient index < 22 (its 21 here)
     shouldCurrentlyPlayMidwaySound = [self isCurrentSatisfactionItemMidwayWithIndex:thisPageIndex];
     
     NSString *currentQuestionKey = [NSString stringWithFormat:@"%@_q_%d",respondentType,thisPageIndex];

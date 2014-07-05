@@ -893,8 +893,6 @@
     NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
     //    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit with Dr. %@, you shared that you wanted to: %@", thisPhysicianNameAlone,todaysGoal];
     
-//    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Hello, before your visit you shared this goal:", thisPhysicianNameAlone,todaysGoal];
-    
 //    NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit you shared this goal: %@", thisPhysicianNameAlone,todaysGoal];// rjl
 
     NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit you shared this goal: %@",todaysGoal];// rjl
@@ -1319,7 +1317,7 @@
 #pragma mark DynamicButtonOverlayDelegate Methods
 
 - (void)overlayNextPressed {
-    NSLog(@"DynamicSurveyViewController_Pad.overlayNextPressed()"); //rjl
+    NSLog(@"DynamicSurveyViewController_Pad.overlayNextPressed()");
     [self progress:self];
   //  currentWRViewController.view.frame = [[UIScreen mainScreen] applicationFrame];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
@@ -1463,16 +1461,17 @@
 // Transition to new view using custom segue
 - (void)switchToView:(int) newIndex goingForward:(BOOL) goesForward
 {
+    NSLog(@"DynamicSurveyViewController_Pad.switchToView() index %d", newIndex);
     
     if (finishingLastItem)
     {
         if (vcIndex == 6) {
-            NSLog(@"setCompletedProviderAndSubclinicSurvey=YES");
+            NSLog(@"DynamicSurveyViewController_Pad.switchToView() setCompletedProviderAndSubclinicSurvey=YES");
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setCompletedProviderAndSubclinicSurvey:YES];
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] finishedPartOfDynamicSurvey];
             
         } else if (vcIndex == 19) {
-            NSLog(@"setCompletedFinalSurvey:YES");
+            NSLog(@"DynamicSurveyViewController_Pad.switchToView() setCompletedFinalSurvey:YES");
             
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setCompletedFinalSurvey:YES];
             
@@ -1496,7 +1495,7 @@
         
     } else {
         
-        NSLog(@"SWITCHING from dynamic survey item %d to item %d", vcIndex, newIndex);
+        NSLog(@"DynamicSurveyViewController_Pad.switchToView() SWITCHING from dynamic survey item %d to item %d", vcIndex, newIndex);
         
         // Segue to the new controller
         UIViewController *source = [newChildControllers objectAtIndex:vcIndex];
@@ -1515,8 +1514,14 @@
         [self playSoundForSurveyPage:[newChildControllers objectAtIndex:vcIndex]];
         
         if (vcIndex == currentFinishingIndex) {
-            NSLog(@"LAST PAGE");
+            NSLog(@"DynamicSurveyViewController_Pad.switchToView() LAST PAGE");
             finishingLastItem = YES;
+            @try {
+//               [[[AppDelegate_Pad sharedAppDelegate] miniDemoVC] menuButtonPressed];  //rjl 6/26/14
+            }
+            @catch(NSException *ne){
+                NSLog(@"DynamicSurveyViewController_Pad.switchToView() ERROR");
+            }
             // sandy turn off previous button if finished with survey - too late here
             //standardPageButtonOverlay.previousPageButton.enabled = NO;
             
@@ -1526,7 +1531,7 @@
         }
         
         if (vcIndex == 0) {
-            NSLog(@"FIRST PAGE");
+            NSLog(@"DynamicSurveyViewController_Pad.switchToView() FIRST PAGE");
             standardPageButtonOverlay.previousPageButton.enabled = NO;
         } else {
             standardPageButtonOverlay.previousPageButton.enabled = YES;
@@ -1543,7 +1548,7 @@
 }
 
 - (void)handleButtonOverlayForPageIndex:(int)thisPageIndex {
-    NSLog(@"In DynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex: %d...",thisPageIndex);
+    NSLog(@"DynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex() thisPageIndex: %d",thisPageIndex);
     SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:thisPageIndex];
     if (currentSwitchedController.hidePreviousButton) {
         //        [standardPageButtonOverlay fadeThisObjectOut:standardPageButtonOverlay.previousPageButton];
