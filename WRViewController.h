@@ -131,6 +131,7 @@ typedef enum {
     
     DemoViewController *keypadViewController;
     
+    NSTimer *middleOfSplashTimer;
     NSTimer *endOfSplashTimer;
     
     BOOL splashAnimationsFinished;
@@ -179,6 +180,7 @@ typedef enum {
     IBOutlet UILabel *readAloudLabel;
     IBOutlet UILabel *respondentLabel;
     IBOutlet UILabel *selectActivityLabel;
+    IBOutlet UILabel *presurveyIntroLabel;
     IBOutlet UILabel *surveyIntroLabel;
     IBOutlet UILabel *surveyCompleteLabel;
     
@@ -194,6 +196,7 @@ typedef enum {
     IBOutlet UIButton *familyButton;
     IBOutlet UIButton *caregiverButton;
     IBOutlet UIButton *tbiEdButton;
+    IBOutlet UIButton *comingSoonButton;
     IBOutlet UIButton *satisfactionButton;
     IBOutlet UIButton *newsButton;
     IBOutlet UIButton *clinicButton;
@@ -449,6 +452,7 @@ typedef enum {
 @property (nonatomic, retain) UILabel *readAloudLabel;
 @property (nonatomic, retain) UILabel *respondentLabel;
 @property (nonatomic, retain) UILabel *selectActivityLabel;
+@property (nonatomic, retain) UILabel *presurveyIntroLabel;
 @property (nonatomic, retain) UILabel *surveyIntroLabel;
 @property (nonatomic, retain) UILabel *surveyCompleteLabel;
 
@@ -462,6 +466,7 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UIButton *satisfactionButton;
 @property (nonatomic, retain) IBOutlet UIButton *caregiverButton;
 @property (nonatomic, retain) IBOutlet UIButton *tbiEdButton;
+@property (nonatomic, retain) IBOutlet UIButton *comingSoonButton;
 @property (nonatomic, retain) IBOutlet UIButton *newsButton;
 @property (nonatomic, retain) IBOutlet UIButton *clinicButton;
 

@@ -231,7 +231,7 @@
 }
 
 - (void)goForward {
-    NSLog(@"goForward dynamicSurveyModule...");
+    NSLog(@"DynamicSurveyViewController_Pad.goForward() dynamicSurveyModule...");
     [self overlayNextPressed];
 }
 

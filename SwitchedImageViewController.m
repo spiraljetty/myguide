@@ -25,7 +25,7 @@
 @synthesize provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb;
 @synthesize delegate, surveyPageIndex, isSurveyPage;
 @synthesize provider1Text, provider2Text, provider3Text, provider4Text, subclinic1Text, subclinic2Text, subclinic3Text, subclinic4Text, goal1Text, goal2Text, goal3Text, goal4Text, goal5Text, helpfulLabel, helpfulText, extraNoLabel, extraNoText, extraYesLabel, extraYesText;
-@synthesize module1Button, module2Button, chooseModuleLabel, chooseModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text, enterGoalTextField, userEnteredGoalText;
+@synthesize module1Button, module2Button, module3Button, module4Button, chooseModuleLabel, chooseModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text, enterGoalTextField, userEnteredGoalText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -1595,5 +1595,27 @@
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] menuButtonPressed:[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] newsButton]];
 }
+
+- (void)showComingSoonAlert {
+    [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc]  sayComingSoon];
+    UIAlertView *comingSoonAlert = [[UIAlertView alloc] initWithTitle:@"Feature Unavailable" message:@"This Feature is coming soon!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    comingSoonAlert.delegate = self;
+    [comingSoonAlert show];
+    [comingSoonAlert release];
+}
+
+- (IBAction)module3ButtonPressed:(id)sender {
+    NSLog(@"SwitchedImageViewcontroller.module3ButtonPressed()");
+    [self showComingSoonAlert];
+}
+
+- (IBAction)module4ButtonPressed:(id)sender {
+    NSLog(@"SwitchedImageViewcontroller.module4ButtonPressed()");
+    [self showComingSoonAlert];
+}
+
+
+
+
 
 @end

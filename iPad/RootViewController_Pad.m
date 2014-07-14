@@ -391,7 +391,7 @@
     
    databaseName = @"myguide_WR_db_d.sql";
     //sandy updated dbase name but the table is not being written properly
-    //databaseName = @"myguide_WR_db_f.sql";
+    //databaseName = @"myguide_WR_db_e.sql";
     mainTable = @"sessiondata";
     csvpath = @"satisfactiondata.csv";
     
@@ -446,7 +446,7 @@
 }
 
 -(void)openDB {
-    NSLog(@"====== DB Open ========");
+    NSLog(@"RootViewController_Pad.openDB() ====== DB Open ========");
     if(sqlite3_open([[self filePath]UTF8String], &db) !=SQLITE_OK)
     {
         sqlite3_close(db);
@@ -457,7 +457,7 @@
 -(void)closeDB {
     @try {
         sqlite3_close(db);
-        NSLog(@"====== DB Closed ======");
+        NSLog(@"RootViewController_Pad.openDB() ====== DB Closed ======");
     }
     @catch(NSException *ne){
         NSLog(@"RootViewController.closeDB() ERROR");
@@ -726,7 +726,7 @@
     
         [self openDB];
     
-        NSLog(@"getAllUniqueIds");
+        NSLog(@"RootViewController.getAllUniqueIds()");
         
         NSMutableArray *allUniqueIds = [[NSMutableArray alloc] initWithObjects: nil];
         
@@ -2237,6 +2237,10 @@
     
     NSString *read_sound = @"would_you_like_me_to_read_new";
     
+    NSString *participation_is_voluntary_sound = @"~privacy_policy";
+// sandy original 4 sentence phrase
+//    NSString *participation_is_voluntary_sound = @"~participation_is_voluntary_new";
+    
     NSMutableArray *soundFilenamesToRead = [[NSMutableArray alloc] initWithObjects: nil];
     
     if ([[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] isFirstVisit]) {
@@ -2272,7 +2276,12 @@
     }
     
     [soundFilenamesToRead addObject:@"silence_half_second"];
-    [soundFilenamesToRead addObject:read_sound];
+//    [soundFilenamesToRead addObject:@"silence_half_second"];
+//    [soundFilenamesToRead addObject:@"silence_half_second"];
+    [soundFilenamesToRead addObject:@"silence_half_second"];
+    [soundFilenamesToRead addObject:participation_is_voluntary_sound]; //rjl 7/8/14
+    [soundFilenamesToRead addObject:@"silence_half_second"];
+    [soundFilenamesToRead addObject:read_sound]; //rjl 7/8/14 TTS for "Would you like me to read the questions out loud?"
     NSLog(@"- %@",read_sound);
 
     if (speakItemsAloud) {
@@ -2548,7 +2557,10 @@
             respondentSurveyPath = @"caregiver_satisfaction_survey_new";
         }
         
-        [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:respondentSurveyPath,@"~participation_is_voluntary_new", nil]];
+        // sandy original string contains 4th phrase
+        //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:respondentSurveyPath,@"~participation_is_voluntary_new", nil]];
+        
+        [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:respondentSurveyPath,@"~privacy_policy", nil]];
         
 //    NSString *surveyintro_sound_a = [[NSBundle mainBundle]
 //                                   pathForResource:respondentSurveyPath ofType:@"mp3"];
@@ -2646,10 +2658,12 @@
     if (speakItemsAloud) {
     NSString *comingsoon_sound = [[NSBundle mainBundle]
                                    pathForResource:@"coming_soon_short" ofType:@"mp3"];
-    AVPlayerItem *comingsoon_item = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:comingsoon_sound]];
-    [self.queuePlayer removeAllItems];
-    self.queuePlayer = nil;
-    self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:comingsoon_item,nil]];
+    if (comingsoon_sound != NULL){
+        AVPlayerItem *comingsoon_item = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:comingsoon_sound]];
+        [self.queuePlayer removeAllItems];
+        self.queuePlayer = nil;
+        self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:comingsoon_item,nil]];
+    }
     //
     }
 }

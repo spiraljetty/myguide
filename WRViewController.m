@@ -45,10 +45,10 @@
 @synthesize modalContent, needToReturnToMainMenu, wantExtraInfo, wantMiniSurvey, startAtFinalSurvey, startAtMiniSurvey, wantFinalSurvey, checkingForFinalSurvey;
 //@synthesize newViewController;
 @synthesize keycodeField, inTreatmentIntermission;
-@synthesize yesButton, noButton, patientButton, familyButton, caregiverButton, tbiEdButton, satisfactionButton, newsButton, clinicButton;
+@synthesize yesButton, noButton, patientButton, familyButton, caregiverButton, tbiEdButton, comingSoonButton, satisfactionButton, newsButton, clinicButton;
 @synthesize beginSurveyButton, returnToMenuButton, nextSurveyItemButton, previousSurveyItemButton;
 @synthesize firstVisitButton, returnVisitButton, readyAppButton, voiceAssistButton, fontsizeButton;
-@synthesize readAloudLabel, respondentLabel, selectActivityLabel, surveyIntroLabel, surveyCompleteLabel, visitSelectionLabel, selectedClinic, selectedVisit, selectedSubclinic;
+@synthesize readAloudLabel, respondentLabel, selectActivityLabel, surveyIntroLabel, presurveyIntroLabel, surveyCompleteLabel, visitSelectionLabel, selectedClinic, selectedVisit, selectedSubclinic;
 @synthesize popoverViewController;
 @synthesize taperedWhiteLine, demoSwitch, demoModeLabel, clinicSelectionLabel, clinicPickerView, currentClinicName, currentSubClinicName, currentSpecialtyClinicName;
 @synthesize educationModuleCompleted, educationModuleInProgress, satisfactionSurveyCompleted, satisfactionSurveyDeclined, satisfactionSurveyInProgress, cameFromMainMenu, mainMenuInitialized, whatsNewInitialized, dynamicSurveyInitialized, dynamicEdModuleCompleted, whatsNewModuleCompleted, completedProviderSession, completedFinalSurvey, completedProviderAndSubclinicSurvey, usingFullMenu;
@@ -742,6 +742,8 @@ int indexCount;
     totalSlidesInThisSection += thisManySlides;
     NSLog(@"Adding %d to total slides (new total = %d)...",thisManySlides,totalSlidesInThisSection);
 }
+
+
 
 - (void)setNewDetailVCForRow:(int)newRow {
     
@@ -1546,6 +1548,8 @@ int indexCount;
     [surveyTTSItemsDict setObject:@"Caregiver satisfaction survey" forKey:@"caregiver_satisfaction_survey_new"];
     
     [surveyTTSItemsDict setObject:@"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience." forKey:@"~participation_is_voluntary_new"];
+    
+    [surveyTTSItemsDict setObject:@"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic." forKey:@"~privacy_policy"];
     
     [surveyTTSItemsDict setObject:@"We greatly appreciate your feedback since it helps us improve our delivery of high quality healthcare services.  Please tap, agree, if you would like to complete the survey, or disagree, if you would like to return to the main menu." forKey:@"~tap_agree_or_disagree_new"];
     
@@ -2741,6 +2745,8 @@ int indexCount;
 }
 
 - (void)initSplashView {
+    NSLog(@"WRViewController.initSplashView()");
+
     
     splashImageViewB = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vapachs_launch-ipad_landscape.png"]];
     
@@ -2749,14 +2755,20 @@ int indexCount;
     
     splashImageViewB.alpha = 0.0;
     splashImageViewBb.alpha = 0.0;
+    presurveyIntroLabel.alpha = 0.0; //rjl 7/8/14
+    initialSettingsLabel.alpha = 0.0;// sandy 7/13
+    taperedWhiteLine.alpha = 0.0;// sandy 7/13
     
     [self.view addSubview:splashImageViewB];
     [self.view addSubview:splashImageViewBb];
+    [self.view addSubview:presurveyIntroLabel]; //rjl 7/8/14
+    [self.view addSubview:initialSettingsLabel];
+    [self.view addSubview:taperedWhiteLine];
     [self.view sendSubviewToBack:splashImageViewB];
     [self.view sendSubviewToBack:splashImageViewBb];
-    
-    NSLog(@"Initialized splash views");
-	
+    [self.view sendSubviewToBack:presurveyIntroLabel]; //rjl 7/8/14
+    [self.view sendSubviewToBack:initialSettingsLabel];
+    [self.view sendSubviewToBack:taperedWhiteLine];
 }
 
 - (void)selectedDynamicSurveyItemWithSegmentIndex:(int)selectedIndex {
@@ -2773,7 +2785,7 @@ int indexCount;
 }
 
 - (void)animateTabBarOnAndStatusBackIn {
-	NSLog(@"SPLASH 2...");
+	NSLog(@"WRViewController.animateTabBarOnAndStatusBackIn()");
     
     [self.view bringSubviewToFront:splashImageViewB];
     
@@ -2781,15 +2793,15 @@ int indexCount;
     [[AppDelegate_Pad sharedAppDelegate] setCheckingForReachability:NO];
 
     
-    [UIView beginAnimations:@"animateTabBarOnAndButtonsIn" context:nil];
-	{
-		[UIView	setAnimationDuration:1.0];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        
-        //        splashImageView.alpha = 0.0;
-        
-    }
-	[UIView commitAnimations];
+//    [UIView beginAnimations:@"animateTabBarOnAndButtonsIn" context:nil];
+//	{
+//		[UIView	setAnimationDuration:1.0];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//        
+//        //        splashImageView.alpha = 0.0;
+//        
+//    }
+//	[UIView commitAnimations];
 	
 	[UIView beginAnimations:@"animateTabBarOnAndButtonsIn" context:nil];
 	{
@@ -2802,14 +2814,66 @@ int indexCount;
 	}
 	[UIView commitAnimations];
 	
-	endOfSplashTimer = [[NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(finishSplashAnimation:) userInfo:nil repeats:NO] retain];
-	[[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
+	middleOfSplashTimer = [[NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(middleSplashAnimation:) userInfo:nil repeats:NO] retain];
+	[[NSRunLoop currentRunLoop] addTimer:middleOfSplashTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)middleSplashAnimation:(NSTimer*)theTimer {
+    NSLog(@"WRViewController.middleSplashTimer()");
+
+	[self.view bringSubviewToFront:splashImageViewBb];
+
+    
+	[UIView beginAnimations:@"fadeSplashOut" context:nil];
+	{
+		[UIView	setAnimationDuration:1.5];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+		splashImageViewB.alpha = 0.0;
+        splashImageViewBb.alpha = 1.0;
+        
+//        presurveyIntroLabel.alpha = 1.0; //rjl 7/8/14
+		
+	}
+	[UIView commitAnimations];
+	
+	[theTimer release];
+	theTimer = nil;
+    
+    //rjl 7/8/14
+    middleOfSplashTimer = [[NSTimer timerWithTimeInterval:2.0 target:self selector:@selector(finishSplashAnimation:) userInfo:nil repeats:NO] retain];
+	[[NSRunLoop currentRunLoop] addTimer:middleOfSplashTimer forMode:NSDefaultRunLoopMode];
 }
 
 - (void)finishSplashAnimation:(NSTimer*)theTimer {
+    NSLog(@"WRViewController.finishSplashAnimation()");
+    // presurvey info moved to here rjl 7/8/14
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
-	[self.view bringSubviewToFront:splashImageViewBb];
-
+    presurveyIntroLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 800, 600)];
+    presurveyIntroLabel.numberOfLines = 0;
+	presurveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your physician or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
+	presurveyIntroLabel.textColor = [UIColor blackColor];
+	presurveyIntroLabel.backgroundColor = [UIColor clearColor];
+    presurveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
+	presurveyIntroLabel.opaque = YES;
+	[presurveyIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
+    presurveyIntroLabel.transform = rotateRight;
+	presurveyIntroLabel.alpha = 0.0; //rjl 7/8/14
+    
+    [self.view addSubview:presurveyIntroLabel];
+    
+    
+    initialSettingsLabel.text = @"Privacy Policy";
+    initialSettingsLabel.alpha = 0.0;
+    taperedWhiteLine.alpha = 0.0;
+    [self.view bringSubviewToFront:initialSettingsLabel];
+    [self.view bringSubviewToFront:taperedWhiteLine];
+	[self.view bringSubviewToFront:presurveyIntroLabel]; //rjl 7/8/14 ]splashImageViewBb];
+    
+    
+//	[self.view bringSubviewToFront:splashImageViewBb];//presurveyIntroLabel];//rjl 7/8/14
+    
     [self.view sendSubviewToBack:odetteButton];
     [self.view sendSubviewToBack:calvinButton];
     [self.view sendSubviewToBack:lauraButton];
@@ -2823,15 +2887,18 @@ int indexCount;
 		
         //        splashImageViewBb.alpha = 1.0;
         
-        splashImageViewB.alpha = 0.0;
+        splashImageViewBb.alpha = 0.0;
+        presurveyIntroLabel.alpha = 1.0;
+        initialSettingsLabel.alpha = 1.0;
+        taperedWhiteLine.alpha = 1.0;
 		
 	}
 	[UIView commitAnimations];
 	
 	[theTimer release];
 	theTimer = nil;
-    
-    endOfSplashTimer = [[NSTimer timerWithTimeInterval:1.5 target:self selector:@selector(fadeSplashOutAndSlideButtonsIn:) userInfo:nil repeats:NO] retain];
+    // sandy reset view to match length of sound was 20
+    endOfSplashTimer = [[NSTimer timerWithTimeInterval:14.0 target:self selector:@selector(fadeSplashOutAndSlideButtonsIn:) userInfo:nil repeats:NO] retain];
 	[[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
 }
 
@@ -2840,7 +2907,7 @@ int indexCount;
 }
 
 - (void)fadeSplashOutAndSlideButtonsIn:(NSTimer*)theTimer {
-    
+    NSLog(@"WRViewController.fadeSplashOutAndSlideButtonsIn()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
@@ -2850,17 +2917,17 @@ int indexCount;
         
         
         
-        [self.view sendSubviewToBack:splashImageViewB];
+//        [self.view sendSubviewToBack:splashImageViewB];
         
         [UIView beginAnimations:@"fadeSplashOut" context:nil];
         {
-            [UIView	setAnimationDuration:1.5];
+            [UIView	setAnimationDuration:1.0];
             [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
             
             //        splashImageViewC.alpha = 1.0;
             
-            splashImageViewBb.alpha = 1.0;
-            
+//            splashImageViewBb.alpha = 1.0;
+             presurveyIntroLabel.alpha = 0.0;
         }
         [UIView commitAnimations];
         
@@ -3006,7 +3073,7 @@ int indexCount;
 	[theTimer release];
 	theTimer = nil;
 	
-	endOfSplashTimer = [[NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(removeSplashView:) userInfo:nil repeats:NO] retain];
+	endOfSplashTimer = [[NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(removeSplashView:) userInfo:nil repeats:NO] retain];
 	[[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
 	
 }
@@ -3036,8 +3103,10 @@ int indexCount;
 }
 
 - (void)removeSplashView:(NSTimer*)theTimer {
-	NSLog(@"Removing the splash view, tabNAdview, statusViewWhiteBack, splashSpinner and stopping the spinner...");
-    
+	NSLog(@"WRViewController.removeSplashView() tabNAdview, statusViewWhiteBack, splashSpinner and stopping the spinner...");
+    //sandy remove from previous view
+    initialSettingsLabel.alpha = 0.0;
+    taperedWhiteLine.alpha = 0.0;
     if (!skipToPhysicianDetail) {
         [UIView beginAnimations:@"fadeSplashOut" context:nil];
         {
@@ -3057,7 +3126,7 @@ int indexCount;
     //    cubeViewController = [[MyViewController alloc] init];
     //    [self.view addSubview:[cubeViewController view]];
     
-    
+    //sandy move the patient survey consent info to here
     
     //    [self.view bringSubviewToFront:resourceBack]; //uncomment me
     
@@ -3299,6 +3368,25 @@ int indexCount;
     [self.view addSubview:tbiEdButton];
     [self.view sendSubviewToBack:tbiEdButton];
     
+    //comingsoonButton
+    comingSoonButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	comingSoonButton.frame = CGRectMake(0, 0, 318, 214);
+	comingSoonButton.showsTouchWhenHighlighted = YES;
+	[comingSoonButton setImage:[UIImage imageNamed:@"comingsoon_image.png"] forState:UIControlStateNormal];
+	[comingSoonButton setImage:[UIImage imageNamed:@"comingsoon_image_pressed.png"] forState:UIControlStateHighlighted];
+	[comingSoonButton setImage:[UIImage imageNamed:@"comingsoon_image_pressed.png"] forState:UIControlStateSelected];
+	comingSoonButton.backgroundColor = [UIColor clearColor];
+	[comingSoonButton setCenter:CGPointMake(227.0f, 728.0f)]; //sandy this must be shifted to left
+    [comingSoonButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	comingSoonButton.enabled = YES;
+	comingSoonButton.hidden = NO;
+    comingSoonButton.alpha = 0.0;
+	[comingSoonButton retain];
+    comingSoonButton.transform = rotateRight;
+    
+    [self.view addSubview:comingSoonButton];
+    [self.view sendSubviewToBack:comingSoonButton];
+    
     //satisfactionButton
     satisfactionButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	satisfactionButton.frame = CGRectMake(0, 0, 318, 214);
@@ -3511,7 +3599,7 @@ int indexCount;
         [self.view bringSubviewToFront:yesButton];
         [self.view bringSubviewToFront:noButton];
         [self.view bringSubviewToFront:readAloudLabel];
-        
+//        [self.view bringSubviewToFront:presurveyIntroLabel]; //rjl 7/8/14
         
         [UIView beginAnimations:@"fadeSplashOut" context:nil];
         {
@@ -3526,11 +3614,22 @@ int indexCount;
             noButton.alpha = 1.0;
             
             readAloudLabel.alpha = 1.0;
+//            presurveyIntroLabel.alpha = 1.0; //rjl 7/8/14
             
         }
         [UIView commitAnimations];
     }
-    
+    // rjl 7/8/14
+    //[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:tbvc];
+    //[self showMasterButtonOverlay];
+    //[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
+//    @try { //rjl 7/8/14
+//        [self showMasterButtonOverlay];
+//        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton]; //rjl 7/8/14
+//    }
+//    @catch(NSException *ne){
+//        NSLog(@"WRViewController.removeSplashWindow() ERROR");
+//    }
 	
 	[self.view sendSubviewToBack:splashSpinner];
     
@@ -4540,6 +4639,8 @@ int indexCount;
 //        
 //    }
 }
+
+
 
 - (void)menuButtonPressed:(id)sender {
     NSLog(@"WRViewController.menuButtonPressed()");
@@ -5691,7 +5792,7 @@ int indexCount;
 - (void)checkIfCorrectUnlockSettingsPassword {
     NSLog(@"WRViewController.checkIfCorrectUnlockSettingsPassword()");
 
-    if ([keycodeField.text isEqualToString:@"3801"]) {
+    if (keycodeField.text.length > 0 &&  [keycodeField.text isEqualToString:@"3801"]) {
         NSLog(@"Keycode correct!");
         
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutRevealSettingsButton];
@@ -5769,7 +5870,8 @@ int indexCount;
     
     BOOL isPasswordValid = NO;
     
-    if ([keycodeField.text isEqualToString:@"3801"]) {
+    //rjl 7/10/14
+    if (keycodeField.text.length > 0 && [keycodeField.text isEqualToString:@"3801"]) {
         NSLog(@"Keycode correct!");
         
         isPasswordValid = YES;
@@ -5778,8 +5880,8 @@ int indexCount;
         //        [[AppDelegate_Pad sharedAppDelegate] adminShowSendDataButton];
 //        [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminShowSendDataButton];
     } else {
-        
-        if ([tbvc isUniqueIdSuffixInDb:[keycodeField.text intValue]]) {
+        // rjl 7/10/14 ask Dr. Sills what the uniqueId and matching suffix are
+        if (false && keycodeField.text.length > 0 && [tbvc isUniqueIdSuffixInDb:[keycodeField.text intValue]]) {
             // Update uniqueId to id that matches entered suffix
             [tbvc setCurrentUniqueID:[tbvc getUniqueIdWithSuffix:[keycodeField.text intValue]]];
             

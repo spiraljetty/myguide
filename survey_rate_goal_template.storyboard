@@ -26,6 +26,7 @@
                                     <segment title="Slightly False"/>
                                     <segment title="Slightly True"/>
                                 </segments>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <connections>
                                     <action selector="goalRatingSegmentedControlIndexChanged:" destination="2" eventType="valueChanged" id="6a2-K6-YtT"/>
                                 </connections>

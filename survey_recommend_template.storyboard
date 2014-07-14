@@ -26,6 +26,7 @@
                                     <segment title="Very Likely"/>
                                     <segment title="Completely Likely"/>
                                 </segments>
+                                <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <connections>
                                     <action selector="helpfulSegmentedControlIndexChanged:" destination="2" eventType="valueChanged" id="kR4-Pc-0xl"/>
                                 </connections>

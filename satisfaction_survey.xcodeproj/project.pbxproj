@@ -445,6 +445,9 @@
 		3DF8A7D61648F02C0020D897 /* patient_button_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8A7D01648F02C0020D897 /* patient_button_image_pressed.png */; };
 		3DF8A7D71648F02C0020D897 /* patient_button_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8A7D11648F02C0020D897 /* patient_button_image.png */; };
 		3DFE57F7174537960061D5AC /* DSFingerTipWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE57F6174537960061D5AC /* DSFingerTipWindow.m */; };
+		5F0C84231968BC7B00DCA765 /* comingsoon_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84221968BC7B00DCA765 /* comingsoon_image.png */; };
+		5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */; };
+		5FA5252E1973938000297423 /* survey_module_choice_template_fourchoices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */; };
 		B5D5188511757B1B00D5CDD0 /* MainView_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D5188211757B1B00D5CDD0 /* MainView_Phone.xib */; };
 		B5D5188611757B1B00D5CDD0 /* RootViewController_Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D5188411757B1B00D5CDD0 /* RootViewController_Phone.m */; };
 		B5D5188C11757B3100D5CDD0 /* MainView_Pad.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D5188911757B3100D5CDD0 /* MainView_Pad.xib */; };
@@ -980,6 +983,9 @@
 		3DF8A7D11648F02C0020D897 /* patient_button_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient_button_image.png; sourceTree = "<group>"; };
 		3DFE57F5174537960061D5AC /* DSFingerTipWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSFingerTipWindow.h; sourceTree = "<group>"; };
 		3DFE57F6174537960061D5AC /* DSFingerTipWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSFingerTipWindow.m; sourceTree = "<group>"; };
+		5F0C84221968BC7B00DCA765 /* comingsoon_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image.png; sourceTree = "<group>"; };
+		5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image_pressed.png; sourceTree = "<group>"; };
+		5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_module_choice_template_fourchoices.storyboard; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B5D5188211757B1B00D5CDD0 /* MainView_Phone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView_Phone.xib; sourceTree = "<group>"; };
 		B5D5188311757B1B00D5CDD0 /* RootViewController_Phone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController_Phone.h; sourceTree = "<group>"; };
@@ -1723,6 +1729,7 @@
 				3DA8F6B916CC5C5100111C8E /* survey_recommend_template.storyboard */,
 				3DA8F6BA16CC5C5100111C8E /* survey_provider_test_template.storyboard */,
 				3D48FEDF16D2E7E100AF2EF3 /* survey_module_choice_template.storyboard */,
+				5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */,
 				3D1E6F27173819B300145DB9 /* survey_enter_goal_template.storyboard */,
 				3D1B1E4816CDE46600CE9948 /* survey_yes_no_template.storyboard */,
 				3DA8F6BB16CC5C5100111C8E /* survey_rate_goal_template.storyboard */,
@@ -1787,6 +1794,8 @@
 		3DCF2D4F16483A8C00643C98 /* Button_Images */ = {
 			isa = PBXGroup;
 			children = (
+				5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */,
+				5F0C84221968BC7B00DCA765 /* comingsoon_image.png */,
 				3D5A579B167758D20095FA1D /* appointment_button_image_pressed.png */,
 				3D5A579C167758D20095FA1D /* appointment_button_image.png */,
 				3D5A579D167758D20095FA1D /* doctor_button_image_pressed.png */,
@@ -2036,6 +2045,7 @@
 				3DD64C5616490752009E7604 /* whatsnew_image_pressed.png in Resources */,
 				3DD64C5716490752009E7604 /* whatsnew_image.png in Resources */,
 				3DD64C6416491F4B009E7604 /* vapachs_SS_splash2-new_ipad_landscape3.png in Resources */,
+				5FA5252E1973938000297423 /* survey_module_choice_template_fourchoices.storyboard in Resources */,
 				3DD64C66164920AC009E7604 /* vapachs_SS_splash2-new_ipad_landscape3_sml.png in Resources */,
 				3DD64C68164923CD009E7604 /* vapachs_SS_splash2-new_ipad_landscape3_sml2.png in Resources */,
 				3DD64C6A16492C9E009E7604 /* cube_sml.html in Resources */,
@@ -2085,6 +2095,7 @@
 				3D5112FB1664F82A00609EBD /* menu_back_wht_gradient_clearback2.png in Resources */,
 				3D5112FD1664F9B700609EBD /* menu_back_wht_gradient_clearback3.png in Resources */,
 				3D5112FF166505A500609EBD /* psc_staff_collage.png in Resources */,
+				5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */,
 				3DB1BA3216705EA400BC4466 /* WR_app_icon_v2p0.png in Resources */,
 				3DB1BA3416705F3D00BC4466 /* WR_app_icon_v2p0_HD.png in Resources */,
 				3DB1BA3616705F6500BC4466 /* WR_app_icon_v2p0_SD.png in Resources */,
@@ -2212,6 +2223,7 @@
 				3D3EB50F16B0D5B000997C12 /* KYTabBarItem03.png in Resources */,
 				3D3EB51016B0D5B000997C12 /* KYTabBarItem03@2x.png in Resources */,
 				3D3EB51116B0D5B000997C12 /* KYTabBarItem04.png in Resources */,
+				5F0C84231968BC7B00DCA765 /* comingsoon_image.png in Resources */,
 				3D3EB51216B0D5B000997C12 /* KYTabBarItem04@2x.png in Resources */,
 				3D94C77016B216A1005F58E6 /* white_line_gradient.png in Resources */,
 				3D94C77216B216C0005F58E6 /* gears_settings_image_w_tab2.png in Resources */,
