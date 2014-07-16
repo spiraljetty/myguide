@@ -895,7 +895,8 @@
                 currentColIndex++;
                 debugModeTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
                 currentColIndex++;
-                respondentTypeTmp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, currentColIndex)];
+                //respondentTypeTmp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, currentColIndex)];
+                respondentTypeTmp = @"tmp";
                 monthTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
                 currentColIndex++;
                 yearTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
@@ -2560,6 +2561,7 @@
         // sandy original string contains 4th phrase
         //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:respondentSurveyPath,@"~participation_is_voluntary_new", nil]];
         
+        // sandy 3 string privacy policy
         [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:respondentSurveyPath,@"~privacy_policy", nil]];
         
 //    NSString *surveyintro_sound_a = [[NSBundle mainBundle]

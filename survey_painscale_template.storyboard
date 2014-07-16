@@ -26,7 +26,6 @@
                                     <segment title="Agree"/>
                                     <segment title="Strongly Agree"/>
                                 </segments>
-                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="segmentedControlIndexChanged:" destination="2" eventType="valueChanged" id="JSE-h3-eeL"/>
                                 </connections>

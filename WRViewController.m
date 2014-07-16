@@ -114,6 +114,7 @@ int indexCount;
         progressSoFar = 0.0;
         [self resetProgressBar];
         
+        // sandy speech dicts
         allTTSItemsDict = [[NSMutableDictionary alloc] init];
         baseTTSItemsDict = [[NSMutableDictionary alloc] init];
         physiciansTTSItemsDict = [[NSMutableDictionary alloc] init];
@@ -3178,7 +3179,9 @@ int indexCount;
     
     surveyIntroLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 800, 600)];
     surveyIntroLabel.numberOfLines = 0;
-	surveyIntroLabel.text = @"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience.";
+	// sandy original 
+    //surveyIntroLabel.text = @"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience.";
+    surveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your physician or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
 	surveyIntroLabel.textColor = [UIColor blackColor];
 	surveyIntroLabel.backgroundColor = [UIColor clearColor];
     surveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
@@ -6102,7 +6105,8 @@ int indexCount;
 - (void)adminSendDataButtonPressed:(id)sender {
     NSLog(@"WRViewController.adminSendDataButtonPressed is called");
     [self showSpinner];
-//    [tbvc writeLocalDbToCSVFile];
+    // sandy uncommenting this to test csv file
+    [tbvc writeLocalDbToCSVFile];
     [self sendEmailWithDataAttached];
     
     //    [self removeSpinner];
@@ -6127,8 +6131,10 @@ int indexCount;
 - (void)sendEmailWithDataAttached {
     
     NSLog(@"attempting to send data via email...");
+    // sandy updated to attach csv
+    // original BOOL sendCSVFile = NO;
+    BOOL sendCSVFile = YES;
     
-    BOOL sendCSVFile = NO;
     BOOL sendSQLFile = YES;
     
     NSString *attachmentFilename;

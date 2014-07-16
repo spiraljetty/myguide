@@ -167,7 +167,7 @@ typedef enum {
     // Choose Module iVars
     IBOutlet UIButton *module1Button;
     IBOutlet UIButton *module2Button;
-    IBOutlet UIButton *module3Button;
+    IBOutlet UIButton *module3Button;  // for additional education modules
     IBOutlet UIButton *module4Button;
     IBOutlet UILabel *chooseModuleLabel;
     IBOutlet NSString *chooseModuleText;

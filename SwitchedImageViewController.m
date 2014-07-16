@@ -1604,6 +1604,7 @@
     [comingSoonAlert release];
 }
 
+// sandy use survey_module_choice_template_fourchoices.storyboard if there are 4 education modules
 - (IBAction)module3ButtonPressed:(id)sender {
     NSLog(@"SwitchedImageViewcontroller.module3ButtonPressed()");
     [self showComingSoonAlert];
