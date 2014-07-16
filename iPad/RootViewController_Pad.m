@@ -158,11 +158,35 @@
 
 - (void)createAdditionalSurveyLabelArrays {
 //    [NSArray arrayWithObjects:plainPart,csvPart,nil];
+    patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:
+                                     @"The staff treated me with respect.",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Clinic staff put me at ease and took time to hear my concerns.",
+                                     @"I was given clear, understandable information about my concerns and questions.",
+                                     @"The staff involved me in setting my treatment goals.",
+                                     @"My unique treatment needs were addressed.",
+                                      @"I received high quality care.",
+                                     @"I am pleased with the care I have received.",
+                                    @"I would recommend this guide to others.",nil];
+   /*sandy updated 7-14
     patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"I received high quality care.",
-                                    @"Unused Unused",
-                                    @"Unused Unused",
-                                    @"Unused Unused",
-                                    @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
+                                     @"Unused Unused",
                                      @"Unused Unused",
                                      @"Unused Unused",
                                      @"Unused Unused",
@@ -179,7 +203,7 @@
                                      @"My physical functioning has improved.",
                                      @"The overall quality of my life has improved.",
                                      @"I am pleased with the progress I have made.",
-                                     @"The staff treated me with respect.", nil];
+                                     @"The staff treated me with respect.", nil];*/
     familySatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"My loved one received high quality care.",
                                     @"Unused Unused",
                                     @"Unused Unused",
@@ -225,7 +249,7 @@
                                        @"The staff treated me with respect.",
                                        @"The staff treated the patient I care for with respect.", nil];
     
-    patientPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services you received in this clinic, by marking the following scale,",
+ /*   patientPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services you received in this clinic, by marking the following scale,",
                                @"Unused Unused",
                                @"Unused Unused",
                                @"Unused Unused",
@@ -246,7 +270,31 @@
                                @"Please tell us about the services you received in this clinic, by marking the following scale,",
                                @"Please tell us about the services you received in this clinic, by marking the following scale,",
                                     @"Please tell us about the services you received in this clinic, by marking the following scale,",
-                                    @"Please tell us about the services you received in this clinic, by marking the following scale,", nil];
+                                    @"Please tell us about the services you received in this clinic, by marking the following scale,", nil];*/
+    patientPromptLabelItems = [[NSArray alloc] initWithObjects:
+                               @"Please tell us about the services you received in this clinic, by marking the following scale",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               @"Unused Unused",
+                               nil];
     
     familyPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
                                     @"Unused Unused",
@@ -2103,8 +2151,12 @@
     
     [self updateAllSatisfactionLabelItems];
     // sandy thiese will have to be a variable value for new clinics -> currentclinic.totalSurveyItems
+    //sandy 7-14 updated totals 7-16 undo
     totalSurveyItems = 14;
     surveyItemsRemaining = 14;
+
+    //totalSurveyItems = 8;
+    //surveyItemsRemaining = 8;
 }
 
 - (void)setRespondentToFamily:(id)sender {
@@ -2165,9 +2217,13 @@
     item.title = @"Patient Satisfaction Survey";
     
     [self updateAllSatisfactionLabelItems];
-    
+ 
+    //sandy 7-14 updated undid 7-16
     totalSurveyItems = 14;
     surveyItemsRemaining = 14;
+
+    //totalSurveyItems = 8;
+   // surveyItemsRemaining = 8;
 }
 
 - (void)updateRespondentToFamily {

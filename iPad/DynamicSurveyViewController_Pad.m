@@ -419,8 +419,9 @@
  
         //sandy hide the next button here and then show it again after the selection
         providerTest.hideNextButton = YES;
-        
-        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
+// sandy updated 7_15
+        //        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
+        providerTest.providerTestText = @"Please tap the healthcare provider you will be seeing today.";
         
         providerTest.provider1ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider1Index];
         providerTest.provider2ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider2Index];
@@ -455,8 +456,9 @@
         //sandy hide the next button here and then show it again after the selection
         subclinicTest.hidePreviousButton = YES;
         subclinicTest.hideNextButton = YES;
-        
-        subclinicTest.subclinicTestText = @"Based on the information you have been given, please tap the clinic you will be seen in today.";
+ // sandy 7-14
+        //        subclinicTest.subclinicTestText = @"Based on the information you have been given, please tap the clinic you will be seen in today.";
+        subclinicTest.subclinicTestText = @"Please tap the clinic you will be seen in today.";
         subclinicTest.subclinicTestLabel.text = subclinicTest.subclinicTestText;
         
         if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"General PM&R"]) {
@@ -517,7 +519,9 @@
         // original chooseGoalPatient.hidePreviousButton = NO;
         chooseGoalPatient.hidePreviousButton = YES;
         
-        chooseGoalPatient.goalChooseText = @"To better understand your sense of comfort for today's visit, which of the following would you like help with today?";
+        // sandy 7-14
+         //   chooseGoalPatient.goalChooseText = @"To better understand your sense of comfort for today's visit, which of the following would you like help with today?";
+        chooseGoalPatient.goalChooseText = @"Which of the following would you like help with today?";
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
         
         chooseGoalPatient.goal1Text = @"Reduce my pain";
@@ -559,7 +563,9 @@
         // original        miniSurveyPage2.hidePreviousButton = NO;
         miniSurveyPage2.hidePreviousButton = YES;
         // sandy need to read fontsize button here
-        miniSurveyPage2.currentPromptString = @"Please indicate how much you agree or disagree with the following statement:";
+        // sandy 7-14
+        //miniSurveyPage2.currentPromptString = @"Please indicate how much you agree or disagree with the following statement:";
+        miniSurveyPage2.currentPromptString = @"Please indicate how much you agree or disagree with the following statements:";
         miniSurveyPage2.currentPromptLabel.text = miniSurveyPage2.currentPromptString;
         miniSurveyPage2.currentSatisfactionString = @"I understand the reason or reasons for today's visit.";
         miniSurveyPage2.currentSatisfactionLabel.text = miniSurveyPage2.currentSatisfactionString;
@@ -637,7 +643,9 @@
         providerModuleHelpful.isSurveyPage = YES;
         providerModuleHelpful.hidePreviousButton = YES;
         
-        providerModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this information on your doctor.";
+        // sandy 7-14
+        //        providerModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this information on your doctor.";
+        providerModuleHelpful.helpfulText = @"Please indicate how helpful you found this information on your doctor.";
         providerModuleHelpful.view.frame = backsplash.bounds;
         [surveyPageArray addObject:providerModuleHelpful];
         
@@ -654,7 +662,9 @@
         subclinicModuleHelpful.isSurveyPage = YES;
         subclinicModuleHelpful.hidePreviousButton = YES;
         
-        subclinicModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this clinic information.";
+        //sandy 7-14
+        //        subclinicModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this clinic information.";
+        subclinicModuleHelpful.helpfulText = @"Please indicate how helpful you found this clinic information.";
         [surveyPageArray addObject:subclinicModuleHelpful];
         
         pageIndex++;
@@ -711,7 +721,8 @@
         NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
         
         UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
-        
+         //sandy 7-14
+        // goals section of miniSurveypage1 of post survey not used in updated version
         miniSurveyPage1 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage1 retain];
         
@@ -722,7 +733,7 @@
         miniSurveyPage1.hidePreviousButton = YES;
         
         NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Earlier you shared some goals for today's visit."];
-        
+
         if ([todaysGoal isEqualToString:@"None of the Above"]) {
             miniSurveyPage1.currentPromptString = [NSString stringWithFormat:@""];
             miniSurveyPage1.currentPromptLabel.text = miniSurveyPage1.currentPromptString;
@@ -738,8 +749,10 @@
         
         pageIndex++;
         numberOfPostTreatmentItems++;
-        
+        //
         // Waiting Room Comfort Items
+        // sandy 7-14
+        // waiting room comfort survey not used after 7-15
         SwitchedImageViewController *wrComfortPage1 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [wrComfortPage1 retain];
         
@@ -843,7 +856,7 @@
         
         pageIndex++;
         numberOfPostTreatmentItems++;
-        
+   
         SwitchedImageViewController *miniSurveyPage7 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage7 retain];
         
@@ -874,7 +887,7 @@
         miniSurveyPage8.currentSatisfactionString = @"Overall, I like this type of technology.";
         miniSurveyPage8.currentSatisfactionLabel.text = miniSurveyPage8.currentSatisfactionString;
         [surveyPageArray addObject:miniSurveyPage8];
-        
+
         pageIndex++;
         numberOfPostTreatmentItems++;
         //sandy tried to turn of next button at end of survey This is the front button. It gets set at the start of the survey page presentation,
@@ -884,7 +897,7 @@
     
     return surveyPageArray;
 }
-
+//sandy 7-14 goal rating questions removed on 7-15
 - (void)updateGoalRatingText {
     int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
     NSString *currentProviderFullName = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:currentProviderIndex];
@@ -906,7 +919,7 @@
         miniSurveyPage1.currentSatisfactionString = @"Please indicate how much you agree or disagree that today's visit met your expectations regarding this goal.";
     }
 }
-
+// sandy as of version 2.0 this  clinic id test is no longer used
 - (void)showModalSubclinicTestCorrectView {
     NSLog(@"In showModalSubclinicTestCorrectView...");
     
