@@ -96,6 +96,7 @@
     [self.view addSubview:pageControl];
     
     // Load a survey type from storyboard
+    NSLog(@"RootViewController.viewDidLoad() uses storyboard survey_painscale_template");
     UIStoryboard *aStoryboard = [UIStoryboard storyboardWithName:@"survey_painscale_template" bundle:[NSBundle mainBundle]];
     
     NSMutableArray *storyboardControllerArray = [[NSMutableArray alloc] initWithObjects: nil];
@@ -107,7 +108,7 @@
     
     newChildControllers = [[NSMutableArray alloc] initWithArray:storyboardControllerArray];
         
-    NSLog(@"CREATED CHILDCONTROLLERS...");
+    NSLog(@"RootViewController.viewDidLoad() CREATED CHILDCONTROLLERS...");
     
     // Set each child as a child view controller, setting its tag and frame
     for (SwitchedImageViewController *controller in newChildControllers)
@@ -157,23 +158,15 @@
 }
 
 - (void)createAdditionalSurveyLabelArrays {
+    NSLog(@"RootViewController.createAdditionalSurveyLabelArrays()");
+
 //    [NSArray arrayWithObjects:plainPart,csvPart,nil];
     patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:
                                      @"The staff treated me with respect.",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
-                                     @"Unused Unused",
+                                     @"",@"",@"",@"",
+                                     @"",@"",@"",@"",
+                                     @"",@"",@"",@"",
+                                     @"",@"",
                                      @"Clinic staff put me at ease and took time to hear my concerns.",
                                      @"I was given clear, understandable information about my concerns and questions.",
                                      @"The staff involved me in setting my treatment goals.",
@@ -181,6 +174,16 @@
                                       @"I received high quality care.",
                                      @"I am pleased with the care I have received.",
                                     @"I would recommend this guide to others.",nil];
+     
+    /*patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:
+                                     @"The staff treated me with respect.",
+                                     @"Clinic staff put me at ease and took time to hear my concerns.",
+                                     @"I was given clear, understandable information about my concerns and questions.",
+                                     @"The staff involved me in setting my treatment goals.",
+                                     @"My unique treatment needs were addressed.",
+                                     @"I received high quality care.",
+                                     @"I am pleased with the care I have received.",
+                                     @"I would recommend this guide to others.",nil];*/
    /*sandy updated 7-14
     patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"I received high quality care.",
                                      @"Unused Unused",
@@ -271,30 +274,19 @@
                                @"Please tell us about the services you received in this clinic, by marking the following scale,",
                                     @"Please tell us about the services you received in this clinic, by marking the following scale,",
                                     @"Please tell us about the services you received in this clinic, by marking the following scale,", nil];*/
-    patientPromptLabelItems = [[NSArray alloc] initWithObjects:
+   patientPromptLabelItems = [[NSArray alloc] initWithObjects:
                                @"Please tell us about the services you received in this clinic, by marking the following scale",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
-                               @"Unused Unused",
+                               @"",@"",@"",@"",
+                               @"",@"",@"",@"",
+                               @"",@"",@"",@"",
+                               @"",@"",@"",@"",
+                               @"",@"",@"",@"",@"",
                                nil];
+    /*patientPromptLabelItems = [[NSArray alloc] initWithObjects:
+                               @"Please tell us about the services you received in this clinic, by marking the following scale",
+                               @"",@"",@"",@"",
+                               @"",@"",@"",
+                               nil];*/
     
     familyPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
                                     @"Unused Unused",
@@ -1167,6 +1159,7 @@
 }
 
 - (void)playSoundForIndex:(int)thisPageIndex {
+    // sandy 7-16 will disable the sound prompts after first patient satisfaction survey question here I think may have to do major revision to make this match
     
     BOOL shouldCurrentlyPlayMidwaySound = NO;
     
@@ -1177,9 +1170,11 @@
     NSString *midwayItemPath;
 //    NSString *midwayItemSound;
 //    AVPlayerItem *midwayItemToPlay;
+ 
     
+    //sandy 7-16 this is played during the satisfaction survey
     if (shouldCurrentlyPlayMidwaySound) {
-        
+ //not hit until q17
         if ([respondentType isEqualToString:@"patient"]) {
             midwayItemPath = @"as_a_result_of_my_coming_prompt_new";
             
@@ -1195,7 +1190,7 @@
             
 //            currentPromptString = @"As a result of coming to the clinic and therapies,";
         }
-        
+
     } else {
         if ([respondentType isEqualToString:@"patient"]) {
             midwayItemPath = @"Patient_please_tell_about_clinic_by_marking_new";
@@ -1225,6 +1220,7 @@
 - (void)switchToView: (int) newIndex goingForward: (BOOL) goesForward
 {
 
+    finishingLastItem = [self isCurrentSatisfactionItemLastWithIndex:vcIndex]; //rjl 7/15/14
     if (finishingLastItem )
     {
         
@@ -1247,7 +1243,7 @@
     } else {
         
         
-        NSLog(@"SWITCHING from item %d to item %d", vcIndex, newIndex);
+        NSLog(@"RootViewController_Pad.switchtoview() SWITCHING from item %d to item %d", vcIndex, newIndex);
         
         // Prepare for segue by disabling bar buttons
         item.rightBarButtonItem.enabled = NO;
@@ -1364,7 +1360,8 @@
             finishingLastItem = [self isCurrentSatisfactionItemLastWithIndex:vcIndex];
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] activateSurveyBackButton];
             [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showPreviousButton];
-            surveyItemsRemaining = totalSurveyItems - 15;
+            NSLog(@"RootViewController_Pad.switchtoview() totalSurveyItems: %d", totalSurveyItems);
+            surveyItemsRemaining = 0;// rjl 7/15/14 totalSurveyItems - 15;
         } else if (vcIndex == 13) {
 //            current_satisfaction_sound_item = satisfaction_sound_16_item;
             finishingLastItem = [self isCurrentSatisfactionItemLastWithIndex:vcIndex];
@@ -1853,11 +1850,11 @@
 }
 
 - (BOOL)isCurrentSatisfactionItemLastWithIndex:(int)thisIndex {
-    
+    NSLog(@"RootViewController_Pad.isCurrentSatisfactionItemLastWithIndex() index: %d", thisIndex);
     BOOL isCurrentIndexLast = NO;
     
     if ([respondentType isEqualToString:@"patient"]) {
-        if (thisIndex == 9) {
+        if (thisIndex == 15){// rjl 7/15/14 ==9) {
             isCurrentIndexLast = YES;
         }
     } else if ([respondentType isEqualToString:@"family"]) {
@@ -1870,9 +1867,10 @@
         }
     }
     
-    if (isCurrentIndexLast) {
-        NSLog(@"Should end after this index: %d", thisIndex);
-    }
+    if (isCurrentIndexLast)
+        NSLog(@"RootViewController_Pad.isCurrentSatisfactionItemLastWithIndex() isCurrentIndexLast = true");
+    else
+      NSLog(@"RootViewController_Pad.isCurrentSatisfactionItemLastWithIndex() isCurrentIndexLast = false");
     
     return isCurrentIndexLast;
 }
@@ -2223,7 +2221,7 @@
     surveyItemsRemaining = 14;
 
     //totalSurveyItems = 8;
-   // surveyItemsRemaining = 8;
+    //surveyItemsRemaining = 8;
 }
 
 - (void)updateRespondentToFamily {
@@ -2514,10 +2512,9 @@
 }
 
 - (void)sayFirstItem {
-    
     if ([respondentType isEqualToString:@"patient"]) {
-        totalSurveyItems = 20;
-        surveyItemsRemaining = 20;
+        totalSurveyItems = 8;//rjl 7/15/14 20;
+        surveyItemsRemaining = 8;//rjl 7/15/14 20;
     } else if ([respondentType isEqualToString:@"family"]) {
         totalSurveyItems = 24;
         surveyItemsRemaining = 24;
@@ -2525,7 +2522,8 @@
         totalSurveyItems = 28;
         surveyItemsRemaining = 28;
     }
-    
+    NSLog(@"RootViewController.sayFirstItem() totalSurveyItems %d", totalSurveyItems);
+
     NSString *preFirstItemPath;
     NSString *firstItemPath;
 //    

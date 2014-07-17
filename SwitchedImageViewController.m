@@ -471,7 +471,14 @@
         [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedSatisfactionWithVC:self andSegmentIndex:segmentedControlEquivalentIndexSelected];
     } else {
         
-        UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
+        /* sandy 7-16 make template conditional hack
+                NSLog(@"SwitchedImageViewController.faceButtonPressed() uses storyboard survey_NEW_painscale_template or noprompt if subsequent session "firstsatisfactionsurveyquestion);
+        if(!firstsatisfactionsurveyquestion){
+          UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
+        }
+        else*/
+            UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
+        
         
         SwitchedImageViewController *tempSurveyPage = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         

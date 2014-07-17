@@ -447,6 +447,7 @@
 		3DFE57F7174537960061D5AC /* DSFingerTipWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE57F6174537960061D5AC /* DSFingerTipWindow.m */; };
 		5F0C84231968BC7B00DCA765 /* comingsoon_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84221968BC7B00DCA765 /* comingsoon_image.png */; };
 		5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */; };
+		5F64B31F19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */; };
 		5FA5252E1973938000297423 /* survey_module_choice_template_fourchoices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */; };
 		B5D5188511757B1B00D5CDD0 /* MainView_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D5188211757B1B00D5CDD0 /* MainView_Phone.xib */; };
 		B5D5188611757B1B00D5CDD0 /* RootViewController_Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D5188411757B1B00D5CDD0 /* RootViewController_Phone.m */; };
@@ -985,6 +986,7 @@
 		3DFE57F6174537960061D5AC /* DSFingerTipWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSFingerTipWindow.m; sourceTree = "<group>"; };
 		5F0C84221968BC7B00DCA765 /* comingsoon_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image.png; sourceTree = "<group>"; };
 		5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image_pressed.png; sourceTree = "<group>"; };
+		5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_new_painscale_noprompt_template.storyboard; sourceTree = "<group>"; };
 		5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_module_choice_template_fourchoices.storyboard; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B5D5188211757B1B00D5CDD0 /* MainView_Phone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainView_Phone.xib; sourceTree = "<group>"; };
@@ -1724,6 +1726,7 @@
 				3D7323A216C9EA3A00602E61 /* survey_painscale_template.storyboard */,
 				3DA8F6B716CC5C5100111C8E /* survey_agree_disagree_template.storyboard */,
 				3D2ACACA16D3E6DC00E37B7B /* survey_new_painscale_template.storyboard */,
+				5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */,
 				3DA8F6B816CC5C5100111C8E /* survey_choose_goal_template.storyboard */,
 				3D70C0B716CD6D9D00A94AD6 /* survey_helpful_template.storyboard */,
 				3DA8F6B916CC5C5100111C8E /* survey_recommend_template.storyboard */,
@@ -2309,6 +2312,7 @@
 				3DD3249F17020CF300FE3D28 /* pmnr_kingery2.png in Resources */,
 				3DD324A117020CFF00FE3D28 /* pmnr_kingery_thumb2.png in Resources */,
 				3D022B5F170F740E0051CCDE /* vapahcs_new_PMNR_logo_splash_landscape.png in Resources */,
+				5F64B31F19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard in Resources */,
 				3D022B60170F740E0051CCDE /* vapahcs_new_polytrauma_logo_splash_landscape.png in Resources */,
 				3DD05B9B1713379A00746186 /* myguide_WR_db_a.sql in Resources */,
 				3DD05B9D1713479400746186 /* myguide_WR_db_b.sql in Resources */,

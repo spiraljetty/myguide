@@ -549,7 +549,7 @@
         [surveyPageArray addObject:chooseGoalPatient];
         
         pageIndex++;
-        
+        NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() using minisurveypage2 survey_new_Painscale_template");
         UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
         
         SwitchedImageViewController *miniSurveyPage2 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
@@ -573,8 +573,11 @@
         [surveyPageArray addObject:miniSurveyPage2];
         
         pageIndex++;
+        // sandy 7-16 using simplepainscaleStoryboard with no label instead of painScaleStoryboard
+        NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() using minisurveypage3 survey_new_Painscale_noprompt_template");
+        UIStoryboard *simplePainscaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
         
-        SwitchedImageViewController *miniSurveyPage3 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        SwitchedImageViewController *miniSurveyPage3 = [simplePainscaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage3 retain];
         
         miniSurveyPage3.currentSurveyPageType = kAgreementPainScale;
@@ -582,15 +585,17 @@
         miniSurveyPage3.delegate = self;
         miniSurveyPage3.isSurveyPage = YES;
         miniSurveyPage3.hidePreviousButton = NO;
-        miniSurveyPage3.currentPromptString = miniSurveyPage2.currentPromptString;
-        miniSurveyPage3.currentPromptLabel.text = miniSurveyPage3.currentPromptString;
+        miniSurveyPage3.currentPromptString = @"";
+       // sandy 7-16 removed prompt label here instead of on form to roll back if needed
+        // original miniSurveyPage3.currentPromptLabel.text = miniSurveyPage3.currentPromptString;
+        miniSurveyPage3.currentPromptLabel.text = @"";
         miniSurveyPage3.currentSatisfactionString = @"I feel prepared for today's visit.";
         miniSurveyPage3.currentSatisfactionLabel.text = miniSurveyPage3.currentSatisfactionString;
         [surveyPageArray addObject:miniSurveyPage3];
         
         pageIndex++;
-        
-        SwitchedImageViewController *miniSurveyPage4 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        // sandy 7-16 using simplepainscaleStoryboard with no label
+        SwitchedImageViewController *miniSurveyPage4 = [simplePainscaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage4 retain];
         
         miniSurveyPage4.currentSurveyPageType = kAgreementPainScale;
@@ -598,14 +603,16 @@
         miniSurveyPage4.delegate = self;
         miniSurveyPage4.isSurveyPage = YES;
         miniSurveyPage4.hidePreviousButton = NO;
-        miniSurveyPage4.currentPromptString = miniSurveyPage2.currentPromptString;
-        miniSurveyPage4.currentPromptLabel.text = miniSurveyPage4.currentPromptString;
+        miniSurveyPage4.currentPromptString = @"";
+        // sandy 7-16 removed prompt label here instead of on form to roll back if needed
+        //miniSurveyPage4.currentPromptLabel.text = miniSurveyPage4.currentPromptString;
+         miniSurveyPage4.currentPromptLabel.text = @"";
         miniSurveyPage4.currentSatisfactionString = @"I am looking forward to today's visit.";
         miniSurveyPage4.currentSatisfactionLabel.text = miniSurveyPage4.currentSatisfactionString;
         [surveyPageArray addObject:miniSurveyPage4];
         
         pageIndex++;
-        
+                NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages() miniSurveyPageTransition uses storyboard survey_blank_template");
         UIStoryboard *generalSurveyStoryboard = [UIStoryboard storyboardWithName:@"survey_blank_template" bundle:[NSBundle mainBundle]];
         
         SwitchedImageViewController *miniSurveyPageTransition = [generalSurveyStoryboard instantiateViewControllerWithIdentifier:@"0"];
@@ -631,7 +638,7 @@
         [surveyPageArray addObject:miniSurveyPageTransition];
         
         pageIndex++;
-        
+        NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages() provider module helpful uses storyboard survey_helpful_template");
         UIStoryboard *helpfulStoryboard = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
         
         SwitchedImageViewController *providerModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
@@ -713,13 +720,13 @@
         
         pageIndex++;
         numberOfPostTreatmentItems++;
-        
+        NSLog(@"DynamicSurveyViewController_Pad.addMiniSurveyItems() numberOfPostTreatmentItems %d",numberOfPostTreatmentItems);
         //        int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
         NSString *currentProviderFullName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianName];
         
         NSMutableArray *physicianNameTokens = [[NSMutableArray alloc] initWithArray:[currentProviderFullName componentsSeparatedByString:@","] copyItems:YES];
         NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
-        
+        NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() right before goals section of minisurveypages survey_new_Painscale_template");
         UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
          //sandy 7-14
         // goals section of miniSurveypage1 of post survey not used in updated version
@@ -890,6 +897,7 @@
 
         pageIndex++;
         numberOfPostTreatmentItems++;
+       
         //sandy tried to turn of next button at end of survey This is the front button. It gets set at the start of the survey page presentation,
        // miniSurveyPage8.hideNextButton = YES;
         
@@ -1126,7 +1134,7 @@
     
     [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"silence_quarter_second", nil]];
     
-    NSLog(@"starting on survey page: %d and ending on survey page: %d...", pageIndex, finishingPageIndex);
+    NSLog(@"DynamicSurveyViewController.startOnSurveyPageWithIndex() start and stop index! starting on survey page: %d and ending on survey page: %d...", pageIndex, finishingPageIndex);
     
     currentFinishingIndex = finishingPageIndex;
     finishingLastItem = NO;
@@ -1147,7 +1155,7 @@
     
     [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"silence_quarter_second", nil]];
     
-    NSLog(@"starting on survey page: %d...", pageIndex);
+    NSLog(@"DynamicSurveyViewController.startOnSurveyPageWithIndex() start index only! starting on survey page: %d...", pageIndex);
     
     finishingLastItem = NO;
     
@@ -1165,7 +1173,7 @@
 
 - (void)startingFirstMiniSurveyPage {
     
-    NSLog(@"startingFirstPage of dynamic module...");
+    NSLog(@"DynamicSurveyViewController.startingFirstMiniSurveyPage() startingFirstPage of dynamic module...");
     
     //    DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
     
@@ -1194,7 +1202,7 @@
 }
 
 - (void)startingFinalSurveyPage {
-    
+        NSLog(@"DynamicSurveyViewController.startingFinalMiniSurveyPage()");
 }
 
 - (void)playSoundForCurrentSurveyPage {

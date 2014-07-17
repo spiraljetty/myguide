@@ -1043,6 +1043,7 @@ int indexCount;
     }
     
     if (satisfactionSurveyCompleted) {
+        NSLog(@"WRViewController.updateMiniDemoSettings() satisfactionSurveyCompleted = true");
         [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] miniDemoVC] setSatisfactionText:@"Completed"];
     } else if (satisfactionSurveyInProgress) {
         [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] miniDemoVC] setSatisfactionText:@"In progress..."];
@@ -2364,8 +2365,7 @@ int indexCount;
 }
 
 - (void)fadeDynamicSurveyIn {
-    
-    NSLog(@"Fading in dynamic survey");
+    NSLog(@"WRViewController.fadeDynamicSurveyOIn()");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicSurveyModule];
     [self showMasterButtonOverlay];
@@ -2401,8 +2401,7 @@ int indexCount;
 }
 
 - (void)fadeDynamicSurveyOut {
-    
-    NSLog(@"Fading out dynamic survey module...");
+    NSLog(@"WRViewController.fadeDynamicSurveyOut()");
     
     [UIView beginAnimations:nil context:nil];
 	{
@@ -2420,7 +2419,8 @@ int indexCount;
 }
 
 - (void)finishFadeDynamicSurveyOut:(NSTimer*)theTimer {
-    
+    NSLog(@"WRViewController.finishedFadeDynamicSurveyOut()");
+
     [self.view sendSubviewToBack:dynamicSurveyModule.view];
     
     [theTimer release];
@@ -2430,7 +2430,8 @@ int indexCount;
 }
 
 - (void)finishedPartOfDynamicSurvey {
-    
+    NSLog(@"WRViewController.finishedPartOfDynamicSurvey()");
+
     [self fadeDynamicSurveyOut];
     
     if (completedFinalSurvey) {
@@ -3654,7 +3655,8 @@ int indexCount;
 }
 
 - (void)createBadgeOnSatisfactionSurveyButton {
-    
+    NSLog(@"WRViewController.createBadgeOnSatisfactionSurveyButton()");
+
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
@@ -3707,6 +3709,8 @@ int indexCount;
 }
 
 - (void)createBadgeOnClinicInfoButton {
+    NSLog(@"WRViewController.createBadgeOnClinicInfoButton()");
+
     if (dynamicEdModuleCompleted) {
         clinicButton.enabled = NO;
         
@@ -3755,6 +3759,8 @@ int indexCount;
 }
 
 - (void)updateBadgeOnSatisfactionSurveyButton {
+    NSLog(@"WRViewController.updateBadgeOnSatisfactionSurveyButton()");
+
     if (satisfactionSurveyCompleted) {
         float angle =  270 * M_PI  / 180;
         CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
@@ -3817,7 +3823,8 @@ int indexCount;
 }
 
 - (void)voiceassistButtonPressed:(id)sender {
-    
+    NSLog(@"WRViewController.voiceassistButtonPressed()");
+
     if (tbvc.speakItemsAloud) {
 		NSLog(@"voiceassistButton Pressed - turning voice OFF");
         
@@ -4052,7 +4059,8 @@ int indexCount;
 }
 
 - (void)promptForMiniSurvey {
-    
+    NSLog(@"WRViewController.promptForMiniSurvey()");
+
     UIStoryboard *yesNoStoryboard = [UIStoryboard storyboardWithName:@"survey_yes_no_template" bundle:[NSBundle mainBundle]];
     
     wantMiniSurvey = [yesNoStoryboard instantiateViewControllerWithIdentifier:@"0"];
@@ -4183,7 +4191,7 @@ int indexCount;
 
 - (void)modalYesPressedInSender:(UIViewController *)senderVC {
 //    [currentModalVC dismissModalViewControllerAnimated:YES];
-     NSLog(@"modalYesPressed...");
+     NSLog(@"WRViewController.modelYesPressedInSender()");
     
     if (checkingForFinalSurvey) {
         NSLog(@"Giving additional information...");
@@ -4242,7 +4250,7 @@ int indexCount;
 
 - (void)modalNoPressedInSender:(UIViewController *)senderVC {
 //    [currentModalVC dismissModalViewControllerAnimated:YES];
-    NSLog(@"modalNoPressed...");
+    NSLog(@"WRViewController.modelNoPressedInSender()");
     
     if (checkingForFinalSurvey) {
         checkingForFinalSurvey = NO;
@@ -4909,7 +4917,7 @@ int indexCount;
 #pragma mark - Satisfaction Survey Module Methods
 
 - (void)showSatisfactionIntro {
-    
+    NSLog(@"WRViewController.showSatisfactionIntro()");
     beginSurveyButton.alpha = 0.0;
     tbvc.view.alpha = 0.0;
     [self.view bringSubviewToFront:tbvc.view];
@@ -4975,7 +4983,7 @@ int indexCount;
 }
 
 - (void)fadeToNextSurveyPrompt:(id)sender {
-    
+    NSLog(@"WRViewController.fadeToNextSurveyPrompt()");
     [UIView beginAnimations:nil context:nil];
 	{
 		[UIView	setAnimationDuration:0.3];
@@ -5020,7 +5028,7 @@ int indexCount;
 }
 
 - (void)fadeToLastSurveyPrompt:(id)sender {
-    
+    NSLog(@"WRViewController.fadeToLastSurveyPrompt()");
     [UIView beginAnimations:nil context:nil];
 	{
 		[UIView	setAnimationDuration:0.3];
@@ -5037,7 +5045,7 @@ int indexCount;
 }
 
 - (void)lastSurveyPrompt:(NSTimer*)theTimer {
-    
+    NSLog(@"WRViewController.lastSurveyPrompt()");
     [surveyIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
     surveyIntroLabel.text = @"Thank you for participating! You will be presented with a series of statements about your rehabilitation experience.\n\nLet’s move on to the first item.";
     [self.view bringSubviewToFront:beginSurveyButton];
@@ -5063,6 +5071,7 @@ int indexCount;
 }
 
 - (void)launchSatisfactionSurvey {
+    NSLog(@"WRViewController.launchSatisfactionSurvey()");
 //    [self beginSatisfactionSurvey:self];
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideCurrentButtonOverlay];
@@ -5074,7 +5083,7 @@ int indexCount;
 
 - (void)beginSatisfactionSurvey:(id)sender {
     
-    NSLog(@"In beginSatisfactionSurvey...");
+    NSLog(@"WRViewController.beginSatisfactionSurvey()");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:tbvc];
     [self showMasterButtonOverlay];
@@ -5140,7 +5149,7 @@ int indexCount;
 
 - (void)fadeOutSatisfactionSurvey {
     
-    NSLog(@"In fadeOutSatisfactionSurvey...");
+    NSLog(@"WRViewController.fadeOutSatisfactionSurvey()");
     
     
     [UIView beginAnimations:nil context:nil];
@@ -5160,7 +5169,7 @@ int indexCount;
 }
 
 - (void)completeFadeOutSatisfactionSurvey:(NSTimer*)theTimer {
-    
+    NSLog(@"WRViewController.completeFadeOutSatisfactionSurvey()");
     [self.view sendSubviewToBack:tbvc.view];
     
     
@@ -5169,7 +5178,7 @@ int indexCount;
 }
 
 - (void)completeBeginSatisfactionSurvey:(NSTimer*)theTimer {
-    
+    NSLog(@"WRViewController.completeBeginSatisfactionSurvey()");
     [self.view sendSubviewToBack:beginSurveyButton];
     [self.view sendSubviewToBack:allWhiteBack];
     [self.view sendSubviewToBack:initialSettingsLabel];
@@ -5229,7 +5238,8 @@ int indexCount;
 }
 
 - (void)surveyCompleted {
-    
+    NSLog(@"WRViewController.surveyCompleted()");
+
     satisfactionSurveyCompleted = YES;
     satisfactionSurveyInProgress = NO;
     
@@ -5241,7 +5251,8 @@ int indexCount;
     
 //    [self returnToMenu];
     
-    [self launchDynamicSurveyWithAppPage];
+    //rjl 7/15/14 [self launchDynamicSurveyWithAppPage];
+    [self showReturnTabletView]; //rjl 7/15/14
     
 //    allWhiteBack.alpha = 0.0;
 //    [self.view bringSubviewToFront:allWhiteBack];
