@@ -421,7 +421,7 @@
         providerTest.hideNextButton = YES;
 // sandy updated 7_15
         //        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
-        providerTest.providerTestText = @"Please tap the healthcare provider you will be seeing today.";
+        providerTest.providerTestText = @"Please tap the treatment provider you will be seeing today.";
         
         providerTest.provider1ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider1Index];
         providerTest.provider2ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider2Index];
@@ -527,7 +527,7 @@
         chooseGoalPatient.goal1Text = @"Reduce my pain";
         chooseGoalPatient.goal2Text = @"Sleep better";
         chooseGoalPatient.goal3Text = @"Be more physically active";
-        chooseGoalPatient.goal4Text = @"Talk to my doctor";
+        chooseGoalPatient.goal4Text = @"Talk to my treatment provider";
         chooseGoalPatient.goal5Text = @"Have more energy";
         chooseGoalPatient.goal6Text = @"Get tests done";
         chooseGoalPatient.goal7Text = @"Feel healthy";
@@ -627,8 +627,9 @@
         miniSurveyPageTransition.hidePreviousButton = YES;
  
         //sandy right before ready button is enabled
+        // sandy 7-20 removed the word doctor and replaced it with provider
         if ([[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] isFirstVisit]) {
-            miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press next to learn more about your doctor and the clinic where you will be seen today.";
+            miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press next to learn more about your provider and the clinic where you will be seen today.";
         } else {
             miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press next to continue.";
         }
@@ -652,7 +653,8 @@
         
         // sandy 7-14
         //        providerModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this information on your doctor.";
-        providerModuleHelpful.helpfulText = @"Please indicate how helpful you found this information on your doctor.";
+        // sandy 7-20 removed the word doctor and replaced it with provider
+        providerModuleHelpful.helpfulText = @"Please indicate how helpful you found this information on your provider.";
         providerModuleHelpful.view.frame = backsplash.bounds;
         [surveyPageArray addObject:providerModuleHelpful];
         
@@ -727,7 +729,21 @@
         NSMutableArray *physicianNameTokens = [[NSMutableArray alloc] initWithArray:[currentProviderFullName componentsSeparatedByString:@","] copyItems:YES];
         NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
         NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() right before goals section of minisurveypages survey_new_Painscale_template");
-        UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
+       /* sandy 7-17 hack UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
+        */
+        /* sandy 7-16 make template conditional hack 
+            This is set prior to the receptionist handing to patient
+         Use a different index*/
+        int currentpageVCIndex = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] vcIndex];
+        
+        NSLog(@"DynamicSurveyViewController.faceButtonPressed() uses storyboard survey_NEW_painscale_template or noprompt numberOfPostTreatmentItems = %d",numberOfPostTreatmentItems);
+        UIStoryboard *painScaleStoryboard = NULL;
+        if( currentpageVCIndex== 11)
+            painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
+        else
+            painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
+        
+        
          //sandy 7-14
         // goals section of miniSurveypage1 of post survey not used in updated version
         miniSurveyPage1 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
@@ -1074,7 +1090,7 @@
     NSMutableArray *physicianNameTokens = [[NSMutableArray alloc] initWithArray:[currentProviderFullName componentsSeparatedByString:@","] copyItems:YES];
     NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
     
-    NSString *providerIncorrectText = [NSString stringWithFormat:@"Actually, while that healthcare provider also works at the VA, today you will be meeting with Dr. %@.  Press OK to continue.",thisPhysicianNameAlone];
+    NSString *providerIncorrectText = [NSString stringWithFormat:@"Actually, while that treatment provider also works at the VA, today you will be meeting with Dr. %@.  Press OK to continue.",thisPhysicianNameAlone];
     
     providerTestCorrect.currentPromptString = providerIncorrectText;
     providerTestCorrect.currentPromptLabel.text = providerIncorrectText;

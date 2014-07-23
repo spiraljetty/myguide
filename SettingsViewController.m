@@ -314,7 +314,7 @@
 
 - (void)resetTTSSoundFilesPressed {
     
-    NSLog(@"resetTTSSoundFilesPressed...");
+    NSLog(@"SettingsViewController.resetTTSSoundFilesPressed()");
     resetAllOfflineSoundfilesButton.demoButton.enabled = NO;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -374,7 +374,7 @@
 }
 
 - (void)deleteAllTTSSoundFiles {
-    
+    NSLog(@"SettingsViewController.deleteAllTTSSoundFiles()");
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -437,7 +437,7 @@
 }
 
 - (void)loadAllTTSSoundFiles {
-    
+    NSLog(@"SettingsViewController.loadAllTTSSoundFiles()");
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadAllWRModuleSoundfiles];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] combineAllSoundfileDicts];
     
@@ -728,13 +728,15 @@
         }
         
         if (!foundTextForThisKey) {
-            NSString *missingTextAlert = [NSString stringWithFormat:@"Can't find the text associated with the key %@.  Aborting...", currentKey];
-            UIAlertView *characterLimitAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Find Text" message:missingTextAlert delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            characterLimitAlert.delegate = self;
-            [characterLimitAlert show];
-            [characterLimitAlert release];
-            
-            return;
+           // NSString *missingTextAlert = [NSString stringWithFormat:@"Can't find the text associated with the key %@.  Aborting...", currentKey];
+            NSLog(@"Can't find the text associated with the key .%@", currentKey);
+//            UIAlertView *characterLimitAlert = [[UIAlertView alloc] initWithTitle:@"Unable to Find Text" message:missingTextAlert delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//            characterLimitAlert.delegate = self;
+//            [characterLimitAlert show];
+//            [characterLimitAlert release];
+            textForKey = @" ";
+            NSLog(@"Assigning blank string%@ ..", textForKey);
+            //return;
         } else {
             numCharsInFoundText = [textForKey length];
             if ((numCharsInFoundText < 1) || (numCharsInFoundText > 999)) {

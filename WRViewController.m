@@ -1549,9 +1549,9 @@ int indexCount;
     [surveyTTSItemsDict setObject:@"Family satisfaction survey" forKey:@"Family_satisfaction_survey_new"];
     [surveyTTSItemsDict setObject:@"Caregiver satisfaction survey" forKey:@"caregiver_satisfaction_survey_new"];
     
-    [surveyTTSItemsDict setObject:@"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience." forKey:@"~participation_is_voluntary_new"];
+    [surveyTTSItemsDict setObject:@"Your participation in this survey is anonymous. Your responses will not be given to your treatment provider or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience." forKey:@"~participation_is_voluntary_new"];
     
-    [surveyTTSItemsDict setObject:@"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic." forKey:@"~privacy_policy"];
+    [surveyTTSItemsDict setObject:@"Your participation in this survey is anonymous. Your responses will not be given to your treatment provider or any other clinic staff. Your responses will not influence the services you receive at this clinic." forKey:@"~privacy_policy"];
     
     [surveyTTSItemsDict setObject:@"We greatly appreciate your feedback since it helps us improve our delivery of high quality healthcare services.  Please tap, agree, if you would like to complete the survey, or disagree, if you would like to return to the main menu." forKey:@"~tap_agree_or_disagree_new"];
     
@@ -1612,7 +1612,7 @@ int indexCount;
     
     NSLog(@"Loading all soundfile dicts...");
     
-    [self loadAllPhysicianSoundfilesFromPropertyLists];
+   [self loadAllPhysicianSoundfilesFromPropertyLists];
     [self loadAllBaseSoundfiles];
     [self loadSatisfactionSurveySoundfiles];
     [self loadAllBrainSoundfiles];
@@ -1624,7 +1624,8 @@ int indexCount;
     NSLog(@"loadAllDynamicSurveySoundfiles...");
                                   
     [dynamicSurveyTTSItemsDict setObject:@"Thank you for returning to the" forKey:@"wantExtraInfo1_followup"];
-    [dynamicSurveyTTSItemsDict setObject:@"Would you like additional information about your doctor and about today's visit?" forKey:@"wantExtraInfo2_followup"];
+    // sandy 7-20 replaced doctor with treatment provider
+    [dynamicSurveyTTSItemsDict setObject:@"Would you like additional information about your treatment provider and about today's visit?" forKey:@"wantExtraInfo2_followup"];
     [dynamicSurveyTTSItemsDict setObject:@"Yes, I would like additional information." forKey:@"wantExtraInfo3_followup"];
     [dynamicSurveyTTSItemsDict setObject:@"No, I do not need additional information." forKey:@"wantExtraInfo4_followup"];
     
@@ -1693,7 +1694,7 @@ int indexCount;
                 [dynamicSurveyTTSItemsDict setObject:thisDynamicSurveyPageText forKey:thisDynamicSurveyPageSoundfilename];
                 
                 // CAREGIVER
-                thisDynamicSurveyPageText = [NSString stringWithFormat:@"%@. %@. %@. %@. %@. %@. %@. %@. %@. %@. %@.",thisSurveyPage.goalChooseText,@"Reduce my patient's pain",@"Help my patient sleep better",@"Help my patient be more active",@"Talk to my patient's doctor",@"Help my patient have more energy",@"Get my patient's tests done",@"Help my patient feel healthy",@"Get my patient's next treatment",@"Help my patient return to work",thisSurveyPage.goal10Text];
+                thisDynamicSurveyPageText = [NSString stringWithFormat:@"%@. %@. %@. %@. %@. %@. %@. %@. %@. %@. %@.",thisSurveyPage.goalChooseText,@"Reduce my patient's pain",@"Help my patient sleep better",@"Help my patient be more active",@"Talk to my patient's treatment provider",@"Help my patient have more energy",@"Get my patient's tests done",@"Help my patient feel healthy",@"Get my patient's next treatment",@"Help my patient return to work",thisSurveyPage.goal10Text];
                 
                 currentNumCharactersInString = [thisDynamicSurveyPageText length];
                 if (currentNumCharactersInString > substringCharacterLimit) {
@@ -1706,7 +1707,7 @@ int indexCount;
 
                     // FAMILY
                 thisDynamicSurveyPageSoundfilename = @"";
-                    thisDynamicSurveyPageText = [NSString stringWithFormat:@"%@. %@. %@. %@. %@. %@. %@. %@. %@. %@. %@.",thisSurveyPage.goalChooseText,@"Reduce my family member's pain",@"Help my family member sleep better",@"Help my family member be more active",@"Talk to my family member's doctor",@"Help my family member have more energy",@"Get my family member's tests done",@"Help my family member feel healthy",@"Get my family member's next treatment",@"Help my family member return to work",thisSurveyPage.goal10Text];
+                    thisDynamicSurveyPageText = [NSString stringWithFormat:@"%@. %@. %@. %@. %@. %@. %@. %@. %@. %@. %@.",thisSurveyPage.goalChooseText,@"Reduce my family member's pain",@"Help my family member sleep better",@"Help my family member be more active",@"Talk to my family member's treatment provider",@"Help my family member have more energy",@"Get my family member's tests done",@"Help my family member feel healthy",@"Get my family member's next treatment",@"Help my family member return to work",thisSurveyPage.goal10Text];
                     
                     currentNumCharactersInString = [thisDynamicSurveyPageText length];
                     if (currentNumCharactersInString > substringCharacterLimit) {
@@ -1756,9 +1757,9 @@ int indexCount;
 }
 
 - (void)loadAllBaseSoundfiles {
-    [baseTTSItemsDict setObject:@"Please ask your doctor or the receptionist to unlock this Waiting Room Guide so you can continue." forKey:@"keycode_incorrect_alert"];
+    [baseTTSItemsDict setObject:@"Please ask your treatment provider or the receptionist to unlock this Waiting Room Guide so you can continue." forKey:@"keycode_incorrect_alert"];
     
-    [baseTTSItemsDict setObject:@"You will be seen by your physician in a few moments.  Please hold on to this iPad and take it with you into your treatment session with your provider." forKey:@"treatment_intermission"];
+    [baseTTSItemsDict setObject:@"You will be seen by your treatment provider in a few moments.  Please hold on to this iPad and take it with you into your treatment session." forKey:@"treatment_intermission"];
     
     [baseTTSItemsDict setObject:@"V A Palo Alto Healthcare System" forKey:@"vapahcs_new"];
     [baseTTSItemsDict setObject:@"Welcome to the V A Palo Alto Healthcare System" forKey:@"welcome_to_the_new"];
@@ -2854,7 +2855,7 @@ int indexCount;
     
     presurveyIntroLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 800, 600)];
     presurveyIntroLabel.numberOfLines = 0;
-	presurveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your physician or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
+	presurveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your treatment provider or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
 	presurveyIntroLabel.textColor = [UIColor blackColor];
 	presurveyIntroLabel.backgroundColor = [UIColor clearColor];
     presurveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
@@ -3182,7 +3183,7 @@ int indexCount;
     surveyIntroLabel.numberOfLines = 0;
 	// sandy original 
     //surveyIntroLabel.text = @"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience.";
-    surveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your physician or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
+    surveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your treatment provider or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
 	surveyIntroLabel.textColor = [UIColor blackColor];
 	surveyIntroLabel.backgroundColor = [UIColor clearColor];
     surveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
@@ -4027,7 +4028,7 @@ int indexCount;
     wantExtraInfo.delegate = self;
     wantExtraInfo.isSurveyPage = YES;
     
-    wantExtraInfo.newYesNoText = [NSString stringWithFormat:@"Thank you for returning to the %@ Clinic.  Would you like additional information about your doctor and about today's visit?", [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName]];
+    wantExtraInfo.newYesNoText = [NSString stringWithFormat:@"Thank you for returning to the %@ Clinic.  Would you like additional information about your treatment provider and about today's visit?", [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName]];
     wantExtraInfo.extraYesText = @"Yes, I would like additional information.";
     wantExtraInfo.extraNoText = @"No, I do not need additional information.";
     
@@ -5685,7 +5686,7 @@ int indexCount;
     [modalTreatmentIntermissionView.view addSubview:resumeAppButtonView];
     
     UILabel *pleaseHoldiPadLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 750, 450)];
-	pleaseHoldiPadLabel.text = @"You will be seen by your physician in a few moments.  Please hold on to this iPad and take it with you into your treatment session with your provider.";
+	pleaseHoldiPadLabel.text = @"You will be seen by a treatment provider in a few moments.  Please hold on to this iPad and take it with you into your treatment session.";
 	pleaseHoldiPadLabel.textAlignment = UITextAlignmentCenter;
 	pleaseHoldiPadLabel.textColor = [UIColor blackColor];
     pleaseHoldiPadLabel.numberOfLines = 0;
@@ -5942,7 +5943,7 @@ int indexCount;
         [mainTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"keycode_incorrect_alert", nil]];
         
         NSLog(@"Keycode incorrect! Please try again");
-        UIAlertView *incorrectKeypadAlert = [[UIAlertView alloc] initWithTitle:@"Incorrect keycode" message:@"Please ask your doctor or the receptionist to unlock this Waiting Room Guide so you can continue." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *incorrectKeypadAlert = [[UIAlertView alloc] initWithTitle:@"Incorrect keycode" message:@"Please ask your treatment provider or the receptionist to unlock this Waiting Room Guide so you can continue." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         incorrectKeypadAlert.delegate = self;
         [incorrectKeypadAlert show];
         [incorrectKeypadAlert release];
@@ -6021,6 +6022,7 @@ int indexCount;
     [returnTabletView release];
     
     [mainTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:returnTabletSoundfile, nil]];
+    completedFinalSurvey = true; //rjl 7/16/14
 }
 
 - (BOOL)didSplashAnimationsFinish {
@@ -6202,8 +6204,10 @@ int indexCount;
         
         //    NSDictionary *vcfPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"test.vcf\"",kSKPSMTPPartContentTypeKey,
         //                             @"attachment;\r\n\tfilename=\"test.vcf\"",kSKPSMTPPartContentDispositionKey,[vcfData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
-        NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata.csv\"",kSKPSMTPPartContentTypeKey,
-                                 @"attachment;\r\n\tfilename=\"satisfactiondata.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
+        NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata_7_22_14.csv\"",kSKPSMTPPartContentTypeKey,
+                                 @"attachment;\r\n\tfilename=\"satisfactiondata_7_22_14.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
+        
+        //NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata.csv\"",kSKPSMTPPartContentTypeKey,@"attachment;\r\n\tfilename=\"satisfactiondata.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
         
         NSString *sqlRoot = [documentsDir stringByAppendingPathComponent:tbvc.databaseName];
         NSData *sqlData = [NSData dataWithContentsOfFile:sqlRoot];

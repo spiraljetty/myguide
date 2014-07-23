@@ -367,6 +367,7 @@
 }
 
 - (void)updateSelectSoundsSwitchFlipped:(id)sender {
+    NSLog(@"YLViewController.updateSelectSoundsSwitchFlipped()");
     if (updateSelectSoundsSwitch.on) {
 //        [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] setUpdateSelectSounds:YES];
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] changeUpdateSelectSoundsValueTo:YES];
@@ -394,7 +395,7 @@
 }
 
 - (void)uploadDataToCloudButtonPressed:(id)sender {
-    
+    NSLog(@"YLViewController.uploadDataToCloudButtonPressed()");
     [self disableUploadDataButton];
     
     uploadDataStatus.alpha = 1.0;
@@ -408,15 +409,14 @@
 }
 
 - (void)enableUploadDataButton {
-    
-    NSLog(@"enabling uploaddata button...");
+    NSLog(@"YLViewController.enableUploadDataButton()");
     
     uploadDataButton.enabled = YES;
     uploadDataButton.alpha = 1.0;
 }
 
 - (void)disableUploadDataButton {
-    NSLog(@"disabling uploaddata button...");
+    NSLog(@"YLViewController.disableUploadDataButton()");
     
     //sandy changed to yes and it crashed because it depends on the network connection
     //uploadDataButton.enabled = YES;
@@ -425,8 +425,7 @@
 }
 
 - (void)uploadDataRequestDone {
-    
-    NSLog(@"uploadDataRequestDone...");
+    NSLog(@"YLViewController.uploadDataRequestDone()");
     
     [self enableUploadDataButton];
     

@@ -470,16 +470,16 @@
         // Store rating to db for satisfaction question
         [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedSatisfactionWithVC:self andSegmentIndex:segmentedControlEquivalentIndexSelected];
     } else {
+        /* sandy 7-16 make template conditional hack */
+        int currentpageVCIndex = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] vcIndex];
         
-        /* sandy 7-16 make template conditional hack
-                NSLog(@"SwitchedImageViewController.faceButtonPressed() uses storyboard survey_NEW_painscale_template or noprompt if subsequent session "firstsatisfactionsurveyquestion);
-        if(!firstsatisfactionsurveyquestion){
-          UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
-        }
-        else*/
-            UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
-        
-        
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() uses storyboard survey_NEW_painscale_template or noprompt if subsequent session vcIndex = %d",currentpageVCIndex);
+        UIStoryboard *painScaleStoryboard = NULL;
+        if( currentpageVCIndex== 11)
+          painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
+       else
+            painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
+//        UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
         SwitchedImageViewController *tempSurveyPage = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         
         
@@ -853,23 +853,25 @@
                 NSLog(@"SwitchedImageViewController.viewDidLoad() goal1Text=%@\ngoal2Text=%@\ngoal3Text=%@\ngoal4Text=%@\ngoal5Text=%@",goal1Text,goal2Text,goal3Text,goal4Text,goal5Text);
                 
                 NSString *currentRespondent = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType];
-                
+                // sandy 7-20 removed the word doctor and replaced it with provider
                 if ([currentRespondent isEqualToString:@"caregiver"]) {
                     [goal1TextButton setTitle:@"Reduce my patient's pain" forState:UIControlStateNormal];
                     [goal2TextButton setTitle:@"Help my patient sleep better" forState:UIControlStateNormal];
                     [goal3TextButton setTitle:@"Help my patient be more active" forState:UIControlStateNormal];
-                    [goal4TextButton setTitle:@"Talk to my patient's doctor" forState:UIControlStateNormal];
+                    [goal4TextButton setTitle:@"Talk to my patient's treatment provider" forState:UIControlStateNormal];
                     [goal5TextButton setTitle:@"Help my patient have more energy" forState:UIControlStateNormal];
                     [goal6TextButton setTitle:@"Get my patient's tests done" forState:UIControlStateNormal];
                     [goal7TextButton setTitle:@"Help my patient feel healthy" forState:UIControlStateNormal];
                     [goal8TextButton setTitle:@"Get my patient's next treatment" forState:UIControlStateNormal];
                     [goal9TextButton setTitle:@"Enter my own goal..." forState:UIControlStateNormal];
                     [goal10TextButton setTitle:@"None of the above" forState:UIControlStateNormal];
-                } else if ([currentRespondent isEqualToString:@"family"]) {
+                } else if
+                    // sandy 7-20 replaced the word doctor with provider
+                    ([currentRespondent isEqualToString:@"family"]) {
                     [goal1TextButton setTitle:@"Reduce my family member's pain" forState:UIControlStateNormal];
                     [goal2TextButton setTitle:@"Help my family member sleep better" forState:UIControlStateNormal];
                     [goal3TextButton setTitle:@"Help my family member be more active" forState:UIControlStateNormal];
-                    [goal4TextButton setTitle:@"Talk to my family member's doctor" forState:UIControlStateNormal];
+                    [goal4TextButton setTitle:@"Talk to my family member's provider" forState:UIControlStateNormal];
                     [goal5TextButton setTitle:@"Help my family member have more energy" forState:UIControlStateNormal];
                     [goal6TextButton setTitle:@"Get my family member's tests done" forState:UIControlStateNormal];
                     [goal7TextButton setTitle:@"Help my family member feel healthy" forState:UIControlStateNormal];

@@ -159,21 +159,33 @@
 
 - (void)createAdditionalSurveyLabelArrays {
     NSLog(@"RootViewController.createAdditionalSurveyLabelArrays()");
-
-//    [NSArray arrayWithObjects:plainPart,csvPart,nil];
     patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:
                                      @"The staff treated me with respect.",
                                      @"",@"",@"",@"",
                                      @"",@"",@"",@"",
                                      @"",@"",@"",@"",
                                      @"",@"",
-                                     @"Clinic staff put me at ease and took time to hear my concerns.",
-                                     @"I was given clear, understandable information about my concerns and questions.",
-                                     @"The staff involved me in setting my treatment goals.",
-                                     @"My unique treatment needs were addressed.",
-                                      @"I received high quality care.",
+                                     @"I would recommend this guide to others.",
                                      @"I am pleased with the care I have received.",
-                                    @"I would recommend this guide to others.",nil];
+                                     @"I received high quality care.",
+                                     @"My unique treatment needs were addressed.",
+                                     @"The staff involved me in setting my treatment goals.",
+                                     @"I was given clear, understandable information about my concerns and questions.",
+                                     @"Clinic staff put me at ease and took time to hear my concerns.",nil];
+//    [NSArray arrayWithObjects:plainPart,csvPart,nil];
+   /* patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:
+                                     @"The staff treated me with respect.",
+                                     @"",@"",@"",@"",
+                                     @"",@"",@"",@"",
+                                     @"",@"",@"",@"",
+                                     @"",@"",
+                                     @"I would recommend this guide to others.",
+                                     @"I am pleased with the care I have received.",
+                                     @"I received high quality care.",
+                                      @"My unique treatment needs were addressed.",
+                                     @"The staff involved me in setting my treatment goals.",
+                                     @"I was given clear, understandable information about my concerns and questions.",
+                                     @"Clinic staff put me at ease and took time to hear my concerns.",nil];*/
      
     /*patientSatisfactionLabelItems = [[NSArray alloc] initWithObjects:
                                      @"The staff treated me with respect.",
@@ -207,7 +219,34 @@
                                      @"The overall quality of my life has improved.",
                                      @"I am pleased with the progress I have made.",
                                      @"The staff treated me with respect.", nil];*/
+
+    /*familySatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"My loved one received high quality care.",
+                                    @"",@"",@"",@"",
+                                    @"",@"",@"",@"",
+                                    @"",@"",@"",@"",
+                                    @"",@"",
+                                    @"Our family was included in my loved one’s treatment program.",
+                                    @"My loved one’s treatment needs were addressed.",
+                                    @"The staff involved my loved one in setting treatment goals.",
+                                    @"Our family was given clear, understandable information about our concerns and questions.",
+                                    @"Clinic staff put our family at ease and took time to hear our concerns.",
+                                    @"The staff treated me with respect.",
+                                    @"The staff treated my loved one with respect.", nil];*/
+    
+    // sandy 7-17 updated questions
     familySatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"My loved one received high quality care.",
+                                    @"",@"",@"",@"",
+                                    @"",@"",@"",@"",
+                                    @"",@"",@"",@"",
+                                    @"",@"",
+                                    @"Our family was included in my loved one’s treatment program.",
+                                    @"My loved one’s treatment needs were addressed.",
+                                    @"The staff involved my loved one in setting treatment goals.",
+                                    @"Our family was given clear, understandable information about our concerns and questions.",
+                                    @"Clinic staff put our family at ease and took time to hear our concerns.",
+                                    @"The staff treated me with respect.",
+                                    @"The staff treated my loved one with respect.", nil];
+    /*familySatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"My loved one received high quality care.",
                                     @"Unused Unused",
                                     @"Unused Unused",
                                     @"Unused Unused",
@@ -228,7 +267,8 @@
                                     @"Our family was given clear information about the clinic program.",
                                     @"Clinic staff put our family at ease and took time to hear our concerns.",
                                     @"The staff treated me with respect.",
-                                    @"The staff treated my loved one with respect.", nil];
+                                    @"The staff treated my loved one with respect.", nil];*/
+        /* tbd sandy 7-17 original replaced
     caregiverSatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"The patient I care for received high quality care.",
                                        @"I feel better able to provide care for my patient.",
                                        @"My patient knows his or her strengths and limitations better.",
@@ -245,6 +285,23 @@
                                        @"The staff involved the patient I care for in setting their treatment goals.",
                                        @"I was given clear, understandable information about my concerns and questions.",
                                        @"The patient I care for was given clear, understandable information about their concerns and questions.",
+                                       @"I was given clear information about the clinic program.",
+                                       @"The patient I care for was given clear information about the clinic program.",
+                                       @"Clinic staff put me at ease and took time to hear my concerns.",
+                                       @"Clinic staff put the patient I care for at ease and took time to hear their concerns.",
+                                       @"The staff treated me with respect.",
+                                       @"The staff treated the patient I care for with respect.", nil];*/
+    
+    caregiverSatisfactionLabelItems = [[NSArray alloc] initWithObjects:@"The patient I care for received high quality care.",
+                                       @"",@"",@"",@"",
+                                       @"",@"",@"",@"",
+                                       @"",
+                                       @"I feel that my rights as a caregiver have been respected.",
+                                       @"I feel that my patient’s rights have been respected.",
+                                       @"I was included in my patient’s treatment program.",
+                                       @"The patient I care for had their treatment needs addressed.",
+                                       @"The staff involved me in setting treatment goals for my patient.",
+                                       @"The staff involved the patient I care for in setting their treatment goals.",
                                        @"I was given clear information about the clinic program.",
                                        @"The patient I care for was given clear information about the clinic program.",
                                        @"Clinic staff put me at ease and took time to hear my concerns.",
@@ -276,11 +333,12 @@
                                     @"Please tell us about the services you received in this clinic, by marking the following scale,", nil];*/
    patientPromptLabelItems = [[NSArray alloc] initWithObjects:
                                @"Please tell us about the services you received in this clinic, by marking the following scale",
-                               @"",@"",@"",@"",
-                               @"",@"",@"",@"",
-                               @"",@"",@"",@"",
-                               @"",@"",@"",@"",
-                               @"",@"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",
                                nil];
     /*patientPromptLabelItems = [[NSArray alloc] initWithObjects:
                                @"Please tell us about the services you received in this clinic, by marking the following scale",
@@ -288,7 +346,8 @@
                                @"",@"",@"",
                                nil];*/
     
-    familyPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
+    /* sandy 7-17 original replaced
+     familyPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
                                     @"Unused Unused",
                                     @"Unused Unused",
                                     @"Unused Unused",
@@ -309,9 +368,18 @@
                               @"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
                               @"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
                                     @"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
-                                    @"Please tell us about the services your loved one received in this clinic, by marking the following scale,", nil];
+                                    @"Please tell us about the services your loved one received in this clinic, by marking the following scale,", nil];*/
+    familyPromptLabelItems = [[NSArray alloc] initWithObjects:@"Please tell us about the services your loved one received in this clinic, by marking the following scale,",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",@"",@"",@"",
+                              @"",
+                              nil];
     
-    caregiverPromptLabelItems   = [[NSArray alloc] initWithObjects:@"Please tell us about your impression of the services offered in this clinic, by marking the following scale,",
+    /* sandy 7-17 original updated
+     caregiverPromptLabelItems   = [[NSArray alloc] initWithObjects:@"Please tell us about your impression of the services offered in this clinic, by marking the following scale,",
                                    @"As a result of coming to the clinic and therapies,",
                                    @"As a result of coming to the clinic and therapies,",
                                    @"As a result of coming to the clinic and therapies,",
@@ -332,8 +400,16 @@
                                    @"Please tell us about your impression of the services offered in this clinic, by marking the following scale,",
                                    @"Please tell us about your impression of the services offered in this clinic, by marking the following scale,",
                                        @"Please tell us about your impression of the services offered in this clinic, by marking the following scale,",
-                                       @"Please tell us about your impression of the services offered in this clinic, by marking the following scale,", nil];
-                                    
+                                       @"Please tell us about your impression of the services offered in this clinic, by marking the following scale,", nil];*/
+    caregiverPromptLabelItems   = [[NSArray alloc] initWithObjects:@"Please tell us about your impression of the services offered in this clinic, by marking the following scale,",
+                                   @"",@"",@"",@"",
+                                   @"",@"",@"",@"",
+                                   @"",@"",@"",@"",
+                                   @"",@"",@"",@"",
+                                   @"",@"",@"",@"",
+                                   @"",
+                                   nil];
+    
 }
 
 - (void)addNewActionsToButtons {
@@ -433,7 +509,9 @@
     //sandy updated dbase name but the table is not being written properly
     //databaseName = @"myguide_WR_db_e.sql";
     mainTable = @"sessiondata";
-    csvpath = @"satisfactiondata.csv";
+    // csvpath = @"satisfactiondata.csv";
+    // sandy 7-21 should append device name and date here
+    csvpath = @"satisfactiondata_7_22_14.csv";
     
     // Current sql db database fields
     // uniqueid (integer primary key)
@@ -880,47 +958,255 @@
     [self openDB];
     
     NSLog(@"Writing satisfaction sql db to file: %@", csvpath);
+    // sandy 7-20 need make sure the data matches the sequence the user experiences
+    //   sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,
+    //'%@'%d,'%@',
+    //-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",
+    //[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,
+    //accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,
+    //thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name],
+    //currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentYear],
+    //[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
     
-    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,FONTTMP,MONTH,YEAR,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,VOICEASSIST,FONTSIZE", nil];
+    
+    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,SETVISIT,SETSPECIALTY,SETCLINIC,MONTH,YEAR,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,PS0ProviderSel,PS1ClinicSel,PS2GOAL,PS3REASON,PS4PREP,PS5LOOKING,PS7PROHELPFL,PS8CLHELPFL,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,VOICEASSIST,FONTSIZE,SETPROVIDER,", nil];
 
     NSArray *rowArray;
 
     const char *sqlStatement;
     sqlite3_stmt *compiledStatement;
     NSString *sqlStatementString;
+    int writingRowIndex = 1;
+    int currentColIndex = 0;
     
-    int uniqueIDtmp = 0;
+    
+    int pilot = 0;
+    int posttxcompleteper = 0;
+    int pretxcompleteper = 0;
+    NSString *accesspoint;
+    int wanderON = 0;
+    NSString *appversion;
+    NSString *posttxdur;
+    NSString *pretxdur;
+    int s15techVal = 0;           // "Overall I like this type of technology"
+    int s14recommendVal = 0;      // "I would recommend this guide"
+    int s13knowVal = 0;            // "Overall I felt more knowledgeable"
+    int s12preparedVal = 0;        // "Overall I felt more prepared"
+    int s11metgoalVal = 0;         // "Did today's visit meet your expectations regarding your goal"
+    int s8clinichelpVal = 0;      // "Please indicate how helpful you found this clinic information"
+    int s7prohelpVal = 0;        // "Please indicate how helpful you found this information on your provider"
+    int s5lookingVal = 0;       // "I am looking forward to today's visit
+    int s4preparedVal = 0;     // "I feel prepared for today's visit"
+    int s3reasonVal = 0;      // "I understand the reason or reasons for today's visit"
+    int s2goalchoiceVal = 0;  // goal value selected
+    int s1clinictestVal = 0;// clinic user selected
+    int s0protestVal = 0;// provider user selected
+    NSString *setprovider;
+    NSString *setvisit;
+    NSString *setspecialty;
+    NSString *setclinic;
+    NSString *ipadnameTmp;
+    int q28Tmp,q27Tmp,q26Tmp,q25Tmp,q24Tmp,q23Tmp,q21Tmp,q22Tmp,q20Tmp,q19Tmp,q18Tmp,q17Tmp = 0;
+    int q1Tmp, q2Tmp, q3Tmp, q4Tmp, q5Tmp, q6Tmp, q7Tmp, q8Tmp, q9Tmp, q10Tmp, q11Tmp, q12Tmp, q13Tmp, q14Tmp, q15Tmp, q16Tmp = 0;
+    integer_t uniqueIDtmp = 0;
     int debugModeTmp = 0;
-    NSString *respondentTypeTmp = @"";
+    NSString *respondentTypeTmp;
     int monthTmp = 0;
     int yearTmp = 0;
     int startedSatTmp = 0;
     int finishedSatTmp = 0;
     int surveydurTmp = 0;
-    int q1Tmp = 0;
-    int q2Tmp = 0;
-    int q3Tmp = 0;
-    int q4Tmp = 0;
-    int q5Tmp = 0;
-    int q6Tmp = 0;
-    int q7Tmp = 0;
-    int q8Tmp = 0;
-    int q9Tmp = 0;
-    int q10Tmp = 0;
-    int q11Tmp = 0;
-    int q12Tmp = 0;
-    int q13Tmp = 0;
-    int q14Tmp = 0;
-    int q15Tmp = 0;
-    int q16Tmp = 0;
-    int voiceTmp = 0;
-    NSString *appVerTmp = @"";
-    int fontTmp = 0;
-    int anotherFontTmp = 0;
+    int voiceTmp, fontTmp, anotherFontTmp = 0;
+  
     
-    int writingRowIndex = 1;
-    int currentColIndex = 0;
+//    
+//    NSNumber *pilot;
+//    NSNumber *posttxcompleteper;
+//    NSNumber *pretxcompleteper;
+//    NSString *accesspoint;
+//    NSNumber *wanderON;
+//    NSString *appversion;
+//    NSString *posttxdur;
+//    NSString *pretxdur;
+//    NSString *uniqueIDtmp;
+//    NSNumber *debugModeTmp;
+//    NSString *respondentTypeTmp;
+//    NSString *setprovider;
+//    NSString *setvisit;
+//    NSString *setspecialty;
+//    NSString *setclinic;
+//    int monthTmp;
+//    int yearTmp;
+//    int startedSatTmp;
+//    int finishedSatTmp;
+//    int surveydurTmp;
+//    int q1Tmp, q2Tmp, q3Tmp, q4Tmp, q5Tmp, q6Tmp, q7Tmp, q8Tmp, q9Tmp, q10Tmp, q11Tmp, q12Tmp, q13Tmp, q14Tmp, q15Tmp, q16Tmp;
+//    int voiceTmp, fontTmp, anotherFontTmp;
+//    NSString *s8clinichelpVal;      // "Please indicate how helpful you found this clinic information"
+//    NSString *s7prohelpVal;        // "Please indicate how helpful you found this information on your provider"
+//    NSString *s5lookingVal;       // "I am looking forward to today's visit
+//    NSString *s4preparedVal;     // "I feel prepared for today's visit"
+//    NSString *s3reasonVal;      // "I understand the reason or reasons for today's visit"
+//    NSString *s2goalchoiceVal;  // goal value selected
+//    NSString *s1clinictestVal; // clinic user selected
+//    NSString *s0protestVal; // provider user selected
+//    
+    //  struct from database values
+    //
+    //    struct ElementsStructure {
+    //        int ID;
+    //        int Slug;
+
+    //    };
+    //    //field to column mappings for sql lite queries
+    //    struct ElementsStructure oElements;
+    //    oElements.ID = 0;
+    //    oElements.Slug = 1;
+    //    ...
+    //
+    //    NSNumber *ID = [NSNumber numberWithInt: sqlite3_column_int(statement, oElements.ID)];
     
+    struct ElementsStructure {
+    int temp_pilot;
+    int temp_posttxcompleteper;
+    int temp_pretxcompleteper;
+    NSString *temp_accesspoint;
+    int temp_wanderON;
+    NSString *temp_appversion;
+    NSString *temp_posttxdur;// = [NSString stringWithFormat:@"%4.4f",0.0f];
+    NSString *temp_prettxdur; // = [NSString stringWithFormat:@"%4.4f",0.0f];
+                                // mini survey5 was not used after 7-20-14
+    int s15tech;            // "Overall I like this type of technology"
+    int s14recommend;       // "I would recommend this guide"
+    int s13know;            // "Overall I felt more knowledgeable"
+    int s12prepared;        // "Overall I felt more prepared"
+    int s11metgoal;         // "Did today's visit meet your expectations regarding your goal"
+                                // pre treatment questions
+    int s8clinichelp;      // "Please indicate how helpful you found this clinic information"
+    int s7prohelp;        // "Please indicate how helpful you found this information on your provider"
+    int s5looking;       // "I am looking forward to today's visit
+    int s4prepared;     // "I feel prepared for today's visit"
+    int s3reason;      // "I understand the reason or reasons for today's visit"
+    int s2goalchoice;  // goal value selected
+    int s1clinictest; // clinic user selected
+    int s0protest; // provider user selected
+    
+    NSString *temp_setprovider;
+    NSString *temp_setvisit;
+    NSString *temp_setspecialty;
+    NSString *temp_setclinic;
+    NSString *temp_ipadname;
+    int temp_q28;
+    int temp_q27;
+    int temp_q26;
+    int temp_q25;
+    int temp_q24;
+    int temp_q23;
+    int temp_q22;
+    int temp_q21;
+    int temp_q20;
+    int temp_q19;
+    int temp_q18;
+    int temp_q17;
+    int temp_uniqueID;  // uniqueid (integer primary key)
+    int temp_demo; // demo (numeric = running demo version of app? 1/0)
+    NSString *temp_respondenttype; // respondenttype (text = patient/family/caregiver)
+    int temp_month; // month (numeric = 1-12)
+    int temp_year; // year (numeric = e.g. 2012)
+    // totalsurveyduration (numeric = how long did it take the respondent to complete the 16 survey items, in ms?)
+    int temp_startedsurvey;   // startedsurvey (numeric = did the respondent start the survey? 1/0)
+    int temp_finishedsurvey;  // finishedsurvey (numeric = did the respondent finish the survey? 1/0)
+    int temp_totalsurveyduration; // totalsurveyduration (numeric = how long did it take the respondent to complete the 16 survey items, in ms?)
+    // q1 - q16 (numeric = likert rating of satisfaction item; 1=strongly disagree, 2=disagree, 3=neutral, 4=agree, 5=strongly agree, 0=NA, NULL=skipped)
+    int q1Tmp;
+    int q2Tmp;
+    int q3Tmp;
+    int q4Tmp;
+    int q5Tmp;
+    int q6Tmp;
+    int q7Tmp;
+    int q8Tmp;
+    int q9Tmp;
+    int q10Tmp;
+    int q11Tmp;
+    int q12Tmp;
+    int q13Tmp;
+    int q14Tmp;
+    int q15Tmp;
+    int q16Tmp;
+    int temp_voiceassist; // voiceassist (numeric = did the respondent use the voice assist accessibility feature? 1/0)
+    int fontTmp; // fontsize (numeric = what font size did the repondent prefer? 1=small (default), 2=medium, 3=large)
+    };
+    //    //field to column mappings for sql lite queries
+       struct ElementsStructure oElements;
+    oElements.temp_pilot = 0;
+    oElements.temp_posttxcompleteper = 1;
+    oElements.temp_pretxcompleteper = 2;
+    oElements.temp_accesspoint = 3;
+    oElements.temp_wanderON = 4;
+    oElements.temp_appversion = 5;
+    oElements.temp_posttxdur = 6;
+    oElements.temp_prettxdur = 7;
+    // mini survey5 was not used after 7-20-14
+    oElements.s15tech = 8;            // "Overall I like this type of technology"
+    oElements.s14recommend = 9;       // "I would recommend this guide"
+    oElements.s13know = 10;            // "Overall I felt more knowledgeable"
+    oElements.s12prepared = 11;        // "Overall I felt more prepared"
+    oElements.s11metgoal = 12;         // "Did today's visit meet your expectations regarding your goal"
+    // pre treatment questions
+    oElements.s8clinichelp = 13;      // "Please indicate how helpful you found this clinic information"
+    oElements.s7prohelp = 14;        // "Please indicate how helpful you found this information on your provider"
+    oElements.s5looking = 15;       // "I am looking forward to today's visit
+    oElements.s4prepared = 16;     // "I feel prepared for today's visit"
+    oElements.s3reason = 17;      // "I understand the reason or reasons for today's visit"
+    oElements.s2goalchoice = 18;  // goal value selected
+    oElements.s1clinictest =  19; // clinic user selected
+    oElements.s0protest = 20; // provider user selected
+    
+    oElements.temp_setprovider = 21;
+    oElements.temp_setvisit = 22;
+    oElements.temp_setspecialty = 23;
+    oElements.temp_setclinic = 24;
+    oElements.temp_ipadname = 25;
+    oElements.temp_q28 = 26;
+    oElements.temp_q27 = 27;
+    oElements.temp_q26 = 28;
+    oElements.temp_q25 = 29;
+    oElements.temp_q24 = 30;
+    oElements.temp_q23 = 31;
+    oElements.temp_q22 = 32;
+    oElements.temp_q22 = 33;
+    oElements.temp_q20 = 34;
+    oElements.temp_q19 = 35;
+    oElements.temp_q18 = 36;
+    oElements.temp_q17 = 37;
+    oElements.temp_uniqueID = 38;
+    oElements.temp_demo = 39;
+    oElements.temp_respondenttype = 40;
+    oElements.temp_month = 41;
+    oElements.temp_year = 42;
+    oElements.temp_startedsurvey = 43;
+    oElements.temp_finishedsurvey = 44;
+    oElements.temp_totalsurveyduration = 45;
+    oElements.q1Tmp = 46;
+    oElements.q2Tmp = 47;
+    oElements.q3Tmp = 48;
+    oElements.q4Tmp = 49;
+    oElements.q5Tmp = 50;
+    oElements.q6Tmp = 51;
+    oElements.q7Tmp = 52;
+    oElements.q8Tmp = 53;
+    oElements.q9Tmp = 54;
+    oElements.q10Tmp = 55;
+    oElements.q11Tmp = 56;
+    oElements.q12Tmp = 57;
+    oElements.q13Tmp = 58;
+    oElements.q14Tmp = 59;
+    oElements.q15Tmp = 60;
+    oElements.q16Tmp = 61;
+    oElements.temp_voiceassist = 62;
+    oElements.fontTmp = 63;
+
     // Setup the SQL Statement and compile it for faster access
     sqlStatementString = [NSString stringWithFormat:@"SELECT * FROM sessiondata"];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
@@ -929,63 +1215,274 @@
 
             while(sqlite3_step(compiledStatement) == SQLITE_ROW) {
                 
-                currentColIndex = 0;
+               // currentColIndex = 0;
+                pilot =  (int)sqlite3_column_int(compiledStatement, oElements.temp_pilot);
+                posttxcompleteper = (int)sqlite3_column_int(compiledStatement, oElements.temp_posttxcompleteper);
+                pretxcompleteper = (int)sqlite3_column_int(compiledStatement, oElements.temp_pretxcompleteper);
                 
-                uniqueIDtmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                debugModeTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                //respondentTypeTmp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, currentColIndex)];
-                respondentTypeTmp = @"tmp";
-                monthTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                yearTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                startedSatTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                finishedSatTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                surveydurTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q1Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q2Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q3Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q4Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q5Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q6Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q7Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q8Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q9Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q10Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q11Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q12Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q13Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q14Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q15Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                q16Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                voiceTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                fontTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
-                currentColIndex++;
-                anotherFontTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+                // NSString *access_point = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_accesspoint)];
                 
-                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",uniqueIDtmp,debugModeTmp,respondentTypeTmp,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,anotherFontTmp], nil];
+                char *access_point = (char *)sqlite3_column_text(compiledStatement, oElements.temp_accesspoint);
+                if (access_point == NULL)
+                    access_point = "null";
+                // NSString *access_point = [NSString stringWithCString:(char*)sqlite3_column_text(compiledStatement, oElements.temp_accesspoint)];
+                
+                wanderON = (int)sqlite3_column_int(compiledStatement, oElements.temp_wanderON);
+                
+                appversion = (char*)sqlite3_column_text(compiledStatement, oElements.temp_appversion);
+                posttxdur = (char*)sqlite3_column_text(compiledStatement, oElements.temp_posttxdur);
+                pretxdur = (char*)sqlite3_column_text(compiledStatement, oElements.temp_prettxdur);
+                
+                s15techVal = (int)sqlite3_column_int(compiledStatement, oElements.s15tech);
+                s14recommendVal = (int)sqlite3_column_int(compiledStatement, oElements.s14recommend);
+                s13knowVal = (int)sqlite3_column_int(compiledStatement, oElements.s13know);           // "Overall I felt more knowledgeable"
+                s12preparedVal = (int)sqlite3_column_int(compiledStatement,oElements.s12prepared); //"Overall I felt more prepared"
+                s11metgoalVal = (int)sqlite3_column_int(compiledStatement, oElements.s11metgoal);         // "Did today's visit meet your expectations regarding your goal"
+                // pre treatment questions
+                s8clinichelpVal = (int)sqlite3_column_int(compiledStatement, oElements.s8clinichelp);      // "Please indicate how helpful you found this clinic information"
+                s7prohelpVal = (int)sqlite3_column_int(compiledStatement, oElements.s7prohelp);  // "Please indicate how helpful you found this information on your provider"
+                s5lookingVal = (int)sqlite3_column_int(compiledStatement, oElements.s5looking);       // "I am looking forward to today's visit
+                s4preparedVal = (int)sqlite3_column_int(compiledStatement, oElements.s4prepared);    // "I feel prepared for today's visit"
+                s3reasonVal = (int)sqlite3_column_int(compiledStatement, oElements.s3reason);     // "I understand the reason or reasons for today's visit"
+                s2goalchoiceVal = (int)sqlite3_column_int(compiledStatement, oElements.s2goalchoice);  // goal value selected
+                s1clinictestVal = (int)sqlite3_column_int(compiledStatement, oElements.s1clinictest); // clinic user selected
+                NSNumber *s0providertestVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s0protest)]; // provider user selected
+                
+                NSString *setprovider = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setprovider)];
+                NSString *setvisit = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setvisit)];
+                NSString *setspeciality = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setspecialty)];
+                NSString *setclinic = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setclinic)];
+                NSString *ipadname = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_ipadname)];
+                q28Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q28);
+                q27Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q27);
+                q26Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q26);
+                q25Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q25);
+                q24Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q24);
+                q23Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q23);
+                q22Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q22);
+                q21Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q21);
+                q20Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q20);
+                q19Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q19);
+                q18Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q18);
+                q17Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q17);
+                uniqueIDtmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_uniqueID);
+                debugModeTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_demo);
+                NSString *respondentTypeTmp = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_respondenttype)];
+                monthTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_month);
+                yearTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_year);
+                startedSatTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_startedsurvey);
+                finishedSatTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_finishedsurvey);
+                 surveydurTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_totalsurveyduration);
+                 q1Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q1Tmp);
+                 q2Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q2Tmp);
+                 q3Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q3Tmp);
+                 q4Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q4Tmp);
+                 q5Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q5Tmp);
+                q6Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q6Tmp);
+                q7Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q7Tmp);
+                q8Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q8Tmp);
+                q9Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q9Tmp);
+                q10Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q10Tmp);
+                q11Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q11Tmp);
+                q12Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q12Tmp);
+                q13Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q13Tmp);
+                q14Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q14Tmp);
+                q15Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q15Tmp);
+                q16Tmp = (int)sqlite3_column_int(compiledStatement, oElements.q16Tmp);
+                voiceTmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_voiceassist);
+                fontTmp = (int)sqlite3_column_int(compiledStatement, oElements.fontTmp);
+                
+                
+                
+//            
+//                currentColIndex = 0;
+//                NSNumber *pilot = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_pilot)];
+//                NSNumber *posttxcompleteper = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_posttxcompleteper)];
+//                NSNumber *pretxcompleteper = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_pretxcompleteper)];
+//                
+//                // NSString *access_point = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_accesspoint)];
+//                
+//                char *access_point = (char *)sqlite3_column_text(compiledStatement, oElements.temp_accesspoint);
+//                
+//                NSString *CurrencyCoin = nil;
+//                if (access_point !=NULL)
+//                    CurrencyCoin = [NSString stringWithUTF8String: access_point];
+//                // NSString *access_point = [NSString stringWithCString:(char*)sqlite3_column_text(compiledStatement, oElements.temp_accesspoint)];
+//
+//                NSNumber *wanderON = [NSNumber numberWithBool: sqlite3_column_int(compiledStatement, oElements.temp_wanderON )];
+//                
+//                NSString *appversion = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_appversion)];
+//                
+//                NSString *posttxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_posttxdur)];
+//                
+//                NSString *pretxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_prettxdur)];
+//                
+//                NSNumber  *s15tech = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s15tech)];
+//                NSNumber *s14recommend = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s14recommend )];
+//                NSNumber *s13know = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s13know)];           // "Overall I felt more knowledgeable"
+//                NSNumber *s12prepared = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s12prepared)];        // "Overall I felt more prepared"
+//                NSNumber *s11metgoal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s11metgoal)];         // "Did today's visit meet your expectations regarding your goal"
+//                // pre treatment questions
+//                NSNumber *s8clinichelpVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s8clinichelp)];      // "Please indicate how helpful you found this clinic information"
+//                NSNumber *s7prohelpVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s7prohelp)];        // "Please indicate how helpful you found this information on your provider"
+//                NSNumber *s5lookingVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s5looking)];       // "I am looking forward to today's visit
+//                NSNumber *s4preparedVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s4prepared)];    // "I feel prepared for today's visit"
+//                NSNumber *s3reasonVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s3reason)];     // "I understand the reason or reasons for today's visit"
+//                NSNumber *s2goalchoiceVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s2goalchoice)];  // goal value selected
+//                NSNumber *s1clinictestVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s1clinictest)]; // clinic user selected
+//                NSNumber *s0providertestVal = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.s0protest)]; // provider user selected
+//                
+//                NSString *setprovider = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setprovider)];
+//                NSString *setvisit = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setvisit)];
+//                NSString *setspeciality = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setspecialty)];
+//                NSString *setclinic = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setclinic)];
+//                NSString *ipadname = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_ipadname)];
+//                NSNumber *q28Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q28)];
+//                NSNumber *q27Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q27)];
+//                NSNumber *q26Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q26)];
+//                NSNumber *q25Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q25)];
+//                NSNumber *q24Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q24)];
+//                NSNumber *q23Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q23)];
+//                NSNumber *q22Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q22)];
+//                NSNumber *q20Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q20)];
+//                NSNumber *q19Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q19)];
+//                NSNumber *q18Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q18)];
+//                NSNumber *q17Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_q17)];
+//                uniqueIDtmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_uniqueID);
+//                NSNumber *debugModeTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_demo)];
+//                NSString *respondentTypeTmp = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_respondenttype)];
+//                NSNumber *monthTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_month)];
+//                NSNumber *yearTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_year)];
+//                NSNumber *startedSatTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_startedsurvey)];
+//                NSNumber *finishedSatTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_finishedsurvey)];
+//                NSNumber *surveydurTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_totalsurveyduration)];
+//                NSNumber *q1Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q1Tmp)];
+//                NSNumber *q2Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q2Tmp)];
+//                NSNumber *q3Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q3Tmp)];
+//                NSNumber *q4Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q4Tmp)];
+//                NSNumber *q5Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q5Tmp)];
+//                NSNumber *q6Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q6Tmp)];
+//                NSNumber *q7Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q7Tmp)];
+//                NSNumber *q8Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q8Tmp)];
+//                NSNumber *q9Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q9Tmp)];
+//                NSNumber *q10Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q10Tmp)];
+//                NSNumber *q11Tmp= [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q11Tmp)];
+//                NSNumber *q12Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q12Tmp)];
+//                NSNumber *q13Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q13Tmp)];
+//                NSNumber *q14Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q14Tmp)];
+//                NSNumber *q15Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q15Tmp)];
+//                NSNumber *q16Tmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.q16Tmp)];
+//                NSNumber *voiceTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.temp_voiceassist)];
+//                NSNumber *fontTmp = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.fontTmp)];
+
+              
+//                uniqueIDtmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                debugModeTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                respondentTypeTmp = [NSString stringWithUTF8String:(char *)sqlite3_column_text(compiledStatement, currentColIndex)];
+//                //respondentTypeTmp = @"tmp";
+//                monthTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                yearTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                startedSatTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                finishedSatTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                surveydurTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q1Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q2Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q3Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q4Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q5Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q6Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q7Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q8Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q9Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q10Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q11Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q12Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q13Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q14Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q15Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                q16Tmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                voiceTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                fontTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+//                currentColIndex++;
+//                anotherFontTmp = (int)sqlite3_column_int(compiledStatement, currentColIndex);
+  
+                
+                
+  //    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,FONTTMP,MONTH,YEAR,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,VOICEASSIST,FONTSIZE", nil];
+//                NSLog(@"logged values %d,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider);
+                
+                NSLog(@"logged values around respondenttype uniqueid=%d,debugModeTmp=%d,respondenttype=%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp);
+    //shift question return values by one to avoid negative numbers in spreadsheet
+                s15techVal = s15techVal +1;
+                s14recommendVal = (int)sqlite3_column_int(compiledStatement, oElements.s14recommend);
+                s13knowVal = (int)sqlite3_column_int(compiledStatement, oElements.s13know);           // "Overall I felt more knowledgeable"
+                s12preparedVal = (int)sqlite3_column_int(compiledStatement,oElements.s12prepared); //"Overall I felt more prepared"
+                s11metgoalVal = (int)sqlite3_column_int(compiledStatement, oElements.s11metgoal);         // "Did today's visit meet your expectations regarding your goal"
+                s8clinichelpVal = (int)sqlite3_column_int(compiledStatement, oElements.s8clinichelp);      // "Please indicate how helpful you found this clinic information"
+                s7prohelpVal = (int)sqlite3_column_int(compiledStatement, oElements.s7prohelp);  // "Please indicate how helpful you found this information on your provider"
+                s5lookingVal = (int)sqlite3_column_int(compiledStatement, oElements.s5looking);       // "I am looking forward to today's visit
+                s4preparedVal = (int)sqlite3_column_int(compiledStatement, oElements.s4prepared);    // "I feel prepared for today's visit"
+                s3reasonVal = (int)sqlite3_column_int(compiledStatement, oElements.s3reason);     // "I understand the reason or reasons for today's visit"
+                q1Tmp = q1Tmp +1;
+                q2Tmp = q2Tmp +1;
+                q3Tmp = q3Tmp +1;
+                q4Tmp = q4Tmp +1;
+                q5Tmp = q5Tmp +1;
+                q6Tmp = q6Tmp +1;
+                q7Tmp = q7Tmp +1;
+                q8Tmp = q8Tmp +1;
+                q9Tmp = q9Tmp +1;
+                q10Tmp = q10Tmp +1;
+                q11Tmp = q11Tmp +1;
+                q12Tmp = q12Tmp +1;
+                q13Tmp = q13Tmp +1;
+                q14Tmp = q14Tmp +1;
+                q15Tmp = q15Tmp +1;
+                q16Tmp = q16Tmp +1;
+                q17Tmp = q17Tmp +1;
+                q18Tmp = q18Tmp +1;
+                q19Tmp = q19Tmp +1;
+                q20Tmp = q20Tmp +1;
+                q21Tmp = q21Tmp +1;
+                q22Tmp = q22Tmp +1;
+                q23Tmp = q23Tmp +1;
+                q24Tmp = q24Tmp +1;
+                q25Tmp = q25Tmp +1;
+                q26Tmp = q26Tmp +1;
+                q27Tmp = q27Tmp +1;
+                q28Tmp = q28Tmp +1;
+
+                
+                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider);
+                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider], nil];
+                
+//                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider], nil];
+//                
+                //rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",uniqueIDtmp,debugModeTmp,respondentTypeTmp,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp], nil];
                 [allSatisfactionPatients addObject:rowArray];
                 
                 NSLog(@"Writing row %d (%@) to csv file...",writingRowIndex,respondentTypeTmp);
@@ -1160,6 +1657,7 @@
 
 - (void)playSoundForIndex:(int)thisPageIndex {
     // sandy 7-16 will disable the sound prompts after first patient satisfaction survey question here I think may have to do major revision to make this match
+    // for now the prompts are just disabled in the call to the tts
     
     BOOL shouldCurrentlyPlayMidwaySound = NO;
     
@@ -1176,34 +1674,41 @@
     if (shouldCurrentlyPlayMidwaySound) {
  //not hit until q17
         if ([respondentType isEqualToString:@"patient"]) {
-            midwayItemPath = @"as_a_result_of_my_coming_prompt_new";
+           // sandy 7-20 disable prompts to match current question list
+            //midwayItemPath = @"as_a_result_of_my_coming_prompt_new";
             
 //            currentPromptString = @"As a result of my coming to the clinic and therapies,";
             
         } else if ([respondentType isEqualToString:@"family"]) {
-            midwayItemPath = @"FamilyNew_since_i_began_coming_new";
+            // sandy 7-20 disable prompts to match current question list
+            //midwayItemPath = @"FamilyNew_since_i_began_coming_new";
             
 //            currentPromptString = @"As a result of my loved one coming to the clinic and therapies,";
             
         } else {
-            midwayItemPath = @"CaregiverNew_as_a_result_new";
+            // sandy 7-20 disable prompts to match current question list
+            //midwayItemPath = @"CaregiverNew_as_a_result_new";
             
 //            currentPromptString = @"As a result of coming to the clinic and therapies,";
         }
 
     } else {
         if ([respondentType isEqualToString:@"patient"]) {
-            midwayItemPath = @"Patient_please_tell_about_clinic_by_marking_new";
+            // sandy 7-20 this is the hack to fix the prompts to match the array
+            // sandy 7-20 disable prompts to match current question list
+            //midwayItemPath = @"Patient_please_tell_about_clinic_by_marking_new";
             
 //            currentPromptString = @"As a result of my coming to the clinic and therapies,";
             
         } else if ([respondentType isEqualToString:@"family"]) {
-            midwayItemPath = @"Family_please_tell_about_clinic_by_marking_new";
+            // sandy 7-20 disable prompts to match current question list
+            //midwayItemPath = @"Family_please_tell_about_clinic_by_marking_new";
             
 //            currentPromptString = @"As a result of my loved one coming to the clinic and therapies,";
             
         } else {
-            midwayItemPath = @"CaregiverNew_please_tell_about_clinic_by_marking_new";
+            // sandy 7-20 disable prompts to match current question list
+            //midwayItemPath = @"CaregiverNew_please_tell_about_clinic_by_marking_new";
             
 //            currentPromptString = @"As a result of coming to the clinic and therapies,";
         }
@@ -1211,8 +1716,9 @@
     }
     
     NSLog(@"retriving Sounds For Question: %@",currentQuestionKey);
-    
-    [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:midwayItemPath,@"silence_half_second",currentQuestionKey, nil]];
+   // sandy 7-20 disabling first Prompt
+    //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:midwayItemPath,@"silence_half_second",currentQuestionKey, nil]];
+        [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:currentQuestionKey, nil]];
 //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:currentQuestionKey, nil]];
 }
 
@@ -1255,6 +1761,12 @@
         // Segue to the new controller
         UIViewController *source = [newChildControllers objectAtIndex:vcIndex];
         UIViewController *destination = [newChildControllers objectAtIndex:newIndex];
+        
+        //rjl 7/17/14
+       /* if( newIndex > 0){
+            UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
+            destination = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        }*/
         RotatingSegue *segue = [[RotatingSegue alloc] initWithIdentifier:@"segue" source:source destination:destination];
         segue.goesForward = goesForward;
         segue.delegate = self;
@@ -1858,9 +2370,13 @@
             isCurrentIndexLast = YES;
         }
     } else if ([respondentType isEqualToString:@"family"]) {
-        if (thisIndex == 5) {
+        if (thisIndex == 15) {// sandy 7-17 original was ==5 updated to 15
             isCurrentIndexLast = YES;
-        }
+        }//probably need to adjust this for caregiver case
+    } else if ([respondentType isEqualToString:@"caregiver"]) {
+        if (thisIndex == 10) {// sandy 7-17 original was ==5 updated to 15
+            isCurrentIndexLast = YES;
+        }//probably need to adjust this for caregiver case
     } else {
         if (thisIndex == 1) {
             isCurrentIndexLast = YES;
@@ -2516,11 +3032,11 @@
         totalSurveyItems = 8;//rjl 7/15/14 20;
         surveyItemsRemaining = 8;//rjl 7/15/14 20;
     } else if ([respondentType isEqualToString:@"family"]) {
-        totalSurveyItems = 24;
-        surveyItemsRemaining = 24;
+        totalSurveyItems = 8; // sandy 7-17 original was 24
+        surveyItemsRemaining = 8;
     } else {
-        totalSurveyItems = 28;
-        surveyItemsRemaining = 28;
+        totalSurveyItems = 13; // sandy 7-17 original was 28
+        surveyItemsRemaining = 13;
     }
     NSLog(@"RootViewController.sayFirstItem() totalSurveyItems %d", totalSurveyItems);
 
@@ -2549,7 +3065,7 @@
 //        self.queuePlayer = nil;
 //        self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:pre_satisfaction_sound_1_item,satisfaction_sound_1_item,nil]];
 //        //
-        
+  // sandy 7-20 this is where the first item speech is set for the satisfaction survey. There should not be a Label string for questions after this first question
     if ([respondentType isEqualToString:@"patient"]) {
         preFirstItemPath = @"Patient_please_tell_about_clinic_by_marking_new";
         firstItemPath = @"patient_q_0";
