@@ -646,6 +646,8 @@
     sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = '%@' Where uniqueid = %d", satisfactionItem, thisText, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
+    NSLog(@"RootViewController_Pad.updateSatisfactionTextForField() sqlStr is %@", sqlStatementString);
+    
     if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
         // Loop through the results and add them to the feeds array
         if(sqlite3_step(compiledStatement) == SQLITE_DONE) {
@@ -670,6 +672,8 @@
     sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
+    NSLog(@"RootViewController_Pad.updateSatisfactionRatingForField() sqlStr is %@", sqlStatementString);
+
     int result = sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL);
     NSLog(@"======== sqlite_prepare result %d ", result);
     if(result == SQLITE_OK) {
@@ -969,7 +973,7 @@
     //[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
     
     
-    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,SETVISIT,SETSPECIALTY,SETCLINIC,MONTH,YEAR,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,PS0ProviderSel,PS1ClinicSel,PS2GOAL,PS3REASON,PS4PREP,PS5LOOKING,PS7PROHELPFL,PS8CLHELPFL,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,VOICEASSIST,FONTSIZE,SETPROVIDER,", nil];
+    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,SETVISIT,SETSPECIALTY,SETCLINIC,MONTH,YEAR,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,PS0ProviderSel,PS1ClinicSel,PS2GOAL,PS3REASON,PS4PREP,PS5LOOKING,PS7PROHELPFL,PS8CLHELPFL,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,VOICEASSIST,FONTSIZE,SETPROVIDER,", nil];
 
     NSArray *rowArray;
 
@@ -1229,9 +1233,11 @@
                 
                 wanderON = (int)sqlite3_column_int(compiledStatement, oElements.temp_wanderON);
                 
-                appversion = (char*)sqlite3_column_text(compiledStatement, oElements.temp_appversion);
-                posttxdur = (char*)sqlite3_column_text(compiledStatement, oElements.temp_posttxdur);
-                pretxdur = (char*)sqlite3_column_text(compiledStatement, oElements.temp_prettxdur);
+                appversion = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_appversion)];
+                posttxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_posttxdur)];//NSString stringWithFormat:@"%4.4f"
+                pretxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_prettxdur)];
+                //posttxdur = [NSString stringWithFormat:@"%4.4f"sqlite3_column_text(compiledStatement, oElements.temp_posttxdur);//NSString stringWithFormat:@"%4.4f"
+                //pretxdur = [NSString stringWithFormat:@"%4.4f"sqlite3_column_text(compiledStatement, oElements.temp_prettxdur);
                 
                 s15techVal = (int)sqlite3_column_int(compiledStatement, oElements.s15tech);
                 s14recommendVal = (int)sqlite3_column_int(compiledStatement, oElements.s14recommend);
@@ -1438,15 +1444,15 @@
                 NSLog(@"logged values around respondenttype uniqueid=%d,debugModeTmp=%d,respondenttype=%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp);
     //shift question return values by one to avoid negative numbers in spreadsheet
                 s15techVal = s15techVal +1;
-                s14recommendVal = (int)sqlite3_column_int(compiledStatement, oElements.s14recommend);
-                s13knowVal = (int)sqlite3_column_int(compiledStatement, oElements.s13know);           // "Overall I felt more knowledgeable"
-                s12preparedVal = (int)sqlite3_column_int(compiledStatement,oElements.s12prepared); //"Overall I felt more prepared"
-                s11metgoalVal = (int)sqlite3_column_int(compiledStatement, oElements.s11metgoal);         // "Did today's visit meet your expectations regarding your goal"
-                s8clinichelpVal = (int)sqlite3_column_int(compiledStatement, oElements.s8clinichelp);      // "Please indicate how helpful you found this clinic information"
-                s7prohelpVal = (int)sqlite3_column_int(compiledStatement, oElements.s7prohelp);  // "Please indicate how helpful you found this information on your provider"
-                s5lookingVal = (int)sqlite3_column_int(compiledStatement, oElements.s5looking);       // "I am looking forward to today's visit
-                s4preparedVal = (int)sqlite3_column_int(compiledStatement, oElements.s4prepared);    // "I feel prepared for today's visit"
-                s3reasonVal = (int)sqlite3_column_int(compiledStatement, oElements.s3reason);     // "I understand the reason or reasons for today's visit"
+                s14recommendVal = s14recommendVal +1;
+                s13knowVal = s13knowVal +1;           // "Overall I felt more knowledgeable"
+                s12preparedVal = s12preparedVal +1; //"Overall I felt more prepared"
+                s11metgoalVal = s11metgoalVal +1;         // "Did today's visit meet your expectations regarding your goal"
+                s8clinichelpVal = s8clinichelpVal +1;      // "Please indicate how helpful you found this clinic information"
+                s7prohelpVal = s7prohelpVal +1 ;  // "Please indicate how helpful you found this information on your provider"
+                s5lookingVal = s5lookingVal +1;       // "I am looking forward to today's visit
+                s4preparedVal = s4preparedVal +1;    // "I feel prepared for today's visit"
+                s3reasonVal = s3reasonVal +1;     // "I understand the reason or reasons for today's visit"
                 q1Tmp = q1Tmp +1;
                 q2Tmp = q2Tmp +1;
                 q3Tmp = q3Tmp +1;
@@ -1475,11 +1481,15 @@
                 q26Tmp = q26Tmp +1;
                 q27Tmp = q27Tmp +1;
                 q28Tmp = q28Tmp +1;
+                
+                
+                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,voiceTmp,fontTmp,setprovider);
+                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,voiceTmp,fontTmp,setprovider], nil];
+                
 
-                
-                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider);
-                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider], nil];
-                
+//                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,voiceTmp,fontTmp,setprovider);
+//                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,voiceTmp,fontTmp,setprovider], nil];
+//                
 //                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp,setprovider], nil];
 //                
                 //rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",uniqueIDtmp,debugModeTmp,respondentTypeTmp,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,voiceTmp,fontTmp], nil];
