@@ -58,6 +58,7 @@
 	NSString *databasePath;
     NSString *mainTable;
     NSString *csvpath;
+    NSString *csvpathCurrentFilename;
     
     int currentUniqueID;
     
@@ -121,6 +122,7 @@
 @property (nonatomic, retain) NSString *databasePath;
 @property (nonatomic, retain) NSString *mainTable;
 @property (nonatomic, retain) NSString *csvpath;
+@property (nonatomic, retain) NSString *csvpathCurrentFilename;
 
 @property (nonatomic, retain) NSArray *patientSatisfactionLabelItems;
 @property (nonatomic, retain) NSArray *familySatisfactionLabelItems;

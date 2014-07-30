@@ -558,6 +558,7 @@ int indexCount;
                            @"Oanh Mandal, M.D.",
                            @"Ted Scott, M.D.",
                            @"Jeff Teraoka, M.D.",
+                           @"Molly Ann Timmerman, D.O.",
                            @"Debbie Pitsch, MPT, GCS, ATP",
                            @"Karen Parecki, MS, OTR/L, CBIS, ATP",
                            @"Eve Klein, MA, CCC-SLP"] mutableCopy];
@@ -570,6 +571,7 @@ int indexCount;
                            @"pmnr_mandal_thumb3.png",
                            @"pmnr_scott_thumb.png",
                            @"pmnr_teraoka_thumb.png",
+                            @"pmnr_timmerman_thumb.png",
                             @"at_pitsch_thumb.png",
                             @"at_parecki_thumb.png",
                             @"at_klein_thumb.png"] mutableCopy];
@@ -582,6 +584,7 @@ int indexCount;
                                  @"pmnr_mandal3.png",
                                  @"pmnr_scott.png",
                                  @"pmnr_teraoka.png",
+                                 @"pns_timmerman.png",
                                  @"at_pitsch.png",
                                  @"at_parecki.png",
                                  @"at_klein.png"] mutableCopy];
@@ -594,6 +597,7 @@ int indexCount;
                                     @"pmnr_mandal_bio",
                                     @"pmnr_scott_bio",
                                     @"pmnr_teraoka_bio",
+                                    @"pns_timmerman_bio",
                                     @"at_pitsch_bio",
                                     @"at_parecki_bio",
                                     @"at_klein_bio"] mutableCopy];
@@ -606,6 +610,7 @@ int indexCount;
                                      @"pmnr_mandal",
                                      @"pmnr_scott",
                                      @"pmnr_teraoka",
+                                     @"pns_timmerman",
                                      @"at_pitsch",
                                      @"at_parecki",
                                      @"at_klein"] mutableCopy];
@@ -6154,6 +6159,7 @@ int indexCount;
     
     if (sendCSVFile) {
         attachmentFilename = tbvc.csvpath;
+      //  attachmentFilename = tbvc.csvpathCurrentFilename;
     } else if (sendSQLFile) {
         attachmentFilename = tbvc.databaseName;
     }
@@ -6196,7 +6202,10 @@ int indexCount;
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory , NSUserDomainMask, YES);
         NSString *documentsDir = [paths objectAtIndex:0];
         //        NSString *dataPath = [NSString stringWithFormat:@"%@",tbvc.csvpath];
+        //NSString *csvRoot = [documentsDir stringByAppendingPathComponent:tbvc.csvpath];
+        //NSString *csvRoot = [documentsDir stringByAppendingPathComponent:tbvc.csvpathCurrentFilename];
         NSString *csvRoot = [documentsDir stringByAppendingPathComponent:tbvc.csvpath];
+        
         NSData *csvData = [NSData dataWithContentsOfFile:csvRoot];
         
         //    NSString *vcfPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"vcf"];
@@ -6204,8 +6213,8 @@ int indexCount;
         
         //    NSDictionary *vcfPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"test.vcf\"",kSKPSMTPPartContentTypeKey,
         //                             @"attachment;\r\n\tfilename=\"test.vcf\"",kSKPSMTPPartContentDispositionKey,[vcfData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
-        NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata_7_22_14.csv\"",kSKPSMTPPartContentTypeKey,
-                                 @"attachment;\r\n\tfilename=\"satisfactiondata_7_22_14.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
+        NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata_7_23_14.csv\"",kSKPSMTPPartContentTypeKey,
+                                 @"attachment;\r\n\tfilename=\"satisfactiondata_7_23_14.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
         
         //NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata.csv\"",kSKPSMTPPartContentTypeKey,@"attachment;\r\n\tfilename=\"satisfactiondata.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
         

@@ -408,7 +408,6 @@
 		3DD64C68164923CD009E7604 /* vapachs_SS_splash2-new_ipad_landscape3_sml2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD64C67164923CD009E7604 /* vapachs_SS_splash2-new_ipad_landscape3_sml2.png */; };
 		3DD64C6A16492C9E009E7604 /* cube_sml.html in Resources */ = {isa = PBXBuildFile; fileRef = 3DD64C6916492C9E009E7604 /* cube_sml.html */; };
 		3DD6D9E016D1AA4000FCE4DA /* DynamicSurveyViewController_Pad.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DD6D9DF16D1AA4000FCE4DA /* DynamicSurveyViewController_Pad.m */; };
-		3DD87EE916BAF7BA002B4C1D /* pmnr_klima_bio.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD87EE816BAF7BA002B4C1D /* pmnr_klima_bio.plist */; };
 		3DD87EEE16BAF9B9002B4C1D /* pmnr_chao_bio.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD87EED16BAF9B9002B4C1D /* pmnr_chao_bio.plist */; };
 		3DD87EF016BAFB27002B4C1D /* pmnr_karandikar_bio.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD87EEF16BAFB27002B4C1D /* pmnr_karandikar_bio.plist */; };
 		3DD87EF216BAFBC7002B4C1D /* pmnr_kingery_bio.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DD87EF116BAFBC7002B4C1D /* pmnr_kingery_bio.plist */; };
@@ -445,6 +444,9 @@
 		3DF8A7D61648F02C0020D897 /* patient_button_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8A7D01648F02C0020D897 /* patient_button_image_pressed.png */; };
 		3DF8A7D71648F02C0020D897 /* patient_button_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DF8A7D11648F02C0020D897 /* patient_button_image.png */; };
 		3DFE57F7174537960061D5AC /* DSFingerTipWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DFE57F6174537960061D5AC /* DSFingerTipWindow.m */; };
+		5F0A29F01988A7300003E8AF /* pns_timmerman_thumb.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0A29EE1988A7300003E8AF /* pns_timmerman_thumb.png */; };
+		5F0A29F11988A7300003E8AF /* pns_timmerman.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0A29EF1988A7300003E8AF /* pns_timmerman.png */; };
+		5F0A29F31988A83B0003E8AF /* pns_timmerman_bio.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5F0A29F21988A83B0003E8AF /* pns_timmerman_bio.plist */; };
 		5F0C84231968BC7B00DCA765 /* comingsoon_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84221968BC7B00DCA765 /* comingsoon_image.png */; };
 		5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */; };
 		5F64B31F19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */; };
@@ -941,7 +943,6 @@
 		3DD64C6916492C9E009E7604 /* cube_sml.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = cube_sml.html; sourceTree = "<group>"; };
 		3DD6D9DE16D1AA4000FCE4DA /* DynamicSurveyViewController_Pad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicSurveyViewController_Pad.h; path = iPad/DynamicSurveyViewController_Pad.h; sourceTree = "<group>"; };
 		3DD6D9DF16D1AA4000FCE4DA /* DynamicSurveyViewController_Pad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DynamicSurveyViewController_Pad.m; path = iPad/DynamicSurveyViewController_Pad.m; sourceTree = "<group>"; };
-		3DD87EE816BAF7BA002B4C1D /* pmnr_klima_bio.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pmnr_klima_bio.plist; sourceTree = "<group>"; };
 		3DD87EED16BAF9B9002B4C1D /* pmnr_chao_bio.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pmnr_chao_bio.plist; sourceTree = "<group>"; };
 		3DD87EEF16BAFB27002B4C1D /* pmnr_karandikar_bio.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pmnr_karandikar_bio.plist; sourceTree = "<group>"; };
 		3DD87EF116BAFBC7002B4C1D /* pmnr_kingery_bio.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pmnr_kingery_bio.plist; sourceTree = "<group>"; };
@@ -984,6 +985,9 @@
 		3DF8A7D11648F02C0020D897 /* patient_button_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = patient_button_image.png; sourceTree = "<group>"; };
 		3DFE57F5174537960061D5AC /* DSFingerTipWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DSFingerTipWindow.h; sourceTree = "<group>"; };
 		3DFE57F6174537960061D5AC /* DSFingerTipWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DSFingerTipWindow.m; sourceTree = "<group>"; };
+		5F0A29EE1988A7300003E8AF /* pns_timmerman_thumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pns_timmerman_thumb.png; sourceTree = "<group>"; };
+		5F0A29EF1988A7300003E8AF /* pns_timmerman.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pns_timmerman.png; sourceTree = "<group>"; };
+		5F0A29F21988A83B0003E8AF /* pns_timmerman_bio.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pns_timmerman_bio.plist; sourceTree = "<group>"; };
 		5F0C84221968BC7B00DCA765 /* comingsoon_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image.png; sourceTree = "<group>"; };
 		5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image_pressed.png; sourceTree = "<group>"; };
 		5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_new_painscale_noprompt_template.storyboard; sourceTree = "<group>"; };
@@ -1638,7 +1642,6 @@
 				3D863C9917610FAB004336D3 /* at_klein_bio.plist */,
 				3D863C9717610ED6004336D3 /* at_parecki_bio.plist */,
 				3D02461F169AA7AB008F2872 /* pmnr_placeholder_bio.plist */,
-				3DD87EE816BAF7BA002B4C1D /* pmnr_klima_bio.plist */,
 				3DD87EED16BAF9B9002B4C1D /* pmnr_chao_bio.plist */,
 				3DD87EF116BAFBC7002B4C1D /* pmnr_kingery_bio.plist */,
 				3DD87EEF16BAFB27002B4C1D /* pmnr_karandikar_bio.plist */,
@@ -1647,6 +1650,7 @@
 				3D0C19B716AFAD300037A662 /* pmnr_scott_bio.plist */,
 				3D7B8FBE169A586400567922 /* pmnr_huang_bio.plist */,
 				3D02461D169AA578008F2872 /* pmnr_teraoka_bio.plist */,
+				5F0A29F21988A83B0003E8AF /* pns_timmerman_bio.plist */,
 			);
 			name = Bios;
 			sourceTree = "<group>";
@@ -1890,6 +1894,7 @@
 		3DE8184915D896C8008EAF27 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5F0A29ED1988A68F0003E8AF /* PNS */,
 				3D13AFCF17388AED0001EA3C /* blue_glow.png */,
 				3D0EAE74171892C200560259 /* upload_to_cloud.png */,
 				3DD05BA21713BBBA00746186 /* GreySidebar_rotated.png */,
@@ -1931,6 +1936,15 @@
 				3D514AAD15EDD9A80096906F /* Resources */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		5F0A29ED1988A68F0003E8AF /* PNS */ = {
+			isa = PBXGroup;
+			children = (
+				5F0A29EE1988A7300003E8AF /* pns_timmerman_thumb.png */,
+				5F0A29EF1988A7300003E8AF /* pns_timmerman.png */,
+			);
+			name = PNS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2054,6 +2068,7 @@
 				3DD64C6A16492C9E009E7604 /* cube_sml.html in Resources */,
 				3D6185A31653386400E54474 /* new_satisfaction_b.sql in Resources */,
 				3DE505D6166350BB00121D8B /* test.vcf in Resources */,
+				5F0A29F01988A7300003E8AF /* pns_timmerman_thumb.png in Resources */,
 				3D714AE016643BD300D92448 /* new_satisfaction_db.sql in Resources */,
 				3D714AF2166480CD00D92448 /* fontsize_button_image.png in Resources */,
 				3D714AF3166480CD00D92448 /* fontsize_button_image_pressed.png in Resources */,
@@ -2144,6 +2159,7 @@
 				3D29625A1676317A00C99C1D /* mod_severe_tbi_details.png in Resources */,
 				3D29625C1676320600C99C1D /* parts_of_brain.png in Resources */,
 				3D29625E167633A100C99C1D /* anatomy_of_brain-play.png in Resources */,
+				5F0A29F11988A7300003E8AF /* pns_timmerman.png in Resources */,
 				3D29628516763DAF00C99C1D /* whole_brain-horiz-hires_smallest.zip in Resources */,
 				3DAF70D61677180200AD2E73 /* learntbi_image_pressed3.png in Resources */,
 				3DAF70D71677180200AD2E73 /* learntbi_image3.png in Resources */,
@@ -2221,6 +2237,7 @@
 				3D3EB50A16B0D5B000997C12 /* KYITabBarBackground@2x.png in Resources */,
 				3D3EB50B16B0D5B000997C12 /* KYTabBarItem01.png in Resources */,
 				3D3EB50C16B0D5B000997C12 /* KYTabBarItem01@2x.png in Resources */,
+				5F0A29F31988A83B0003E8AF /* pns_timmerman_bio.plist in Resources */,
 				3D3EB50D16B0D5B000997C12 /* KYTabBarItem02.png in Resources */,
 				3D3EB50E16B0D5B000997C12 /* KYTabBarItem02@2x.png in Resources */,
 				3D3EB50F16B0D5B000997C12 /* KYTabBarItem03.png in Resources */,
@@ -2234,7 +2251,6 @@
 				3D221DA016B9DCE8000C29F9 /* demoButton5.png in Resources */,
 				3D221DA116B9DCE8000C29F9 /* demoButton5@2x.png in Resources */,
 				3DD40ADB16BAD05C0078B1A2 /* pmnr_mandal_bio.plist in Resources */,
-				3DD87EE916BAF7BA002B4C1D /* pmnr_klima_bio.plist in Resources */,
 				3DD87EEE16BAF9B9002B4C1D /* pmnr_chao_bio.plist in Resources */,
 				3DD87EF016BAFB27002B4C1D /* pmnr_karandikar_bio.plist in Resources */,
 				3DD87EF216BAFBC7002B4C1D /* pmnr_kingery_bio.plist in Resources */,

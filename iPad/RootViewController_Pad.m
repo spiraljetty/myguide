@@ -36,7 +36,7 @@
 
 @synthesize speakItemsAloud, showDefaultButton, showFlipButton, showDissolveButton, showCurlButton;
 @synthesize respondentType;
-@synthesize databasePath, mainTable, csvpath, databaseName;
+@synthesize databasePath, mainTable, csvpath, csvpathCurrentFilename, databaseName;
 @synthesize vcIndex;
 @synthesize currentFontSize, patientSatisfactionLabelItems, familySatisfactionLabelItems, caregiverSatisfactionLabelItems, totalSurveyItems, surveyItemsRemaining, currentPromptString;
 @synthesize patientPromptLabelItems, familyPromptLabelItems, caregiverPromptLabelItems, masterTTSPlayer, numSurveyItems, newChildControllers;
@@ -509,9 +509,14 @@
     //sandy updated dbase name but the table is not being written properly
     //databaseName = @"myguide_WR_db_e.sql";
     mainTable = @"sessiondata";
-    // csvpath = @"satisfactiondata.csv";
+    csvpath = @"satisfactiondata_7_23_14.csv";
     // sandy 7-21 should append device name and date here
-    csvpath = @"satisfactiondata_7_22_14.csv";
+    NSString *thisdeviceName = [[UIDevice currentDevice] name];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy_MM_dd";
+    NSString *datesubstring = [NSString stringWithFormat:@"%@", [formatter stringFromDate:[NSDate date]]];
+    csvpathCurrentFilename = [NSString stringWithFormat:@"satisfactiondata_%@_%@.csv", datesubstring,thisdeviceName];
+    NSLog(@"csvpath current datename is:%@",csvpathCurrentFilename);
     
     // Current sql db database fields
     // uniqueid (integer primary key)
@@ -739,7 +744,9 @@
     
     
     // Setup the SQL Statement and compile it for faster access 
-    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name], currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentYear], [[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
+    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name], currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentDateTime], [[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
+    
+//    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name], currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentYear], [[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
     int result = sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL);
@@ -957,10 +964,21 @@
     return uniqueIdToReturn;
 }
 
+//- (NSString *) GetUTCDateTimeFromLocalTime:(NSString *)IN_strLocalTime
+//{
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+//    NSDate  *objDate    = [dateFormatter dateFromString:IN_strLocalTime];
+//    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+//    NSString *strDateTime   = [dateFormatter stringFromDate:objDate];
+//    return strDateTime;
+//}
+
 - (void)writeLocalDbToCSVFile {
     
     [self openDB];
     
+   //NSLog(@"Writing satisfaction sql db to file: %@", csvpathCurrentFilename);
     NSLog(@"Writing satisfaction sql db to file: %@", csvpath);
     // sandy 7-20 need make sure the data matches the sequence the user experiences
     //   sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,
@@ -973,7 +991,7 @@
     //[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
     
     
-    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,SETVISIT,SETSPECIALTY,SETCLINIC,MONTH,YEAR,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,PS0ProviderSel,PS1ClinicSel,PS2GOAL,PS3REASON,PS4PREP,PS5LOOKING,PS7PROHELPFL,PS8CLHELPFL,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,VOICEASSIST,FONTSIZE,SETPROVIDER,", nil];
+    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,DEMO,RESPONDENTTYPE,SETVISIT,SETSPECIALTY,SETCLINIC,MONTH,DATETIME,STARTEDSURVEY,FINISHEDSURVEY,TOTALSURVEYDURATION,PS0ProviderSel,PS1ClinicSel,PS2GOAL,PS3REASON,PS4PREP,PS5LOOKING,PS7PROHELPFL,PS8CLHELPFL,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10,Q11,Q12,Q13,Q14,Q15,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,VOICEASSIST,FONTSIZE,APPVERSION,PRETXDUR,POSTTXDUR,IPADNAME,SETPROVIDER", nil];
 
     NSArray *rowArray;
 
@@ -990,8 +1008,8 @@
     NSString *accesspoint;
     int wanderON = 0;
     NSString *appversion;
-    NSString *posttxdur;
-    NSString *pretxdur;
+    NSString *posttxdurTmp;
+    NSString *pretxdurTmp;
     int s15techVal = 0;           // "Overall I like this type of technology"
     int s14recommendVal = 0;      // "I would recommend this guide"
     int s13knowVal = 0;            // "Overall I felt more knowledgeable"
@@ -1234,8 +1252,8 @@
                 wanderON = (int)sqlite3_column_int(compiledStatement, oElements.temp_wanderON);
                 
                 appversion = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_appversion)];
-                posttxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_posttxdur)];//NSString stringWithFormat:@"%4.4f"
-                pretxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_prettxdur)];
+                posttxdurTmp = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_posttxdur)];//NSString stringWithFormat:@"%4.4f"
+                pretxdurTmp = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.temp_prettxdur)];
                 //posttxdur = [NSString stringWithFormat:@"%4.4f"sqlite3_column_text(compiledStatement, oElements.temp_posttxdur);//NSString stringWithFormat:@"%4.4f"
                 //pretxdur = [NSString stringWithFormat:@"%4.4f"sqlite3_column_text(compiledStatement, oElements.temp_prettxdur);
                 
@@ -1258,7 +1276,9 @@
                 NSString *setvisit = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setvisit)];
                 NSString *setspeciality = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setspecialty)];
                 NSString *setclinic = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_setclinic)];
-                NSString *ipadname = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_ipadname)];
+                NSString *ipadnameTmp = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.temp_ipadname)];
+                if (ipadnameTmp == NULL)
+                    ipadnameTmp = @"null";
                 q28Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q28);
                 q27Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q27);
                 q26Tmp = (int)sqlite3_column_int(compiledStatement, oElements.temp_q26);
@@ -1481,10 +1501,31 @@
                 q26Tmp = q26Tmp +1;
                 q27Tmp = q27Tmp +1;
                 q28Tmp = q28Tmp +1;
+                NSDate *now = [NSDate dateWithTimeIntervalSince1970:yearTmp];
                 
                 
-                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,voiceTmp,fontTmp,setprovider);
-                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,voiceTmp,fontTmp,setprovider], nil];
+                   NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+                    NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:now];
+                //
+                //
+//                    NSInteger second = [components second];
+                    NSInteger minute = [components minute];
+                    NSInteger hour = [components hour];
+                    NSInteger day = [components day];
+                    NSInteger month = [components month];
+                    NSInteger year = [components year];
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm"];
+                //[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+                 [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+                NSString *strDateTime   = [dateFormatter stringFromDate:now];
+                
+                
+                
+                
+                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%@,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@,%@,%@,%@,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,strDateTime,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,voiceTmp,fontTmp,appversion,posttxdurTmp,pretxdurTmp,ipadnameTmp,setprovider);
+                
+                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%@,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@,%@,%@,%@,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,strDateTime,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,voiceTmp,fontTmp,appversion,posttxdurTmp,pretxdurTmp,ipadnameTmp,setprovider], nil];
                 
 
 //                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,voiceTmp,fontTmp,setprovider);
@@ -1509,6 +1550,7 @@
     
     NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 
+    //NSString *filePathLib = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:csvpathCurrentFilename]];
     NSString *filePathLib = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:csvpath]];
     
     NSString* fullStringToWrite = [allSatisfactionPatients componentsJoinedByString:@""];
@@ -1517,7 +1559,8 @@
     
     [fullStringToWrite writeToFile:filePathLib atomically:YES encoding:NSUTF8StringEncoding error:NULL];
     
-    NSLog(@"Satisfaction sql db written to local file: %@", csvpath);
+    //NSLog(@"Satisfaction sql db written to local file: %@", csvpathCurrentFilename);
+     NSLog(@"Satisfaction sql db written to local file: %@", csvpath);
     NSLog(@"Open iTunes or email as attachment to retrieve data");
 }
 
@@ -1544,6 +1587,18 @@
 	return thisMomentInt;
 }
 
+- (int)getCurrentDay {
+    NSDate *date = [NSDate date];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
+    
+    NSInteger day = [components day];
+    
+    int thisDay = day + 0;
+    
+    return thisDay;
+}
+
 - (int)getCurrentMonth {
     NSDate *date = [NSDate date];
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
@@ -1566,6 +1621,29 @@
     int thisYear = year + 0;
     
     return thisYear;
+}
+
+
+- (int)getCurrentDateTime {
+    NSDate *date = [NSDate date];
+    int timeSince1970 = [date timeIntervalSince1970];
+//    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+//    NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:date];
+//    
+//
+//    NSInteger second = [components second];
+//    NSInteger minute = [components minute];
+//    NSInteger hour = [components hour];
+//    NSInteger day = [components day];
+//    NSInteger month = [components month];
+//    NSInteger year = [components year];
+//
+//    
+//    NSLog(@"Current time is %dHours :  %dMinutes ",  hour, minute);
+//    
+//    int thisTimeInt = (hour * 60) + minute;
+    
+	return timeSince1970; //thisTimeInt;
 }
 
 // Informal delegate method re-enables bar buttons
