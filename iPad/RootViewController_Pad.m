@@ -974,6 +974,41 @@
 //    return strDateTime;
 //}
 
+- (void) writeLogMsg:(NSString*)msg{
+    NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    //NSString *filePathLib = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:csvpathCurrentFilename]];
+    NSString* filename  = @"alogtest1.txt";
+    NSString *filePathLib = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:filename]];
+//    NSString* msg  = @"this is a test log msg";
+
+//    NSString* fullStringToWrite = [allSatisfactionPatients componentsJoinedByString:@""];
+//    NSCharacterSet* charSet = [NSCharacterSet characterSetWithCharactersInString:@"()\""];
+//    fullStringToWrite = [[fullStringToWrite componentsSeparatedByCharactersInSet:charSet] componentsJoinedByString:@""];
+    
+    [msg writeToFile:filePathLib atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    
+    //NSLog(@"Satisfaction sql db written to local file: %@", csvpathCurrentFilename);
+    NSLog(@"RootViewController.writeLogMsg(): %@", msg);
+
+}
+
+- (void) myLog:(NSString*) format, ...{
+    va_list argList;
+    va_start(argList, format);
+    NSString* formattedMessage = [[NSString alloc] initWithFormat: format arguments: argList];
+    va_end(argList);
+    NSLog(@"%@", formattedMessage);
+        NSString *docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString* filename  = @"alogtest2.txt";
+        NSString *filePathLib = [NSString stringWithFormat:@"%@",[docDir stringByAppendingPathComponent:filename]];
+
+    [formattedMessage writeToFile:filePathLib atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+//    NSFileHandle* fileHandle = [fileHandleForWritingAtPath filePathLib];
+//    fprintf(filePathLib, "%s\n", [formattedMessage UTF8String]);
+    [formattedMessage release];
+}
+
 - (void)writeLocalDbToCSVFile {
     
     [self openDB];

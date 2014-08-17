@@ -595,6 +595,7 @@ typedef enum {
 - (void)showAdminKeypad;
 
 - (void)adminSendDataButtonPressed:(id)sender;
+- (void)adminDownloadDataButtonPressed:(id)sender; //rjl 8/16/14
 - (void)adminShowSendDataButton;
 
 - (void)activateSurveyBackButton;

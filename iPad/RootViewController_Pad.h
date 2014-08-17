@@ -174,6 +174,8 @@
 
 - (void)checkAndLoadLocalDatabase;
 - (void)writeLocalDbToCSVFile;
+- (void)writeLogMsg:(NSString*) msg;
+- (void)myLog:(NSString*) format, ...;
 
 -(NSString *)filePath;
 -(void)openDB;

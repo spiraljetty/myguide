@@ -210,7 +210,7 @@
                 linkImage.image = [UIImage imageNamed:@"no_connection_frame1.png"];
                 break;
         }
-    
+    //    NSLog(@"YLViewController.updateLinkDisplayWithLinkType() link type %u", thisNetworkStatus);
 }
 
 - (void)updateNetworkDisplayWithConnectionType:(ConnectionType)thisConnectionType {
@@ -237,6 +237,10 @@
             [self disableUploadDataButton];
             break;
     }
+    NSLog(@"YLViewController.updateNetworkDisplayWithConnectionType() connection status %@", networkStatus.text);
+    
+    //[tbvc myLog:@"YLViewController.updateNetworkDisplayWithConnectionType() networkStatus: %@", networkStatus.text];
+//    [tbvc writeLogMsg:msg];//[NSString stringWithFormat:@"Password OK"]];
     
 }
 
@@ -395,6 +399,13 @@
 }
 
 - (void)uploadDataToCloudButtonPressed:(id)sender {
+    // rjl 8/16/14
+    bool rjlDebug = true;
+    if (rjlDebug){
+        [self downloadDataFromCloudButtonPressed:sender];
+        return;
+    }
+    
     NSLog(@"YLViewController.uploadDataToCloudButtonPressed()");
     [self disableUploadDataButton];
     
@@ -405,6 +416,20 @@
     [uploadDataSpinner startAnimating];
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminSendDataButtonPressed:self];
+    
+}
+
+- (void)downloadDataFromCloudButtonPressed:(id)sender { // rjl 8/16/14
+    NSLog(@"YLViewController.downloadDataFromCloudButtonPressed()");
+    [self disableUploadDataButton];
+    
+    uploadDataStatus.alpha = 1.0;
+    uploadDataStatus.text = @"Working...";
+    
+    uploadDataSpinner.alpha = 1.0;
+    [uploadDataSpinner startAnimating];
+    
+    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminDownloadDataButtonPressed:self];
     
 }
 

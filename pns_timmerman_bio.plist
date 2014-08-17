@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-    <dict>
-        <key>Background</key>
-        <string>Dr. Molly Ann Timmerman, D.O. has 1 year of experience and practices in Physical Medicine and Rehabilitation
+<dict>
+	<key>Background</key>
+	<string>Dr. Molly Ann Timmerman, D.O. has 1 year of experience and practices in Physical Medicine and Rehabilitation.
         </string>
-        <key>Education and Affiliations</key>
-        <string>Dr. Timmerman graduated from Western University of Health Sciences, Pomona, California.
-            She has 3 hospital affiliations at Palo Alto Veterans Affairs Medical Center, San Mateo Medical Center and Stanford Medical Center.
+	<key>Education and Affiliations</key>
+	<string>Dr. Timmerman graduated from Western University of Health Sciences Pomona California
         </string>
-        <key>Credentials</key>
-        <string>Dr. Timmerman is board certified in Physical Medicine and Rehabilitation. She has special expertise in 3 areas, including musculoskeletal medicine, traumatic brain injury, and amputee care.</string>
-    </dict>
+	<key>Credentials</key>
+	<string>Dr. Timmerman is board certified in Physical Medicine and Rehabilitation. She has special expertise in 3 areas, including musculoskeletal medicine, traumatic brain injury, and amputee care.</string>
+</dict>
 </plist>

@@ -20,6 +20,7 @@
 #import "YLViewController.h"
 #import "DynamicSurveyViewController_Pad.h"
 #import "FPNumberPadView.h"
+#import "ClinicianInfo.h"
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
 #define BARBUTTON(TITLE, SELECTOR) 	[[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
@@ -571,7 +572,7 @@ int indexCount;
                            @"pmnr_mandal_thumb3.png",
                            @"pmnr_scott_thumb.png",
                            @"pmnr_teraoka_thumb.png",
-                            @"pmnr_timmerman_thumb.png",
+                            @"pns_timmerman_thumb.png",
                             @"at_pitsch_thumb.png",
                             @"at_parecki_thumb.png",
                             @"at_klein_thumb.png"] mutableCopy];
@@ -676,7 +677,9 @@ int indexCount;
                                 @"Ted Scott, M.D.",
                                 @"Jeff Teraoka, M.D.",nil],
                                [NSArray arrayWithObjects:@"Steven Chao, M.D., Ph.D.",
-                                @"Oanh Mandal, M.D.",@"Jeff Teraoka, M.D.",nil],
+                                @"Oanh Mandal, M.D.",
+                                @"Jeff Teraoka, M.D.",
+                                @"Molly Ann Timmerman, D.O.",nil],
                                [NSArray arrayWithObjects:@"Jeff Teraoka, M.D.", nil],
                                [NSArray arrayWithObjects:@"Debbie Pitsch, MPT, GCS, ATP",
                                 @"Karen Parecki, MS, OTR/L, CBIS, ATP",
@@ -6129,6 +6132,115 @@ int indexCount;
     
     //    [self removeSpinner];
 }
+
+
+
+
+- (void)adminDownloadDataButtonPressed:(id)sender { // rjl 8/16/14
+    NSLog(@"WRViewController.adminDownloadDataButtonPressed()");
+    [self downloadClinicianInfo];
+}
+
+- (void) downloadClinicianInfo {
+    [self downloadFile:@"clinicians.txt"];
+}
+
+- (NSArray*) readFile:(NSString*)filename {
+    
+    // read everything from text
+    NSString* fileContents =
+    [NSString stringWithContentsOfFile:filename
+                              encoding:NSUTF8StringEncoding error:nil];
+    
+    // first, separate by new line
+    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet:
+                                [NSCharacterSet newlineCharacterSet]];
+    return allLinedStrings;
+}
+
+- (void) downloadFile:(NSString*)filename {
+    NSString* downloadDir = @"http://www.brainaid.com/wrtest";
+    NSString* filePath = [NSString stringWithFormat:@"%@/%@", downloadDir,filename];
+    NSURL *downloadUrl = [NSURL URLWithString:filePath];
+    NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
+    //UIImage *img = [UIImage imageWithData:downloadData];
+
+    if ( downloadData ){
+        NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString  *documentsDirectory = [paths objectAtIndex:0];
+        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+        [downloadData writeToFile:filePath atomically:YES];
+        [self readClinicianInfo:filePath];
+    }
+}
+
+
+- (void) readClinicianInfo:(NSString*) filePath{
+    NSLog(@"WRViewController.readClinicianInfo()");
+    NSMutableArray *allClinicianInfo = [[NSMutableArray alloc] init];
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *item in lines) {
+        NSLog(@"%@", item);
+        NSArray* clinicianProperties = [item componentsSeparatedByCharactersInSet:
+                                        [NSCharacterSet characterSetWithCharactersInString:@","]];
+        ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
+        for (int i=0; i<[clinicianProperties count]; i++) {
+            NSString* value = clinicianProperties[i];
+            NSLog(@"%d: %@", i, value);
+            switch (i) {
+                case 0: [clinicianInfo setClinicianId:value]; break;
+                case 1: [clinicianInfo setName:value]; break;
+                case 2: [clinicianInfo setText1:value]; break;
+                case 3: [clinicianInfo setText2:value]; break;
+                case 4: [clinicianInfo setText3:value]; break;
+                case 5: [clinicianInfo setText4:value]; break;
+            }
+        }
+        [allClinicianInfo addObject:clinicianInfo];
+    }
+    NSLog(@"Loaded %d clinicians", [allClinicianInfo count]);
+    for (ClinicianInfo* info in allClinicianInfo){
+        [info print];
+    }
+}
+
+
+NSString *readLineAsNSString(FILE *file)
+{
+    char buffer[4096];
+    
+    // tune this capacity to your liking -- larger buffer sizes will be faster, but
+    // use more memory
+    NSMutableString *result = [NSMutableString stringWithCapacity:256];
+    
+    // Read up to 4095 non-newline characters, then read and discard the newline
+    int charsRead;
+    do
+    {
+        if(fscanf(file, "%4095[^\n]%n%*c", buffer, &charsRead) == 1)
+            [result appendFormat:@"%s", buffer];
+        else
+            break;
+    } while(charsRead == 4095);
+    
+    return result;
+}
+
+
+
+- (void) readFileLineByLine:(NSString*) filename {
+    const char *filenameChars = [filename UTF8String];
+    FILE *file = fopen(filenameChars, "r");
+    // check for NULL
+    while(!feof(file))
+    {
+        NSString *line = readLineAsNSString(file);
+        NSLog(line);
+        // do stuff with line; line is autoreleased, so you should NOT release it (unless you also retain it beforehand)
+    }
+    fclose(file);
+}
+
 
 - (void)showSpinner {
     splashSpinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 158.0f, 158.0f)];
