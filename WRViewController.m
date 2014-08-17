@@ -6134,6 +6134,7 @@ int indexCount;
 }
 
 
+// File Download methods rjl 8/16/14
 
 
 - (void)adminDownloadDataButtonPressed:(id)sender { // rjl 8/16/14
@@ -6141,12 +6142,20 @@ int indexCount;
     [self downloadClinicianInfo];
 }
 
-- (void) downloadClinicianInfo {
-    [self downloadFile:@"clinicians.txt"];
+- (void) downloadClinicianInfo { // rjl 8/16/14
+    NSString* filePath = [self downloadFile:@"clinicians.txt"];
+    if (filePath)
+        [self readClinicianInfo:filePath];
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadClinicianInfo() %@", errorMsg];
+        NSLog(logMsg);
+        [self showAlertMsg:errorMsg];
+    }
 }
 
 - (NSArray*) readFile:(NSString*)filename {
-    
+    // rjl 8/16/14
     // read everything from text
     NSString* fileContents =
     [NSString stringWithContentsOfFile:filename
@@ -6158,7 +6167,8 @@ int indexCount;
     return allLinedStrings;
 }
 
-- (void) downloadFile:(NSString*)filename {
+- (NSString*) downloadFile:(NSString*)filename {
+    // rjl 8/16/14
     NSString* downloadDir = @"http://www.brainaid.com/wrtest";
     NSString* filePath = [NSString stringWithFormat:@"%@/%@", downloadDir,filename];
     NSURL *downloadUrl = [NSURL URLWithString:filePath];
@@ -6170,43 +6180,61 @@ int indexCount;
         NSString  *documentsDirectory = [paths objectAtIndex:0];
         NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
         [downloadData writeToFile:filePath atomically:YES];
-        [self readClinicianInfo:filePath];
+        return filePath;
+    }
+    else {
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
+        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadFile() %@", errorMsg];
+        NSLog(logMsg);
+        [self showAlertMsg:errorMsg];
+        return nil;
     }
 }
 
 
 - (void) readClinicianInfo:(NSString*) filePath{
     NSLog(@"WRViewController.readClinicianInfo()");
-    NSMutableArray *allClinicianInfo = [[NSMutableArray alloc] init];
+    NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
     NSArray * lines = [self readFile:filePath];
-    for (NSString *item in lines) {
-        NSLog(@"%@", item);
-        NSArray* clinicianProperties = [item componentsSeparatedByCharactersInSet:
+    for (NSString *line in lines) {
+        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+
+        if (clinicianLine.length > 0){
+            //NSLog(@"%@", line);
+            ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
+            // parse row containing clinician details
+            NSArray* clinicianProperties = [line componentsSeparatedByCharactersInSet:
                                         [NSCharacterSet characterSetWithCharactersInString:@","]];
-        ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
-        for (int i=0; i<[clinicianProperties count]; i++) {
-            NSString* value = clinicianProperties[i];
-            NSLog(@"%d: %@", i, value);
-            switch (i) {
-                case 0: [clinicianInfo setClinicianId:value]; break;
-                case 1: [clinicianInfo setName:value]; break;
-                case 2: [clinicianInfo setText1:value]; break;
-                case 3: [clinicianInfo setText2:value]; break;
-                case 4: [clinicianInfo setText3:value]; break;
-                case 5: [clinicianInfo setText4:value]; break;
-            }
-        }
-        [allClinicianInfo addObject:clinicianInfo];
-    }
-    NSLog(@"Loaded %d clinicians", [allClinicianInfo count]);
-    for (ClinicianInfo* info in allClinicianInfo){
-        [info print];
+            for (int i=0; i<[clinicianProperties count]; i++) {
+                NSString* value = clinicianProperties[i];
+                value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                //NSLog(@"%d: %@", i, value);
+                switch (i) {
+                    case 0: [clinicianInfo setClinicianId:value]; break;
+                    case 1: [clinicianInfo setName:value]; break;
+                    case 2: [clinicianInfo setText1:value]; break;
+                    case 3: [clinicianInfo setText2:value]; break;
+                    case 4: [clinicianInfo setText3:value]; break;
+                    case 5: [clinicianInfo setText4:value]; break;
+                } // end switch
+            } // end for
+            [allClinicians addObject:clinicianInfo];
+        } // end if clinicianLine.length > 0
+    }// end for line in lines
+    
+    NSLog(@"Loaded %d clinicians", [allClinicians count]);
+    
+    // download the image file for each clinician
+    for (ClinicianInfo* clinician in allClinicians){
+        NSLog([clinician writeToString]);
+        NSString* clinicianImageFilename = [clinician getImageFilename];
+        [self downloadFile:clinicianImageFilename];
     }
 }
 
 
-NSString *readLineAsNSString(FILE *file)
-{
+NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
+{   // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
     char buffer[4096];
     
     // tune this capacity to your liking -- larger buffer sizes will be faster, but
@@ -6228,7 +6256,8 @@ NSString *readLineAsNSString(FILE *file)
 
 
 
-- (void) readFileLineByLine:(NSString*) filename {
+- (void) readFileLineByLine:(NSString*) filename { // rjl 8/16/14
+    // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
     const char *filenameChars = [filename UTF8String];
     FILE *file = fopen(filenameChars, "r");
     // check for NULL

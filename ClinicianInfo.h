@@ -19,7 +19,6 @@
     UIImage * mImage;
 }
 
-- (void) print;
 - (void) setName: (NSString*) name;
 - (void) setClinicianId:   (NSString*) clinicianId;
 - (void) setText1: (NSString*) text;
@@ -27,5 +26,15 @@
 - (void) setText3: (NSString*) text;
 - (void) setText4: (NSString*) text;
 - (void) setImage: (UIImage*) image;
+
+- (NSString*) getName;
+- (NSString*) getImageFilename;
+- (NSString*) getText1;
+- (NSString*) getText2;
+- (NSString*) getText3;
+- (NSString*) getText4;
+
+- (NSString*) writeToString;
+- (Boolean)   writeToDB;
 
 @end
