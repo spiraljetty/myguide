@@ -48,8 +48,10 @@
 @synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, masterTTSPlayer;
 
 // Establish core interface
-- (void)viewDidLoad
-{
+
+- (void)viewDidLoad {
+    NSLog(@"PhysicianViewController.viewDidLoad()");
+
 //    float angle =  270 * M_PI  / 180;
 //    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
 //    float leftAngle =  90 * M_PI  / 180;
@@ -125,7 +127,7 @@
         
         [self addChildViewController:physicianSubDetailVC];
         
-        NSLog(@"Added Physician Sub Detail Section %d with Header Title: %@",i+1,currentPhysicianDetailSectionNames[i]);
+        NSLog(@"PhysicianViewController.viewDidLoad() Added Physician Sub Detail Section %d with Header Title: %@",i+1,currentPhysicianDetailSectionNames[i]);
     }
     
     int numChildControllers = [newChildControllers count];
@@ -133,7 +135,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] addToTotalSlides:numChildControllers];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setFirstVisitSlides:[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] firstVisitSlides] + numChildControllers];
     
-    NSLog(@"CREATED %d PHYSICIAN SUB DETAIL CHILDCONTROLLERS...",numChildControllers);
+    NSLog(@"PhysicianViewController.viewDidLoad() CREATED %d PHYSICIAN SUB DETAIL CHILDCONTROLLERS...",numChildControllers);
     
     // Initialize scene with first child controller
     vcIndex = numChildControllers-1;
@@ -145,13 +147,14 @@
 }
 
 - (void)goForward {
-    NSLog(@"goForward physicianModule...");
+    NSLog(@"PhysicianViewController.goForward()");
+
     [self regress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
 }
 
 - (void)goBackward {
-    NSLog(@"goBackward physicianModule...");
+    NSLog(@"PhysicianViewController.goBackward()");
     [self progress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] decrementProgressBar];
 }
@@ -287,7 +290,7 @@
 // Transition to new view using custom segue
 - (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward
 {
-    
+    NSLog(@"PhysicianViewController.switchToView()");
     if (finishingLastItem && !goesForward)
     {
         // Back to menu
@@ -468,8 +471,9 @@
 // Go forward
 - (void)progress:(id)sender
 {
-    
-    NSLog(@"Moving to previous physician detail page...");
+    NSLog(@"PhysicianViewController.progress()");
+
+    NSLog(@"PhysicianViewController.progress() Moving to previous physician detail page...");
     
     if (playingMovie) {
         [self stopMoviePlayback];
@@ -495,8 +499,9 @@
 // Go backwards
 - (void)regress:(id)sender
 {
-    
-    NSLog(@"Moving to next physician detail page...");
+    NSLog(@"PhysicianViewController.regress()");
+
+    NSLog(@"PhysicianViewController.regress() Moving to next physician detail page...");
     if (playingMovie) {
         [self stopMoviePlayback];
     }
@@ -511,14 +516,15 @@
 
 - (void)stopMoviePlayback {
     if (playingMovie) {
-        NSLog(@"Stopping currently playing movie...");
+        NSLog(@"PhysicianViewController.stopMoviePlayback()");
         SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
         [currentSwitchedController stopMovie:self];
     }
 }
 
 - (void)sayPhysicianDetailIntro {
-    
+    NSLog(@"PhysicianViewController.sayPhysicianDetailIntro()");
+
     
     if (speakItemsAloud) {
         

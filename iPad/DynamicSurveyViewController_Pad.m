@@ -356,7 +356,8 @@
 }
 
 - (void)loadAllSurveyPages {
-    
+    NSLog(@"DynamicSurveyViewController.loadAllSurveyPages()");
+
     newChildControllers = [self createArrayOfAllSurveyPages];
     
     int numChildControllers = [newChildControllers count];
@@ -377,10 +378,12 @@
     [self.view bringSubviewToFront:backsplash];
     
     currentFinishingIndex = [newChildControllers count] - 1;
+    NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() exit");
+
 }
 
 - (NSMutableArray *)createArrayOfAllSurveyPages {
-    NSLog(@"Creating an array of all survey pages...");
+    NSLog(@"DynamicSurveyViewController.createArrayOfAllSurveyPages()");
     
     NSMutableArray *surveyPageArray = [[NSMutableArray alloc] initWithObjects: nil];
     
@@ -423,15 +426,33 @@
         //        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
         providerTest.providerTestText = @"Please tap the treatment provider you will be seeing today.";
         
-        providerTest.provider1ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider1Index];
-        providerTest.provider2ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider2Index];
-        providerTest.provider3ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider3Index];
-        providerTest.provider4ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider4Index];
         
-        providerTest.provider1Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider1Index];
-        providerTest.provider2Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider2Index];
-        providerTest.provider3Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider3Index];
-        providerTest.provider4Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider4Index];
+        if (currentProviderIndex < [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] count]){
+            providerTest.provider1ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider1Index];
+            providerTest.provider2ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider2Index];
+            providerTest.provider3ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider3Index];
+            providerTest.provider4ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider4Index];
+        
+            providerTest.provider1Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider1Index];
+            providerTest.provider2Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider2Index];
+            providerTest.provider3Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider3Index];
+            providerTest.provider4Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider4Index];
+        } else {
+            //rjl 8/16/14
+            NSMutableArray* allPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
+            NSMutableArray* allPhysiciansThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansThumbs];
+            
+            providerTest.provider1ImageThumb = [allPhysiciansThumbs objectAtIndex:provider1Index];
+            providerTest.provider2ImageThumb = [allPhysiciansThumbs objectAtIndex:provider2Index];
+            providerTest.provider3ImageThumb = [allPhysiciansThumbs objectAtIndex:provider3Index];
+            providerTest.provider4ImageThumb = [allPhysiciansThumbs objectAtIndex:provider4Index];
+            
+            providerTest.provider1Text = [allPhysicians objectAtIndex:provider1Index];
+            providerTest.provider2Text = [allPhysicians objectAtIndex:provider2Index];
+            providerTest.provider3Text = [allPhysicians objectAtIndex:provider3Index];
+            providerTest.provider4Text = [allPhysicians objectAtIndex:provider4Index];
+            
+        }
         [providerTest.provider1TextButton setTitle:providerTest.provider1Text forState:UIControlStateNormal];
         [providerTest.provider2TextButton setTitle:providerTest.provider2Text forState:UIControlStateNormal];
         [providerTest.provider3TextButton setTitle:providerTest.provider3Text forState:UIControlStateNormal];
@@ -701,6 +722,8 @@
         [surveyPageArray addObject:chooseModule];
         
         pageIndex++;
+        NSLog(@"DynamicSurveyViewController.createArrayOfAllSurveyPages() exit");
+
     }
     
     if (addMiniSurveyItems) {

@@ -20,12 +20,12 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 @synthesize currentlySelectedClinicPhysicians;
 
 - (id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout {
-    
+    NSLog(@"PhysicianCellViewController.initWithCollectionViewLayout()");
+
     
     UIStoryboard *aStoryboard = [UIStoryboard storyboardWithName:@"CollectionStoryboard" bundle:[NSBundle mainBundle]];
     
     self = [aStoryboard instantiateViewControllerWithIdentifier:@"0"];
-        NSLog(@"PhysicianCellViewController.initWithCollectionViewLayout()");
     
     return self;
 }
@@ -36,19 +36,22 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 }
 
 - (void)initNumberOfCellsForCurrentlySelectedRowWithIndex:(int)currentRowIndex {
+    NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() currentRowIndex: %d", currentRowIndex);
 
     currentlySelectedClinicPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] pmnrSubClinicPhysicians] objectAtIndex:currentRowIndex];
     
     currentNumberOfCells = [currentlySelectedClinicPhysicians count];
-    NSLog(@"Number of cells initialized to: %d",currentNumberOfCells);
+    NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() Number of cells initialized to: %d",currentNumberOfCells);
 }
 
 - (void)updateNewNumOfCellsTo:(int)newCellNum {
+    NSLog(@"PhysicianCellViewController.updateNewNumOfCellsTo() newCellNum: %d", newCellNum);
     currentNumberOfCells = newCellNum;
     NSLog(@"Number of cells updated to: %d",currentNumberOfCells);
 }
 
 - (void)viewDidLoad {
+    NSLog(@"PhysicianCellViewController.viewDidLoad()");
 
     int masterRowSelected = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] masterViewController] currentlySelectedRow];
 
@@ -59,16 +62,17 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 }
 
 - (void)setPhysicianSettingsForPhysicianName:(NSString *)currentlySelectedPhysicianName {
-    
+    NSLog(@"PhysicianCellViewController.setPhysicianSettingsForPhysicianName() %@", currentlySelectedPhysicianName);
+
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setAttendingPhysicianName:currentlySelectedPhysicianName];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    NSLog(@"PhysicianCellViewController.didSelectItemAtIndexPath()");
     Cell *selectedCell = (Cell *)[collectionView cellForItemAtIndexPath:indexPath];
     
-    NSLog(@"Cell selected: %@", selectedCell.label.text);
+    NSLog(@"PhysicianCellViewController.didSelectItemAtIndexPath() Cell selected: %@", selectedCell.label.text);
     
 //    [self setPhysicianSettingsForPhysicianName:selectedCell.label.text];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] storeAttendingPhysicianSettingsForPhysicianName:selectedCell.label.text];
@@ -80,7 +84,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
-    
+    NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath()");
     
     // we're going to use a custom UICollectionViewCell, which will hold an image and its label
     //
@@ -93,13 +97,19 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     cell.label.text = thisCellText;
     
     // load the image for this cell
-    
-    NSArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians];
-    NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
-    int currentPhysicianIndex = [allPhysicianNames indexOfObjectIdenticalTo:thisCellText];
-    
+    //rjl 8/16/14
+    NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
+    NSMutableArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansThumbs];
+//    NSArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians];
+//    NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
+    int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
+//    int currentPhysicianIndex = [allPhysicianNames indexOfObjectIdenticalTo:thisCellText];
+//    if (currentPhysicianIndex > 15) // rjl 8/16/14 hack because indexOfObjectIdenticalTo fails matching NFCFCConstantString vs. NFCFCString
+//        currentPhysicianIndex = 15;
 //    NSString *imageToLoad = [NSString stringWithFormat:@"%d.JPG", indexPath.row];
     NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
+    NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
+
     cell.image.image = [UIImage imageNamed:imageToLoad];
     
     return cell;

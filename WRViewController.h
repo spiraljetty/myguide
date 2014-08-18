@@ -300,6 +300,9 @@ typedef enum {
     PhysicianDetailViewController *physicianDetailVC;
     NSArray *allClinicPhysiciansBioPLists;
     
+    NSMutableArray* getAllClinicPhysicians;
+    NSMutableArray* getAllClinicPhysiciansThumbs;
+    
     BOOL alarmSounding;
     BOOL revealSettingsButtonPressed;
     

@@ -8,33 +8,60 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ClinicianInfo : NSObject
+@interface ClinicianInfo : NSObject {
 
-{ NSString* mName;
     NSString* mClinicianId;
-    NSString* mText1;
-    NSString* mText2;
-    NSString* mText3;
-    NSString* mText4;
+    NSString* mClinics;
+    NSString* mFirstName;
+    NSString* mLastName;
+    NSString* mSalutation;
+    NSString* mDegrees;
+    NSString* mCredentials;
+    NSString* mEdAndAffil;
+    NSString* mBackground;
+    NSString* mPhilosophy;
+    NSString* mPersonalInterests;
     UIImage * mImage;
+    UIImage * mImageThumb;
 }
 
-- (void) setName: (NSString*) name;
+// setters
+
 - (void) setClinicianId:   (NSString*) clinicianId;
-- (void) setText1: (NSString*) text;
-- (void) setText2: (NSString*) text;
-- (void) setText3: (NSString*) text;
-- (void) setText4: (NSString*) text;
+- (void) setClinics: (NSString*) clinics;
+- (void) setFirstName: (NSString*) firstName;
+- (void) setLastName: (NSString*) lastName;
+- (void) setSalutation: (NSString*) text;
+- (void) setDegrees: (NSString*) text;
+- (void) setCredentials: (NSString*) text;
+- (void) setEdAndAffil: (NSString*) text;
+- (void) setBackground: (NSString*) text;
+- (void) setPhilosophy: (NSString*) text;
+- (void) setPersonalInterests: (NSString*) text;
 - (void) setImage: (UIImage*) image;
+- (void) setImageThumb: (UIImage*) image;
 
-- (NSString*) getName;
+
+// getters
+
+- (NSString*) getClinicianId;
+- (NSString*) getClinics;
+- (NSString*) getFirstName;
+- (NSString*) getLastName;
+- (NSString*) getSalutation;
+- (NSString*) getDegrees;
+- (NSString*) getCredentials;
+- (NSString*) getEdAndAffil;
+- (NSString*) getBackground;
+- (NSString*) getPhilosophy;
+- (NSString*) getPersonalInterests;
 - (NSString*) getImageFilename;
-- (NSString*) getText1;
-- (NSString*) getText2;
-- (NSString*) getText3;
-- (NSString*) getText4;
+- (NSString*) getImageThumbFilename;
 
-- (NSString*) writeToString;
-- (Boolean)   writeToDB;
+
+// writers
+
+- (void)    writeToLog;
+- (Boolean) writeToDB;
 
 @end

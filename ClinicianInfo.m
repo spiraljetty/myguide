@@ -11,73 +11,148 @@
 @implementation ClinicianInfo
 
 
--(void) setName:(NSString *)name {
-    mName = name;
-}
+// setters
 
 -(void) setClinicianId:(NSString *)clinicianId{
     mClinicianId = clinicianId;
 }
 
--(void) setText1:(NSString *)text {
-    mText1 = text;
+-(void) setClinics:(NSString *)clinics{
+    mClinics = clinics;
 }
 
--(void) setText2:(NSString *)text {
-    mText2 = text;
+-(void) setFirstName:(NSString *)firstName {
+    mFirstName = firstName;
 }
 
--(void) setText3:(NSString *)text {
-    mText3 = text;
+-(void) setLastName:(NSString *)lastName {
+    mLastName = lastName;
 }
 
--(void) setText4:(NSString *)text {
-    mText4 = text;
+
+
+-(void) setSalutation:(NSString *)text {
+    mSalutation = text;
 }
+
+-(void) setDegrees:(NSString *)text {
+    mDegrees = text;
+}
+
+-(void) setCredentials:(NSString *)text {
+    mCredentials = text;
+}
+
+-(void) setEdAndAffil:(NSString *)text {
+    mEdAndAffil = text;
+}
+
+
+-(void) setBackground:(NSString *)text {
+    mBackground = text;
+}
+
+-(void) setPhilosophy:(NSString *)text {
+    mPhilosophy = text;
+}
+
+-(void) setPersonalInterests:(NSString *)text {
+    mPersonalInterests = text;
+}
+
 
 -(void) setImage:(UIImage *)image {
     mImage = image;
 }
 
--(NSString*) getName {
-    return mName;
+-(void) setImageThumb:(UIImage *)image {
+    mImageThumb = image;
 }
+
+
+// getters
 
 -(NSString*) getClinicianId {
     return mClinicianId;
 }
 
--(NSString*) getText1 {
-    return mText1;
+-(NSString*) getClinics {
+    return mClinics;
 }
 
--(NSString*) getText2 {
-    return mText2;
+-(NSString*) getFirstName {
+    return mFirstName;
 }
 
--(NSString*) getText3 {
-    return mText3;
+-(NSString*) getLastName {
+    return mLastName;
 }
 
--(NSString*) getText4 {
-    return mText4;
+
+-(NSString*) getSalutation {
+    return mSalutation;
 }
+
+-(NSString*) getDegrees {
+    return mDegrees;
+}
+
+-(NSString*) getCredentials {
+    return mCredentials;
+}
+
+-(NSString*) getEdAndAffil {
+    return mEdAndAffil;
+}
+
+
+-(NSString*) getBackground {
+    return mBackground;
+}
+
+-(NSString*) getPhilosophy {
+    return mPhilosophy;
+}
+
+-(NSString*) getPersonalInterests {
+    return mPersonalInterests;
+}
+
 
 -(NSString*) getImageFilename {
-    NSString* imageFilename = [NSString stringWithFormat:@"%@.png", [self getName]];
+    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@.png",
+                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
+    return imageFilename;
+}
+
+-(NSString*) getImageThumbFilename {
+    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@_thumb.png",
+                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
     return imageFilename;
 }
 
 
--(NSString*) writeToString {
-    NSString* result = [NSString stringWithFormat:@"[clinician: %@, %@, %@, %@, %@]", mClinicianId, mName, mText1, mText2, mText3];
-    //NSLog(@"[clinician: %@, %@,%@,%@,%@]", mClinicianId, mName, mText1, mText2, mText3);
-    return result;
+- (void) writeToLog {
+    NSLog(@"[Clinician: %@", mClinicianId);
+    NSLog(@"   Clinics: %@", mClinics);
+    NSLog(@"   First name: %@", mFirstName);
+    NSLog(@"   Last  name: %@", mLastName);
+    NSLog(@"   Salutation: %@", mSalutation);
+    NSLog(@"   Degrees: %@", mDegrees);
+    NSLog(@"   Credentials: %@", mCredentials);
+    NSLog(@"   Ed and Affil: %@", mEdAndAffil);
+    NSLog(@"   Background: %@", mBackground);
+    NSLog(@"   Philosophy: %@", mPhilosophy);
+    NSLog(@"   Personal  : %@]", mPersonalInterests);
 }
 
 -(Boolean) writeToDB {
-    NSString* result = [NSString stringWithFormat:@"[clinician: %@, %@,%@,%@,%@]", mClinicianId, mName, mText1, mText2, mText3];
-    //NSLog(@"[clinician: %@, %@,%@,%@,%@]", mClinicianId, mName, mText1, mText2, mText3);
+    NSLog(@"[Clinician: %@, %@, %@, %@, %@, %@", mClinicianId, mClinics, mFirstName, mLastName, mSalutation, mDegrees);
+    NSLog(@"   Credentials: %@", mCredentials);
+    NSLog(@"   Ed and Affil: %@", mEdAndAffil);
+    NSLog(@"   Background: %@", mBackground);
+    NSLog(@"   Philosophy: %@", mPhilosophy);
+    NSLog(@"   Personal  : %@]", mPersonalInterests);
     return true;
 }
 

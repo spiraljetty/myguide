@@ -1259,10 +1259,10 @@
 }
 
 - (void)goal8ButtonPressed:(id)sender {
-    NSLog(@"goal8ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.goal8ButtonPressed() ");
     DynamicSurveyViewController_Pad *thisDelegate = (DynamicSurveyViewController_Pad *)delegate;
     thisDelegate.todaysGoal = goal8TextButton.titleLabel.text;
-    NSLog(@"todaysGoal set to: %@...", goal8TextButton.titleLabel.text);
+    NSLog(@"SwitchedImageViewController.goal8ButtonPressed() todaysGoal set to: %@...", goal8TextButton.titleLabel.text);
     
     [thisDelegate updateGoalRatingText];
     
@@ -1295,7 +1295,8 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal8TextButton afterDelay:0];
     }
-    
+    NSLog(@"SwitchedImageViewController.goal8ButtonPressed() exit");
+
 }
 
 - (void)goal9ButtonPressed:(id)sender {
