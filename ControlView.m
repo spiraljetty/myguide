@@ -57,8 +57,8 @@ const float gBarHeight = 30.0f;
 @synthesize open = _isOpen;
 
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
+    NSLog(@"ControlView.initWithFrame()");
     if (self = [super initWithFrame:frame])
 	{
 		_isOpen = FALSE;
@@ -189,6 +189,7 @@ const float gBarHeight = 30.0f;
 }
 
 - (void)slideAnimation {
+    NSLog(@"ControlView.slideAnimation()");
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.25f];
     

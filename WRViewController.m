@@ -6303,22 +6303,37 @@ int indexCount;
     NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
     NSURL *downloadUrl = [NSURL URLWithString:filePath];
     NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
-    UIImage *img = [UIImage imageWithData:downloadData];
-    [self saveImage:img filename:filename];
     
     NSString* result = nil;
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+
     if ( downloadData ){
-        NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
+        UIImage *img = [UIImage imageWithData:downloadData];
+        [self saveImage:img filename:filename];
         NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
         [downloadData writeToFile:filePath atomically:YES];
         result = filePath;
     }
     else {
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
-        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadFile() %@", errorMsg];
-        NSLog(logMsg);
-        [self showAlertMsg:errorMsg];
+        NSString* jpgFilename = [filename stringByReplacingOccurrencesOfString:@".png" withString:@".jpg"];
+        filePath = [NSString stringWithFormat:@"%@%@", downloadDir,jpgFilename];
+        downloadUrl = [NSURL URLWithString:filePath];
+        downloadData = [NSData dataWithContentsOfURL:downloadUrl];
+        if ( downloadData ){
+            UIImage *img = [UIImage imageWithData:downloadData];
+            [self saveImage:img filename:filename];
+            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+            [downloadData writeToFile:filePath atomically:YES];
+            result = filePath;
+        }
+        else {
+            NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
+            NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadFile() %@", errorMsg];
+            NSLog(logMsg);
+            [self showAlertMsg:errorMsg];
+        }
+
     }
 //    [pool release];
     return result;
@@ -6385,7 +6400,8 @@ int indexCount;
         } // end if clinicianLine.length > 0
     }// end for line in lines
     
-    NSLog(@"Loaded %d clinicians", [allClinicians count]);
+    NSString* msg = [NSString stringWithFormat:@"Loaded %d clinicians", [allClinicians count]];
+    NSLog(msg);
     
     // download the image file for each clinician
     for (ClinicianInfo* clinician in allClinicians){
@@ -6393,6 +6409,7 @@ int indexCount;
         NSString* clinicianImageFilename = [clinician getImageFilename];
         [self downloadFile:clinicianImageFilename isImage:true];
     }
+    [self showAlertMsg:msg];
 //    [pool release];
 }
 

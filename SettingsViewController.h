@@ -55,11 +55,14 @@ typedef enum {
     ControlView *controlView;
     BOOL buttonOpen;
     UIButton *invisibleShowHideButton;
+    UIButton *invisibleDownloadButton;
     YLViewController *soundViewController;
     
     ConnectionType currentConnectionType;
     
     UIImageView *gearImageView;
+    UIImageView *downloadImageView;
+    UILabel *downloadLabel;
     
     DynamicStartAppButtonView *enableOfflineVoiceModeButton;
     DynamicStartAppButtonView *resetAllOfflineSoundfilesButton;

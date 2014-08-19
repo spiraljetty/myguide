@@ -43,14 +43,14 @@
 }
 
 - (void)updateThisLink:(NSTimer*)theTimer {
-    NSLog(@"Updating link...");
+    NSLog(@"SettingsViewController.updateThisLink()");
     shortWaitTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(updateLinkQuickly) userInfo:nil repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:shortWaitTimer forMode:NSDefaultRunLoopMode];
 //    
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    NSLog(@"SettingsViewController.initWithNibName() name: %@", nibNameOrNil);
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -67,9 +67,9 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
+    NSLog(@"SettingsViewController.viewDidLoad()");
     // Do any additional setup after loading the view from its nib.
     
 //    controlView = [[ControlView alloc] initWithFrame:CGRectMake(0.0f, self.view.frame.size.height-[ControlView barHeight],
@@ -173,7 +173,9 @@
     [self createNetworkMenu];
     [self createSoundMenu];
     [self createGearTab];
+    [self createDownloadTab];
     [self createInvisibleHideShowButton];
+    [self createInvisibleDownloadButton];
     
 //    [self checkthatHeadsetIsPluggedIn];
     
@@ -217,6 +219,36 @@
     [self.view addSubview:label];
 }
 
+- (void)createDownloadTab {
+    UIImage *downloadImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"gears_settings_image_w_tab2" ofType:@"png"]];
+    if (downloadImage == nil)
+        NSLog(@"Failed to load image for control view");
+    
+    downloadImageView = [[UIImageView alloc] initWithImage:downloadImage];
+    downloadImageView.hidden = YES;
+    CGRect downloadImageViewFrame = downloadImageView.frame;
+    //    gearImageViewFrame.origin.x = floorf((frame.size.width/2.0f) - (gearImageViewFrame.size.width/2.0f)) - 350.0f;
+    //    gearImageViewFrame.origin.y = floorf((gBarHeight/2.0f) - (gearImageViewFrame.size.height/2.0f)) - 27.0f;
+    downloadImageViewFrame.origin.x = 340.0f;
+    //    gearImageViewFrame.origin.y = -43.0f;
+    downloadImageViewFrame.origin.y = 17.0f;
+    [downloadImageView setFrame:downloadImageViewFrame];
+    
+    [self.view addSubview:downloadImageView];
+    
+    downloadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(440.0f,
+                                                                0.0f,
+                                                                100.0f,
+                                                                100.0f)] autorelease];
+    downloadLabel.text = @"Download";
+    //        label.text
+    downloadLabel.numberOfLines = 0;
+    downloadLabel.textColor = [UIColor whiteColor];
+    downloadLabel.backgroundColor = [UIColor clearColor];
+    downloadLabel.font = [UIFont fontWithName:@"Avenir" size:20];
+    [self.view addSubview:downloadLabel];
+}
+
 - (void)createInvisibleHideShowButton {
 //    CGFloat invisibleButtonExtraWidth = 60.0f;
     buttonOpen = FALSE;
@@ -234,6 +266,25 @@
     [invisibleShowHideButton retain];
     
     [self.view addSubview:invisibleShowHideButton];
+}
+
+- (void)createInvisibleDownloadButton {
+    //    CGFloat invisibleButtonExtraWidth = 60.0f;
+    buttonOpen = FALSE;
+
+    invisibleDownloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    invisibleDownloadButton.frame = CGRectMake(340, 10, 3.5*kInvisibleButtonExtraWidth, 1.5*kInvisibleButtonExtraWidth);
+    //    invisibleShowHideButton.showsTouchWhenHighlighted = YES;
+    invisibleDownloadButton.backgroundColor = [UIColor clearColor];
+    //    invisibleShowHideButton.alpha = 0.5;
+    //        [invisibleShowHideButton setCenter:CGPointMake(500.0f, 660.0f)];
+    [invisibleDownloadButton addTarget:self action:@selector(downloadButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+    invisibleDownloadButton.enabled = YES;
+    invisibleDownloadButton.hidden = YES;
+    invisibleDownloadButton.selected = NO;
+    [invisibleDownloadButton retain];
+    
+    [self.view addSubview:invisibleDownloadButton];
 }
 
 - (void)createNetworkMenu {
@@ -1142,6 +1193,8 @@
 }
 
 - (void)slideSettingsFrame {
+    NSLog(@"SettingsViewController.slideSettingsFrame()");
+
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.25f];
     
@@ -1154,6 +1207,8 @@
         frame.origin.x -= (768 - 65);
 //        [_barImageView setTransform:_barImageViewRotation];
         buttonOpen = TRUE;
+        downloadImageView.hidden = NO;
+        invisibleDownloadButton.hidden = NO;
     }
     else
     {
@@ -1161,6 +1216,8 @@
         frame.origin.x += (768 - 65);
 //        [_barImageView setTransform:CGAffineTransformIdentity];
         buttonOpen = FALSE;
+        downloadImageView.hidden = YES;
+        invisibleDownloadButton.hidden = YES;
     }
     
 //    invisibleShowHideButton.frame = frame;
@@ -1170,7 +1227,7 @@
 }
 
 - (void)hideSettingsFrame {
-    NSLog(@"hiding settings...");
+    NSLog(@"SettingsViewcontroller.hideSettingsFrame()");
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:0.25f];
@@ -1188,9 +1245,20 @@
 }
 
 - (void)showHideButtonPressed {
-    NSLog(@"showHideButtonPressed...");
+    NSLog(@"SettingsViewController.showHideButtonPressed()");
     [self slideSettingsFrame];
 //    [controlView slideAnimation];
+}
+
+- (void)downloadButtonPressed {
+    NSLog(@"SettingsViewController.downloadButtonPressed()");
+    downloadLabel.text = @"working...";
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminDownloadDataButtonPressed:self];
+    NSLog(@"SettingsViewController.downloadButtonPressed() download complete");
+    downloadLabel.text = @"Download";
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    //    [controlView slideAnimation];
 }
 
 #pragma mark Audio Route Methods
@@ -1388,6 +1456,7 @@
 }
 
 - (void)updateNetworkStatusWithConnectionType:(ConnectionType)thisConnectionType {
+    NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType()");
     currentConnectionType = thisConnectionType;
     [soundViewController updateNetworkDisplayWithConnectionType:thisConnectionType];
     
@@ -1395,7 +1464,7 @@
 }
 
 - (void)updateLinkQuickly {
-//     NSLog(@"Updating link quickly...");
+     //NSLog(@"SettingsViewController.updateLinkQuickly()");
     
     Reachability *reach = [Reachability reachabilityForLocalWiFi];
     NetworkStatus netStatus = [reach currentReachabilityStatus];
@@ -1406,6 +1475,7 @@
 }
 
 - (void)updateLinkStatusWithLinkType:(NetworkStatus)thisLinkType {
+//    NSLog(@"SettingsViewController.updateStatusWithLinkType()");
     switch (thisLinkType) {
         case ReachableViaWiFi:
             createdSuccessfulLink = YES;

@@ -399,12 +399,12 @@
 }
 
 - (void)uploadDataToCloudButtonPressed:(id)sender {
-    // rjl 8/16/14
-    bool rjlDebug = true;
-    if (rjlDebug){
-        [self downloadDataFromCloudButtonPressed:sender];
-        return;
-    }
+//    // rjl 8/16/14
+//    bool rjlDebug = true;
+//    if (rjlDebug){
+//        [self downloadDataFromCloudButtonPressed:sender];
+//        return;
+//    }
     
     NSLog(@"YLViewController.uploadDataToCloudButtonPressed()");
     [self disableUploadDataButton];
@@ -421,13 +421,15 @@
 
 - (void)downloadDataFromCloudButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"YLViewController.downloadDataFromCloudButtonPressed()");
-    [self disableUploadDataButton];
+//    [self disableUploadDataButton];
     
-    uploadDataStatus.alpha = 1.0;
-    uploadDataStatus.text = @"Working...";
+//    uploadDataStatus.alpha = 1.0;
+//      uploadDataStatus.text = @"Working...";
     
-    uploadDataSpinner.alpha = 1.0;
-    [uploadDataSpinner startAnimating];
+//    uploadDataSpinner.alpha = 1.0;
+//    [uploadDataSpinner startAnimating];
+    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:"Downloading clincian data"];
+
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminDownloadDataButtonPressed:self];
     
