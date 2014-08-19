@@ -8,6 +8,7 @@
 
 #import "PhysicianDetailViewController.h"
 #import "AppDelegate_Pad.h"
+#import "ClinicianInfo.h"
 
 @interface PhysicianDetailViewController ()
 
@@ -33,7 +34,14 @@
     NSLog(@"PhysicianDetailViewController.viewDidLoad()");
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    physicianImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianImage]]];
+    ClinicianInfo *currentClinician = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+     getCurrentClinician];
+    if (currentClinician){
+        NSString *filename = [currentClinician getImageFilename];
+        physicianImageView.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
+    }
+    else
+        physicianImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianImage]]];
     physicianNameLabel.text = [NSString stringWithFormat:@"%@",[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianName]];
 }
 

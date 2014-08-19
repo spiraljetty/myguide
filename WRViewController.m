@@ -1163,7 +1163,7 @@ int indexCount;
 - (void)storeAttendingPhysicianSettingsForPhysicianName:(NSString *)selectedPhysicianName {
     NSLog(@"WRViewController.storeAttendingPhysicianSettingsForPhysicianName() selectedPhysicianName: %@", selectedPhysicianName);
 
-    int currentPhysicianIndex;
+    int currentPhysicianIndex = 0;
     int physicianArrayIndex = 0;
     
     // rjl 8/17/14
@@ -1172,7 +1172,7 @@ int indexCount;
      */
     
     NSMutableArray* allPhysicians = [self getAllClinicPhysicians];
-    NSMutableArray* allPhysiciansThumbs = [self getAllClinicPhysiciansThumbs];
+    //NSMutableArray* allPhysiciansThumbs = [self getAllClinicPhysiciansThumbs];
     NSMutableArray* allPhysiciansImages = [self getAllClinicPhysiciansImages];
     NSMutableArray* allPhysiciansSoundfiles = [self getAllClinicPhysiciansSoundFiles];
     
@@ -1189,7 +1189,7 @@ int indexCount;
     attendingPhysicianName = selectedPhysicianName;
 //    attendingPhysicianImage = [allClinicPhysiciansImages objectAtIndex:currentPhysicianIndex];
     attendingPhysicianImage = [allPhysiciansImages objectAtIndex:currentPhysicianIndex];
-    attendingPhysicianThumb = [allPhysiciansThumbs objectAtIndex:currentPhysicianIndex];
+    //attendingPhysicianThumb = [allPhysiciansThumbs objectAtIndex:currentPhysicianIndex];
     attendingPhysicianIndex = currentPhysicianIndex;
 //    if (currentPhysicianIndex < [allClinicPhysiciansSoundFiles count])
     attendingPhysicianSoundFile = [allPhysiciansSoundfiles objectAtIndex:currentPhysicianIndex];
@@ -1409,7 +1409,7 @@ int indexCount;
     if (attendingPhysicianIndex < [allClinicPhysiciansBioPLists count]){ // rjl 8/16/14
         physicianModule.currentPhysicianDetails = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
     } else {
-        ClinicianInfo *clinician = [self getClinician:attendingPhysicianIndex];
+        ClinicianInfo *clinician = [self getCurrentClinician];
         if (clinician)
             physicianModule.currentPhysicianDetails = [clinician writeToDictionary];
     }
@@ -6303,7 +6303,9 @@ int indexCount;
     NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
     NSURL *downloadUrl = [NSURL URLWithString:filePath];
     NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
-    //UIImage *img = [UIImage imageWithData:downloadData];
+    UIImage *img = [UIImage imageWithData:downloadData];
+    [self saveImage:img filename:filename];
+    
     NSString* result = nil;
     if ( downloadData ){
         NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -6321,6 +6323,30 @@ int indexCount;
 //    [pool release];
     return result;
 }
+
+
+- (void)saveImage: (UIImage*)image filename:(NSString*)filename{
+    NSLog(@"WRViewController.saveImage() filename: %@", filename);
+    if (image != nil){
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:  filename ];
+        NSData* data = UIImagePNGRepresentation(image);
+        [data writeToFile:path atomically:YES];
+    }
+    
+}
+
+- (UIImage*)loadImage: (NSString*)filename {
+    NSLog(@"WRViewController.loadImage() filename: %@", filename);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString* path = [documentsDirectory stringByAppendingPathComponent: filename];
+    UIImage* image = [UIImage imageWithContentsOfFile:path];
+    //    [self sendAction:path];
+    return image;
+}
+
 
 
 - (void) readClinicianInfo:(NSString*) filePath{
@@ -6422,6 +6448,10 @@ int indexCount;
 
     return allClinicianNames;
     //    [pool release];
+}
+
+- (ClinicianInfo*) getCurrentClinician{
+    return [self getClinician:attendingPhysicianIndex];
 }
 
 - (ClinicianInfo*) getClinician:(int)clinicianIndex{

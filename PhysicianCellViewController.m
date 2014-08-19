@@ -11,6 +11,7 @@
 #import "Cell.h"
 #import "MasterViewController.h"
 #import "AppDelegate_Pad.h"
+#import "ClinicianInfo.h"
 
 NSString *kDetailedViewControllerID = @"DetailView";    // view controller storyboard id
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
@@ -82,8 +83,10 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;{
+    
+    // This is where the thumbnails are added to the clinic picker grid
+
     NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath()");
     
     // we're going to use a custom UICollectionViewCell, which will hold an image and its label
@@ -98,22 +101,29 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     
     // load the image for this cell
     //rjl 8/16/14
+    NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
     NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
-    NSMutableArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansThumbs];
-//    NSArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians];
-//    NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
     int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
-//    int currentPhysicianIndex = [allPhysicianNames indexOfObjectIdenticalTo:thisCellText];
-//    if (currentPhysicianIndex > 15) // rjl 8/16/14 hack because indexOfObjectIdenticalTo fails matching NFCFCConstantString vs. NFCFCString
-//        currentPhysicianIndex = 15;
-//    NSString *imageToLoad = [NSString stringWithFormat:@"%d.JPG", indexPath.row];
-    NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
-    NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
-
-    cell.image.image = [UIImage imageNamed:imageToLoad];
-    
+    if (currentPhysicianIndex < [allClinicPhysicians count]){
+        NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
+        NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
+        NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
+        cell.image.image = [UIImage imageNamed:imageToLoad];
+    }
+    else {
+        NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString  *documentsDirectory = [paths objectAtIndex:0];
+        ClinicianInfo *currentClinician =
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                    getClinician:currentPhysicianIndex];
+        if (currentClinician){
+            NSString *filename = [currentClinician getImageFilename];
+            cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
+        }
+    }
     return cell;
 }
+
 
 // the user tapped a collection item, load and set the image on the detail view controller
 //
