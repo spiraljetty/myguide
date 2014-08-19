@@ -1068,10 +1068,10 @@
 
 
 - (void)goal3ButtonPressed:(id)sender {
-    NSLog(@"goal3ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.goal3ButtonPressed()");
     DynamicSurveyViewController_Pad *thisDelegate = (DynamicSurveyViewController_Pad *)delegate;
     thisDelegate.todaysGoal = goal3TextButton.titleLabel.text;
-    NSLog(@"todaysGoal set to: %@...", goal3TextButton.titleLabel.text);
+    NSLog(@"SwitchedImageViewController.goal3ButtonPressed() todaysGoal set to: %@...", goal3TextButton.titleLabel.text);
     
     [thisDelegate updateGoalRatingText];
     

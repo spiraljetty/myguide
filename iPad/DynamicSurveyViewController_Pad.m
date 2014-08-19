@@ -944,10 +944,18 @@
     
     return surveyPageArray;
 }
+
+
 //sandy 7-14 goal rating questions removed on 7-15
+
 - (void)updateGoalRatingText {
+    NSLog(@"DynamicSurveyViewController_Pad.updateGoalRatingText()");
+
     int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
-    NSString *currentProviderFullName = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:currentProviderIndex];
+    NSMutableArray* allPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
+    
+    NSString *currentProviderFullName = [allPhysicians objectAtIndex:currentProviderIndex];
+//    NSString *currentProviderFullName = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:currentProviderIndex];
     
     NSMutableArray *physicianNameTokens = [[NSMutableArray alloc] initWithArray:[currentProviderFullName componentsSeparatedByString:@","] copyItems:YES];
     NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];

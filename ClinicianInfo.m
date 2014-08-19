@@ -10,6 +10,24 @@
 
 @implementation ClinicianInfo
 
+-(id)init {
+    NSLog(@"ClinicianInfo.init()");
+    self = [super init];
+    if (self) {
+        [self setClinicianId:@""];
+        [self setClinics:@""];
+        [self setFirstName:@""];
+        [self setLastName:@""];
+        [self setSalutation:@""];
+        [self setDegrees:@""];
+        [self setCredentials:@""];
+        [self setEdAndAffil:@""];
+        [self setBackground:@""];
+        [self setPhilosophy:@""];
+        [self setPersonalInterests:@""];
+    }
+    return self;
+}
 
 // setters
 
@@ -144,6 +162,29 @@
     NSLog(@"   Background: %@", mBackground);
     NSLog(@"   Philosophy: %@", mPhilosophy);
     NSLog(@"   Personal  : %@]", mPersonalInterests);
+}
+
+- (NSMutableDictionary*) writeToDictionary {
+    [self writeToLog];
+    NSMutableDictionary *rootObj = [NSMutableDictionary dictionaryWithCapacity:15];
+    NSString *credentials = [self getCredentials];
+    NSString *edAndAffil = [self getEdAndAffil];
+    NSString *background = [self getBackground];
+    NSString *philosophy = [self getPhilosophy];
+    NSString *personalInterests = [self getPersonalInterests];
+        
+    if (credentials)
+        [rootObj setObject:credentials forKey:@"Credentials"];
+    if (edAndAffil)
+        [rootObj setObject:edAndAffil forKey:@"Education and Afilliations"];
+    if (background)
+        [rootObj setObject:background forKey:@"Background"];
+    if (philosophy)
+        [rootObj setObject:philosophy forKey:@"Philosophy"];
+    if (personalInterests)
+        [rootObj setObject:personalInterests forKey:@"Personal Interests"];
+
+        return rootObj;
 }
 
 -(Boolean) writeToDB {

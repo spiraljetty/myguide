@@ -307,7 +307,7 @@
         
         finishingLastItem = NO;
         
-        NSLog(@"SWITCHING from physician item %d to item %d", vcIndex, newIndex);
+        NSLog(@"PhysicianViewController.switchToView() SWITCHING from physician item %d to item %d", vcIndex, newIndex);
         
         // Prepare for segue by disabling bar buttons
 //        item.rightBarButtonItem.enabled = NO;

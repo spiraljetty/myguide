@@ -63,5 +63,6 @@
 
 - (void)    writeToLog;
 - (Boolean) writeToDB;
+- (NSMutableDictionary*) writeToDictionary;
 
 @end
