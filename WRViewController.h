@@ -301,7 +301,7 @@ typedef enum {
     NSArray *allClinicPhysiciansBioPLists;
     
     NSMutableArray* getAllClinicPhysicians;
-    NSMutableArray* getAllClinicPhysiciansThumbs;
+    NSMutableArray* getAllClinicPhysiciansImages;
     
     BOOL alarmSounding;
     BOOL revealSettingsButtonPressed;

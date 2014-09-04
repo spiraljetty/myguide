@@ -11,7 +11,6 @@
 @implementation ClinicianInfo
 
 -(id)init {
-    NSLog(@"ClinicianInfo.init()");
     self = [super init];
     if (self) {
         [self setClinicianId:@""];
@@ -143,11 +142,11 @@
     return imageFilename;
 }
 
--(NSString*) getImageThumbFilename {
-    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@_thumb.png",
-                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
-    return imageFilename;
-}
+//-(NSString*) getImageThumbFilename {
+//    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@_thumb.png",
+//                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
+//    return imageFilename;
+//}
 
 
 - (void) writeToLog {

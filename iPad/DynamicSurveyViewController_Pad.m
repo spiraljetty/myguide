@@ -365,7 +365,7 @@
     int preTreatmentSurveyItems = numChildControllers = numberOfPostTreatmentItems;
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] addToTotalSlides:preTreatmentSurveyItems];
     
-    NSLog(@"CREATED %d DYNAMIC SURVEY PAGE CHILDCONTROLLERS...",numChildControllers);
+    NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() CREATED %d DYNAMIC SURVEY PAGE CHILDCONTROLLERS...",numChildControllers);
     
     // Initialize scene with first child controller
     //    vcIndex = numChildControllers-1;
@@ -405,7 +405,7 @@
         providerTest.hideNextButton = YES;
         
         int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
-        int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] count];
+        int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians] count];
         int provider1Index = currentProviderIndex - 1;
         if (provider1Index < 0) {
             provider1Index = numAttendingPhysicians - 1;
@@ -427,7 +427,8 @@
         providerTest.providerTestText = @"Please tap the treatment provider you will be seeing today.";
         
         
-        if (currentProviderIndex < [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] count]){
+        if (false){ //currentProviderIndex < [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] count]){
+            // if index is less than count of original (hardcoded) clinicians then use hardcoded thumb filename
             providerTest.provider1ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider1Index];
             providerTest.provider2ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider2Index];
             providerTest.provider3ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider3Index];
@@ -440,12 +441,13 @@
         } else {
             //rjl 8/16/14
             NSMutableArray* allPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
-            NSMutableArray* allPhysiciansThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansThumbs];
+            NSMutableArray* allPhysiciansImages = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansImages];
             
-            providerTest.provider1ImageThumb = [allPhysiciansThumbs objectAtIndex:provider1Index];
-            providerTest.provider2ImageThumb = [allPhysiciansThumbs objectAtIndex:provider2Index];
-            providerTest.provider3ImageThumb = [allPhysiciansThumbs objectAtIndex:provider3Index];
-            providerTest.provider4ImageThumb = [allPhysiciansThumbs objectAtIndex:provider4Index];
+            // if index is greater than count of original (hardcoded) clinicians then use downloaded image filename
+            providerTest.provider1ImageThumb = [allPhysiciansImages objectAtIndex:provider1Index];
+            providerTest.provider2ImageThumb = [allPhysiciansImages objectAtIndex:provider2Index];
+            providerTest.provider3ImageThumb = [allPhysiciansImages objectAtIndex:provider3Index];
+            providerTest.provider4ImageThumb = [allPhysiciansImages objectAtIndex:provider4Index];
             
             providerTest.provider1Text = [allPhysicians objectAtIndex:provider1Index];
             providerTest.provider2Text = [allPhysicians objectAtIndex:provider2Index];
@@ -1162,7 +1164,7 @@
     
     [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"silence_quarter_second", nil]];
     
-    NSLog(@"startingFirstPage of dynamic survey module...");
+    NSLog(@"DynamicSurveyViewController.startingFirstPage() startingFirstPage of dynamic survey module...");
     
     finishingLastItem = NO;
     currentFinishingIndex = 6;
@@ -1253,16 +1255,23 @@
 }
 
 - (void)playSoundForCurrentSurveyPage {
+    NSLog(@"DynamicSurveyViewController.playSoundForCurrentSurveyPage()");
+
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
     [self playSoundForSurveyPage:thisSurveyPage];
 }
 
 - (void)playSoundForSurveyPage:(SwitchedImageViewController *)currentSurveyPage {
+    NSLog(@"DynamicSurveyViewController.playSoundForSurveyPage()");
+
     if (speakItemsAloud) {
         
         int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
         int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] count];
-        NSMutableArray *physicianSoundfiles = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansSoundFiles];
+//        NSMutableArray *physicianSoundfiles = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansSoundFiles];
+        
+        NSMutableArray *allPhysicianSoundfiles = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansSoundFiles];
+        
         int provider1Index;
         
         NSMutableArray *soundNameArray = [[NSMutableArray alloc] initWithObjects: nil];
@@ -1288,11 +1297,14 @@
                 if (provider4Index < 0) {
                     provider4Index = numAttendingPhysicians - 1;
                 }
+                int physicianCount = [allPhysicianSoundfiles count];
                 NSMutableArray *physicianButtonIndexes = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:provider1Index],[NSNumber numberWithInt:provider2Index],[NSNumber numberWithInt:provider3Index],[NSNumber numberWithInt:provider4Index], nil];
                 for (NSNumber *thisPhysicianIndex in physicianButtonIndexes) {
                     int currentPhysicianIdx = [thisPhysicianIndex intValue];
-                    NSString *thisPhysicianTextFilename = [NSString stringWithFormat:@"%@_name",[physicianSoundfiles objectAtIndex:currentPhysicianIdx]];
-                    [soundNameArray addObject:thisPhysicianTextFilename];
+                    if (currentPhysicianIdx < physicianCount){
+                        NSString *thisPhysicianTextFilename = [NSString stringWithFormat:@"%@_name",[allPhysicianSoundfiles objectAtIndex:currentPhysicianIdx]];
+                        [soundNameArray addObject:thisPhysicianTextFilename];
+                    }
                 }
                 
                 break;

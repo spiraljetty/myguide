@@ -723,9 +723,9 @@
     [thisMoviePlayerController release];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
+   // NSLog(@"SwitchedImageViewController.viewDidLoad()");
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     iv.alpha = 0.5f;
     
@@ -772,17 +772,57 @@
                 NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for provider-test survey page with index=%d...", surveyPageIndex);
                 //    // Provider Test iVars
                 //    provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb
-                [provider1ImageButton setImage:[UIImage imageNamed:provider1ImageThumb] forState:UIControlStateNormal];
-                //                [provider1ImageButton setImage:[UIImage imageNamed:provider1ImageThumb] forState:UIControlStateHighlighted];
+//                NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
+//                NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
+//                int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
+//                if (currentPhysicianIndex < [allClinicPhysicians count]){
+//                    // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
+//                    NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
+//                    NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
+//                    NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
+//                    cell.image.image = [UIImage imageNamed:imageToLoad];
+//                }
+//                else {
+//                    // if index is for new (not hardcoded) clinician then get thumb image from documents directory
+//                    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//                    NSString  *documentsDirectory = [paths objectAtIndex:0];
+//                    ClinicianInfo *currentClinician =
+//                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+//                     getClinician:currentPhysicianIndex];
+//                    if (currentClinician){
+//                        NSString *filename = [currentClinician getImageFilename];
+//                        cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
+//                    }
+//                }
+                
+                // get provider 1 image and text
+                UIImage* image = [UIImage imageNamed:provider1ImageThumb];
+                if (!image)
+                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider1ImageThumb];
+                [provider1ImageButton setImage:image forState:UIControlStateNormal];
+                [provider1ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+                provider1ImageButton.clipsToBounds = YES;
                 provider1ImageButton.adjustsImageWhenHighlighted;
-                [provider2ImageButton setImage:[UIImage imageNamed:provider2ImageThumb] forState:UIControlStateNormal];
-                //                [provider2ImageButton setImage:[UIImage imageNamed:provider2ImageThumb] forState:UIControlStateHighlighted];
+                
+                //get provider 2 image and text
+                image = [UIImage imageNamed:provider2ImageThumb];
+                if (!image)
+                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider2ImageThumb];
+                [provider2ImageButton setImage:image forState:UIControlStateNormal];
                 provider2ImageButton.adjustsImageWhenHighlighted;
-                [provider3ImageButton setImage:[UIImage imageNamed:provider3ImageThumb] forState:UIControlStateNormal];
-                //                [provider3ImageButton setImage:[UIImage imageNamed:provider3ImageThumb] forState:UIControlStateHighlighted];
+                
+                // get provider 3 image and text
+                image = [UIImage imageNamed:provider3ImageThumb];
+                if (!image)
+                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider3ImageThumb];
+                [provider3ImageButton setImage:image forState:UIControlStateNormal];
                 provider3ImageButton.adjustsImageWhenHighlighted;
-                [provider4ImageButton setImage:[UIImage imageNamed:provider4ImageThumb] forState:UIControlStateNormal];
-                //                [provider4ImageButton setImage:[UIImage imageNamed:provider4ImageThumb] forState:UIControlStateHighlighted];
+                
+                // get provider 4 image and text
+                image = [UIImage imageNamed:provider4ImageThumb];
+                if (!image)
+                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider4ImageThumb];
+                [provider4ImageButton setImage:image forState:UIControlStateNormal];
                 provider4ImageButton.adjustsImageWhenHighlighted;
                 
                 provider5ImageButton.adjustsImageWhenHighlighted;

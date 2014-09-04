@@ -105,12 +105,14 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
     int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
     if (currentPhysicianIndex < [allClinicPhysicians count]){
+        // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
         NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
         NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
         NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
         cell.image.image = [UIImage imageNamed:imageToLoad];
     }
     else {
+        // if index is for new (not hardcoded) clinician then get thumb image from documents directory
         NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString  *documentsDirectory = [paths objectAtIndex:0];
         ClinicianInfo *currentClinician =
@@ -118,7 +120,9 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
                     getClinician:currentPhysicianIndex];
         if (currentClinician){
             NSString *filename = [currentClinician getImageFilename];
-            cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
+           // cell.image.image = [UIImage imageNamed:filename];
+            //if (!cell.image.image)
+                cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
         }
     }
     return cell;

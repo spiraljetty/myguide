@@ -21,6 +21,7 @@
 #import "DynamicSurveyViewController_Pad.h"
 #import "FPNumberPadView.h"
 #import "ClinicianInfo.h"
+#import "ClinicInfo.h"
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
 #define BARBUTTON(TITLE, SELECTOR) 	[[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
@@ -730,30 +731,30 @@ int indexCount;
     return mutableAllClinicPhysicians;
 }
 
-- (NSMutableArray*) getAllClinicPhysiciansThumbs { //rjl 8/16/14
-//    NSLog(@"WRViewController.getAllClinicPhysiciansThumbs()");
-
-    NSMutableArray *mutableAllClinicPhysiciansThumbs = [allClinicPhysiciansThumbs mutableCopy];
-    NSMutableArray * newClinicians = [self getNewClinicianNames];
-    for (NSString *name in newClinicians){
-        NSString* newClinicianThumb = @"pmnr_teraoka_thumb.png";
-        [mutableAllClinicPhysiciansThumbs addObject:newClinicianThumb];
-    }
-//    NSLog(@"WRViewController.getAllClinicPhysiciansThumbs exit()");
-
-    return mutableAllClinicPhysiciansThumbs;
-}
+//- (NSMutableArray*) getAllClinicPhysiciansThumbs { //rjl 8/16/14
+////    NSLog(@"WRViewController.getAllClinicPhysiciansThumbs()");
+//
+//    NSMutableArray *mutableAllClinicPhysiciansThumbs = [allClinicPhysiciansThumbs mutableCopy];
+//    NSMutableArray * newClinicians = [self getNewClinicianNames];
+//    for (NSString *name in newClinicians){
+//        NSString* newClinicianThumb = @"pmnr_teraoka_thumb.png";
+//        [mutableAllClinicPhysiciansThumbs addObject:newClinicianThumb];
+//    }
+////    NSLog(@"WRViewController.getAllClinicPhysiciansThumbs exit()");
+//
+//    return mutableAllClinicPhysiciansThumbs;
+//}
 
 - (NSMutableArray*) getAllClinicPhysiciansImages { //rjl 8/16/14
     //    NSLog(@"WRViewController.getAllClinicPhysiciansImages()");
     
     NSMutableArray *mutableAllClinicPhysiciansImages = [allClinicPhysiciansImages mutableCopy];
-    NSMutableArray * newClinicians = [self getNewClinicianNames];
-    for (NSString *name in newClinicians){
-        NSString* newClinicianImage = @"pmnr_teraoka.png";
-        [mutableAllClinicPhysiciansImages addObject:newClinicianImage];
+    NSMutableArray * newClinicianImages = [self getNewClinicianImages];
+    for (NSString *imageFilename in newClinicianImages){
+//        NSString* newClinicianImage = @"pmnr_teraoka.png";
+        [mutableAllClinicPhysiciansImages addObject:imageFilename];
     }
-    //    NSLog(@"WRViewController.getAllClinicPhysiciansThumbs exit()");
+    //    NSLog(@"WRViewController.getAllClinicPhysiciansImages() exit()");
     
     return mutableAllClinicPhysiciansImages;
 }
@@ -779,7 +780,9 @@ int indexCount;
     NSMutableArray *mutableAllClinicPhysiciansSoundFiles = [allClinicPhysiciansSoundFiles mutableCopy];
     NSMutableArray * newClinicians = [self getNewClinicianNames];
     for (NSString *name in newClinicians){
-        NSString* newClinicianSoundFile = @"pmnr_teraoka";
+        NSString *silence_sound = [[NSBundle mainBundle] pathForResource:@"silence_half_second" ofType:@"wav"];
+//        NSString* newClinicianSoundFile = @"pmnr_teraoka";
+        NSString * newClinicianSoundFile = silence_sound;
         [mutableAllClinicPhysiciansSoundFiles addObject:newClinicianSoundFile];
     }
     //    NSLog(@"WRViewController.getAllClinicPhysiciansBioPlists() exit()");
@@ -1172,13 +1175,11 @@ int indexCount;
      */
     
     NSMutableArray* allPhysicians = [self getAllClinicPhysicians];
-    //NSMutableArray* allPhysiciansThumbs = [self getAllClinicPhysiciansThumbs];
     NSMutableArray* allPhysiciansImages = [self getAllClinicPhysiciansImages];
     NSMutableArray* allPhysiciansSoundfiles = [self getAllClinicPhysiciansSoundFiles];
     
     for (NSString *thisPhysicianName in allPhysicians) // rjl 8/16/14
-//    for (NSString *thisPhysicianName in allClinicPhysicians)
-            {
+           {
                 if ([thisPhysicianName isEqualToString:selectedPhysicianName]) {
                     currentPhysicianIndex = physicianArrayIndex;
                 }
@@ -1187,11 +1188,8 @@ int indexCount;
     NSLog(@"WRViewController.storeAttendingPhysicianSettingsForPhysicianName() Selected physician index: %d",currentPhysicianIndex);
     
     attendingPhysicianName = selectedPhysicianName;
-//    attendingPhysicianImage = [allClinicPhysiciansImages objectAtIndex:currentPhysicianIndex];
     attendingPhysicianImage = [allPhysiciansImages objectAtIndex:currentPhysicianIndex];
-    //attendingPhysicianThumb = [allPhysiciansThumbs objectAtIndex:currentPhysicianIndex];
     attendingPhysicianIndex = currentPhysicianIndex;
-//    if (currentPhysicianIndex < [allClinicPhysiciansSoundFiles count])
     attendingPhysicianSoundFile = [allPhysiciansSoundfiles objectAtIndex:currentPhysicianIndex];
     
     [self updateMiniDemoSettings];
@@ -2417,11 +2415,12 @@ int indexCount;
 }
 
 - (void)initializeDynamicSurveyPages {
+    NSLog(@"WRViewController.initializeDynamicSurveyPages()");
     [dynamicSurveyModule loadAllSurveyPages];
 }
 
 - (void)launchDynamicSurveyWithProviderAndSubclinicTest {
-    
+    NSLog(@"WRViewController.launchDynamicSurveyWithProviderAndSubclinicTest()");
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInReadyForAppointmentButton];
     
 //    int currentSurveyPageIndex = 0;
@@ -2496,7 +2495,7 @@ int indexCount;
 }
 
 - (void)fadeDynamicSurveyIn {
-    NSLog(@"WRViewController.fadeDynamicSurveyOIn()");
+    NSLog(@"WRViewController.fadeDynamicSurveyIn()");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicSurveyModule];
     [self showMasterButtonOverlay];
@@ -6262,6 +6261,7 @@ int indexCount;
 - (void)adminDownloadDataButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"WRViewController.adminDownloadDataButtonPressed()");
     [self downloadClinicianInfo];
+    [self downloadClinicInfo];
 }
 
 - (void) downloadClinicianInfo { // rjl 8/16/14
@@ -6271,6 +6271,18 @@ int indexCount;
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
         NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadClinicianInfo() %@", errorMsg];
+        NSLog(logMsg);
+        [self showAlertMsg:errorMsg];
+    }
+}
+
+- (void) downloadClinicInfo { // rjl 8/16/14
+    NSString* filePath = [self downloadFile:@"clinics.txt" isImage:false];
+    if (filePath)
+        [self readClinicInfo:filePath];
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadClinicInfo() %@", errorMsg];
         NSLog(logMsg);
         [self showAlertMsg:errorMsg];
     }
@@ -6413,14 +6425,62 @@ int indexCount;
 //    [pool release];
 }
 
-- (NSMutableArray*) getNewClinicianNames{
-    NSLog(@"WRViewController.getNewClinicianNames()");
+- (void) readClinicInfo:(NSString*) filePath{
+    NSLog(@"WRViewController.readClinicInfo()");
+    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    NSMutableArray *allClinics = [[NSMutableArray alloc] init];
+    ClinicInfo * clinicInfo = NULL;
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        
+        if (clinicLine.length > 0){
+            NSLog(@"WRViewController.readClinicInfo() clinics.txt line: %@", line);
+            // parse row containing clinic details
+            NSString* output = nil;
+            if([clinicLine hasPrefix:@"_CLINIC_ "]){
+                clinicInfo = [[ClinicInfo alloc]init];
+                NSString* clinicName = [clinicLine substringFromIndex:9];
+                [clinicInfo setClinicName:clinicName];
+                [allClinics addObject:clinicInfo];
+                NSLog(@"WRViewController.readClinicInfo() clinic name: %@", clinicName);
+            }
+            else {
+                [clinicInfo addPage:line];
+                // read clinic page as triple <sub title, content, imagename>
+                NSArray* clinicProperties = [line componentsSeparatedByCharactersInSet:
+                                            [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                for (int i=0; i<[clinicProperties count]; i++) {
+                    NSString* value = clinicProperties[i];
+                    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                    NSLog(@"clinic %@ prop %d: %@", [clinicInfo getClinicName], i, value);
+                }
+            }
+        } // end if clinicianLine.length > 0
+    }// end for line in lines
+    
+    NSString* msg = [NSString stringWithFormat:@"Loaded %d clinics", [allClinics count]];
+    NSLog(msg);
+    
+    // download the image file for each clinician
+    for (ClinicInfo* clinic in allClinics){
+        [clinic writeToLog];
+        NSString* clinicImageFilename = [clinic getImageFilename];
+        [self downloadFile:clinicImageFilename isImage:true];
+    }
+    [self showAlertMsg:msg];
+    //    [pool release];
+}
+
+
+
+- (NSMutableArray*) getAllClinicians{
+    NSLog(@"WRViewController.getAllClinicians()");
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
     NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
     //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
-    NSMutableArray *allClinicianNames = [[NSMutableArray alloc] init];
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
         NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
@@ -6453,19 +6513,46 @@ int indexCount;
         } // end if clinicianLine.length > 0
     }// end for line in lines
     
-    NSLog(@"Loaded %d clinicians", [allClinicians count]);
+    NSLog(@"WRViewController.getAllClinicians() count: %d", [allClinicians count]);
+    
+    
+    return allClinicians;
+    //    [pool release];
+}
+
+- (NSMutableArray*) getNewClinicianNames{
+    NSLog(@"WRViewController.getNewClinicianNames()");
+    NSMutableArray *allClinicians = [self getAllClinicians];
+    NSMutableArray *allClinicianNames = [[NSMutableArray alloc] init];
     
     // download the image file for each clinician
     for (ClinicianInfo* clinician in allClinicians){
         //[clinician writeToLog];
-        NSString  *name = [NSString stringWithFormat:@"%@ %@ %@, %@", [clinician getSalutation], [clinician getFirstName], [clinician getLastName], [clinician getDegrees]];
+        NSString  *name = [NSString stringWithFormat:@"%@ %@ %@ %@", [clinician getSalutation], [clinician getFirstName], [clinician getLastName], [clinician getDegrees]];
         [allClinicianNames addObject:name];
     }
     NSLog(@"WRViewController.getNewClinicianNames() exit");
-
+    
     return allClinicianNames;
     //    [pool release];
 }
+
+- (NSMutableArray*) getNewClinicianImages{
+    NSLog(@"WRViewController.getNewClinicianImages()");
+    NSMutableArray *allClinicians = [self getAllClinicians];
+    NSMutableArray *allClinicianImages = [[NSMutableArray alloc] init];
+    
+    // download the image file for each clinician
+    for (ClinicianInfo* clinician in allClinicians){
+        //[clinician writeToLog];
+        NSString* imageName = [clinician getImageFilename];
+        [allClinicianImages addObject:imageName];
+    }
+    
+    return allClinicianImages;
+    //    [pool release];
+}
+
 
 - (ClinicianInfo*) getCurrentClinician{
     return [self getClinician:attendingPhysicianIndex];
@@ -6515,7 +6602,7 @@ int indexCount;
     NSLog(@"Loaded %d clinicians", [allClinicians count]);
     ClinicianInfo* matchingClinician = NULL;
     int adjustedClinicianIndex = clinicianIndex - [allClinicPhysicians count];
-    if (adjustedClinicianIndex > 0)
+    if (adjustedClinicianIndex >= 0) //rjl 8/19/14 indexOffset Bug
          matchingClinician = [allClinicians objectAtIndex:adjustedClinicianIndex];
   
     NSLog(@"WRViewController.getNewClinicianNames() matching clinician:");

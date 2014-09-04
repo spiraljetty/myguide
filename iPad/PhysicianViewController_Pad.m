@@ -303,7 +303,7 @@
         [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadePhysicianDetailOut];
 
         
-    } else {
+    } else if (vcIndex >= 0 && newIndex >= 0){
         
         finishingLastItem = NO;
         
@@ -312,6 +312,10 @@
         // Prepare for segue by disabling bar buttons
 //        item.rightBarButtonItem.enabled = NO;
 //        item.leftBarButtonItem.enabled = NO;
+        
+        if (newIndex < 0){
+            newIndex = 0;
+        }
         
         // Segue to the new controller
         UIViewController *source = [newChildControllers objectAtIndex:vcIndex];

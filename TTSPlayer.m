@@ -145,7 +145,7 @@
 }
 
 - (void)playItemsWithNames:(NSArray *)arrayOfSoundFileNames {
-    
+    NSLog(@"TTSPlayer.playItemsWithNames()");
     
     if (speakItemsAloud) {
         
@@ -212,7 +212,7 @@
                 NSString *silence_sound = [[NSBundle mainBundle] pathForResource:thisSoundFilename ofType:@"wav"];
                 [soundItemArray addObject:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:silence_sound]]];
                 
-                NSLog(@"Playing sound %@ with type %@ at speed %@...",thisSoundFilename,currentVoiceTypeSuffix,currentSpeedSuffix);
+                NSLog(@"TTSPlayer.playItemsWithName() Playing sound %@ with type %@ at speed %@...",thisSoundFilename,currentVoiceTypeSuffix,currentSpeedSuffix);
                 
             } else if ([thisSoundFilename hasPrefix:@"alarm"]) {
                 //            if ([thisSoundFilename isEqualToString:@"silence"]) {
@@ -222,7 +222,7 @@
                 NSString *alarm_sound = [[NSBundle mainBundle] pathForResource:thisSoundFilename ofType:@"mp3"];
                 [soundItemArray addObject:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:alarm_sound]]];
                 
-                NSLog(@"Playing sound %@ with type %@ at speed %@...",thisSoundFilename,currentVoiceTypeSuffix,currentSpeedSuffix);
+                NSLog(@"TTSPlayer.playItemsWithName() Playing sound %@ with type %@ at speed %@...",thisSoundFilename,currentVoiceTypeSuffix,currentSpeedSuffix);
                 
             } else if ([thisSoundFilename hasPrefix:longTextFilePrefix]) {
                 
@@ -236,13 +236,13 @@
                     
                     [soundItemArray addObject:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:currentSoundfilePath]]];
                     
-                    NSLog(@"Playing sound %@ with type %@ at speed %@...",fullDocumentFilenameWithExtension,currentVoiceTypeSuffix,currentSpeedSuffix);
+                    NSLog(@"TTSPlayer.playItemsWithName() Playing sound %@ with type %@ at speed %@...",fullDocumentFilenameWithExtension,currentVoiceTypeSuffix,currentSpeedSuffix);
                     
                 } else {
                     
                     NSString *substringPartSoundfileSuffix = [NSString stringWithFormat:@"%@_%@",currentVoiceTypeSuffix,currentSpeedSuffix];
                     
-                    NSLog(@"Found long sound filename with prefix: %@!",longTextFilePrefix);
+                    NSLog(@"TTSPlayer.playItemsWithName() TTSPlayer.Found long sound filename with prefix: %@!",longTextFilePrefix);
                     
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
                     NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -257,11 +257,11 @@
                         NSString *fullDocumentFilenameWithExtension = [NSString stringWithFormat:@"%@_%@_%d%@",thisSoundFilename,substringPartSoundfileSuffix,currentPossibleFilenameIndex,audioExtension];
                         NSString *path = [documentsDirectory stringByAppendingPathComponent:fullDocumentFilenameWithExtension];
                         
-                        NSLog(@"Looking for file substring part %d (%@)",currentPossibleFilenameIndex, fullDocumentFilenameWithExtension);
+                        NSLog(@"TTSPlayer.playItemsWithName() Looking for file substring part %d (%@)",currentPossibleFilenameIndex, fullDocumentFilenameWithExtension);
                         
                         if ([[NSFileManager defaultManager] fileExistsAtPath:path])
                         {
-                            NSLog(@"Loading substring file part %d (%@)",currentPossibleFilenameIndex, fullDocumentFilenameWithExtension);
+                            NSLog(@"TTSPlayer.playItemsWithName() Loading substring file part %d (%@)",currentPossibleFilenameIndex, fullDocumentFilenameWithExtension);
                             [substringPathsToPlay addObject:path];
                             stillNeedToCheckForMoreFilenames = YES;
                         } else {
@@ -272,7 +272,7 @@
                     for (NSString *thisSoundSubstringPath in substringPathsToPlay) {
                         [soundItemArray addObject:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:thisSoundSubstringPath]]];
                     }
-                    NSLog(@"Playing long sound %@ with type %@ at speed %@...",thisSoundFilename,currentVoiceTypeSuffix,currentSpeedSuffix);
+                    NSLog(@"TTSPlayer.playItemsWithName() Playing long sound %@ with type %@ at speed %@...",thisSoundFilename,currentVoiceTypeSuffix,currentSpeedSuffix);
                 }
             } else {
                 commonSoundfileSuffix = [NSString stringWithFormat:@"%@_%@%@",currentVoiceTypeSuffix,currentSpeedSuffix,audioExtention];
@@ -282,8 +282,10 @@
                 currentSoundfilePath = [documentsDirectory stringByAppendingPathComponent:fullDocumentFilenameWithExtension];
                 
                 [soundItemArray addObject:[AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:currentSoundfilePath]]];
-                
-                NSLog(@"Playing sound %@ with type %@ at speed %@...",fullDocumentFilenameWithExtension,currentVoiceTypeSuffix,currentSpeedSuffix);
+                if ([[NSFileManager defaultManager] fileExistsAtPath:currentSoundfilePath])
+                    NSLog(@"TTSPlayer.playItemsWithName() Playing sound: %@",fullDocumentFilenameWithExtension);
+                else
+                    NSLog(@"TTSPlayer.playItemsWithName() file not found! file: %@",fullDocumentFilenameWithExtension);
             }
         }
         
