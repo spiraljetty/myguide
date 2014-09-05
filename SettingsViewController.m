@@ -173,9 +173,9 @@
     [self createNetworkMenu];
     [self createSoundMenu];
     [self createGearTab];
-    [self createDownloadTab];
+    //[self createDownloadTab];
     [self createInvisibleHideShowButton];
-    [self createInvisibleDownloadButton];
+    //[self createInvisibleDownloadButton];
     
 //    [self checkthatHeadsetIsPluggedIn];
     
@@ -1207,8 +1207,9 @@
         frame.origin.x -= (768 - 65);
 //        [_barImageView setTransform:_barImageViewRotation];
         buttonOpen = TRUE;
-        downloadImageView.hidden = NO;
-        invisibleDownloadButton.hidden = NO;
+        //downloadImageView.hidden = NO;
+        //invisibleDownloadButton.hidden = NO;
+//        [YLViewController downloadDataButton];
     }
     else
     {
@@ -1216,8 +1217,8 @@
         frame.origin.x += (768 - 65);
 //        [_barImageView setTransform:CGAffineTransformIdentity];
         buttonOpen = FALSE;
-        downloadImageView.hidden = YES;
-        invisibleDownloadButton.hidden = YES;
+        //downloadImageView.hidden = YES;
+        //invisibleDownloadButton.hidden = YES;
     }
     
 //    invisibleShowHideButton.frame = frame;

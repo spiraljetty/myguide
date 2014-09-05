@@ -16,9 +16,6 @@
         [self setClinicName:@""];
         mClinicPages = [[NSMutableArray alloc]init];
     }
-    [self setClinicName:@""];
-    mClinicPages = [[NSMutableArray alloc]init];
-
     return self;
 }
 // setters
@@ -27,11 +24,16 @@
     mClinicName = clinicName;
 }
 
+-(void) setClinicNameShort:(NSString *)clinicNameShort{
+    mClinicNameShort = clinicNameShort;
+}
+
+
 //-(void) setClinicPages:(NSString *)clinicPages{
 //    mClinicPages = clinicPages;
 //}
 
-- (void) addPage:(NSString*) clinicPage {
+- (void) addPage:(NSDictionary*) clinicPage {
     NSLog(@"ClinicInfo.addPage() clinic: %@, page: %@", [self  getClinicName], clinicPage);
     [[self getClinicPages] addObject:clinicPage];
 }
@@ -42,24 +44,35 @@
     return mClinicName;
 }
 
+-(NSString*) getClinicNameShort {
+    return mClinicNameShort;
+}
+
 -(NSMutableArray*) getClinicPages {
     return mClinicPages;
 }
 
--(NSString*) getImageFilename {
-    NSString* imageFilename = [NSString stringWithFormat:@"%@.png", mClinicName];
+-(NSString*) getClinicImageFilename {
+    NSString* imageFilename = [NSString stringWithFormat:@"%@.png", mClinicNameShort];
     return imageFilename;
 }
+
+-(NSString*) getPageImageFilename:(int) pageNumber {
+    NSString* clinicNameLowerCase = [mClinicNameShort lowerCaseString];
+    NSString* imageFilename = [NSString stringWithFormat:@"%@_%d.png", clinicNameLowerCase, pageNumber];
+    return imageFilename;
+}
+
 
 
 // writers
 
 
 - (void) writeToLog {
-    NSLog(@"[Clinic: %@", mClinicName);
+    NSLog(@"[Clinic: %@:", mClinicName);
     int i = 1;
-    for (NSString* page in [self  getClinicPages]){
-        NSLog(@" %d: %@",i++, page);
+    for (NSDictionary* page in [self  getClinicPages]){
+        NSLog(@"  page %d: %@",i++, page);
     }
     NSLog(@"]");
 }

@@ -922,7 +922,7 @@ int indexCount;
         [self fadeOutSpecialtyClinicSegmentedControl];
         currentSpecialtyClinicName = @"AT";
         selectedSubclinic = YES;
-        NSLog(@"Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
+        NSLog(@"WRViewController.clinicSegmentChanged() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
         
         [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_polytrauma_logo_splash_landscape.png"]];
         
@@ -941,14 +941,14 @@ int indexCount;
         [self fadeOutSpecialtyClinicSegmentedControl];
         currentSpecialtyClinicName = @"PNS";
         selectedSubclinic = YES;
-        NSLog(@"Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
+        NSLog(@"WRViewController.clinicSegmentChanged() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
         
         [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_polytrauma_logo_splash_landscape.png"]];
         
         [self setDynamicEdClinicSpecFileForSpecialtyClinicName:currentSpecialtyClinicName];
 
     }
-    NSLog(@"Selected Clinic: %@...",currentClinicName);
+    NSLog(@"WRViewController.clinicSegmentChanged() Selected Clinic: %@...",currentClinicName);
     
     initialSettingsLabel.text = [NSString stringWithFormat:@"%@ App - Launch Settings",currentClinicName];
     
@@ -1011,7 +1011,7 @@ int indexCount;
        currentSpecialtyClinicName = @"Pain";
    }
     
-    NSLog(@"Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
+    NSLog(@"WRViewController.specialtyClinicSegmentChanged() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
     
     [self setDynamicEdClinicSpecFileForSpecialtyClinicName:currentSpecialtyClinicName];
     
@@ -1026,7 +1026,8 @@ int indexCount;
 }
 
 - (void)setDynamicEdClinicSpecFileForSpecialtyClinicName:(NSString *)thisSpecialtyClinicName {
-    
+    NSLog(@"WRViewController.setDynamicEdClinicSpecFileForSpecialtyClinicName() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
+
     if ([thisSpecialtyClinicName isEqualToString:@"None"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
     } else if ([thisSpecialtyClinicName isEqualToString:@"Acupuncture"]) {
@@ -1034,7 +1035,7 @@ int indexCount;
     } else if ([thisSpecialtyClinicName isEqualToString:@"Pain"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
     } else if ([thisSpecialtyClinicName isEqualToString:@"PNS"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test2";
+        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test3";
     } else if ([thisSpecialtyClinicName isEqualToString:@"EMG"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_emg_ed_module_test2";
     } else if ([thisSpecialtyClinicName isEqualToString:@"General PM&R"]) {
@@ -2595,7 +2596,7 @@ int indexCount;
 
 - (void)fadeDynamicSubclinicEducationModuleIn {
     
-    NSLog(@"Fading in dynamic subclinic ed module");
+    NSLog(@"WRViewController.fadeDynamicSubclinicEducationModuleIn() Fading in dynamic subclinic ed module");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicSubclinicEdModule];
     [self showMasterButtonOverlay];
@@ -6260,6 +6261,7 @@ int indexCount;
 
 - (void)adminDownloadDataButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"WRViewController.adminDownloadDataButtonPressed()");
+    [self showSpinner];
     [self downloadClinicianInfo];
     [self downloadClinicInfo];
 }
@@ -6308,10 +6310,18 @@ int indexCount;
     // rjl 8/16/14
 //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     NSString* downloadDir = nil;
-    if (isImageFile)
-        downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
-    else
-        downloadDir = @"http://www.brainaid.com/wrtest/";
+    bool developerEnabled = true;
+    if (developerEnabled){
+        if (isImageFile)
+            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
+        else
+            downloadDir = @"http://www.brainaid.com/wrtestdev/";
+    } else {
+        if (isImageFile)
+            downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
+        else
+            downloadDir = @"http://www.brainaid.com/wrtest/";
+    }
     NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
     NSURL *downloadUrl = [NSURL URLWithString:filePath];
     NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
@@ -6385,7 +6395,7 @@ int indexCount;
         NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
 
         if (clinicianLine.length > 0){
-            //NSLog(@"%@", line);
+            NSLog(@"WRViewController.readClinicianInfo() line: %@", line);
             ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
             // parse row containing clinician details
             NSArray* clinicianProperties = [line componentsSeparatedByCharactersInSet:
@@ -6393,7 +6403,7 @@ int indexCount;
             for (int i=0; i<[clinicianProperties count]; i++) {
                 NSString* value = clinicianProperties[i];
                 value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                //NSLog(@"%d: %@", i, value);
+                NSLog(@"WRViewController.readClinicianInfo()%d: %@", i, value);
                 switch (i) {
                     case 0: [clinicianInfo setClinicianId:value]; break;
                     case 1: [clinicianInfo setClinics:value]; break;
@@ -6425,36 +6435,69 @@ int indexCount;
 //    [pool release];
 }
 
-- (void) readClinicInfo:(NSString*) filePath{
+- (NSArray*) readClinicInfo:(NSString*) filePath{
     NSLog(@"WRViewController.readClinicInfo()");
     //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     NSMutableArray *allClinics = [[NSMutableArray alloc] init];
-    ClinicInfo * clinicInfo = NULL;
+    NSMutableArray* allImages =  [[NSMutableArray alloc] init];
+
+//    ClinicInfo * clinicInfo = NULL;
+    ClinicInfo* currentClinic = NULL;
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
-        NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+         NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicLine.length > 0){
             NSLog(@"WRViewController.readClinicInfo() clinics.txt line: %@", line);
             // parse row containing clinic details
             NSString* output = nil;
-            if([clinicLine hasPrefix:@"_CLINIC_ "]){
-                clinicInfo = [[ClinicInfo alloc]init];
-                NSString* clinicName = [clinicLine substringFromIndex:9];
-                [clinicInfo setClinicName:clinicName];
-                [allClinics addObject:clinicInfo];
-                NSLog(@"WRViewController.readClinicInfo() clinic name: %@", clinicName);
+            if([clinicLine hasPrefix:@"//"]){
+                NSLog(@"WRViewController.readClinicInfo() comment: %@", clinicLine);
             }
             else {
-                [clinicInfo addPage:line];
+                
                 // read clinic page as triple <sub title, content, imagename>
                 NSArray* clinicProperties = [line componentsSeparatedByCharactersInSet:
                                             [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                
+                //find the clinic container for all of the pages from that clinic
+                NSString* clinicName = [clinicProperties objectAtIndex:1];
+                if (currentClinic == NULL || ![[currentClinic getClinicName] isEqualToString:clinicName]){
+                    int currentClinicIndex = [allClinics indexOfObject:clinicName];
+                    if (currentClinicIndex == NSNotFound){
+                        ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
+                        [clinicInfo setClinicName:[clinicProperties objectAtIndex:1]];
+                        [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
+                        [allClinics addObject:clinicInfo];
+                        currentClinic = clinicInfo;
+                    }
+                    else
+                        currentClinic = [allClinics objectAtIndex:currentClinicIndex];
+                }
+                
+                
+                NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
+                NSLog(@"WRViewController.readClinicInfo() clinic name: %@", clinicName);
                 for (int i=0; i<[clinicProperties count]; i++) {
                     NSString* value = clinicProperties[i];
                     value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                    NSLog(@"clinic %@ prop %d: %@", [clinicInfo getClinicName], i, value);
+                    NSLog(@"clinic %@ prop %d: %@", [currentClinic getClinicName], i, value);
+                    switch (i) {
+                        case 0: [page setObject:value forKey:@"clinicId"]; break;
+                        case 1: [page setObject:value forKey:@"clinicName"]; break;
+                        case 2: [page setObject:value forKey:@"clinicNameShort"]; break;
+                        case 3: [page setObject:value forKey:@"subclinicName"]; break;
+                        case 4: [page setObject:value forKey:@"subclinicNameShort"]; break;
+                        case 5: [page setObject:value forKey:@"pageNumber"]; break;
+                        case 6: [page setObject:value forKey:@"pageTitle"]; break;
+                        case 7: [page setObject:value forKey:@"pageText"]; break;
+                        case 8: [page setObject:value forKey:@"pageImage"]; [allImages addObject:value]; break;
+                        case 9: [page setObject:value forKey:@"status"]; break;
+                        case 10: [page setObject:value forKey:@"clinicIcon"]; break;
+
+                    } // end switch
                 }
+                [currentClinic addPage:page];
             }
         } // end if clinicianLine.length > 0
     }// end for line in lines
@@ -6465,10 +6508,12 @@ int indexCount;
     // download the image file for each clinician
     for (ClinicInfo* clinic in allClinics){
         [clinic writeToLog];
-        NSString* clinicImageFilename = [clinic getImageFilename];
-        [self downloadFile:clinicImageFilename isImage:true];
+    }
+    for (NSString* imageFilename in allImages){
+        [self downloadFile:imageFilename isImage:true];
     }
     [self showAlertMsg:msg];
+    return allClinics;
     //    [pool release];
 }
 
@@ -6609,6 +6654,90 @@ int indexCount;
     [matchingClinician writeToLog];
     
     return matchingClinician;
+    //    [pool release];
+}
+
+- (ClinicInfo*) getClinic:(NSString*)clinicNameShort{
+    NSLog(@"WRViewController.getClinic() clinicNameShort: %@", clinicNameShort);
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/clinics.txt", documentsDirectory];
+    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    NSMutableArray *allClinics = [[NSMutableArray alloc] init];
+    ClinicInfo* currentClinic = NULL;
+    ClinicInfo* matchingClinic = NULL;
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        
+//        for (NSString *line in lines) {
+//            NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        
+            if (clinicLine.length > 0){
+                NSLog(@"WRViewController.getClinic() clinics.txt line: %@", line);
+                // parse row containing clinic details
+                NSString* output = nil;
+                if([clinicLine hasPrefix:@"//"]){
+                    NSLog(@"WRViewController.getClinic() comment: %@", clinicLine);
+                }
+                else {
+                    
+                    // read clinic page as triple <sub title, content, imagename>
+                    NSArray* clinicProperties = [line componentsSeparatedByCharactersInSet:
+                                                 [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                    
+                    //find the clinic container for all of the pages from that clinic
+                    NSString* clinicName = [clinicProperties objectAtIndex:1];
+                    if (currentClinic == NULL || ![[currentClinic getClinicName] isEqualToString:clinicName]){
+                        int currentClinicIndex = [allClinics indexOfObject:clinicName];
+                        if (currentClinicIndex == NSNotFound){
+                            ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
+                            [clinicInfo setClinicName:clinicName];
+                            [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
+                            [allClinics addObject:clinicInfo];
+                            currentClinic = clinicInfo;
+                        }
+                        else
+                            currentClinic = [allClinics objectAtIndex:currentClinicIndex];
+                    }
+                    if (matchingClinic == NULL && [[currentClinic getClinicNameShort] isEqualToString:clinicNameShort])
+                        matchingClinic = currentClinic;
+                    
+                    NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
+                    
+                    NSLog(@"WRViewController.getClinic() clinic name: %@", clinicName);
+                    for (int i=0; i<[clinicProperties count]; i++) {
+                        NSString* value = clinicProperties[i];
+                        value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                        NSLog(@"clinic %@ prop %d: %@", [currentClinic getClinicName], i, value);
+                        switch (i) {
+                            case 0: [page setObject:value forKey:@"clinicId"]; break;
+                            case 1: [page setObject:value forKey:@"clinicName"]; break;
+                            case 2: [page setObject:value forKey:@"clinicNameShort"]; break;
+                            case 3: [page setObject:value forKey:@"subclinicName"]; break;
+                            case 4: [page setObject:value forKey:@"subclinicNameShort"]; break;
+                            case 5: [page setObject:value forKey:@"pageNumber"]; break;
+                            case 6: [page setObject:value forKey:@"pageTitle"]; break;
+                            case 7: [page setObject:value forKey:@"pageText"]; break;
+                            case 8: [page setObject:value forKey:@"pageImage"]; break;
+                            case 9: [page setObject:value forKey:@"status"]; break;
+                            case 10: [page setObject:value forKey:@"clinicIcon"]; break;
+                                
+                        } // end switch
+                    }
+                    [currentClinic addPage:page];
+            } // end if not a comment line
+        }// end if clinicianLine.length > 0
+    }// end for line in lines
+    NSLog(@"Loaded %d clinics", [allClinics count]);
+    if (matchingClinic != NULL) {
+        NSLog(@"WRViewController.getClinic() found clinic!");
+        [matchingClinic writeToLog];
+    }
+    else
+        NSLog(@"WRViewController.getClinic() clinic not found!");
+    
+    return matchingClinic;
     //    [pool release];
 }
 

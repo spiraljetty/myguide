@@ -53,6 +53,12 @@
     IBOutlet UIActivityIndicatorView *uploadDataSpinner;
     IBOutlet UIButton *uploadDataButton;
     
+    IBOutlet UILabel *downloadDataStatus;
+    IBOutlet UIActivityIndicatorView *downloadDataSpinner;
+    IBOutlet UIButton *downloadDataButton;
+    
+    IBOutlet UILabel *appVersionLabel;
+
 @protected
     NSTimer*    progressTimer;
 }
@@ -95,6 +101,10 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *uploadDataSpinner;
 @property (nonatomic, retain) IBOutlet UIButton *uploadDataButton;
 
+@property (nonatomic, retain) IBOutlet UILabel *downloadDataStatus;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *downloadDataSpinner;
+@property (nonatomic, retain) IBOutlet UIButton *downloadDataButton;
+
 #pragma mark Constructors - Initializers
 
 #pragma mark Public Methods
@@ -127,5 +137,10 @@
 - (void)uploadDataRequestDone;
 - (void)disableUploadDataButton;
 - (void)enableUploadDataButton;
+
+- (IBAction)downloadDataFromCloudButtonPressed:(id)sender;
+- (void)downloadDataRequestDone;
+- (void)disableDownloadDataButton;
+- (void)enableDownloadDataButton;
 
 @end

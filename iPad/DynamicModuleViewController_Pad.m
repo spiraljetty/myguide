@@ -30,6 +30,7 @@
 #import "DynamicModulePageViewController.h"
 #import "DynamicPageSubDetailViewController.h"
 #import "PopoverPlaygroundViewController.h"
+#import "ClinicInfo.h"
 
 NSString *kModuleNameKey = @"Name";
 NSString *kModuleTypeKey = @"Type";
@@ -103,40 +104,83 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 }
 
 - (void)setupWithPropertyList:(NSString *)propertyListName {
-    
-    NSData *tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:propertyListName withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
+    NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", propertyListName);
+    NSData* tmp = NULL;
+    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
+        tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"pmnr_pns_ed_module_test2" withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
+    } else
+        tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:propertyListName withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
     dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
     dynModDictKeys = [[dynModDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    
-    
+        
+        
     moduleName = [dynModDict objectForKey:kModuleNameKey];
-    moduleType = [dynModDict objectForKey:kModuleTypeKey];
-    createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
-    moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
-    
-    NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
-    start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
-    end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
-    start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
-    end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
-    
-    moduleTheme = [dynModDict objectForKey:kModuleThemeKey];
-    moduleColor = [dynModDict objectForKey:kModuleColorKey];
-    isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
-    showModuleHeader = [[dynModDict objectForKey:kShowModuleHeaderKey] boolValue];
-    recognizeUserSpeechWords = [dynModDict objectForKey:kModuleShouldRecognizeUserSpeechWordsKey];
-    superModule = [dynModDict objectForKey:kSuperModuleKey];
-    subModules = [dynModDict objectForKey:kSubModulesKey];
-    pages = [dynModDict objectForKey:kModulePagesKey];
+        moduleType = [dynModDict objectForKey:kModuleTypeKey];
+        createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
+        moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
+        
+        NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
+        start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
+        end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
+        start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
+        end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
+        
+        moduleTheme = [dynModDict objectForKey:kModuleThemeKey];
+        moduleColor = [dynModDict objectForKey:kModuleColorKey];
+        isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
+        showModuleHeader = [[dynModDict objectForKey:kShowModuleHeaderKey] boolValue];
+        recognizeUserSpeechWords = [dynModDict objectForKey:kModuleShouldRecognizeUserSpeechWordsKey];
+        superModule = [dynModDict objectForKey:kSuperModuleKey];
+        subModules = [dynModDict objectForKey:kSubModulesKey];
+        pages = [dynModDict objectForKey:kModulePagesKey];
+    NSMutableDictionary* samplePage = NULL;
+    if ([pages count] > 0){
+        samplePage = [pages objectAtIndex:0];
+    }
+    ClinicInfo* clinicInfo = NULL;
+    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test1"]){
+        clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                       getClinic:@"PMNR"];
+    }
+    else
+    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
+            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                           getClinic:@"PNS"];
+    }
+    else
+    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
+                clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                               getClinic:@"AT"];
+    }
+    if (clinicInfo != NULL){
+        NSMutableArray* clinicPages = [clinicInfo getClinicPages];
+        NSLog(@"found it!");
+        NSLog(@"DynamicModuleViewController.setupWithPropertyList() updating content for %@", propertyListName);
+        NSMutableArray* newPages = [[NSMutableArray alloc] init];
+        for (NSMutableDictionary *pageDict in clinicPages) {
+            NSString *pageTitle = [pageDict valueForKey:@"pageTitle"];
+            NSString *pageText = [pageDict valueForKey:@"pageText"];
+            NSMutableDictionary *mutablePageDict = NULL;
+            if (samplePage != NULL)
+                mutablePageDict= [samplePage mutableCopy];
+            else
+                mutablePageDict= [pageDict mutableCopy];
+            [mutablePageDict setValue:pageTitle forKey:@"HeaderText"];
+            [mutablePageDict setValue:pageText forKey:@"Text"];
+            [newPages addObject:mutablePageDict];
+        }
+        if ([newPages count] > 0)
+            pages = newPages;
+    }
 }
 
 - (void)loadPages {
     
-    NSLog(@"Loading %d pages...",[pages count]);
+    NSLog(@"DynamicModuleViewController.loadPages() Loading %d pages...",[pages count]);
     
     int pageIndex = 0;
     
-    for (NSDictionary *pageDict in pages) {
+    for (NSMutableDictionary *pageDict in pages) {
         DynamicModulePageViewController *dynamicModulePage = [[DynamicModulePageViewController alloc] initWithDictionary:pageDict];
         
         if ([moduleColor isEqualToString:@"teal"]) {
@@ -156,7 +200,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
         pageIndex++;
     }
     
-    NSLog(@"Load pages progress: %d of %d pages loaded!",pageIndex,[pages count]);
+    NSLog(@"DynamicModuleViewController.loadPages() Load pages progress: %d of %d pages loaded!",pageIndex,[pages count]);
 }
 
 - (void)loadSoundFileNames {
@@ -168,7 +212,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
     int numPageTextsCounted = 0;
     
     for (DynamicModulePageViewController *thisPage in newChildControllers) {
-        NSLog(@"Loading page %d sound filenames...",numPageTextsCounted);
+        NSLog(@"DynamicModuleViewController.loadSoundFileNames() Loading page %d sound filenames...",numPageTextsCounted);
         
         if (thisPage.containsTerminology) {
             for (NSDictionary *thisTermDict in thisPage.terminologyButtons) {
@@ -184,7 +228,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
             numHeadersCounted++;
         }
         
-        [ttsSoundFileDict setObject:thisPage.text forKey:thisPage.TTSFilenamePrefix];
+        if (thisPage.TTSFilenamePrefix != NULL)
+            [ttsSoundFileDict setObject:thisPage.text forKey:thisPage.TTSFilenamePrefix];
         numPageTextsCounted++;
     }
     
@@ -646,7 +691,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 
 - (void)startingFirstPage {
     
-    NSLog(@"startingFirstPage of dynamic module...");
+    NSLog(@"DynamicModuleViewController.startingFirstPage() starting dynamic module vcIndex: %d",vcIndex);
           
 //    DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
     

@@ -25,7 +25,7 @@
 @synthesize progressValueLabel, progressBarIncrements, voiceSpeedSegmentedControl, voiceTypeSegmentedControl, updateSelectSoundsSwitch, updateSoundsLabel;
 @synthesize progressTimer, networkImage, linkImage, networkStatus, loadingFileName, loadingLabel, loadSpinner, linkStatus, wanderSetting;
 @synthesize currentScrollView;
-@synthesize labelLocationInformation, volumeControlStepper, headphoneImage, soundStatus, volumeNumber, previousVolumeStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton;
+@synthesize labelLocationInformation, volumeControlStepper, headphoneImage, soundStatus, volumeNumber, previousVolumeStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton, downloadDataButton, downloadDataSpinner, downloadDataStatus;
 @synthesize mapView;
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -114,7 +114,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
+        AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
+	NSString *currentAppVersion = @"App Version: 9/4/14";//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
+    [appVersionLabel setText:currentAppVersion];
     progressView.progressTintColor = [UIColor greenColor];
 //    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f 
 //                                                           target:self 
@@ -134,6 +136,7 @@
     volumeControlStepper.maximumValue = 10;
     volumeControlStepper.value = 5;
     previousVolumeStepperValue = 5;
+    
     
 //    NSLog(@"Setting home coordinates...");
 //    homeCoords = CLLocationCoordinate2DMake(37.450275, -122.162034);
@@ -158,7 +161,7 @@
     [mapView setDelegate:self];
     [mapView setShowsUserLocation:YES];
     
-    AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
+//    AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
     [appDelegate.loaderViewController.currentWRViewController.settingsVC updateSoundSettingsBasedOnHeadsetStatus];
 }
 
@@ -219,22 +222,26 @@
                 networkStatus.text = @"Connected";
             networkImage.image = [UIImage imageNamed:@"network_connected_trim.png"];
             [self enableUploadDataButton];
+            [self enableDownloadDataButton];
             break;
         case kConnectionPending:
                 networkStatus.text = @"Connecting...";
             networkImage.image = [UIImage imageNamed:@"network_pending_trim.png"];
             [self disableUploadDataButton];
+            [self disableDownloadDataButton];
             break;
         case kConnectionFailed :
                 networkStatus.text = @"Connection Failed";
             networkImage.image = [UIImage imageNamed:@"network_failed_trim.png"];
             [self disableUploadDataButton];
+            [self disableDownloadDataButton];
             break;
             
         default:
                 networkStatus.text = @"Not Connected";
             networkImage.image = [UIImage imageNamed:@"network_failed_trim.png"];
             [self disableUploadDataButton];
+            [self disableDownloadDataButton];
             break;
     }
     NSLog(@"YLViewController.updateNetworkDisplayWithConnectionType() connection status %@", networkStatus.text);
@@ -419,21 +426,23 @@
     
 }
 
-- (void)downloadDataFromCloudButtonPressed:(id)sender { // rjl 8/16/14
+
+ - (void)downloadDataFromCloudButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"YLViewController.downloadDataFromCloudButtonPressed()");
-//    [self disableUploadDataButton];
+    [self disableDownloadDataButton];
     
-//    uploadDataStatus.alpha = 1.0;
-//      uploadDataStatus.text = @"Working...";
+     downloadDataStatus.alpha = 1.0;
+     downloadDataStatus.text = @"Working...";
     
-//    uploadDataSpinner.alpha = 1.0;
-//    [uploadDataSpinner startAnimating];
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:"Downloading clincian data"];
+     downloadDataSpinner.alpha = 1.0;
+    [downloadDataSpinner startAnimating];
+//    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:"Downloading clincian data"];
 
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminDownloadDataButtonPressed:self];
-    
+     [self downloadDataRequestDone];
 }
+ 
 
 - (void)enableUploadDataButton {
     NSLog(@"YLViewController.enableUploadDataButton()");
@@ -460,6 +469,33 @@
     
     uploadDataSpinner.alpha = 0.0;
     [uploadDataSpinner stopAnimating];
+}
+
+- (void)enableDownloadDataButton {
+    NSLog(@"YLViewController.enableDownloadDataButton()");
+    
+    downloadDataButton.enabled = YES;
+    downloadDataButton.alpha = 1.0;
+}
+
+- (void)disableDownloadDataButton {
+    NSLog(@"YLViewController.disableDownloadDataButton()");
+    
+    //sandy changed to yes and it crashed because it depends on the network connection
+    //uploadDataButton.enabled = YES;
+    downloadDataButton.enabled = NO;
+    downloadDataButton.alpha = 0.5;
+}
+
+- (void)downloadDataRequestDone {
+    NSLog(@"YLViewController.downloadDataRequestDone()");
+    
+    [self enableDownloadDataButton];
+    
+    downloadDataStatus.text = @"Data downloaded successfully";
+    
+    downloadDataSpinner.alpha = 0.0;
+    [downloadDataSpinner stopAnimating];
 }
 
 #pragma mark YLViewController Private Methods

@@ -172,7 +172,7 @@
     int numPageTextsCounted = 0;
     
     for (DynamicModulePageViewController *thisPage in newChildControllers) {
-        NSLog(@"Loading page %d sound filenames...",numPageTextsCounted);
+        NSLog(@"DynamicSurveyViewController.loadSoundFileNames() Loading page %d sound filenames...",numPageTextsCounted);
         
         //        if (thisPage.containsTerminology) {
         //            for (NSDictionary *thisTermDict in thisPage.terminologyButtons) {
@@ -187,8 +187,8 @@
         //            [ttsSoundFileDict setObject:thisPage.headerText forKey:thisPage.headerTTSFilenamePrefix];
         //            numHeadersCounted++;
         //        }
-        
-        [ttsSoundFileDict setObject:thisPage.text forKey:thisPage.TTSFilenamePrefix];
+        if (thisPage.TTSFilenamePrefix != NULL)
+            [ttsSoundFileDict setObject:thisPage.text forKey:thisPage.TTSFilenamePrefix];
         numPageTextsCounted++;
     }
     

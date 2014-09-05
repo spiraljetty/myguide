@@ -28,6 +28,7 @@
 #import "TTSPlayer.h"
 #import "SwitchedImageViewController.h"
 #import "ReturnTabletViewController.h"
+#import "ClinicInfo.h"
 
 typedef enum {
     kGeneralClinic,
@@ -715,5 +716,7 @@ typedef enum {
 - (void)showModalUnlockSettingsView;
 
 - (void)showDataSendFailedAlert;
+
+- (ClinicInfo*) getClinic:(NSString*)clinicNameShort;
 
 @end
