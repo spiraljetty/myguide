@@ -22,6 +22,8 @@
 #import "FPNumberPadView.h"
 #import "ClinicianInfo.h"
 #import "ClinicInfo.h"
+#import "GoalInfo.h"
+
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
 #define BARBUTTON(TITLE, SELECTOR) 	[[UIBarButtonItem alloc] initWithTitle:TITLE style:UIBarButtonItemStylePlain target:self action:SELECTOR]
@@ -402,8 +404,9 @@ int indexCount;
 	[nextSettingsButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[nextSettingsButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextSettingsButton.backgroundColor = [UIColor clearColor];
-    // sandy shifted this to match others[nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
-    [nextSettingsButton setCenter:CGPointMake(685.0f, 80.0f)];
+    // sandy shifted this to match others. Changed to:[nextSettingsButton setCenter:CGPointMake(685.0f, 80.0f)];
+    [nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
+    
 	[nextSettingsButton addTarget:self action:@selector(slideVisitButtonsOut) forControlEvents:UIControlEventTouchUpInside];
 	nextSettingsButton.enabled = NO;
 	nextSettingsButton.hidden = NO;
@@ -1297,6 +1300,7 @@ int indexCount;
     splitViewController.view.frame = [[UIScreen mainScreen] applicationFrame]; //CGRectMake(0, 0, 800, 1000); // rjl
     [self.view bringSubviewToFront:splitViewController.view];
     [self.view bringSubviewToFront:readyAppButton];
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideNextButton];
 
     
     [UIView beginAnimations:nil context:nil];
@@ -1304,9 +1308,7 @@ int indexCount;
 		[UIView	setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
 
-        readyAppButton.alpha = 1.0;
-
-        
+        readyAppButton.alpha = 1.0;        
         splitViewController.view.alpha = 1.0;
 		
 	}
@@ -2322,7 +2324,7 @@ int indexCount;
 
 - (void)fadeDynamicEducationModuleIn {
     
-    NSLog(@"Fading in dynamic ed module");
+    NSLog(@"WRViewController.fadDynamicEducationModuleIn() Fading in dynamic ed module");
     
     dynamicEdModuleInProgress = YES;
     
@@ -5070,7 +5072,7 @@ int indexCount;
     
     [nextSettingsButton removeTarget:self action:@selector(slideVisitButtonsOut) forControlEvents:UIControlEventTouchUpInside];
     [nextSettingsButton addTarget:self action:@selector(beginSatisfactionSurvey:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view bringSubviewToFront:nextSettingsButton];
+   [self.view bringSubviewToFront:nextSettingsButton];
     
     if ([tbvc.respondentType isEqualToString:@"patient"]) {
         initialSettingsLabel.text = @"Patient Satisfaction Survey";
@@ -5216,6 +5218,8 @@ int indexCount;
     
     NSLog(@"WRViewController.beginSatisfactionSurvey()");
     
+    nextSettingsButton.alpha = 0.0; //rjl 9/8/14
+
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:tbvc];
     [self showMasterButtonOverlay];
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
@@ -6264,6 +6268,7 @@ int indexCount;
     [self showSpinner];
     [self downloadClinicianInfo];
     [self downloadClinicInfo];
+    [self downloadGoalInfo];
 }
 
 - (void) downloadClinicianInfo { // rjl 8/16/14
@@ -6285,6 +6290,18 @@ int indexCount;
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
         NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadClinicInfo() %@", errorMsg];
+        NSLog(logMsg);
+        [self showAlertMsg:errorMsg];
+    }
+}
+
+- (void) downloadGoalInfo { // rjl 8/16/14
+    NSString* filePath = [self downloadFile:@"goals.txt" isImage:false];
+    if (filePath)
+        [self readGoalInfo:filePath];
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadGoalInfo() %@", errorMsg];
         NSLog(logMsg);
         [self showAlertMsg:errorMsg];
     }
@@ -6331,8 +6348,10 @@ int indexCount;
     NSString  *documentsDirectory = [paths objectAtIndex:0];
 
     if ( downloadData ){
-        UIImage *img = [UIImage imageWithData:downloadData];
-        [self saveImage:img filename:filename];
+        if (isImageFile){
+            UIImage *img = [UIImage imageWithData:downloadData];
+            [self saveImage:img filename:filename];
+        }
         NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
         [downloadData writeToFile:filePath atomically:YES];
         result = filePath;
@@ -6343,8 +6362,10 @@ int indexCount;
         downloadUrl = [NSURL URLWithString:filePath];
         downloadData = [NSData dataWithContentsOfURL:downloadUrl];
         if ( downloadData ){
-            UIImage *img = [UIImage imageWithData:downloadData];
-            [self saveImage:img filename:filename];
+            if (isImageFile){
+                UIImage *img = [UIImage imageWithData:downloadData];
+                [self saveImage:img filename:filename];
+            }
             NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
             [downloadData writeToFile:filePath atomically:YES];
             result = filePath;
@@ -6442,11 +6463,10 @@ int indexCount;
     NSMutableArray* allImages =  [[NSMutableArray alloc] init];
 
 //    ClinicInfo * clinicInfo = NULL;
-    ClinicInfo* currentClinic = NULL;
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
          NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        
+
         if (clinicLine.length > 0){
             NSLog(@"WRViewController.readClinicInfo() clinics.txt line: %@", line);
             // parse row containing clinic details
@@ -6461,19 +6481,30 @@ int indexCount;
                                             [NSCharacterSet characterSetWithCharactersInString:@";"]];
                 
                 //find the clinic container for all of the pages from that clinic
-                NSString* clinicName = [clinicProperties objectAtIndex:1];
-                if (currentClinic == NULL || ![[currentClinic getClinicName] isEqualToString:clinicName]){
-                    int currentClinicIndex = [allClinics indexOfObject:clinicName];
-                    if (currentClinicIndex == NSNotFound){
-                        ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
-                        [clinicInfo setClinicName:[clinicProperties objectAtIndex:1]];
-                        [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
-                        [allClinics addObject:clinicInfo];
-                        currentClinic = clinicInfo;
+                NSString* clinicName = [clinicProperties objectAtIndex:4]; // try subclinicNameShort
+                if ([clinicName length] == 0)
+                    clinicName = [clinicProperties objectAtIndex:2];
+                if ([clinicName length] == 0)
+                    clinicName = [clinicProperties objectAtIndex:1];
+                ClinicInfo* currentClinic = NULL;
+                if (allClinics != NULL){
+                    for (ClinicInfo* clinic in allClinics){
+                        NSString* name = [clinic getClinicName];
+                        if ([name isEqualToString:clinicName]){
+                            currentClinic = clinic;
+                            break;
+                        }
                     }
-                    else
-                        currentClinic = [allClinics objectAtIndex:currentClinicIndex];
                 }
+//                    int currentClinicIndex = [allClinics indexOfObject:clinicName];
+                if (currentClinic == NULL){
+                    ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
+                    [clinicInfo setClinicName:clinicName];
+//                    [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
+                    [allClinics addObject:clinicInfo];
+                    currentClinic = clinicInfo;
+                }
+                
                 
                 
                 NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
@@ -6612,13 +6643,17 @@ int indexCount;
     NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
+        ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
         NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicianLine.length > 0){
+            if ([clinicianLine hasSuffix:@";"]){
+                int index = [clinicianLine length] -1;
+                clinicianLine = [clinicianLine substringToIndex: index];
+            }
             //NSLog(@"%@", line);
-            ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
             // parse row containing clinician details
-            NSArray* clinicianProperties = [line componentsSeparatedByCharactersInSet:
+            NSArray* clinicianProperties = [clinicianLine componentsSeparatedByCharactersInSet:
                                             [NSCharacterSet characterSetWithCharactersInString:@";"]];
             for (int i=0; i<[clinicianProperties count]; i++) {
                 NSString* value = clinicianProperties[i];
@@ -6664,10 +6699,10 @@ int indexCount;
     NSString  *filePath = [NSString stringWithFormat:@"%@/clinics.txt", documentsDirectory];
     //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     NSMutableArray *allClinics = [[NSMutableArray alloc] init];
-    ClinicInfo* currentClinic = NULL;
     ClinicInfo* matchingClinic = NULL;
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
+
         NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
 //        for (NSString *line in lines) {
@@ -6681,26 +6716,39 @@ int indexCount;
                     NSLog(@"WRViewController.getClinic() comment: %@", clinicLine);
                 }
                 else {
-                    
+                    if ([clinicLine hasSuffix:@";"]){
+                        int index = [clinicLine length] -1;
+                        clinicLine = [clinicLine substringToIndex: index];
+                    }
                     // read clinic page as triple <sub title, content, imagename>
-                    NSArray* clinicProperties = [line componentsSeparatedByCharactersInSet:
+                    NSArray* clinicProperties = [clinicLine componentsSeparatedByCharactersInSet:
                                                  [NSCharacterSet characterSetWithCharactersInString:@";"]];
                     
                     //find the clinic container for all of the pages from that clinic
-                    NSString* clinicName = [clinicProperties objectAtIndex:1];
-                    if (currentClinic == NULL || ![[currentClinic getClinicName] isEqualToString:clinicName]){
-                        int currentClinicIndex = [allClinics indexOfObject:clinicName];
-                        if (currentClinicIndex == NSNotFound){
-                            ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
-                            [clinicInfo setClinicName:clinicName];
-                            [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
-                            [allClinics addObject:clinicInfo];
-                            currentClinic = clinicInfo;
+                    NSString* clinicName = [clinicProperties objectAtIndex:4]; // try subclinicNameShort
+                    if ([clinicName length] == 0)
+                        clinicName = [clinicProperties objectAtIndex:2];
+                    if ([clinicName length] == 0)
+                            clinicName = [clinicProperties objectAtIndex:1];
+                    ClinicInfo* currentClinic = NULL;
+                    if (allClinics != NULL){
+                        for (ClinicInfo* clinic in allClinics){
+                            NSString* name = [clinic getClinicName];
+                            if ([name isEqualToString:clinicName]){
+                                currentClinic = clinic;
+                                break;
+                            }
                         }
-                        else
-                            currentClinic = [allClinics objectAtIndex:currentClinicIndex];
                     }
-                    if (matchingClinic == NULL && [[currentClinic getClinicNameShort] isEqualToString:clinicNameShort])
+                    if (currentClinic == NULL){
+                        ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
+                        [clinicInfo setClinicName:clinicName];
+                        //                            [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
+                        [allClinics addObject:clinicInfo];
+                        currentClinic = clinicInfo;
+                    }
+                    
+                    if (matchingClinic == NULL && [[currentClinic getClinicName] isEqualToString:clinicNameShort])
                         matchingClinic = currentClinic;
                     
                     NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
@@ -6739,6 +6787,113 @@ int indexCount;
     
     return matchingClinic;
     //    [pool release];
+}
+
+- (GoalInfo*) readGoalInfo:(NSString*) filePath{
+    NSLog(@"WRViewController.readGoalInfo()");
+    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
+    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
+    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
+    
+    GoalInfo* goalInfo = [[GoalInfo alloc]init];
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        if (goalLine.length > 0){
+            NSLog(@"WRViewController.readGoalInfo() goals.txt line: %@", goalLine);
+            // parse row containing goal details
+            if([goalLine hasPrefix:@"//"]){
+                NSLog(@"WRViewController.readGoalInfo() comment: %@", goalLine);
+            }
+            else {
+                if ([goalLine hasSuffix:@";"]){
+                    int index = [goalLine length] -1;
+                    goalLine = [goalLine substringToIndex: index];
+                }
+                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
+                                             [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                NSString* type = [goalRow objectAtIndex:0];
+                for (int i=1; i<[goalRow count]; i++) {
+                    NSString* goal = goalRow[i];
+                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
+
+                    if ([type isEqualToString:@"self"])
+                        [selfGoals addObject:goal];
+                    else
+                    if ([type isEqualToString:@"family"])
+                        [familyGoals addObject:goal];
+                    else
+                    if ([type isEqualToString:@"caregiver"])
+                        [caregiverGoals addObject:goal];
+                }
+            }
+        }
+    }
+    [goalInfo setSelfGoals:selfGoals];
+    [goalInfo setFamilyGoals:familyGoals];
+    [goalInfo setCaregiverGoals:caregiverGoals];
+    
+    NSLog(@"Loaded all goals");
+    [goalInfo writeToLog];
+
+    return goalInfo;
+}
+
+- (GoalInfo*) getGoalInfo {
+    NSLog(@"WRViewController.getoalInfo()");
+    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
+    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
+    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
+    
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/goals.txt", documentsDirectory];
+
+        
+    GoalInfo* goalInfo = [[GoalInfo alloc]init];
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        if (goalLine.length > 0){
+            NSLog(@"WRViewController.readGoalInfo() goals.txt line: %@", goalLine);
+            // parse row containing goal details
+            if([goalLine hasPrefix:@"//"]){
+                NSLog(@"WRViewController.readGoalInfo() comment: %@", goalLine);
+            }
+            else {
+                if ([goalLine hasSuffix:@";"]){
+                    int index = [goalLine length] -1;
+                    goalLine = [goalLine substringToIndex: index];
+                }
+                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
+                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                NSString* type = [goalRow objectAtIndex:0];
+                for (int i=1; i<[goalRow count]; i++) {
+                    NSString* goal = goalRow[i];
+                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
+                    
+                    if ([type isEqualToString:@"self"])
+                        [selfGoals addObject:goal];
+                    else
+                        if ([type isEqualToString:@"family"])
+                            [familyGoals addObject:goal];
+                        else
+                            if ([type isEqualToString:@"caregiver"])
+                                [caregiverGoals addObject:goal];
+                }
+            }
+        }
+    }
+    [goalInfo setSelfGoals:selfGoals];
+    [goalInfo setFamilyGoals:familyGoals];
+    [goalInfo setCaregiverGoals:caregiverGoals];
+    
+    NSLog(@"Read all goals");
+    [goalInfo writeToLog];
+    
+    return goalInfo;
 }
 
 NSString *readLineAsNSString(FILE *file) // rjl 8/16/14

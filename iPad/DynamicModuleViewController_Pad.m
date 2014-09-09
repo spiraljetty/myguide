@@ -160,6 +160,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
         for (NSMutableDictionary *pageDict in clinicPages) {
             NSString *pageTitle = [pageDict valueForKey:@"pageTitle"];
             NSString *pageText = [pageDict valueForKey:@"pageText"];
+            NSString *pageImage = [pageDict valueForKey:@"pageImage"];
             NSMutableDictionary *mutablePageDict = NULL;
             if (samplePage != NULL)
                 mutablePageDict= [samplePage mutableCopy];
@@ -167,6 +168,12 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
                 mutablePageDict= [pageDict mutableCopy];
             [mutablePageDict setValue:pageTitle forKey:@"HeaderText"];
             [mutablePageDict setValue:pageText forKey:@"Text"];
+            if ([pageImage length] > 0){
+                [mutablePageDict setValue:pageImage forKey:@"ImageFilename"];
+                [mutablePageDict setValue:@"1" forKey:@"ImagePage"];
+            }
+            else
+                [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
             [newPages addObject:mutablePageDict];
         }
         if ([newPages count] > 0)
@@ -680,12 +687,12 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 }
 
 - (void)goForward {
-    NSLog(@"goForward dynamicSubclinicModule...");
+    NSLog(@"DynamicModuleViewController.goForward() dynamicSubclinicModule...");
     [self overlayNextPressed];
 }
 
 - (void)goBackward {
-    NSLog(@"goForward dynamicSubclinicModule...");
+    NSLog(@"DynamicModuleViewController.goBackward() dynamicSubclinicModule...");
     [self overlayPreviousPressed];
 }
 
@@ -959,6 +966,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 // Transition to new view using custom segue
 - (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward
 {
+//    if (vcIndex == ([newChildControllers count] - 1))
+//        finishingLastItem = YES;
     
     if (finishingLastItem && !goesForward)
     {
@@ -993,7 +1002,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
         
         finishingLastItem = NO;
         
-        NSLog(@"SWITCHING from dynamic module item %d to item %d", vcIndex, newIndex);
+        NSLog(@"DynamicModuleViewController.switchToView() SWITCHING from dynamic module item %d to item %d", vcIndex, newIndex);
         
         // Segue to the new controller
         UIViewController *source = [newChildControllers objectAtIndex:vcIndex];

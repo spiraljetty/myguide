@@ -7,6 +7,8 @@
 //
 
 #import "DynamicPageSubDetailViewController.h"
+#import "AppDelegate_Pad.h"
+
 
 @interface DynamicPageSubDetailViewController ()
 
@@ -40,8 +42,11 @@
     if (needsImage) {
         dynamicImageView.alpha = 1.0;
         
-        NSLog(@"Loading imageview for current subdetail image: %@...",currentImageFilename);
-        UIImageView *currentSubdetailImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:currentImageFilename]];
+        NSLog(@"DynamicPageSubDetailViewController.viewDidLoad() Loading imageview for current subdetail image: %@...",currentImageFilename);
+        UIImage* pageImage = [UIImage imageNamed:currentImageFilename];
+        if (!pageImage)
+            pageImage = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:currentImageFilename];
+        UIImageView *currentSubdetailImageView = [[UIImageView alloc] initWithImage:pageImage];
         currentSubdetailImageView.frame = CGRectMake(0, 0, 300, 300);
 //        currentSubdetailImageView.transform = rotateRight;
         // sandy tried shifting by hand

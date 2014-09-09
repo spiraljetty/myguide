@@ -29,6 +29,7 @@
 #import "SwitchedImageViewController.h"
 #import "ReturnTabletViewController.h"
 #import "ClinicInfo.h"
+#import "GoalInfo.h"
 
 typedef enum {
     kGeneralClinic,
@@ -717,6 +718,10 @@ typedef enum {
 
 - (void)showDataSendFailedAlert;
 
+- (UIImage*)loadImage: (NSString*)filename;
+
 - (ClinicInfo*) getClinic:(NSString*)clinicNameShort;
+
+- (GoalInfo*) getGoalInfo;
 
 @end

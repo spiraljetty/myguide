@@ -546,17 +546,142 @@
          //   chooseGoalPatient.goalChooseText = @"To better understand your sense of comfort for today's visit, which of the following would you like help with today?";
         chooseGoalPatient.goalChooseText = @"Which of the following would you like help with today?";
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
-        
-        chooseGoalPatient.goal1Text = @"Reduce my pain";
-        chooseGoalPatient.goal2Text = @"Sleep better";
-        chooseGoalPatient.goal3Text = @"Be more physically active";
-        chooseGoalPatient.goal4Text = @"Talk to my treatment provider";
-        chooseGoalPatient.goal5Text = @"Have more energy";
-        chooseGoalPatient.goal6Text = @"Get tests done";
-        chooseGoalPatient.goal7Text = @"Feel healthy";
-        chooseGoalPatient.goal8Text = @"Get my next treatment";
-        chooseGoalPatient.goal9Text = @"Enter my own goal...";
-        chooseGoalPatient.goal10Text = @"None of the Above";
+//        DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
+        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
+        if (goalInfo != NULL){
+            chooseGoalPatient.goal1Text = @"";
+            chooseGoalPatient.goal2Text = @"";
+            chooseGoalPatient.goal3Text = @"";
+            chooseGoalPatient.goal4Text = @"";
+            chooseGoalPatient.goal5Text = @"";
+            chooseGoalPatient.goal6Text = @"";
+            chooseGoalPatient.goal7Text = @"";
+            chooseGoalPatient.goal8Text = @"";
+            chooseGoalPatient.goal9Text = @"";
+            chooseGoalPatient.goal10Text = @"";
+
+            NSArray* selfGoals = [goalInfo getSelfGoals];
+            if (selfGoals != NULL){
+                int count = [selfGoals count];
+                if (count == 1){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal3Text = @"None of the Above";
+                    chooseGoalPatient.goal4Text = @"";
+                    chooseGoalPatient.goal5Text = @"";
+                    chooseGoalPatient.goal6Text = @"";
+                    chooseGoalPatient.goal7Text = @"";
+                    chooseGoalPatient.goal8Text = @"";
+                    chooseGoalPatient.goal9Text = @"";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                else
+                if (count == 2){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal4Text = @"None of the Above";
+                    chooseGoalPatient.goal5Text = @"";
+                    chooseGoalPatient.goal6Text = @"";
+                    chooseGoalPatient.goal7Text = @"";
+                    chooseGoalPatient.goal8Text = @"";
+                    chooseGoalPatient.goal9Text = @"";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                else
+                if (count == 3){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = [selfGoals objectAtIndex:2];
+                    chooseGoalPatient.goal4Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal5Text = @"None of the Above";
+                    chooseGoalPatient.goal6Text = @"";
+                    chooseGoalPatient.goal7Text = @"";
+                    chooseGoalPatient.goal8Text = @"";
+                    chooseGoalPatient.goal9Text = @"";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                else
+                if (count == 4){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = [selfGoals objectAtIndex:2];
+                    chooseGoalPatient.goal4Text = [selfGoals objectAtIndex:3];
+                    chooseGoalPatient.goal5Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal6Text = @"None of the Above";
+                    chooseGoalPatient.goal7Text = @"";
+                    chooseGoalPatient.goal8Text = @"";
+                    chooseGoalPatient.goal9Text = @"";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                
+                else
+                if (count == 5){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = [selfGoals objectAtIndex:2];
+                    chooseGoalPatient.goal4Text = [selfGoals objectAtIndex:3];
+                    chooseGoalPatient.goal5Text = [selfGoals objectAtIndex:4];
+                    chooseGoalPatient.goal6Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal7Text = @"None of the Above";
+                    chooseGoalPatient.goal8Text = @"";
+                    chooseGoalPatient.goal9Text = @"";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                else
+                if (count == 6){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = [selfGoals objectAtIndex:2];
+                    chooseGoalPatient.goal4Text = [selfGoals objectAtIndex:3];
+                    chooseGoalPatient.goal5Text = [selfGoals objectAtIndex:4];
+                    chooseGoalPatient.goal6Text = [selfGoals objectAtIndex:5];
+                    chooseGoalPatient.goal7Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal8Text = @"None of the Above";
+                    chooseGoalPatient.goal9Text = @"";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                else
+                if (count == 7){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = [selfGoals objectAtIndex:2];
+                    chooseGoalPatient.goal4Text = [selfGoals objectAtIndex:3];
+                    chooseGoalPatient.goal5Text = [selfGoals objectAtIndex:4];
+                    chooseGoalPatient.goal6Text = [selfGoals objectAtIndex:5];
+                    chooseGoalPatient.goal7Text = [selfGoals objectAtIndex:6];
+                    chooseGoalPatient.goal8Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal9Text = @"None of the Above";
+                    chooseGoalPatient.goal10Text = @"";
+                }
+                else
+                if (count == 8){
+                    chooseGoalPatient.goal1Text = [selfGoals objectAtIndex:0];
+                    chooseGoalPatient.goal2Text = [selfGoals objectAtIndex:1];
+                    chooseGoalPatient.goal3Text = [selfGoals objectAtIndex:2];
+                    chooseGoalPatient.goal4Text = [selfGoals objectAtIndex:3];
+                    chooseGoalPatient.goal5Text = [selfGoals objectAtIndex:4];
+                    chooseGoalPatient.goal6Text = [selfGoals objectAtIndex:5];
+                    chooseGoalPatient.goal7Text = [selfGoals objectAtIndex:6];
+                    chooseGoalPatient.goal8Text = [selfGoals objectAtIndex:7];
+                    chooseGoalPatient.goal9Text = @"Enter my own goal...";
+                    chooseGoalPatient.goal10Text = @"None of the Above";
+                }
+            }
+        }
+        else {
+            // no goal file found so use hardcoded goals
+            chooseGoalPatient.goal1Text = @"Reduce my pain";
+            chooseGoalPatient.goal2Text = @"Sleep better";
+            chooseGoalPatient.goal3Text = @"Be more physically active";
+            chooseGoalPatient.goal4Text = @"Talk to my treatment provider";
+            chooseGoalPatient.goal5Text = @"Have more energy";
+            chooseGoalPatient.goal6Text = @"Get tests done";
+            chooseGoalPatient.goal7Text = @"Feel healthy";
+            chooseGoalPatient.goal8Text = @"Get my next treatment";
+            chooseGoalPatient.goal9Text = @"Enter my own goal...";
+            chooseGoalPatient.goal10Text = @"None of the Above";
+        }
         
         [chooseGoalPatient.goal1TextButton setTitle:chooseGoalPatient.goal1Text forState:UIControlStateNormal];
         [chooseGoalPatient.goal2TextButton setTitle:chooseGoalPatient.goal2Text forState:UIControlStateNormal];

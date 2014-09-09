@@ -894,43 +894,145 @@
                 
                 NSString *currentRespondent = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType];
                 // sandy 7-20 removed the word doctor and replaced it with provider
-                if ([currentRespondent isEqualToString:@"caregiver"]) {
-                    [goal1TextButton setTitle:@"Reduce my patient's pain" forState:UIControlStateNormal];
-                    [goal2TextButton setTitle:@"Help my patient sleep better" forState:UIControlStateNormal];
-                    [goal3TextButton setTitle:@"Help my patient be more active" forState:UIControlStateNormal];
-                    [goal4TextButton setTitle:@"Talk to my patient's treatment provider" forState:UIControlStateNormal];
-                    [goal5TextButton setTitle:@"Help my patient have more energy" forState:UIControlStateNormal];
-                    [goal6TextButton setTitle:@"Get my patient's tests done" forState:UIControlStateNormal];
-                    [goal7TextButton setTitle:@"Help my patient feel healthy" forState:UIControlStateNormal];
-                    [goal8TextButton setTitle:@"Get my patient's next treatment" forState:UIControlStateNormal];
-                    [goal9TextButton setTitle:@"Enter my own goal..." forState:UIControlStateNormal];
-                    [goal10TextButton setTitle:@"None of the above" forState:UIControlStateNormal];
-                } else if
-                    // sandy 7-20 replaced the word doctor with provider
-                    ([currentRespondent isEqualToString:@"family"]) {
-                    [goal1TextButton setTitle:@"Reduce my family member's pain" forState:UIControlStateNormal];
-                    [goal2TextButton setTitle:@"Help my family member sleep better" forState:UIControlStateNormal];
-                    [goal3TextButton setTitle:@"Help my family member be more active" forState:UIControlStateNormal];
-                    [goal4TextButton setTitle:@"Talk to my family member's provider" forState:UIControlStateNormal];
-                    [goal5TextButton setTitle:@"Help my family member have more energy" forState:UIControlStateNormal];
-                    [goal6TextButton setTitle:@"Get my family member's tests done" forState:UIControlStateNormal];
-                    [goal7TextButton setTitle:@"Help my family member feel healthy" forState:UIControlStateNormal];
-                    [goal8TextButton setTitle:@"Get my family member's next treatment" forState:UIControlStateNormal];
-                    [goal9TextButton setTitle:@"Enter my own goal..." forState:UIControlStateNormal];
-                    [goal10TextButton setTitle:@"None of the above" forState:UIControlStateNormal];
-                } else {
-                    
-                    [goal1TextButton setTitle:goal1Text forState:UIControlStateNormal];
-                    [goal2TextButton setTitle:goal2Text forState:UIControlStateNormal];
-                    [goal3TextButton setTitle:goal3Text forState:UIControlStateNormal];
-                    [goal4TextButton setTitle:goal4Text forState:UIControlStateNormal];
-                    [goal5TextButton setTitle:goal5Text forState:UIControlStateNormal];
-                    [goal6TextButton setTitle:goal6Text forState:UIControlStateNormal];
-                    [goal7TextButton setTitle:goal7Text forState:UIControlStateNormal];
-                    [goal8TextButton setTitle:goal8Text forState:UIControlStateNormal];
-                    [goal9TextButton setTitle:goal9Text forState:UIControlStateNormal];
-                    [goal10TextButton setTitle:goal10Text forState:UIControlStateNormal];
+                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
+                if (goalInfo != NULL){
+                    goal1Text = @"";
+                    goal2Text = @"";
+                    goal3Text = @"";
+                    goal4Text = @"";
+                    goal5Text = @"";
+                    goal6Text = @"";
+                    goal7Text = @"";
+                    goal8Text = @"";
+                    goal9Text = @"";
+                    goal10Text = @"";
+                    NSArray* goals = NULL;
+                    if ([currentRespondent isEqualToString:@"family"])
+                        goals = [goalInfo getFamilyGoals];
+                    else
+                    if ([currentRespondent isEqualToString:@"caregiver"])
+                        goals = [goalInfo getCaregiverGoals];
+                    else
+                        goals = [goalInfo getSelfGoals];
+                    if (goals != NULL){
+                        int count = [goals count];
+                        if (count == 1){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = @"Enter my own goal...";
+                            goal3Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 2){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = @"Enter my own goal...";
+                            goal4Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 3){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = [goals objectAtIndex:2];
+                            goal4Text = @"Enter my own goal...";
+                            goal5Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 4){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = [goals objectAtIndex:2];
+                            goal4Text = [goals objectAtIndex:3];
+                            goal5Text = @"Enter my own goal...";
+                            goal6Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 5){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = [goals objectAtIndex:2];
+                            goal4Text = [goals objectAtIndex:3];
+                            goal5Text = [goals objectAtIndex:4];
+                            goal6Text = @"Enter my own goal...";
+                            goal7Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 6){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = [goals objectAtIndex:2];
+                            goal4Text = [goals objectAtIndex:3];
+                            goal5Text = [goals objectAtIndex:4];
+                            goal6Text = [goals objectAtIndex:5];
+                            goal7Text = @"Enter my own goal...";
+                            goal8Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 7){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = [goals objectAtIndex:2];
+                            goal4Text = [goals objectAtIndex:3];
+                            goal5Text = [goals objectAtIndex:4];
+                            goal6Text = [goals objectAtIndex:5];
+                            goal7Text = [goals objectAtIndex:6];
+                            goal8Text = @"Enter my own goal...";
+                            goal9Text = @"None of the Above";
+                        }
+                        else
+                        if (count == 8){
+                            goal1Text = [goals objectAtIndex:0];
+                            goal2Text = [goals objectAtIndex:1];
+                            goal3Text = [goals objectAtIndex:2];
+                            goal4Text = [goals objectAtIndex:3];
+                            goal5Text = [goals objectAtIndex:4];
+                            goal6Text = [goals objectAtIndex:5];
+                            goal7Text = [goals objectAtIndex:6];
+                            goal8Text = [goals objectAtIndex:7];
+                            goal9Text = @"Enter my own goal...";
+                            goal10Text = @"None of the Above";
+                        }
+                    } // if goals != null
+                } // if goalInfo != null
+                else { // use default goals for caregiver and family
+                    if ([currentRespondent isEqualToString:@"caregiver"]){
+                        // use default caregiver goals
+                        goal1Text = @"Reduce my patient's pain";
+                        goal2Text = @"Help my patient sleep better";
+                        goal3Text = @"Help my patient be more active";
+                        goal4Text = @"Talk to my patient's treatment provider";
+                        goal5Text = @"Help my patient have more energy";
+                        goal6Text = @"Get my patient's tests done";
+                        goal7Text = @"Help my patient feel healthy";
+                        goal8Text = @"Get my patient's next treatment";
+                        goal9Text = @"Enter my own goal...";
+                        goal10Text = @"None of the above";
+                    }
+                    else
+                    if ([currentRespondent isEqualToString:@"family"]) {
+                        goal1Text = @"Reduce my family member's pain";
+                        goal2Text = @"Help my family member sleep better";
+                        goal3Text = @"Help my family member be more active";
+                        goal4Text = @"Talk to my family member's provider";
+                        goal5Text = @"Help my family megoalmber have more energy";
+                        goal6Text = @"Get my family member's tests done";
+                        goal7Text = @"Help my family member feel healthy";
+                        goal8Text = @"Get my family member's next treatment";
+                        goal9Text = @"Enter my own goal...";
+                        goal10Text= @"None of the above";
+                    }
                 }
+        
+                [goal1TextButton setTitle:goal1Text forState:UIControlStateNormal];
+                [goal2TextButton setTitle:goal2Text forState:UIControlStateNormal];
+                [goal3TextButton setTitle:goal3Text forState:UIControlStateNormal];
+                [goal4TextButton setTitle:goal4Text forState:UIControlStateNormal];
+                [goal5TextButton setTitle:goal5Text forState:UIControlStateNormal];
+                [goal6TextButton setTitle:goal6Text forState:UIControlStateNormal];
+                [goal7TextButton setTitle:goal7Text forState:UIControlStateNormal];
+                [goal8TextButton setTitle:goal8Text forState:UIControlStateNormal];
+                [goal9TextButton setTitle:goal9Text forState:UIControlStateNormal];
+                [goal10TextButton setTitle:goal10Text forState:UIControlStateNormal];
+                
                 
                 goalChooseLabel.text = goalChooseText;
                 
@@ -1046,7 +1148,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
 //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+   // [thisDelegate showOverlayNextButton];
     
     if (goal1TextButton.highlighted) {
         goal1TextButton.highlighted = NO;
@@ -1054,7 +1156,7 @@
         goal1TextButton.highlighted = YES;
     }
         //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+    //[thisDelegate showOverlayNextButton];
 
     
     if (!goal1TextButton.selected) {
@@ -1062,6 +1164,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal1TextButton afterDelay:0];
     }
+    [thisDelegate overlayNextPressed];
     
 }
 
@@ -1084,7 +1187,7 @@
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
-    [thisDelegate showOverlayNextButton];
+    //[thisDelegate showOverlayNextButton];
     
     if (goal2TextButton.highlighted) {
         goal2TextButton.highlighted = NO;
@@ -1096,14 +1199,14 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+    //[thisDelegate showOverlayNextButton];
     
     if (!goal2TextButton.selected) {
         [self performSelector:@selector(doHighlight:) withObject:goal2TextButton afterDelay:0];
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal2TextButton afterDelay:0];
     }
-    
+    [thisDelegate overlayNextPressed];
 }
 
 
@@ -1126,7 +1229,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+//    [thisDelegate showOverlayNextButton];
     
     if (goal3TextButton.highlighted) {
         goal3TextButton.highlighted = NO;
@@ -1139,7 +1242,8 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal3TextButton afterDelay:0];
     }
-    
+    [thisDelegate overlayNextPressed];
+
 }
 
 
@@ -1162,7 +1266,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+//    [thisDelegate showOverlayNextButton];
     
     if (goal4TextButton.highlighted) {
         goal4TextButton.highlighted = NO;
@@ -1180,6 +1284,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal4TextButton afterDelay:0];
     }
+    [thisDelegate overlayNextPressed];
     
 }
 
@@ -1202,7 +1307,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+    //[thisDelegate showOverlayNextButton];
     
     if (goal5TextButton.highlighted) {
         goal5TextButton.highlighted = NO;
@@ -1216,7 +1321,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal5TextButton afterDelay:0];
     }
-    
+    [thisDelegate overlayNextPressed];
 }
 
 - (void)goal6ButtonPressed:(id)sender {
@@ -1238,7 +1343,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+//    [thisDelegate showOverlayNextButton];
     
     if (goal6TextButton.highlighted) {
         goal6TextButton.highlighted = NO;
@@ -1256,7 +1361,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal6TextButton afterDelay:0];
     }
-    
+    [thisDelegate overlayNextPressed];
 }
 
 - (void)goal7ButtonPressed:(id)sender {
@@ -1278,7 +1383,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+//    [thisDelegate showOverlayNextButton];
     
     if (goal7TextButton.highlighted) {
         goal7TextButton.highlighted = NO;
@@ -1295,7 +1400,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal7TextButton afterDelay:0];
     }
-    
+    [thisDelegate overlayNextPressed];
 }
 
 - (void)goal8ButtonPressed:(id)sender {
@@ -1317,7 +1422,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+//    [thisDelegate showOverlayNextButton];
     
     if (goal8TextButton.highlighted) {
         goal8TextButton.highlighted = NO;
@@ -1335,6 +1440,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal8TextButton afterDelay:0];
     }
+    [thisDelegate overlayNextPressed];
     NSLog(@"SwitchedImageViewController.goal8ButtonPressed() exit");
 
 }
@@ -1358,7 +1464,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+//    [thisDelegate showOverlayNextButton];
     
     if (goal9TextButton.highlighted) {
         goal9TextButton.highlighted = NO;
@@ -1395,7 +1501,7 @@
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:goalsSelected];
     
     //    [thisDelegate overlayNextPressed];
-    [thisDelegate showOverlayNextButton];
+   // [thisDelegate showOverlayNextButton];
     
     if (goal10TextButton.highlighted) {
         goal10TextButton.highlighted = NO;
@@ -1413,7 +1519,7 @@
     } else {
         [self performSelector:@selector(removeHighlight:) withObject:goal10TextButton afterDelay:0];
     }
-    
+    [thisDelegate overlayNextPressed];
 }
 
 - (void)storeAndUpdateEnteredGoal {
@@ -1436,6 +1542,8 @@
 //    [goal9TextButton setEnabled:NO];
     
     NSLog(@"Storing and updating user entered goal: %@",userEnteredGoalText);
+        DynamicSurveyViewController_Pad *thisDelegate = (DynamicSurveyViewController_Pad *)delegate;
+        [thisDelegate overlayNextPressed];
 }
 
 - (void)disableAllProviderButtons {

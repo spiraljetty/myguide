@@ -36,9 +36,9 @@ NSString *kPagesTerminologyButtonsKey = @"TerminologyButtons";
 - (id)initWithDictionary:(NSDictionary *)pageDictionary {
     self = [super init];
     if (self) {
-        // Initialization code here.
-    }
-    
+
+    NSLog(@"DynamicModulePageViewController.initWithDictionary() dict: %@", pageDictionary);
+
     isSurveyPage = NO;
     
     name = [pageDictionary objectForKey:kPagesNameKey];
@@ -54,8 +54,8 @@ NSString *kPagesTerminologyButtonsKey = @"TerminologyButtons";
     containsTerminology = [[pageDictionary objectForKey:kPagesContainsTerminologyKey] boolValue];
     terminologyButtons = [pageDictionary objectForKey:kPagesTerminologyButtonsKey];
 
-    NSLog(@"Initialized dynamic page: %@ (image: %i, header: %i, terminology: %i)...",name,imagePage,showHeader,containsTerminology);
-    
+    NSLog(@"DynamicModulePageViewController.initWithDictionary()Initialized dynamic page: %@ (image: %i, header: %i, terminology: %i)...",name,imagePage,showHeader,containsTerminology);
+    }
     return self;
 }
 
@@ -78,14 +78,15 @@ NSString *kPagesTerminologyButtonsKey = @"TerminologyButtons";
     
     DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
     dynamicPageHeader.dynamicModuleName = currDelegate.moduleName;
-    
-    NSLog(@"Header set to: %@",dynamicPageHeader.dynamicModuleName);
+    NSLog(@"DynamicModulePageViewController.setHeaderContent() Header set to: %@",dynamicPageHeader.dynamicModuleName);
     
     [self.view addSubview:dynamicPageHeader.view];
 //    [self.view sendSubviewToBack:physicianDetailVC.view];
 }
 
 - (void)setSubDetailContent {
+    NSLog(@"DynamicModulePageViewController.setSubDetailContent()");
+
     if ([headerText isEqualToString:@"NA"]) {
         dynamicPageSubDetail.headerLabelText = @"";
         dynamicPageSubDetail.dynamicPageHeaderLabel.text = @"";
