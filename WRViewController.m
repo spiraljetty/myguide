@@ -23,6 +23,7 @@
 #import "ClinicianInfo.h"
 #import "ClinicInfo.h"
 #import "GoalInfo.h"
+#import "QuestionList.h"
 
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
@@ -396,6 +397,8 @@ int indexCount;
     demoModeLabel.transform = rotateRight;
     
     [self.view addSubview:demoModeLabel];
+    
+    
     
     nextSettingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	nextSettingsButton.frame = CGRectMake(0, 0, 150, 139);
@@ -6269,6 +6272,7 @@ int indexCount;
     [self downloadClinicianInfo];
     [self downloadClinicInfo];
     [self downloadGoalInfo];
+    [self downloadQuestionInfo];
 }
 
 - (void) downloadClinicianInfo { // rjl 8/16/14
@@ -6302,6 +6306,18 @@ int indexCount;
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
         NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadGoalInfo() %@", errorMsg];
+        NSLog(logMsg);
+        [self showAlertMsg:errorMsg];
+    }
+}
+
+- (void) downloadQuestionInfo { // rjl 8/16/14
+    NSString* filePath = [self downloadFile:@"survey_questions.txt" isImage:false];
+    if (filePath)
+        [self readQuestionInfo:filePath];
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadQuestionInfo() %@", errorMsg];
         NSLog(logMsg);
         [self showAlertMsg:errorMsg];
     }
@@ -6636,6 +6652,12 @@ int indexCount;
 
 - (ClinicianInfo*) getClinician:(int)clinicianIndex{
     NSLog(@"WRViewController.getClinician() index: %d", clinicianIndex);
+    if (clinicianIndex > 100000){
+        NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
+        NSLog(@"WRViewController.getClinician() %@", errMsg);
+        [self showAlertMsg:errMsg];
+        return NULL;
+    }
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
     NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
@@ -6818,7 +6840,7 @@ int indexCount;
                     goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
                     NSLog(@"goal %@ prop %d: %@", type, i, goal);
 
-                    if ([type isEqualToString:@"self"])
+                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
                         [selfGoals addObject:goal];
                     else
                     if ([type isEqualToString:@"family"])
@@ -6874,7 +6896,7 @@ int indexCount;
                     goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
                     NSLog(@"goal %@ prop %d: %@", type, i, goal);
                     
-                    if ([type isEqualToString:@"self"])
+                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
                         [selfGoals addObject:goal];
                     else
                         if ([type isEqualToString:@"family"])
@@ -6895,6 +6917,92 @@ int indexCount;
     
     return goalInfo;
 }
+
+- (NSMutableArray*) readQuestionInfo:(NSString*) filePath{
+    NSLog(@"WRViewController.readQuestionInfo()");
+    NSMutableArray* allQuestions = [[NSMutableArray alloc] init];
+    QuestionList* questionInfo = [[QuestionList alloc] init];
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* cleanLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        if (cleanLine.length > 0){
+            NSLog(@"WRViewController.readQuestionInfo() survey_questions.txt line: %@", cleanLine);
+            if([cleanLine hasPrefix:@"//"]){
+                NSLog(@"WRViewController.readQuestionInfo() comment: %@", cleanLine);
+            }
+            else {
+                if ([cleanLine hasSuffix:@";"]){
+                    int index = [cleanLine length] -1;
+                    cleanLine = [cleanLine substringToIndex: index];
+                }
+                NSArray* row = [cleanLine componentsSeparatedByCharactersInSet:
+                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                
+                NSString* clinic = [row objectAtIndex:0];
+                clinic = [clinic stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                
+                NSString* respondent = [row objectAtIndex:1];
+                respondent = [respondent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
+                // pre-survey header plus 3 questions
+                NSString* header1 = [row objectAtIndex:2];
+                header1 = [header1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSMutableArray* questionList1 = [[NSMutableArray alloc] init];
+                for (int i=3; i<6; i++) {
+                    NSString* question = row[i];
+                    question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    [questionList1 addObject:question];
+                }
+                
+                // info rating questions
+                NSString* clinicianInfoRatingQuestion = [row objectAtIndex:6];
+                clinicianInfoRatingQuestion = [clinicianInfoRatingQuestion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString* clinicInfoRatingQuestion = [row objectAtIndex:7];
+                clinicInfoRatingQuestion = [clinicInfoRatingQuestion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                
+                // post-survey header plus 15 questions
+                NSString* header2 = [row objectAtIndex:8];
+                header2 = [header2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSMutableArray* questionList2 = [[NSMutableArray alloc] init];
+                for (int i=9; i<24; i++) {
+                    NSString* question = row[i];
+                    question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    [questionList2 addObject:question];
+                }
+                
+                // mini post-survey header plus 10 questions
+                NSString* header3 = [row objectAtIndex:24];
+                header3 = [header3 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSMutableArray* questionList3 = [[NSMutableArray alloc] init];
+                for (int i=25; i<35; i++) {
+                    NSString* question = row[i];
+                    question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                    [questionList3 addObject:question];
+                }
+                
+                questionInfo = [[QuestionList alloc] init];
+                [questionInfo setClinic: clinic];
+                [questionInfo setRespondentType: respondent];
+                [questionInfo setClinicInfoRatingQuestion: clinicInfoRatingQuestion];
+                [questionInfo setClinicianInfoRatingQuestion: clinicianInfoRatingQuestion];
+                [questionInfo setHeader1: header1];
+                [questionInfo setHeader2: header2];
+                [questionInfo setHeader3: header3];
+                [questionInfo setQuestionSet1: questionList1];
+                [questionInfo setQuestionSet2: questionList2];
+                [questionInfo setQuestionSet3: questionList3];
+                [allQuestions addObject:questionInfo];
+            }
+        }
+    }
+    
+    NSLog(@"Loaded questions (%d)", [allQuestions count]);
+    for (QuestionList* info in allQuestions){
+     [info writeToLog];
+    }
+    return questionInfo;
+}
+
 
 NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 {   // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
@@ -7149,6 +7257,15 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)redirectNSLogToDocuments
+{ // from: http://stackoverflow.com/questions/7271528/how-to-nslog-into-a-file
+    NSArray *allPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [allPaths objectAtIndex:0];
+    NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent:@"wr_log.txt"];
+    
+    freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
 }
 
 @end

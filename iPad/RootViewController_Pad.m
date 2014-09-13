@@ -436,24 +436,24 @@
 }
 
 - (void)updateAllSatisfactionLabelItems {
-    
+    NSLog(@"RootViewController.updateAllSatisfactionLabelItems()");
     NSArray *satisfactionLabelItemArrayToUse;
     NSArray *satisfactionPromptLabelItemArrayToUse;
     
     if ([respondentType isEqualToString:@"patient"]) {
-        NSLog(@"All satisfaction survey item labels updated for respondent type: %@", respondentType);
+        NSLog(@"RootViewController.updateAllSatisfactionLabelItems() All satisfaction survey item labels updated for respondent type: %@", respondentType);
         satisfactionLabelItemArrayToUse = patientSatisfactionLabelItems;
         satisfactionPromptLabelItemArrayToUse = patientPromptLabelItems;
     } else if ([respondentType isEqualToString:@"family"]) {
-        NSLog(@"All satisfaction survey item labels updated for respondent type: %@", respondentType);
+        NSLog(@"RootViewController.updateAllSatisfactionLabelItems() All satisfaction survey item labels updated for respondent type: %@", respondentType);
         satisfactionLabelItemArrayToUse = familySatisfactionLabelItems;
         satisfactionPromptLabelItemArrayToUse = familyPromptLabelItems;
     } else if ([respondentType isEqualToString:@"caregiver"]) {
-        NSLog(@"All satisfaction survey item labels updated for respondent type: %@", respondentType);
+        NSLog(@"RootViewController.updateAllSatisfactionLabelItems() All satisfaction survey item labels updated for respondent type: %@", respondentType);
         satisfactionLabelItemArrayToUse = caregiverSatisfactionLabelItems;
         satisfactionPromptLabelItemArrayToUse = caregiverPromptLabelItems;
     } else {
-        NSLog(@"Updating prompts only...No need to update satisfaction survey labels...defaults to respondent: %@", respondentType);
+        NSLog(@"RootViewController.updateAllSatisfactionLabelItems() Updating prompts only...No need to update satisfaction survey labels...defaults to respondent: %@", respondentType);
         satisfactionPromptLabelItemArrayToUse = patientPromptLabelItems;
     }
     
@@ -462,7 +462,7 @@
     for (SwitchedImageViewController *switchedController in newChildControllers)
     {
         //        switchedController.currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
-        NSLog(@"Updating %@ item # %d...",respondentType,satisfactionLabelArrayIndex);
+        NSLog(@"RootViewController.updateAllSatisfactionLabelItems() Updating %@ item # %d...",respondentType,satisfactionLabelArrayIndex);
         
         switchedController.currentSatisfactionLabel.text = [satisfactionLabelItemArrayToUse objectAtIndex:satisfactionLabelArrayIndex];
         switchedController.currentPromptLabel.text = [satisfactionPromptLabelItemArrayToUse objectAtIndex:satisfactionLabelArrayIndex];

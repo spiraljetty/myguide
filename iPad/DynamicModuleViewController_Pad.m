@@ -138,7 +138,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
         samplePage = [pages objectAtIndex:0];
     }
     ClinicInfo* clinicInfo = NULL;
-    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test1"]){
+    if ([propertyListName isEqualToString:@"pmnr_education_module_test1"]){
         clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
                        getClinic:@"PMNR"];
     }
@@ -151,6 +151,29 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
     if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
                 clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
                                getClinic:@"AT"];
+    }
+    else
+    if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"]){
+            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                           getClinic:@"PAIN"];
+    }
+    else
+    if ([propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
+            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                           getClinic:@"EMG"];
+    }
+    else
+    if ([propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"]){
+            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                           getClinic:@"ACU"];
+    }
+    if (clinicInfo == NULL){
+        NSString* msg = [NSString stringWithFormat:@"clinic not found for %@", propertyListName];
+        NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", msg);
+        // choose default clinic
+        clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                       getClinic:@"AT"];
+        // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:msg];
     }
     if (clinicInfo != NULL){
         NSMutableArray* clinicPages = [clinicInfo getClinicPages];
@@ -966,8 +989,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 // Transition to new view using custom segue
 - (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward
 {
-//    if (vcIndex == ([newChildControllers count] - 1))
-//        finishingLastItem = YES;
+    if (vcIndex == ([newChildControllers count] - 1))
+        finishingLastItem = YES;
     
     if (finishingLastItem && !goesForward)
     {
