@@ -15,6 +15,8 @@
 #import "SampleViewController.h"
 #import "AppDelegate_Pad.h"
 #import "SwitchedImageViewController.h"
+#import "DynamicContent.h"
+#import "QuestionList.h"
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
@@ -41,9 +43,12 @@
 @synthesize currentFontSize, patientSatisfactionLabelItems, familySatisfactionLabelItems, caregiverSatisfactionLabelItems, totalSurveyItems, surveyItemsRemaining, currentPromptString;
 @synthesize patientPromptLabelItems, familyPromptLabelItems, caregiverPromptLabelItems, masterTTSPlayer, numSurveyItems, newChildControllers;
 
+
+
 // Establish core interface
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    NSLog(@"RootViewController.viewDidLoad()");
+    
     currentDeviceName = @"iPad";
     
     speakItemsAloud = YES;
@@ -52,9 +57,9 @@
     
     currentFontSize = 1;
     
+    //rjl 9/13/14 deprecated
     totalSurveyItems = 0;
     surveyItemsRemaining = 0;
-    
     numSurveyItems = 22;
     
     respondentType = [[NSString alloc] initWithString:@"patient"];
@@ -156,6 +161,7 @@
 - (void)testButtonMethod {
     NSLog(@"Test...");
 }
+
 
 - (void)createAdditionalSurveyLabelArrays {
     NSLog(@"RootViewController.createAdditionalSurveyLabelArrays()");
@@ -440,6 +446,42 @@
     NSArray *satisfactionLabelItemArrayToUse;
     NSArray *satisfactionPromptLabelItemArrayToUse;
     
+    
+    QuestionList* matchingSurvey = [DynamicContent getSurveyForRespondentType:respondentType];
+    
+    if (matchingSurvey != NULL){
+        NSString* prompt = [matchingSurvey getHeader2];
+        NSArray* questionList =[matchingSurvey getQuestionSet2];
+        NSMutableArray* matchingSatisfactionLabelItems = [[NSMutableArray alloc] init];
+        NSMutableArray* matchingSatisfactionPromptItems = [[NSMutableArray alloc] init];
+        for (NSString* question in questionList){
+            [matchingSatisfactionLabelItems addObject:question];
+            [matchingSatisfactionPromptItems addObject:@""];
+        }
+        [matchingSatisfactionPromptItems setObject:prompt atIndexedSubscript:0];
+        
+        // append mini survey after satisfaction survey
+        long surveyItemCount = [matchingSatisfactionLabelItems count];
+        NSString* prompt2 = [matchingSurvey getHeader3];
+        NSArray* questionList2 =[matchingSurvey getQuestionSet3];
+        for (NSString* question in questionList2){
+            [matchingSatisfactionLabelItems addObject:question];
+            [matchingSatisfactionPromptItems addObject:@""];
+        }
+        [matchingSatisfactionPromptItems setObject:prompt2 atIndexedSubscript:surveyItemCount];
+        
+        surveyItemCount = [matchingSatisfactionLabelItems count];
+        for (int index = 0; index < surveyItemCount; index++) {
+            SwitchedImageViewController *switchedController = [newChildControllers objectAtIndex:index];
+            NSLog(@"RootViewController.updateAllSatisfactionLabelItems() Updating %@ item # %d...",respondentType,index);
+            
+            switchedController.currentSatisfactionLabel.text = [matchingSatisfactionLabelItems objectAtIndex:index];
+            switchedController.currentPromptLabel.text = [matchingSatisfactionPromptItems objectAtIndex:index];
+        }
+        return;
+    }
+    
+    //rjl 9/13/14 deprecated below
     if ([respondentType isEqualToString:@"patient"]) {
         NSLog(@"RootViewController.updateAllSatisfactionLabelItems() All satisfaction survey item labels updated for respondent type: %@", respondentType);
         satisfactionLabelItemArrayToUse = patientSatisfactionLabelItems;
@@ -1845,9 +1887,61 @@
 //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:currentQuestionKey, nil]];
 }
 
+- (void) showNextSurveyPage {
+    QuestionList* matchingSurvey = [DynamicContent getSurveyForRespondentType:respondentType];
+    finishingLastItem = NO;
+    if (matchingSurvey != NULL){
+        totalSurveyItems = [[matchingSurvey getQuestionSet2] count] + [[matchingSurvey getQuestionSet3] count];
+        surveyItemsRemaining = totalSurveyItems - vcIndex -1;
+        if (vcIndex == totalSurveyItems-1) {
+            finishingLastItem = YES;
+            NSLog(@"RootViewController.showNextSurveyPage() finishingLastItem");
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] surveyCompleted];
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeOutSatisfactionSurvey];
+            
+        } else {
+            int newIndex = vcIndex +1;
+            NSLog(@"RootViewController_Pad.showNextSurveyPage() SWITCHING from item %d to item %d", vcIndex, newIndex);
+        
+        // Prepare for segue by disabling bar buttons
+        item.rightBarButtonItem.enabled = NO;
+        item.leftBarButtonItem.enabled = NO;
+        
+        //rjl this is where the display and audio are sequed to the next index
+        // the phrase "as a result" is always used in case of patient index < 22 (its 21 here)
+        
+        // Segue to the new controller
+        UIViewController *source = [newChildControllers objectAtIndex:vcIndex];
+        UIViewController *destination = [newChildControllers objectAtIndex:newIndex];
+        
+        //rjl 7/17/14
+        /* if( newIndex > 0){
+         UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
+         destination = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+         }*/
+        RotatingSegue *segue = [[RotatingSegue alloc] initWithIdentifier:@"segue" source:source destination:destination];
+        segue.goesForward = NO; //goesForward;
+        segue.delegate = self;
+        [segue perform];
+        
+        vcIndex = newIndex;
+        
+        // rjl
+        int soundIndex = vcIndex;
+//        if (soundIndex ==24)
+//            soundIndex = 23;
+//        else
+//            soundIndex = vcIndex +6;
+        [self playSoundForIndex:vcIndex] ; //]soundIndex]; //rjl
+        
+        }
+    }
+    
+}
+
 // Transition to new view using custom segue
-- (void)switchToView: (int) newIndex goingForward: (BOOL) goesForward
-{
+- (void)switchToView: (int) newIndex goingForward: (BOOL) goesForward {
+    
 
     finishingLastItem = [self isCurrentSatisfactionItemLastWithIndex:vcIndex]; //rjl 7/15/14
     if (finishingLastItem )
@@ -1865,8 +1959,7 @@
         
 //        [self writeLocalDbToCSVFile];
         
-    } else if (vcIndex == newIndex)
-    {
+    } else if (vcIndex == newIndex) {
         return;
         
     } else {
@@ -2487,7 +2580,12 @@
 - (BOOL)isCurrentSatisfactionItemLastWithIndex:(int)thisIndex {
     NSLog(@"RootViewController_Pad.isCurrentSatisfactionItemLastWithIndex() index: %d", thisIndex);
     BOOL isCurrentIndexLast = NO;
-    
+//    QuestionList* matchingSurvey = [DynamicContent getSurveyForRespondentType:respondentType];
+//    if (matchingSurvey != NULL){
+//        if (thisIndex == [[matchingSurvey getQuestionSet2] count])
+//            isCurrentIndexLast = YES;
+//    }
+//    else
     if ([respondentType isEqualToString:@"patient"]) {
         if (thisIndex == 15){// rjl 7/15/14 ==9) {
             isCurrentIndexLast = YES;
@@ -2995,7 +3093,12 @@
 
 - (void)overlayNextPressed {
     NSLog(@"overlayNextPressed...");
-    [self regress:self];
+    QuestionList* matchingSurvey = [DynamicContent getSurveyForRespondentType:respondentType];
+    if (matchingSurvey !=  NULL){
+        [self showNextSurveyPage];
+    }
+    else
+        [self regress:self];
     
 }
 

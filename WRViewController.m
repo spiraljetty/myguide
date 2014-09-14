@@ -24,6 +24,7 @@
 #import "ClinicInfo.h"
 #import "GoalInfo.h"
 #import "QuestionList.h"
+#import "DynamicContent.h"
 
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
@@ -1410,10 +1411,12 @@ int indexCount;
     NSString *currentPhysicianPListName = [allPhysicianBioPlists objectAtIndex:attendingPhysicianIndex];
  
     NSData *tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:currentPhysicianPListName withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
-    if (attendingPhysicianIndex < [allClinicPhysiciansBioPLists count]){ // rjl 8/16/14
+    int originalPhysicianCount = [allClinicPhysiciansBioPLists count];
+    if (attendingPhysicianIndex < originalPhysicianCount){ // rjl 8/16/14
         physicianModule.currentPhysicianDetails = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
     } else {
-        ClinicianInfo *clinician = [self getCurrentClinician];
+        int index = attendingPhysicianIndex-originalPhysicianCount;
+        ClinicianInfo *clinician = [DynamicContent getClinician:index];//[self getCurrentClinician];
         if (clinician)
             physicianModule.currentPhysicianDetails = [clinician writeToDictionary];
     }
@@ -6269,59 +6272,12 @@ int indexCount;
 - (void)adminDownloadDataButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"WRViewController.adminDownloadDataButtonPressed()");
     [self showSpinner];
-    [self downloadClinicianInfo];
-    [self downloadClinicInfo];
-    [self downloadGoalInfo];
-    [self downloadQuestionInfo];
+    [DynamicContent downloadAllData];
 }
 
-- (void) downloadClinicianInfo { // rjl 8/16/14
-    NSString* filePath = [self downloadFile:@"clinicians.txt" isImage:false];
-    if (filePath)
-        [self readClinicianInfo:filePath];
-    else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
-        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadClinicianInfo() %@", errorMsg];
-        NSLog(logMsg);
-        [self showAlertMsg:errorMsg];
-    }
-}
 
-- (void) downloadClinicInfo { // rjl 8/16/14
-    NSString* filePath = [self downloadFile:@"clinics.txt" isImage:false];
-    if (filePath)
-        [self readClinicInfo:filePath];
-    else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
-        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadClinicInfo() %@", errorMsg];
-        NSLog(logMsg);
-        [self showAlertMsg:errorMsg];
-    }
-}
 
-- (void) downloadGoalInfo { // rjl 8/16/14
-    NSString* filePath = [self downloadFile:@"goals.txt" isImage:false];
-    if (filePath)
-        [self readGoalInfo:filePath];
-    else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
-        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadGoalInfo() %@", errorMsg];
-        NSLog(logMsg);
-        [self showAlertMsg:errorMsg];
-    }
-}
 
-- (void) downloadQuestionInfo { // rjl 8/16/14
-    NSString* filePath = [self downloadFile:@"survey_questions.txt" isImage:false];
-    if (filePath)
-        [self readQuestionInfo:filePath];
-    else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
-        NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadQuestionInfo() %@", errorMsg];
-        NSLog(logMsg);
-        [self showAlertMsg:errorMsg];
-    }
-}
 
 - (NSArray*) readFile:(NSString*)filename {
     // rjl 8/16/14
@@ -6423,198 +6379,61 @@ int indexCount;
 
 
 
-- (void) readClinicianInfo:(NSString*) filePath{
-    NSLog(@"WRViewController.readClinicianInfo()");
-//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-
-        if (clinicianLine.length > 0){
-            NSLog(@"WRViewController.readClinicianInfo() line: %@", line);
-            ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
-            // parse row containing clinician details
-            NSArray* clinicianProperties = [line componentsSeparatedByCharactersInSet:
-                                        [NSCharacterSet characterSetWithCharactersInString:@";"]];
-            for (int i=0; i<[clinicianProperties count]; i++) {
-                NSString* value = clinicianProperties[i];
-                value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                NSLog(@"WRViewController.readClinicianInfo()%d: %@", i, value);
-                switch (i) {
-                    case 0: [clinicianInfo setClinicianId:value]; break;
-                    case 1: [clinicianInfo setClinics:value]; break;
-                    case 2: [clinicianInfo setFirstName:value]; break;
-                    case 3: [clinicianInfo setLastName:value]; break;
-                    case 4: [clinicianInfo setSalutation:value]; break;
-                    case 5: [clinicianInfo setDegrees:value]; break;
-                    case 6: [clinicianInfo setCredentials:value]; break;
-                    case 7: [clinicianInfo setEdAndAffil:value]; break;
-                    case 8: [clinicianInfo setBackground:value]; break;
-                    case 9: [clinicianInfo setPhilosophy:value]; break;
-                    case 10: [clinicianInfo setPersonalInterests:value]; break;
-                } // end switch
-            } // end for
-            [allClinicians addObject:clinicianInfo];
-        } // end if clinicianLine.length > 0
-    }// end for line in lines
-    
-    NSString* msg = [NSString stringWithFormat:@"Loaded %d clinicians", [allClinicians count]];
-    NSLog(msg);
-    
-    // download the image file for each clinician
-    for (ClinicianInfo* clinician in allClinicians){
-        [clinician writeToLog];
-        NSString* clinicianImageFilename = [clinician getImageFilename];
-        [self downloadFile:clinicianImageFilename isImage:true];
-    }
-    [self showAlertMsg:msg];
-//    [pool release];
-}
-
-- (NSArray*) readClinicInfo:(NSString*) filePath{
-    NSLog(@"WRViewController.readClinicInfo()");
-    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSMutableArray *allClinics = [[NSMutableArray alloc] init];
-    NSMutableArray* allImages =  [[NSMutableArray alloc] init];
-
-//    ClinicInfo * clinicInfo = NULL;
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-         NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-
-        if (clinicLine.length > 0){
-            NSLog(@"WRViewController.readClinicInfo() clinics.txt line: %@", line);
-            // parse row containing clinic details
-            NSString* output = nil;
-            if([clinicLine hasPrefix:@"//"]){
-                NSLog(@"WRViewController.readClinicInfo() comment: %@", clinicLine);
-            }
-            else {
-                
-                // read clinic page as triple <sub title, content, imagename>
-                NSArray* clinicProperties = [line componentsSeparatedByCharactersInSet:
-                                            [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                
-                //find the clinic container for all of the pages from that clinic
-                NSString* clinicName = [clinicProperties objectAtIndex:4]; // try subclinicNameShort
-                if ([clinicName length] == 0)
-                    clinicName = [clinicProperties objectAtIndex:2];
-                if ([clinicName length] == 0)
-                    clinicName = [clinicProperties objectAtIndex:1];
-                ClinicInfo* currentClinic = NULL;
-                if (allClinics != NULL){
-                    for (ClinicInfo* clinic in allClinics){
-                        NSString* name = [clinic getClinicName];
-                        if ([name isEqualToString:clinicName]){
-                            currentClinic = clinic;
-                            break;
-                        }
-                    }
-                }
-//                    int currentClinicIndex = [allClinics indexOfObject:clinicName];
-                if (currentClinic == NULL){
-                    ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
-                    [clinicInfo setClinicName:clinicName];
-//                    [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
-                    [allClinics addObject:clinicInfo];
-                    currentClinic = clinicInfo;
-                }
-                
-                
-                
-                NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
-                NSLog(@"WRViewController.readClinicInfo() clinic name: %@", clinicName);
-                for (int i=0; i<[clinicProperties count]; i++) {
-                    NSString* value = clinicProperties[i];
-                    value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                    NSLog(@"clinic %@ prop %d: %@", [currentClinic getClinicName], i, value);
-                    switch (i) {
-                        case 0: [page setObject:value forKey:@"clinicId"]; break;
-                        case 1: [page setObject:value forKey:@"clinicName"]; break;
-                        case 2: [page setObject:value forKey:@"clinicNameShort"]; break;
-                        case 3: [page setObject:value forKey:@"subclinicName"]; break;
-                        case 4: [page setObject:value forKey:@"subclinicNameShort"]; break;
-                        case 5: [page setObject:value forKey:@"pageNumber"]; break;
-                        case 6: [page setObject:value forKey:@"pageTitle"]; break;
-                        case 7: [page setObject:value forKey:@"pageText"]; break;
-                        case 8: [page setObject:value forKey:@"pageImage"]; [allImages addObject:value]; break;
-                        case 9: [page setObject:value forKey:@"status"]; break;
-                        case 10: [page setObject:value forKey:@"clinicIcon"]; break;
-
-                    } // end switch
-                }
-                [currentClinic addPage:page];
-            }
-        } // end if clinicianLine.length > 0
-    }// end for line in lines
-    
-    NSString* msg = [NSString stringWithFormat:@"Loaded %d clinics", [allClinics count]];
-    NSLog(msg);
-    
-    // download the image file for each clinician
-    for (ClinicInfo* clinic in allClinics){
-        [clinic writeToLog];
-    }
-    for (NSString* imageFilename in allImages){
-        [self downloadFile:imageFilename isImage:true];
-    }
-    [self showAlertMsg:msg];
-    return allClinics;
-    //    [pool release];
-}
+//- (void) readClinicianInfo:(NSString*) filePath{
+//    NSLog(@"WRViewController.readClinicianInfo()");
+////    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+//    NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
+//    NSArray * lines = [self readFile:filePath];
+//    for (NSString *line in lines) {
+//        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+//
+//        if (clinicianLine.length > 0){
+//            NSLog(@"WRViewController.readClinicianInfo() line: %@", line);
+//            ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
+//            // parse row containing clinician details
+//            NSArray* clinicianProperties = [line componentsSeparatedByCharactersInSet:
+//                                        [NSCharacterSet characterSetWithCharactersInString:@";"]];
+//            for (int i=0; i<[clinicianProperties count]; i++) {
+//                NSString* value = clinicianProperties[i];
+//                value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+//                NSLog(@"WRViewController.readClinicianInfo()%d: %@", i, value);
+//                switch (i) {
+//                    case 0: [clinicianInfo setClinicianId:value]; break;
+//                    case 1: [clinicianInfo setClinics:value]; break;
+//                    case 2: [clinicianInfo setFirstName:value]; break;
+//                    case 3: [clinicianInfo setLastName:value]; break;
+//                    case 4: [clinicianInfo setSalutation:value]; break;
+//                    case 5: [clinicianInfo setDegrees:value]; break;
+//                    case 6: [clinicianInfo setCredentials:value]; break;
+//                    case 7: [clinicianInfo setEdAndAffil:value]; break;
+//                    case 8: [clinicianInfo setBackground:value]; break;
+//                    case 9: [clinicianInfo setPhilosophy:value]; break;
+//                    case 10: [clinicianInfo setPersonalInterests:value]; break;
+//                } // end switch
+//            } // end for
+//            [allClinicians addObject:clinicianInfo];
+//        } // end if clinicianLine.length > 0
+//    }// end for line in lines
+//    
+//    NSString* msg = [NSString stringWithFormat:@"Loaded %d clinicians", [allClinicians count]];
+//    NSLog(msg);
+//    
+//    // download the image file for each clinician
+//    for (ClinicianInfo* clinician in allClinicians){
+//        [clinician writeToLog];
+//        NSString* clinicianImageFilename = [clinician getImageFilename];
+//        [self downloadFile:clinicianImageFilename isImage:true];
+//    }
+//    [self showAlertMsg:msg];
+////    [pool release];
+//}
 
 
 
-- (NSMutableArray*) getAllClinicians{
-    NSLog(@"WRViewController.getAllClinicians()");
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
-    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        
-        if (clinicianLine.length > 0){
-            //NSLog(@"%@", line);
-            ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
-            // parse row containing clinician details
-            NSArray* clinicianProperties = [line componentsSeparatedByCharactersInSet:
-                                            [NSCharacterSet characterSetWithCharactersInString:@";"]];
-            for (int i=0; i<[clinicianProperties count]; i++) {
-                NSString* value = clinicianProperties[i];
-                value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                //NSLog(@"%d: %@", i, value);
-                switch (i) {
-                    case 0: [clinicianInfo setClinicianId:value]; break;
-                    case 1: [clinicianInfo setClinics:value]; break;
-                    case 2: [clinicianInfo setFirstName:value]; break;
-                    case 3: [clinicianInfo setLastName:value]; break;
-                    case 4: [clinicianInfo setSalutation:value]; break;
-                    case 5: [clinicianInfo setDegrees:value]; break;
-                    case 6: [clinicianInfo setCredentials:value]; break;
-                    case 7: [clinicianInfo setEdAndAffil:value]; break;
-                    case 8: [clinicianInfo setBackground:value]; break;
-                    case 9: [clinicianInfo setPhilosophy:value]; break;
-                    case 10: [clinicianInfo setPersonalInterests:value]; break;
-                } // end switch
-            } // end for
-            [allClinicians addObject:clinicianInfo];
-        } // end if clinicianLine.length > 0
-    }// end for line in lines
-    
-    NSLog(@"WRViewController.getAllClinicians() count: %d", [allClinicians count]);
-    
-    
-    return allClinicians;
-    //    [pool release];
-}
 
 - (NSMutableArray*) getNewClinicianNames{
     NSLog(@"WRViewController.getNewClinicianNames()");
-    NSMutableArray *allClinicians = [self getAllClinicians];
+    NSArray *allClinicians = [DynamicContent getAllClinicians];
     NSMutableArray *allClinicianNames = [[NSMutableArray alloc] init];
     
     // download the image file for each clinician
@@ -6631,7 +6450,7 @@ int indexCount;
 
 - (NSMutableArray*) getNewClinicianImages{
     NSLog(@"WRViewController.getNewClinicianImages()");
-    NSMutableArray *allClinicians = [self getAllClinicians];
+    NSArray *allClinicians = [DynamicContent getAllClinicians];
     NSMutableArray *allClinicianImages = [[NSMutableArray alloc] init];
     
     // download the image file for each clinician
@@ -6647,72 +6466,9 @@ int indexCount;
 
 
 - (ClinicianInfo*) getCurrentClinician{
-    return [self getClinician:attendingPhysicianIndex];
+    return [DynamicContent getClinician:attendingPhysicianIndex];
 }
 
-- (ClinicianInfo*) getClinician:(int)clinicianIndex{
-    NSLog(@"WRViewController.getClinician() index: %d", clinicianIndex);
-    if (clinicianIndex > 100000){
-        NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
-        NSLog(@"WRViewController.getClinician() %@", errMsg);
-        [self showAlertMsg:errMsg];
-        return NULL;
-    }
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
-    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
-        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        
-        if (clinicianLine.length > 0){
-            if ([clinicianLine hasSuffix:@";"]){
-                int index = [clinicianLine length] -1;
-                clinicianLine = [clinicianLine substringToIndex: index];
-            }
-            //NSLog(@"%@", line);
-            // parse row containing clinician details
-            NSArray* clinicianProperties = [clinicianLine componentsSeparatedByCharactersInSet:
-                                            [NSCharacterSet characterSetWithCharactersInString:@";"]];
-            for (int i=0; i<[clinicianProperties count]; i++) {
-                NSString* value = clinicianProperties[i];
-                value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                //NSLog(@"%d: %@", i, value);
-                if ([value length] > 0){
-                    switch (i) {
-                        case 0: [clinicianInfo setClinicianId:value]; break;
-                        case 1: [clinicianInfo setClinics:value]; break;
-                        case 2: [clinicianInfo setFirstName:value]; break;
-                        case 3: [clinicianInfo setLastName:value]; break;
-                        case 4: [clinicianInfo setSalutation:value]; break;
-                        case 5: [clinicianInfo setDegrees:value]; break;
-                        case 6: [clinicianInfo setCredentials:value]; break;
-                        case 7: [clinicianInfo setEdAndAffil:value]; break;
-                        case 8: [clinicianInfo setBackground:value]; break;
-                        case 9: [clinicianInfo setPhilosophy:value]; break;
-                        case 10: [clinicianInfo setPersonalInterests:value]; break;
-                    } // end switch
-                }
-            } // end for
-            [allClinicians addObject:clinicianInfo];
-        } // end if clinicianLine.length > 0
-    }// end for line in lines
-    
-    NSLog(@"Loaded %d clinicians", [allClinicians count]);
-    ClinicianInfo* matchingClinician = NULL;
-    int adjustedClinicianIndex = clinicianIndex - [allClinicPhysicians count];
-    if (adjustedClinicianIndex >= 0) //rjl 8/19/14 indexOffset Bug
-         matchingClinician = [allClinicians objectAtIndex:adjustedClinicianIndex];
-  
-    NSLog(@"WRViewController.getNewClinicianNames() matching clinician:");
-    [matchingClinician writeToLog];
-    
-    return matchingClinician;
-    //    [pool release];
-}
 
 - (ClinicInfo*) getClinic:(NSString*)clinicNameShort{
     NSLog(@"WRViewController.getClinic() clinicNameShort: %@", clinicNameShort);
@@ -6811,197 +6567,6 @@ int indexCount;
     //    [pool release];
 }
 
-- (GoalInfo*) readGoalInfo:(NSString*) filePath{
-    NSLog(@"WRViewController.readGoalInfo()");
-    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
-    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
-    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
-    
-    GoalInfo* goalInfo = [[GoalInfo alloc]init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (goalLine.length > 0){
-            NSLog(@"WRViewController.readGoalInfo() goals.txt line: %@", goalLine);
-            // parse row containing goal details
-            if([goalLine hasPrefix:@"//"]){
-                NSLog(@"WRViewController.readGoalInfo() comment: %@", goalLine);
-            }
-            else {
-                if ([goalLine hasSuffix:@";"]){
-                    int index = [goalLine length] -1;
-                    goalLine = [goalLine substringToIndex: index];
-                }
-                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
-                                             [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                NSString* type = [goalRow objectAtIndex:0];
-                for (int i=1; i<[goalRow count]; i++) {
-                    NSString* goal = goalRow[i];
-                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
-
-                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
-                        [selfGoals addObject:goal];
-                    else
-                    if ([type isEqualToString:@"family"])
-                        [familyGoals addObject:goal];
-                    else
-                    if ([type isEqualToString:@"caregiver"])
-                        [caregiverGoals addObject:goal];
-                }
-            }
-        }
-    }
-    [goalInfo setSelfGoals:selfGoals];
-    [goalInfo setFamilyGoals:familyGoals];
-    [goalInfo setCaregiverGoals:caregiverGoals];
-    
-    NSLog(@"Loaded all goals");
-    [goalInfo writeToLog];
-
-    return goalInfo;
-}
-
-- (GoalInfo*) getGoalInfo {
-    NSLog(@"WRViewController.getoalInfo()");
-    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
-    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
-    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
-    
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/goals.txt", documentsDirectory];
-
-        
-    GoalInfo* goalInfo = [[GoalInfo alloc]init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (goalLine.length > 0){
-            NSLog(@"WRViewController.readGoalInfo() goals.txt line: %@", goalLine);
-            // parse row containing goal details
-            if([goalLine hasPrefix:@"//"]){
-                NSLog(@"WRViewController.readGoalInfo() comment: %@", goalLine);
-            }
-            else {
-                if ([goalLine hasSuffix:@";"]){
-                    int index = [goalLine length] -1;
-                    goalLine = [goalLine substringToIndex: index];
-                }
-                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
-                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                NSString* type = [goalRow objectAtIndex:0];
-                for (int i=1; i<[goalRow count]; i++) {
-                    NSString* goal = goalRow[i];
-                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
-                    
-                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
-                        [selfGoals addObject:goal];
-                    else
-                        if ([type isEqualToString:@"family"])
-                            [familyGoals addObject:goal];
-                        else
-                            if ([type isEqualToString:@"caregiver"])
-                                [caregiverGoals addObject:goal];
-                }
-            }
-        }
-    }
-    [goalInfo setSelfGoals:selfGoals];
-    [goalInfo setFamilyGoals:familyGoals];
-    [goalInfo setCaregiverGoals:caregiverGoals];
-    
-    NSLog(@"Read all goals");
-    [goalInfo writeToLog];
-    
-    return goalInfo;
-}
-
-- (NSMutableArray*) readQuestionInfo:(NSString*) filePath{
-    NSLog(@"WRViewController.readQuestionInfo()");
-    NSMutableArray* allQuestions = [[NSMutableArray alloc] init];
-    QuestionList* questionInfo = [[QuestionList alloc] init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* cleanLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (cleanLine.length > 0){
-            NSLog(@"WRViewController.readQuestionInfo() survey_questions.txt line: %@", cleanLine);
-            if([cleanLine hasPrefix:@"//"]){
-                NSLog(@"WRViewController.readQuestionInfo() comment: %@", cleanLine);
-            }
-            else {
-                if ([cleanLine hasSuffix:@";"]){
-                    int index = [cleanLine length] -1;
-                    cleanLine = [cleanLine substringToIndex: index];
-                }
-                NSArray* row = [cleanLine componentsSeparatedByCharactersInSet:
-                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                
-                NSString* clinic = [row objectAtIndex:0];
-                clinic = [clinic stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                
-                NSString* respondent = [row objectAtIndex:1];
-                respondent = [respondent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                
-                // pre-survey header plus 3 questions
-                NSString* header1 = [row objectAtIndex:2];
-                header1 = [header1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                NSMutableArray* questionList1 = [[NSMutableArray alloc] init];
-                for (int i=3; i<6; i++) {
-                    NSString* question = row[i];
-                    question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    [questionList1 addObject:question];
-                }
-                
-                // info rating questions
-                NSString* clinicianInfoRatingQuestion = [row objectAtIndex:6];
-                clinicianInfoRatingQuestion = [clinicianInfoRatingQuestion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                NSString* clinicInfoRatingQuestion = [row objectAtIndex:7];
-                clinicInfoRatingQuestion = [clinicInfoRatingQuestion stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                
-                // post-survey header plus 15 questions
-                NSString* header2 = [row objectAtIndex:8];
-                header2 = [header2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                NSMutableArray* questionList2 = [[NSMutableArray alloc] init];
-                for (int i=9; i<24; i++) {
-                    NSString* question = row[i];
-                    question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    [questionList2 addObject:question];
-                }
-                
-                // mini post-survey header plus 10 questions
-                NSString* header3 = [row objectAtIndex:24];
-                header3 = [header3 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                NSMutableArray* questionList3 = [[NSMutableArray alloc] init];
-                for (int i=25; i<35; i++) {
-                    NSString* question = row[i];
-                    question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    [questionList3 addObject:question];
-                }
-                
-                questionInfo = [[QuestionList alloc] init];
-                [questionInfo setClinic: clinic];
-                [questionInfo setRespondentType: respondent];
-                [questionInfo setClinicInfoRatingQuestion: clinicInfoRatingQuestion];
-                [questionInfo setClinicianInfoRatingQuestion: clinicianInfoRatingQuestion];
-                [questionInfo setHeader1: header1];
-                [questionInfo setHeader2: header2];
-                [questionInfo setHeader3: header3];
-                [questionInfo setQuestionSet1: questionList1];
-                [questionInfo setQuestionSet2: questionList2];
-                [questionInfo setQuestionSet3: questionList3];
-                [allQuestions addObject:questionInfo];
-            }
-        }
-    }
-    
-    NSLog(@"Loaded questions (%d)", [allQuestions count]);
-    for (QuestionList* info in allQuestions){
-     [info writeToLog];
-    }
-    return questionInfo;
-}
 
 
 NSString *readLineAsNSString(FILE *file) // rjl 8/16/14

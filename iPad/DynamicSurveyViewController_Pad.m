@@ -31,6 +31,8 @@
 #import "DynamicPageSubDetailViewController.h"
 #import "PopoverPlaygroundViewController.h"
 
+#import "DynamicContent.h"
+
 //NSString *kModuleNameKey = @"Name";
 //NSString *kModuleTypeKey = @"Type";
 //NSString *kCreateModuleDynamicallyKey = @"CreateDynamically";
@@ -547,7 +549,8 @@
         chooseGoalPatient.goalChooseText = @"Which of the following would you like help with today?";
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
 //        DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
-        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
+//        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
+        GoalInfo* goalInfo = [DynamicContent getAllGoals];
         if (goalInfo != NULL){
             chooseGoalPatient.goal1Text = @"";
             chooseGoalPatient.goal2Text = @"";

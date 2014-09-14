@@ -96,15 +96,29 @@
 }
 
 - (NSArray*) getQuestionSet1 {
-    return mQuestionSet1;
-}
+    NSMutableArray* questions = [[NSMutableArray alloc] init];
+    for (NSString* question in mQuestionSet1){
+        if ([question length] > 0)
+            [questions addObject:question];
+    }
+    return questions;}
 
 - (NSArray*) getQuestionSet2 {
-    return mQuestionSet2;
+    NSMutableArray* questions = [[NSMutableArray alloc] init];
+    for (NSString* question in mQuestionSet2){
+        if ([question length] > 0)
+            [questions addObject:question];
+    }
+    return questions;
 }
 
 - (NSArray*) getQuestionSet3 {
-    return mQuestionSet3;
+    NSMutableArray* questions = [[NSMutableArray alloc] init];
+    for (NSString* question in mQuestionSet3){
+        if ([question length] > 0)
+            [questions addObject:question];
+    }
+    return questions;
 }
 
 - (void) writeToLog {

@@ -722,6 +722,5 @@ typedef enum {
 
 - (ClinicInfo*) getClinic:(NSString*)clinicNameShort;
 
-- (GoalInfo*) getGoalInfo;
 
 @end

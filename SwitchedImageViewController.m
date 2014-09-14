@@ -11,6 +11,7 @@
 #import "PhysicianViewController_Pad.h"
 #import "DynamicSurveyViewController_Pad.h"
 #import "SLGlowingTextField.h"
+#import "DynamicContent.h"
 
 @implementation SwitchedImageViewController
 
@@ -894,7 +895,8 @@
                 
                 NSString *currentRespondent = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType];
                 // sandy 7-20 removed the word doctor and replaced it with provider
-                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
+//                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
+                GoalInfo* goalInfo = [DynamicContent getAllGoals];
                 if (goalInfo != NULL){
                     goal1Text = @"";
                     goal2Text = @"";
@@ -1527,7 +1529,6 @@
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] newChildControllers] objectAtIndex:[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] vcIndex]];
     
     userEnteredGoalText = enterGoalTextField.text;
-    
     [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateNormal];
     [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateHighlighted];
     [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateDisabled];

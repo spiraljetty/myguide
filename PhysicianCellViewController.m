@@ -12,6 +12,7 @@
 #import "MasterViewController.h"
 #import "AppDelegate_Pad.h"
 #import "ClinicianInfo.h"
+#import "DynamicContent.h"
 
 NSString *kDetailedViewControllerID = @"DetailView";    // view controller storyboard id
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
@@ -103,8 +104,9 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     //rjl 8/16/14
     NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
     NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
+    int originalPhysicianCount = [allClinicPhysicians count];
     int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
-    if (currentPhysicianIndex < [allClinicPhysicians count]){
+    if (currentPhysicianIndex < originalPhysicianCount){
         // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
         NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
         NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
@@ -113,11 +115,12 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     }
     else {
         // if index is for new (not hardcoded) clinician then get thumb image from documents directory
-        NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
-        ClinicianInfo *currentClinician =
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                    getClinician:currentPhysicianIndex];
+//        NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString  *documentsDirectory = [paths objectAtIndex:0];
+//            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+//                    getClinician:currentPhysicianIndex];
+        currentPhysicianIndex = currentPhysicianIndex - originalPhysicianCount;
+        ClinicianInfo *currentClinician = [DynamicContent getClinician:currentPhysicianIndex];
         if (currentClinician){
             NSString *filename = [currentClinician getImageFilename];
            // cell.image.image = [UIImage imageNamed:filename];
