@@ -2885,6 +2885,11 @@
     [self putNewRespondentInDB];
     
     [self updateAllSatisfactionLabelItems];
+    
+    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
+    [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+
     // sandy thiese will have to be a variable value for new clinics -> currentclinic.totalSurveyItems
     //sandy 7-14 updated totals 7-16 undo
     totalSurveyItems = 14;
@@ -2912,6 +2917,10 @@
     
     [self updateAllSatisfactionLabelItems];
     
+    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
+    [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+
     totalSurveyItems = 18;
     surveyItemsRemaining = 18;
 }
@@ -2934,7 +2943,9 @@
     [self putNewRespondentInDB];
     
     [self updateAllSatisfactionLabelItems];
-    
+    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
+    [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
     totalSurveyItems = 22;
     surveyItemsRemaining = 22;
 }
@@ -2952,7 +2963,10 @@
     item.title = @"Patient Satisfaction Survey";
     
     [self updateAllSatisfactionLabelItems];
- 
+    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
+    [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+
     //sandy 7-14 updated undid 7-16
     totalSurveyItems = 14;
     surveyItemsRemaining = 14;
@@ -2974,7 +2988,10 @@
     item.title = @"Family Satisfaction Survey";
     
     [self updateAllSatisfactionLabelItems];
-    
+    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
+    [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+
     totalSurveyItems = 18;
     surveyItemsRemaining = 18;
 }
@@ -2993,7 +3010,10 @@
     item.title = @"Caregiver Satisfaction Survey";
     
     [self updateAllSatisfactionLabelItems];
-    
+    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
+    [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+
     totalSurveyItems = 22;
     surveyItemsRemaining = 22;
 }

@@ -718,9 +718,4 @@ typedef enum {
 
 - (void)showDataSendFailedAlert;
 
-- (UIImage*)loadImage: (NSString*)filename;
-
-- (ClinicInfo*) getClinic:(NSString*)clinicNameShort;
-
-
 @end

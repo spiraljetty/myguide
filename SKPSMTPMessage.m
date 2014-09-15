@@ -70,7 +70,8 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     
     if (!defaultPorts)
     {
-        defaultPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:25], [NSNumber numberWithShort:465], [NSNumber numberWithShort:587], nil];
+//        defaultPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:25], [NSNumber numberWithShort:465], [NSNumber numberWithShort:587], nil];
+        defaultPorts = [[NSArray alloc] initWithObjects:[NSNumber numberWithShort:587], [NSNumber numberWithShort:25], [NSNumber numberWithShort:465], nil];
     }
     
     if (self = [super init])
@@ -138,25 +139,25 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
 
 - (void)startShortWatchdog
 {
-    NSLog(@"*** starting short watchdog ***");
+    NSLog(@"SKPSMTPMessage.startShortWatchdog() *** starting short watchdog ***");
     self.watchdogTimer = [NSTimer scheduledTimerWithTimeInterval:SHORT_LIVENESS_TIMEOUT target:self selector:@selector(connectionWatchdog:) userInfo:nil repeats:NO];
 }
 
 - (void)startLongWatchdog
 {
-    NSLog(@"*** starting long watchdog ***");
+    NSLog(@"SKPSMTPMessage.startLongWatchdog() *** starting long watchdog ***");
     self.watchdogTimer = [NSTimer scheduledTimerWithTimeInterval:LONG_LIVENESS_TIMEOUT target:self selector:@selector(connectionWatchdog:) userInfo:nil repeats:NO];
 }
 
 - (void)stopWatchdog
 {
-    NSLog(@"*** stopping watchdog ***");
+    NSLog(@"SKPSMTPMessage.stopWatchdog() *** stopping watchdog ***");
     [self.watchdogTimer invalidate];
     self.watchdogTimer = nil;
 }
 
-- (BOOL)send
-{
+- (BOOL)send {
+    NSLog(@"SKPSMTPMessage.send()");
     NSAssert(sendState == kSKPSMTPIdle, @"Message has already been sent!");
     
     if (requiresAuth)
@@ -188,7 +189,7 @@ NSString *kSKPSMTPPartContentTransferEncodingKey = @"kSKPSMTPPartContentTransfer
     // Pop this off the head of the queue.
     self.relayPorts = ([relayPorts count] > 1) ? [relayPorts subarrayWithRange:NSMakeRange(1, [relayPorts count] - 1)] : [NSArray array];
     
-    NSLog(@"C: Attempting to connect to server at: %@:%d", relayHost, relayPort);
+    NSLog(@"SKPSMTPMessage.startLongWatchdog() C: Attempting to connect to server at: %@:%d", relayHost, relayPort);
     
     self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:connectTimeout
                                                          target:self

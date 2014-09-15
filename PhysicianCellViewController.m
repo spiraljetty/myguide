@@ -125,7 +125,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
             NSString *filename = [currentClinician getImageFilename];
            // cell.image.image = [UIImage imageNamed:filename];
             //if (!cell.image.image)
-                cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
+                cell.image.image = [DynamicContent loadImage:filename];
         }
     }
     return cell;

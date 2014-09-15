@@ -31,6 +31,7 @@
 #import "DynamicPageSubDetailViewController.h"
 #import "PopoverPlaygroundViewController.h"
 #import "ClinicInfo.h"
+#import "DynamicContent.h"
 
 NSString *kModuleNameKey = @"Name";
 NSString *kModuleTypeKey = @"Type";
@@ -139,40 +140,33 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
     }
     ClinicInfo* clinicInfo = NULL;
     if ([propertyListName isEqualToString:@"pmnr_education_module_test1"]){
-        clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                       getClinic:@"PMNR"];
+        clinicInfo =  [DynamicContent getClinic:@"PMNR"];
     }
     else
     if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
-            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                           getClinic:@"PNS"];
+            clinicInfo =  [DynamicContent getClinic:@"PNS"];
     }
     else
     if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
-                clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                               getClinic:@"AT"];
+                clinicInfo =  [DynamicContent getClinic:@"AT"];
     }
     else
     if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"]){
-            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                           getClinic:@"PAIN"];
+            clinicInfo =  [DynamicContent getClinic:@"PAIN"];
     }
     else
     if ([propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
-            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                           getClinic:@"EMG"];
+            clinicInfo =  [DynamicContent getClinic:@"EMG"];
     }
     else
     if ([propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"]){
-            clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                           getClinic:@"ACU"];
+            clinicInfo =  [DynamicContent getClinic:@"ACU"];
     }
     if (clinicInfo == NULL){
         NSString* msg = [NSString stringWithFormat:@"clinic not found for %@", propertyListName];
         NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", msg);
         // choose default clinic
-        clinicInfo =  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-                       getClinic:@"AT"];
+        clinicInfo =  [DynamicContent getClinic:@"AT"];
         // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:msg];
     }
     if (clinicInfo != NULL){

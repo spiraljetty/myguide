@@ -214,6 +214,10 @@
 @property (nonatomic, retain) NSString *mainTable;
 @property (nonatomic, retain) NSString *csvpath;
 
++ (DynamicSurveyViewController_Pad*) getViewController;
++ (void) setProviderHelpfulText:(NSString*) text;
++ (void) setClinicHelpfulText:(NSString*) text;
+
 - (void)loadAllSurveyPages;
 
 

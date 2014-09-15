@@ -109,6 +109,8 @@
 
 #pragma mark Public Methods
 
++ (YLViewController*) getViewController;
+
 - (void)updateViewWithNewLocationInformation;
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation;
 - (void)zoomToCurrentLocation;
@@ -142,5 +144,6 @@
 - (void)downloadDataRequestDone;
 - (void)disableDownloadDataButton;
 - (void)enableDownloadDataButton;
+
 
 @end

@@ -9,22 +9,27 @@
 #import <Foundation/Foundation.h>
 #import "QuestionList.h"
 #import "ClinicianInfo.h"
+#import "ClinicInfo.h"
 #import "GoalInfo.h"
 
 @interface DynamicContent : NSObject
+
++ (void) downloadAllData;
 
 + (id) getAllSurveyQuestions;
 + (NSArray*) getAllClinicians;
 + (ClinicianInfo*) getClinician:(int)clinicianIndex;
 + (GoalInfo*) getAllGoals;
++ (NSMutableArray*) getNewClinicianImages;
++ (NSMutableArray*) getNewClinicianNames;
 
-+ (void) downloadAllData;
++ (ClinicInfo*) getClinic:(NSString*)clinicNameShort;
++ (QuestionList*) getSurveyForRespondentType:(NSString*) respondentType;
 
 + (NSArray*) readFile:(NSString*)filename;
 + (NSString*) downloadFile:(NSString*)filename isImage:(BOOL) isImageFile;
 + (void)saveImage: (UIImage*)image filename:(NSString*)filename;
 + (UIImage*)loadImage: (NSString*)filename;
-+ (QuestionList*) getSurveyForRespondentType:(NSString*) respondentType;
 
 + (void) showAlertMsg:(NSString *)msg;
 + (void) speakText:(NSString*) text;

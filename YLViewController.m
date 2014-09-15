@@ -28,6 +28,9 @@
 @synthesize labelLocationInformation, volumeControlStepper, headphoneImage, soundStatus, volumeNumber, previousVolumeStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton, downloadDataButton, downloadDataSpinner, downloadDataStatus;
 @synthesize mapView;
 
+static YLViewController* mYLViewController = NULL;
+
+
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     
@@ -111,11 +114,11 @@
 
 #pragma mark - View lifecycle
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    mYLViewController = self;
     [super viewDidLoad];
         AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
-	NSString *currentAppVersion = @"App Version: 9/9/14";//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
+	NSString *currentAppVersion = @"App Version: 9/14/14";//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
     [appVersionLabel setText:currentAppVersion];
     progressView.progressTintColor = [UIColor greenColor];
 //    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f 
@@ -405,19 +408,22 @@
     }
 }
 
+- (void) setUploadDataStatusText:(NSString*) text{
+    uploadDataStatus.alpha = 1.0;
+    uploadDataStatus.text = text;
+}
+
+- (void) setDownloadDataStatusText:(NSString*) text{
+    downloadDataStatus.alpha = 1.0;
+    downloadDataStatus.text = text;
+}
+
 - (void)uploadDataToCloudButtonPressed:(id)sender {
-//    // rjl 8/16/14
-//    bool rjlDebug = true;
-//    if (rjlDebug){
-//        [self downloadDataFromCloudButtonPressed:sender];
-//        return;
-//    }
-    
     NSLog(@"YLViewController.uploadDataToCloudButtonPressed()");
     [self disableUploadDataButton];
     
-    uploadDataStatus.alpha = 1.0;
-    uploadDataStatus.text = @"Working...";
+//    [self performSelectorOnMainThread:@selector(setUploadDataStatusText:) withObject:@"Working now..." waitUntilDone:YES];
+    [self setUploadDataStatusText:@"Working..."];
     
     uploadDataSpinner.alpha = 1.0;
     [uploadDataSpinner startAnimating];
@@ -430,17 +436,15 @@
  - (void)downloadDataFromCloudButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"YLViewController.downloadDataFromCloudButtonPressed()");
     [self disableDownloadDataButton];
-    
-     downloadDataStatus.alpha = 1.0;
-     downloadDataStatus.text = @"Working...";
-    
-     downloadDataSpinner.alpha = 1.0;
-    [downloadDataSpinner startAnimating];
-//    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:"Downloading clincian data"];
-
+//     [self performSelectorOnMainThread:@selector(setDownloadDataStatusText:) withObject:@"Working now..." waitUntilDone:YES];
+     dispatch_async(dispatch_get_main_queue(), ^{
+         downloadDataStatus.text = @"working...";
+         downloadDataStatus.alpha = 1.0;
+         downloadDataSpinner.alpha = 1.0;
+         [downloadDataSpinner startAnimating];
+     });
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] adminDownloadDataButtonPressed:self];
-     [self downloadDataRequestDone];
 }
  
 
@@ -487,15 +491,19 @@
     downloadDataButton.alpha = 0.5;
 }
 
-- (void)downloadDataRequestDone {
+ - (void)downloadDataRequestDone {
     NSLog(@"YLViewController.downloadDataRequestDone()");
+    [self setDownloadDataStatusText: @"Data downloaded successfully!"];
+//    [mYLViewController performSelectorOnMainThread:@selector(setDownloadDataStatusText:) withObject:newStatus waitUntilDone:YES];
     
-    [self enableDownloadDataButton];
+    [mYLViewController enableDownloadDataButton];
     
-    downloadDataStatus.text = @"Data downloaded successfully";
-    
-    downloadDataSpinner.alpha = 0.0;
-    [downloadDataSpinner stopAnimating];
+    mYLViewController.downloadDataSpinner.alpha = 0.0;
+    [mYLViewController.downloadDataSpinner stopAnimating];
+}
+
++ (YLViewController*) getViewController{
+    return mYLViewController;
 }
 
 #pragma mark YLViewController Private Methods

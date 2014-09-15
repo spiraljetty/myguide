@@ -799,7 +799,7 @@
                 // get provider 1 image and text
                 UIImage* image = [UIImage imageNamed:provider1ImageThumb];
                 if (!image)
-                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider1ImageThumb];
+                    image = [DynamicContent loadImage:provider1ImageThumb];
                 [provider1ImageButton setImage:image forState:UIControlStateNormal];
                 [provider1ImageButton setContentMode: UIViewContentModeScaleAspectFit];
                 provider1ImageButton.clipsToBounds = YES;
@@ -808,21 +808,21 @@
                 //get provider 2 image and text
                 image = [UIImage imageNamed:provider2ImageThumb];
                 if (!image)
-                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider2ImageThumb];
+                    image = [DynamicContent loadImage:provider2ImageThumb];
                 [provider2ImageButton setImage:image forState:UIControlStateNormal];
                 provider2ImageButton.adjustsImageWhenHighlighted;
                 
                 // get provider 3 image and text
                 image = [UIImage imageNamed:provider3ImageThumb];
                 if (!image)
-                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider3ImageThumb];
+                    image = [DynamicContent loadImage:provider3ImageThumb];
                 [provider3ImageButton setImage:image forState:UIControlStateNormal];
                 provider3ImageButton.adjustsImageWhenHighlighted;
                 
                 // get provider 4 image and text
                 image = [UIImage imageNamed:provider4ImageThumb];
                 if (!image)
-                    image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:provider4ImageThumb];
+                    image = [DynamicContent loadImage:provider4ImageThumb];
                 [provider4ImageButton setImage:image forState:UIControlStateNormal];
                 provider4ImageButton.adjustsImageWhenHighlighted;
                 
@@ -1529,6 +1529,8 @@
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] newChildControllers] objectAtIndex:[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] vcIndex]];
     
     userEnteredGoalText = enterGoalTextField.text;
+    [DynamicContent speakText:userEnteredGoalText];
+
     [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateNormal];
     [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateHighlighted];
     [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateDisabled];

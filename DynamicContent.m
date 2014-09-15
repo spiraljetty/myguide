@@ -11,43 +11,100 @@
 #import "ClinicianInfo.h"
 #import "GoalInfo.h"
 #import "ClinicInfo.h"
+#import "YLViewController.h"
+
 #import <AVFoundation/AVFoundation.h>
 
 static NSArray* mAllSurveyQuestions = NULL;
 static NSArray* mAllClinicians = NULL;
+static NSArray* mAllClinics = NULL;
 static GoalInfo* mAllGoals = NULL;
 
 @implementation DynamicContent
 
 + (void) downloadAllData {
-    [DynamicContent downloadClinicianInfo];
-    [DynamicContent downloadClinicInfo];
-    [DynamicContent downloadGoalInfo];
-    [DynamicContent downloadQuestionInfo];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        YLViewController* viewController = [YLViewController getViewController];
+        
+        // Clincians
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.downloadDataStatus.text = @"Downloading Clinicians";
+            });
+        }
+        int clinicianCount = [DynamicContent downloadClinicianInfo];
+        
+        // Clinics
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.downloadDataStatus.text = @"Downloading Clinics";
+            });
+        }
+        int clinicCount = [DynamicContent downloadClinicInfo];
+        
+        // goals
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.downloadDataStatus.text = @"Downloading Goals";
+            });
+        }
+        [DynamicContent downloadGoalInfo];
+        
+        //questions
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.downloadDataStatus.text = @"Downloading Questions";
+            });
+        }
+        [DynamicContent downloadQuestionInfo];
+        
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [viewController downloadDataRequestDone];
+            });
+        }
+        
+        NSString* msg = [NSString stringWithFormat:@"Downloaded:\n%d clinics\n%d clinicians", clinicCount, clinicianCount];
+        [DynamicContent showAlertMsg:msg];
+    
+//        // update UI on the main thread
+//        if (viewController != NULL){
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//
+//                viewController.downloadDataStatus.text = @"Download complete!";
+//            //self.title = [[NSString alloc]initWithFormat:@"Result: %d", i];
+//            });
+//        }
+        
+    });
 }
 
-+ (void) downloadClinicianInfo { // rjl 8/16/14
++ (int) downloadClinicianInfo { // rjl 8/16/14
+    int count = 0;
     NSString* filePath = [self downloadFile:@"clinicians.txt" isImage:false];
     if (filePath)
-        [self readClinicianInfo];
+        count = [[self readClinicianInfo:true] count];
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadClinicianInfo() %@", errorMsg];
         NSLog(logMsg);
         [self showAlertMsg:errorMsg];
     }
+    return count;
 }
 
-+ (void) downloadClinicInfo { // rjl 8/16/14
++ (int) downloadClinicInfo { // rjl 8/16/14
+    int count = 0;
     NSString* filePath = [self downloadFile:@"clinics.txt" isImage:false];
     if (filePath)
-        [self readClinicInfo:filePath];
+        count = [[self readClinicInfo:true] count];
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadClinicInfo() %@", errorMsg];
         NSLog(logMsg);
         [self showAlertMsg:errorMsg];
     }
+    return count;
 }
 
 + (void) downloadGoalInfo { // rjl 8/16/14
@@ -62,25 +119,66 @@ static GoalInfo* mAllGoals = NULL;
     }
 }
 
++ (void) downloadQuestionInfo { // rjl 8/16/14
+    NSString* filePath = [self downloadFile:@"survey_questions.txt" isImage:false];
+    if (filePath)
+        [self readQuestionInfo];
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadQuestionInfo() %@", errorMsg];
+        NSLog(logMsg);
+        [self showAlertMsg:errorMsg];
+    }
+}
+
 + (NSArray*) getAllClinicians {
-    //NSLog(@"DynamicContent.getAllClinicians() mAllClinicians: %@", mAllClinicians);
-    
     if (mAllClinicians == NULL){
-        //NSLog(@"DynamicContent.getAllClinicians() mAllClinicians is null");
-        mAllClinicians = [self readClinicianInfo];
+        mAllClinicians = [self readClinicianInfo:false];
     }
     return mAllClinicians;
 }
 
-+ (NSMutableArray*) readClinicianInfo {
-    NSLog(@"DynamicContent.getAllClinicians()");
++ (NSArray*) getAllClinics {
+    if (mAllClinics == NULL){
+        mAllClinics = [self readClinicInfo:false];
+    }
+    return mAllClinics;
+}
+
+
++ (GoalInfo*) getAllGoals {
+    if (mAllGoals == NULL){
+        mAllGoals = [self readGoalInfo];
+    }
+    return mAllGoals;
+}
+
++ (id)getAllSurveyQuestions {
+    if (mAllSurveyQuestions == NULL){
+        mAllSurveyQuestions = [self readQuestionInfo];
+    }
+    return mAllSurveyQuestions;
+}
+
++ (NSMutableArray*) readClinicianInfo:(BOOL) isDownload{
+    YLViewController* viewController = [YLViewController getViewController];
+    NSLog(@"DynamicContent.getAllClinicians() isDownload: %d", isDownload);
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
     NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
     //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
     NSArray * lines = [self readFile:filePath];
+    int index = 0;
+    int total = [lines count];
     for (NSString *line in lines) {
+        index++;
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString* msg = [NSString stringWithFormat:@"Downloading Clinician %d/%d", index, total];
+                viewController.downloadDataStatus.text = msg;
+            });
+        }
         NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicianLine.length > 0){
@@ -111,37 +209,54 @@ static GoalInfo* mAllGoals = NULL;
         } // end if clinicianLine.length > 0
     }// end for line in lines
     
-    NSLog(@"DynamicContent.getAllClinicians() count: %d", [allClinicians count]);
-    
+    NSLog(@"DynamicContent.getAllClinicians() count: %ld", (long)[allClinicians count]);
+    if (isDownload){
+        //download the image for each clinician
+        int index = 0;
+        int total = [allClinicians count];
+        for (ClinicianInfo* clinician in allClinicians){
+//            [clinician writeToLog];
+            index++;
+            if (viewController != NULL){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString* msg = [NSString stringWithFormat:@"Downloading Clinician Image %d/%d", index, total];
+                    viewController.downloadDataStatus.text = msg;
+                });
+            }
+            NSString* clinicianImageFilename = [clinician getImageFilename];
+            [DynamicContent downloadFile:clinicianImageFilename isImage:true];
+        }
+    }
     
     return allClinicians;
     //    [pool release];
 }
 
-+ (ClinicianInfo*) getClinician:(int)clinicianIndex{
-    NSLog(@"DynamicContent.getClinician() index: %d", clinicianIndex);
-    if (clinicianIndex > 100000){
-        NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
-        NSLog(@"DynamicContent.getClinician() %@", errMsg);
-        [self showAlertMsg:errMsg];
-        return NULL;
-    }
-    NSArray* allClinicians = [self getAllClinicians];
-    if (clinicianIndex < [allClinicians count])
-        return [allClinicians objectAtIndex:clinicianIndex];
-    else
-        return NULL;
-}
 
-+ (NSArray*) readClinicInfo:(NSString*) filePath{
-    NSLog(@"DynamicContent.readClinicInfo()");
++ (NSArray*) readClinicInfo:(BOOL) isDownload{
+    NSLog(@"DynamicContent.readClinicInfo() isDownload: %d", isDownload);
+    
+    YLViewController* viewController = [YLViewController getViewController];
+
     //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/clinics.txt", documentsDirectory];
     NSMutableArray *allClinics = [[NSMutableArray alloc] init];
     NSMutableArray* allImages =  [[NSMutableArray alloc] init];
-    
+
     //    ClinicInfo * clinicInfo = NULL;
     NSArray * lines = [self readFile:filePath];
+    int index = 0;
+    int total = [lines count];
     for (NSString *line in lines) {
+        index++;
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString* msg = [NSString stringWithFormat:@"Downloading Clinic %d/%d", index, total];
+                viewController.downloadDataStatus.text = msg;
+            });
+        }
         NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicLine.length > 0){
@@ -199,7 +314,10 @@ static GoalInfo* mAllGoals = NULL;
                         case 5: [page setObject:value forKey:@"pageNumber"]; break;
                         case 6: [page setObject:value forKey:@"pageTitle"]; break;
                         case 7: [page setObject:value forKey:@"pageText"]; break;
-                        case 8: [page setObject:value forKey:@"pageImage"]; [allImages addObject:value]; break;
+                        case 8: [page setObject:value forKey:@"pageImage"];
+                            if ([value length] > 0)
+                                [allImages addObject:value];
+                            break;
                         case 9: [page setObject:value forKey:@"status"]; break;
                         case 10: [page setObject:value forKey:@"clinicIcon"]; break;
                             
@@ -217,111 +335,80 @@ static GoalInfo* mAllGoals = NULL;
     for (ClinicInfo* clinic in allClinics){
         [clinic writeToLog];
     }
-    for (NSString* imageFilename in allImages){
-        [self downloadFile:imageFilename isImage:true];
+    if (isDownload){
+        int index = 0;
+        int total = [allImages count];
+        for (NSString* imageFilename in allImages){
+            index++;
+            if (viewController != NULL){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString* msg = [NSString stringWithFormat:@"Downloading Clinic Image %d/%d", index, total];
+                    viewController.downloadDataStatus.text = msg;
+                });
+            }
+            [self downloadFile:imageFilename isImage:true];
+        }
     }
-    [self showAlertMsg:msg];
+//    [self showAlertMsg:msg];
     return allClinics;
     //    [pool release];
 }
 
-
-//- (ClinicianInfo*) getClinicianOld:(int)clinicianIndex{
-//    NSLog(@"DynamicContent.getClinician() index: %d", clinicianIndex);
-//    if (clinicianIndex > 100000){
-//        NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
-//        NSLog(@"DynamicContent.getClinician() %@", errMsg);
-//        [self showAlertMsg:errMsg];
-//        return NULL;
-//    }
-//    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString  *documentsDirectory = [paths objectAtIndex:0];
-//    NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
-//    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-//    NSMutableArray *allClinicians = [[NSMutableArray alloc] init];
-//    NSArray * lines = [self readFile:filePath];
-//    for (NSString *line in lines) {
-//        ClinicianInfo * clinicianInfo = [[ClinicianInfo alloc]init];
-//        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-//        
-//        if (clinicianLine.length > 0){
-//            if ([clinicianLine hasSuffix:@";"]){
-//                int index = [clinicianLine length] -1;
-//                clinicianLine = [clinicianLine substringToIndex: index];
-//            }
-//            //NSLog(@"%@", line);
-//            // parse row containing clinician details
-//            NSArray* clinicianProperties = [clinicianLine componentsSeparatedByCharactersInSet:
-//                                            [NSCharacterSet characterSetWithCharactersInString:@";"]];
-//            for (int i=0; i<[clinicianProperties count]; i++) {
-//                NSString* value = clinicianProperties[i];
-//                value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-//                //NSLog(@"%d: %@", i, value);
-//                if ([value length] > 0){
-//                    switch (i) {
-//                        case 0: [clinicianInfo setClinicianId:value]; break;
-//                        case 1: [clinicianInfo setClinics:value]; break;
-//                        case 2: [clinicianInfo setFirstName:value]; break;
-//                        case 3: [clinicianInfo setLastName:value]; break;
-//                        case 4: [clinicianInfo setSalutation:value]; break;
-//                        case 5: [clinicianInfo setDegrees:value]; break;
-//                        case 6: [clinicianInfo setCredentials:value]; break;
-//                        case 7: [clinicianInfo setEdAndAffil:value]; break;
-//                        case 8: [clinicianInfo setBackground:value]; break;
-//                        case 9: [clinicianInfo setPhilosophy:value]; break;
-//                        case 10: [clinicianInfo setPersonalInterests:value]; break;
-//                    } // end switch
-//                }
-//            } // end for
-//            [allClinicians addObject:clinicianInfo];
-//        } // end if clinicianLine.length > 0
-//    }// end for line in lines
-//    
-//    NSLog(@"Loaded %d clinicians", [allClinicians count]);
-//    ClinicianInfo* matchingClinician = NULL;
-//    //int adjustedClinicianIndex = clinicianIndex - [allClinicPhysicians count];
-//    //if (adjustedClinicianIndex >= 0) //rjl 8/19/14 indexOffset Bug
-//     //   matchingClinician = [allClinicians objectAtIndex:adjustedClinicianIndex];
-//    
-//    NSLog(@"WRViewController.getNewClinicianNames() matching clinician:");
-//    [matchingClinician writeToLog];
-//    
-//    return matchingClinician;
-//    //    [pool release];
-//}
-
-
-+ (id)getAllSurveyQuestions {
-    //NSLog(@"DynamicContent.getAllSurveyQuestions() mAllSurveyQuestions: %@", mAllSurveyQuestions);
-
-    if (mAllSurveyQuestions == NULL){
-        //NSLog(@"DynamicContent.getAllSurveyQuestions() mAllSurveyQuestions is null");
-        mAllSurveyQuestions = [self readQuestionInfo];
-    }
-    return mAllSurveyQuestions;
-}
-
-+ (QuestionList*) getSurveyForRespondentType:(NSString*) respondentType{
-    NSArray* questions = [self getAllSurveyQuestions];
-    for (QuestionList* info in questions){
-        if ([respondentType isEqualToString:[info getRespondentType]]) {
-            return info;
++ (GoalInfo*) readGoalInfo {
+    NSLog(@"DynamicContent.readGoalInfo()");
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/goals.txt", documentsDirectory];
+    
+    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
+    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
+    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
+    
+    GoalInfo* goalInfo = [[GoalInfo alloc]init];
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        if (goalLine.length > 0){
+            NSLog(@"DynamicContent.readGoalInfo() goals.txt line: %@", goalLine);
+            // parse row containing goal details
+            if([goalLine hasPrefix:@"//"]){
+                NSLog(@"DynamicContent.readGoalInfo() comment: %@", goalLine);
+            }
+            else {
+                if ([goalLine hasSuffix:@";"]){
+                    int index = [goalLine length] -1;
+                    goalLine = [goalLine substringToIndex: index];
+                }
+                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
+                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                NSString* type = [goalRow objectAtIndex:0];
+                for (int i=1; i<[goalRow count]; i++) {
+                    NSString* goal = goalRow[i];
+                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
+                    
+                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
+                        [selfGoals addObject:goal];
+                    else
+                        if ([type isEqualToString:@"family"])
+                            [familyGoals addObject:goal];
+                        else
+                            if ([type isEqualToString:@"caregiver"])
+                                [caregiverGoals addObject:goal];
+                }
+            }
         }
     }
-    return NULL;
+    [goalInfo setSelfGoals:selfGoals];
+    [goalInfo setFamilyGoals:familyGoals];
+    [goalInfo setCaregiverGoals:caregiverGoals];
+    
+    NSLog(@"Loaded all goals");
+    [goalInfo writeToLog];
+    
+    return goalInfo;
 }
 
-+ (void) downloadQuestionInfo { // rjl 8/16/14
-    NSString* filePath = [self downloadFile:@"survey_questions.txt" isImage:false];
-    if (filePath)
-        [self readQuestionInfo];
-    else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
-        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadQuestionInfo() %@", errorMsg];
-        NSLog(logMsg);
-        [self showAlertMsg:errorMsg];
-    }
-}
 
 + (NSArray*) readQuestionInfo {
     NSLog(@"DynamicContent.readQuestionInfo()");
@@ -405,7 +492,7 @@ static GoalInfo* mAllGoals = NULL;
             }
         }
     }
-    
+
     NSLog(@"Loaded questions (%d)", [allQuestions count]);
     for (QuestionList* info in allQuestions){
         [info writeToLog];
@@ -413,153 +500,79 @@ static GoalInfo* mAllGoals = NULL;
     return allQuestions;
 }
 
-
-+ (GoalInfo*) getAllGoals {
-    //NSLog(@"DynamicContent.getAllClinicians() mAllClinicians: %@", mAllClinicians);
-    
-    if (mAllGoals == NULL){
-        //NSLog(@"DynamicContent.getAllClinicians() mAllClinicians is null");
-        mAllGoals = [self readGoalInfo];
++ (ClinicianInfo*) getClinician:(int)clinicianIndex{
+    NSLog(@"DynamicContent.getClinician() index: %d", clinicianIndex);
+    if (clinicianIndex > 100000){
+        NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
+        NSLog(@"DynamicContent.getClinician() %@", errMsg);
+        [self showAlertMsg:errMsg];
+        return NULL;
     }
-    return mAllGoals;
+    NSArray* allClinicians = [self getAllClinicians];
+    if (clinicianIndex < [allClinicians count])
+        return [allClinicians objectAtIndex:clinicianIndex];
+    else
+        return NULL;
 }
 
-+ (GoalInfo*) readGoalInfo {
-    NSLog(@"DynamicContent.readGoalInfo()");
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/goals.txt", documentsDirectory];
++ (ClinicInfo*) getClinic:(NSString*)clinicNameShort{
+    NSLog(@"DynamicContent.getClinic() clinicNameShort: %@", clinicNameShort);
+    NSArray* allClinics = [self getAllClinics];
+    for (ClinicInfo* clinic in allClinics){
+        if ([[clinic getClinicNameShort] isEqualToString:clinicNameShort])
+            return clinic;
+    }
+    return NULL;
+}
 
-    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
-    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
-    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
-    
-    GoalInfo* goalInfo = [[GoalInfo alloc]init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (goalLine.length > 0){
-            NSLog(@"DynamicContent.readGoalInfo() goals.txt line: %@", goalLine);
-            // parse row containing goal details
-            if([goalLine hasPrefix:@"//"]){
-                NSLog(@"DynamicContent.readGoalInfo() comment: %@", goalLine);
-            }
-            else {
-                if ([goalLine hasSuffix:@";"]){
-                    int index = [goalLine length] -1;
-                    goalLine = [goalLine substringToIndex: index];
-                }
-                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
-                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                NSString* type = [goalRow objectAtIndex:0];
-                for (int i=1; i<[goalRow count]; i++) {
-                    NSString* goal = goalRow[i];
-                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
-                    
-                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
-                        [selfGoals addObject:goal];
-                    else
-                        if ([type isEqualToString:@"family"])
-                            [familyGoals addObject:goal];
-                        else
-                            if ([type isEqualToString:@"caregiver"])
-                                [caregiverGoals addObject:goal];
-                }
-            }
+
++ (QuestionList*) getSurveyForRespondentType:(NSString*) respondentType{
+    NSArray* questions = [self getAllSurveyQuestions];
+    for (QuestionList* info in questions){
+        if ([respondentType isEqualToString:[info getRespondentType]]) {
+            return info;
         }
     }
-    [goalInfo setSelfGoals:selfGoals];
-    [goalInfo setFamilyGoals:familyGoals];
-    [goalInfo setCaregiverGoals:caregiverGoals];
-    
-    NSLog(@"Loaded all goals");
-    [goalInfo writeToLog];
-    
-    return goalInfo;
+    return NULL;
 }
 
-+ (GoalInfo*) getGoalInfo {
-    NSLog(@"DynamicContent.getoalInfo()");
-    NSMutableArray* selfGoals = [[NSMutableArray alloc] init];
-    NSMutableArray* familyGoals =  [[NSMutableArray alloc] init];
-    NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
++ (NSMutableArray*) getNewClinicianNames{
+    NSLog(@"DynamicContent.getNewClinicianNames()");
+    NSArray *allClinicians = [DynamicContent getAllClinicians];
+    NSMutableArray *allClinicianNames = [[NSMutableArray alloc] init];
     
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/goals.txt", documentsDirectory];
-    
-    
-    GoalInfo* goalInfo = [[GoalInfo alloc]init];
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (goalLine.length > 0){
-            NSLog(@"DynamicContent.readGoalInfo() goals.txt line: %@", goalLine);
-            // parse row containing goal details
-            if([goalLine hasPrefix:@"//"]){
-                NSLog(@"DynamicContent.readGoalInfo() comment: %@", goalLine);
-            }
-            else {
-                if ([goalLine hasSuffix:@";"]){
-                    int index = [goalLine length] -1;
-                    goalLine = [goalLine substringToIndex: index];
-                }
-                NSArray* goalRow = [goalLine componentsSeparatedByCharactersInSet:
-                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                NSString* type = [goalRow objectAtIndex:0];
-                for (int i=1; i<[goalRow count]; i++) {
-                    NSString* goal = goalRow[i];
-                    goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                    NSLog(@"goal %@ prop %d: %@", type, i, goal);
-                    
-                    if ([type isEqualToString:@"self"] || [type isEqualToString:@"patient"])
-                        [selfGoals addObject:goal];
-                    else
-                        if ([type isEqualToString:@"family"])
-                            [familyGoals addObject:goal];
-                        else
-                            if ([type isEqualToString:@"caregiver"])
-                                [caregiverGoals addObject:goal];
-                }
-            }
-        }
+    // download the image file for each clinician
+    for (ClinicianInfo* clinician in allClinicians){
+        //[clinician writeToLog];
+        NSString  *name = [NSString stringWithFormat:@"%@ %@ %@ %@", [clinician getSalutation], [clinician getFirstName], [clinician getLastName], [clinician getDegrees]];
+        [allClinicianNames addObject:name];
     }
-    [goalInfo setSelfGoals:selfGoals];
-    [goalInfo setFamilyGoals:familyGoals];
-    [goalInfo setCaregiverGoals:caregiverGoals];
+    NSLog(@"DynamicContent.getNewClinicianNames() exit");
     
-    NSLog(@"Read all goals");
-    [goalInfo writeToLog];
-    
-    return goalInfo;
+    return allClinicianNames;
+    //    [pool release];
 }
+
++ (NSMutableArray*) getNewClinicianImages{
+    NSLog(@"DynamicContent.getNewClinicianImages()");
+    NSArray *allClinicians = [DynamicContent getAllClinicians];
+    NSMutableArray *allClinicianImages = [[NSMutableArray alloc] init];
+    
+    // download the image file for each clinician
+    for (ClinicianInfo* clinician in allClinicians){
+        //[clinician writeToLog];
+        NSString* imageName = [clinician getImageFilename];
+        [allClinicianImages addObject:imageName];
+    }
+    
+    return allClinicianImages;
+    //    [pool release];
+}
+
 
 
 // utilities
 
-
-+ (NSArray*) readFile:(NSString*)filename {
-    // rjl 8/16/14
-    // read everything from text
-    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSFileManager* fileManager =[NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:filename]){
-        NSString* errorMsg = [NSString stringWithFormat:@"File not found: %@",filename];
-        NSLog(errorMsg);
-        [self showAlertMsg:errorMsg];
-        return NULL;
-    }
-    NSString* fileContents =
-        [NSString stringWithContentsOfFile:filename
-                              encoding:NSUTF8StringEncoding error:nil];
-    
-    // first, separate by new line
-    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-    //    [pool release];
-    
-    return allLinedStrings;
-}
 
 + (NSString*) downloadFile:(NSString*)filename isImage:(BOOL) isImageFile{
     // rjl 8/16/14
@@ -610,13 +623,70 @@ static GoalInfo* mAllGoals = NULL;
         }
         else {
             NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
-            NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadFile() %@", errorMsg];
+            NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadFile() %@", errorMsg];
             NSLog(logMsg);
-            [self showAlertMsg:errorMsg];
+//            [self showAlertMsg:errorMsg];
         }
         
     }
     //    [pool release];
+    return result;
+}
+
++ (NSArray*) readFile:(NSString*)filename {
+    // rjl 8/16/14
+    // read everything from text
+    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    NSFileManager* fileManager =[NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:filename]){
+        NSString* errorMsg = [NSString stringWithFormat:@"File not found: %@",filename];
+        NSLog(errorMsg);
+        [self showAlertMsg:errorMsg];
+        return NULL;
+    }
+    NSString* fileContents =
+    [NSString stringWithContentsOfFile:filename
+                              encoding:NSUTF8StringEncoding error:nil];
+    
+    // first, separate by new line
+    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+    //    [pool release];
+    
+    return allLinedStrings;
+}
+
+- (void) readFileLineByLine:(NSString*) filename { // rjl 8/16/14
+    // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
+    const char *filenameChars = [filename UTF8String];
+    FILE *file = fopen(filenameChars, "r");
+    // check for NULL
+    while(!feof(file))
+    {
+        NSString *line = readLineAsNSString(file);
+        NSLog(line);
+        // do stuff with line; line is autoreleased, so you should NOT release it (unless you also retain it beforehand)
+    }
+    fclose(file);
+}
+
+NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
+{   // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
+    char buffer[4096];
+    
+    // tune this capacity to your liking -- larger buffer sizes will be faster, but
+    // use more memory
+    NSMutableString *result = [NSMutableString stringWithCapacity:256];
+    
+    // Read up to 4095 non-newline characters, then read and discard the newline
+    int charsRead;
+    do
+    {
+        if(fscanf(file, "%4095[^\n]%n%*c", buffer, &charsRead) == 1)
+            [result appendFormat:@"%s", buffer];
+        else
+            break;
+    } while(charsRead == 4095);
+    
     return result;
 }
 
@@ -645,18 +715,22 @@ static GoalInfo* mAllGoals = NULL;
 
 + (void)showAlertMsg:(NSString *)msg {
     //    [tbvc sayComingSoon];
-    UIAlertView *msgAlert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"%@",msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    msgAlert.delegate = self;
-    [msgAlert show];
-    [msgAlert release];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *msgAlert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"%@",msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        msgAlert.delegate = self;
+        [msgAlert show];
+        [msgAlert release];
+    });
 }
 
 + (void) speakText:(NSString*) text {
-    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
-    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
-    [utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
-    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en"];
-    [synthesizer speakUtterance:utterance];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+        [utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en"];
+        [synthesizer speakUtterance:utterance];
+    });
 }
 
 

@@ -8,7 +8,7 @@
 
 #import "DynamicPageSubDetailViewController.h"
 #import "AppDelegate_Pad.h"
-
+#import "DynamicContent.h"
 
 @interface DynamicPageSubDetailViewController ()
 
@@ -45,7 +45,7 @@
         NSLog(@"DynamicPageSubDetailViewController.viewDidLoad() Loading imageview for current subdetail image: %@...",currentImageFilename);
         UIImage* pageImage = [UIImage imageNamed:currentImageFilename];
         if (!pageImage)
-            pageImage = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:currentImageFilename];
+            pageImage = [DynamicContent loadImage:currentImageFilename];
         UIImageView *currentSubdetailImageView = [[UIImageView alloc] initWithImage:pageImage];
         currentSubdetailImageView.frame = CGRectMake(0, 0, 300, 300);
 //        currentSubdetailImageView.transform = rotateRight;

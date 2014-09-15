@@ -95,6 +95,26 @@
 
 @synthesize termPopoverViewController, hiddenPopoverButton;
 
+
+static SwitchedImageViewController *providerModuleHelpful = NULL;
+static SwitchedImageViewController *subclinicModuleHelpful = NULL;
+static DynamicSurveyViewController_Pad *mViewController = NULL;
+
++ (DynamicSurveyViewController_Pad*) getViewController{
+    return mViewController;
+}
+
+
++ (void) setProviderHelpfulText:(NSString*) text {
+    providerModuleHelpful.helpfulLabel.text = text;
+}
+
++ (void) setClinicHelpfulText:(NSString*) text {
+//    subclinicModuleHelpful.helpfulLabel.text = text;
+    subclinicModuleHelpful.helpfulText = text;
+}
+
+
 - (id)initWithPropertyList:(NSString *)propertyListName {
     self = [super init];
     if (self) {
@@ -272,8 +292,9 @@
 }
 
 // Establish core interface
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    NSLog(@"DynamicSurveyViewController_Pad.viewDidLoad()");
+    mViewController = self;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     float leftAngle =  90 * M_PI  / 180;
@@ -793,7 +814,7 @@
         NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages() provider module helpful uses storyboard survey_helpful_template");
         UIStoryboard *helpfulStoryboard = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
         
-        SwitchedImageViewController *providerModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        providerModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [providerModuleHelpful retain];
         
         providerModuleHelpful.currentSurveyPageType = kHelpfulPainScale;
@@ -805,7 +826,7 @@
         // sandy 7-14
         //        providerModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this information on your doctor.";
         // sandy 7-20 removed the word doctor and replaced it with provider
-        providerModuleHelpful.helpfulText = @"Please indicate how helpful you found this information on your provider.";
+        providerModuleHelpful.helpfulText = @"Please indicate how helpful you found this information about your provider.";
         providerModuleHelpful.view.frame = backsplash.bounds;
         [surveyPageArray addObject:providerModuleHelpful];
         
@@ -813,7 +834,7 @@
         
         //        UIStoryboard *helpfulStoryboard = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
         
-        SwitchedImageViewController *subclinicModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        subclinicModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [subclinicModuleHelpful retain];
         
         subclinicModuleHelpful.currentSurveyPageType = kHelpfulPainScale;

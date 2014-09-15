@@ -728,7 +728,7 @@ int indexCount;
 - (NSMutableArray*) getAllClinicPhysicians { //rjl 8/16/14
 //    NSLog(@"WRViewController.getAllClinicPhysicians()");
     NSMutableArray *mutableAllClinicPhysicians = [allClinicPhysicians mutableCopy];
-    NSArray * newClinicians = [self getNewClinicianNames];
+    NSArray * newClinicians = [DynamicContent getNewClinicianNames];
     for (NSString *name in newClinicians){
 
 //        NSString* newClinicianName = @"Eleanor Roosevelt";
@@ -756,7 +756,7 @@ int indexCount;
     //    NSLog(@"WRViewController.getAllClinicPhysiciansImages()");
     
     NSMutableArray *mutableAllClinicPhysiciansImages = [allClinicPhysiciansImages mutableCopy];
-    NSMutableArray * newClinicianImages = [self getNewClinicianImages];
+    NSMutableArray * newClinicianImages = [DynamicContent getNewClinicianImages];
     for (NSString *imageFilename in newClinicianImages){
 //        NSString* newClinicianImage = @"pmnr_teraoka.png";
         [mutableAllClinicPhysiciansImages addObject:imageFilename];
@@ -771,7 +771,7 @@ int indexCount;
     //    NSLog(@"WRViewController.getAllClinicPhysiciansBioPlists()");
     
     NSMutableArray *mutableAllClinicPhysiciansBioPlists = [allClinicPhysiciansBioPLists mutableCopy];
-    NSMutableArray * newClinicians = [self getNewClinicianNames];
+    NSMutableArray * newClinicians = [DynamicContent getNewClinicianNames];
     for (NSString *name in newClinicians){
         NSString* newClinicianPlist = @"pmnr_teraoka_bio";
         [mutableAllClinicPhysiciansBioPlists addObject:newClinicianPlist];
@@ -785,7 +785,7 @@ int indexCount;
     //    NSLog(@"WRViewController.getAllClinicPhysiciansSoundFiles()");
 
     NSMutableArray *mutableAllClinicPhysiciansSoundFiles = [allClinicPhysiciansSoundFiles mutableCopy];
-    NSMutableArray * newClinicians = [self getNewClinicianNames];
+    NSMutableArray * newClinicians = [DynamicContent getNewClinicianNames];
     for (NSString *name in newClinicians){
         NSString *silence_sound = [[NSBundle mainBundle] pathForResource:@"silence_half_second" ofType:@"wav"];
 //        NSString* newClinicianSoundFile = @"pmnr_teraoka";
@@ -6257,10 +6257,25 @@ int indexCount;
 
 - (void)adminSendDataButtonPressed:(id)sender {
     NSLog(@"WRViewController.adminSendDataButtonPressed is called");
-    [self showSpinner];
+    //[self showSpinner];
     // sandy uncommenting this to test csv file
-    [tbvc writeLocalDbToCSVFile];
-    [self sendEmailWithDataAttached];
+    YLViewController* viewController = [YLViewController getViewController];
+    // update UI on the main thread
+    if (viewController != NULL){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            viewController.uploadDataStatus.text = @"Saving data...";
+        });
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [tbvc writeLocalDbToCSVFile];
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.uploadDataStatus.text = @"Sending data...";
+                [self sendEmailWithDataAttached];
+            });
+        }
+        
+    });
     
     //    [self removeSpinner];
 }
@@ -6271,7 +6286,13 @@ int indexCount;
 
 - (void)adminDownloadDataButtonPressed:(id)sender { // rjl 8/16/14
     NSLog(@"WRViewController.adminDownloadDataButtonPressed()");
-    [self showSpinner];
+    //[self showSpinner];
+//    YLViewController* viewController = [YLViewController getViewController];
+//    if (viewController != NULL){
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            viewController.downloadDataStatus.text = @"working...";
+//                        });
+//    }
     [DynamicContent downloadAllData];
 }
 
@@ -6279,103 +6300,103 @@ int indexCount;
 
 
 
-- (NSArray*) readFile:(NSString*)filename {
-    // rjl 8/16/14
-    // read everything from text
-//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-
-    NSString* fileContents =
-    [NSString stringWithContentsOfFile:filename
-                              encoding:NSUTF8StringEncoding error:nil];
-    
-    // first, separate by new line
-    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-//    [pool release];
-
-    return allLinedStrings;
-}
-
-- (NSString*) downloadFile:(NSString*)filename isImage:(BOOL) isImageFile{
-    // rjl 8/16/14
-//    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSString* downloadDir = nil;
-    bool developerEnabled = true;
-    if (developerEnabled){
-        if (isImageFile)
-            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
-        else
-            downloadDir = @"http://www.brainaid.com/wrtestdev/";
-    } else {
-        if (isImageFile)
-            downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
-        else
-            downloadDir = @"http://www.brainaid.com/wrtest/";
-    }
-    NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
-    NSURL *downloadUrl = [NSURL URLWithString:filePath];
-    NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
-    
-    NSString* result = nil;
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-
-    if ( downloadData ){
-        if (isImageFile){
-            UIImage *img = [UIImage imageWithData:downloadData];
-            [self saveImage:img filename:filename];
-        }
-        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
-        [downloadData writeToFile:filePath atomically:YES];
-        result = filePath;
-    }
-    else {
-        NSString* jpgFilename = [filename stringByReplacingOccurrencesOfString:@".png" withString:@".jpg"];
-        filePath = [NSString stringWithFormat:@"%@%@", downloadDir,jpgFilename];
-        downloadUrl = [NSURL URLWithString:filePath];
-        downloadData = [NSData dataWithContentsOfURL:downloadUrl];
-        if ( downloadData ){
-            if (isImageFile){
-                UIImage *img = [UIImage imageWithData:downloadData];
-                [self saveImage:img filename:filename];
-            }
-            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
-            [downloadData writeToFile:filePath atomically:YES];
-            result = filePath;
-        }
-        else {
-            NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
-            NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadFile() %@", errorMsg];
-            NSLog(logMsg);
-            [self showAlertMsg:errorMsg];
-        }
-
-    }
-//    [pool release];
-    return result;
-}
-
-
-- (void)saveImage: (UIImage*)image filename:(NSString*)filename{
-    NSLog(@"WRViewController.saveImage() filename: %@", filename);
-    if (image != nil){
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-        NSString* path = [documentsDirectory stringByAppendingPathComponent:  filename ];
-        NSData* data = UIImagePNGRepresentation(image);
-        [data writeToFile:path atomically:YES];
-    }
-    
-}
-
-- (UIImage*)loadImage: (NSString*)filename {
-    NSLog(@"WRViewController.loadImage() filename: %@", filename);
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString* path = [documentsDirectory stringByAppendingPathComponent: filename];
-    UIImage* image = [UIImage imageWithContentsOfFile:path];
-    //    [self sendAction:path];
-    return image;
-}
+//- (NSArray*) readFile:(NSString*)filename {
+//    // rjl 8/16/14
+//    // read everything from text
+////    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+//
+//    NSString* fileContents =
+//    [NSString stringWithContentsOfFile:filename
+//                              encoding:NSUTF8StringEncoding error:nil];
+//    
+//    // first, separate by new line
+//    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+////    [pool release];
+//
+//    return allLinedStrings;
+//}
+//
+//- (NSString*) downloadFile:(NSString*)filename isImage:(BOOL) isImageFile{
+//    // rjl 8/16/14
+////    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+//    NSString* downloadDir = nil;
+//    bool developerEnabled = true;
+//    if (developerEnabled){
+//        if (isImageFile)
+//            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
+//        else
+//            downloadDir = @"http://www.brainaid.com/wrtestdev/";
+//    } else {
+//        if (isImageFile)
+//            downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
+//        else
+//            downloadDir = @"http://www.brainaid.com/wrtest/";
+//    }
+//    NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
+//    NSURL *downloadUrl = [NSURL URLWithString:filePath];
+//    NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
+//    
+//    NSString* result = nil;
+//    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString  *documentsDirectory = [paths objectAtIndex:0];
+//
+//    if ( downloadData ){
+//        if (isImageFile){
+//            UIImage *img = [UIImage imageWithData:downloadData];
+//            [self saveImage:img filename:filename];
+//        }
+//        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+//        [downloadData writeToFile:filePath atomically:YES];
+//        result = filePath;
+//    }
+//    else {
+//        NSString* jpgFilename = [filename stringByReplacingOccurrencesOfString:@".png" withString:@".jpg"];
+//        filePath = [NSString stringWithFormat:@"%@%@", downloadDir,jpgFilename];
+//        downloadUrl = [NSURL URLWithString:filePath];
+//        downloadData = [NSData dataWithContentsOfURL:downloadUrl];
+//        if ( downloadData ){
+//            if (isImageFile){
+//                UIImage *img = [UIImage imageWithData:downloadData];
+//                [self saveImage:img filename:filename];
+//            }
+//            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+//            [downloadData writeToFile:filePath atomically:YES];
+//            result = filePath;
+//        }
+//        else {
+//            NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
+//            NSString* logMsg = [NSString stringWithFormat:@"WRViewController.downloadFile() %@", errorMsg];
+//            NSLog(logMsg);
+//            [self showAlertMsg:errorMsg];
+//        }
+//
+//    }
+////    [pool release];
+//    return result;
+//}
+//
+//
+//- (void)saveImage: (UIImage*)image filename:(NSString*)filename{
+//    NSLog(@"WRViewController.saveImage() filename: %@", filename);
+//    if (image != nil){
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString *documentsDirectory = [paths objectAtIndex:0];
+//        NSString* path = [documentsDirectory stringByAppendingPathComponent:  filename ];
+//        NSData* data = UIImagePNGRepresentation(image);
+//        [data writeToFile:path atomically:YES];
+//    }
+//    
+//}
+//
+//- (UIImage*)loadImage: (NSString*)filename {
+//    NSLog(@"WRViewController.loadImage() filename: %@", filename);
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//    NSString* path = [documentsDirectory stringByAppendingPathComponent: filename];
+//    UIImage* image = [UIImage imageWithContentsOfFile:path];
+//    //    [self sendAction:path];
+//    return image;
+//}
 
 
 
@@ -6430,180 +6451,13 @@ int indexCount;
 
 
 
-
-- (NSMutableArray*) getNewClinicianNames{
-    NSLog(@"WRViewController.getNewClinicianNames()");
-    NSArray *allClinicians = [DynamicContent getAllClinicians];
-    NSMutableArray *allClinicianNames = [[NSMutableArray alloc] init];
-    
-    // download the image file for each clinician
-    for (ClinicianInfo* clinician in allClinicians){
-        //[clinician writeToLog];
-        NSString  *name = [NSString stringWithFormat:@"%@ %@ %@ %@", [clinician getSalutation], [clinician getFirstName], [clinician getLastName], [clinician getDegrees]];
-        [allClinicianNames addObject:name];
-    }
-    NSLog(@"WRViewController.getNewClinicianNames() exit");
-    
-    return allClinicianNames;
-    //    [pool release];
-}
-
-- (NSMutableArray*) getNewClinicianImages{
-    NSLog(@"WRViewController.getNewClinicianImages()");
-    NSArray *allClinicians = [DynamicContent getAllClinicians];
-    NSMutableArray *allClinicianImages = [[NSMutableArray alloc] init];
-    
-    // download the image file for each clinician
-    for (ClinicianInfo* clinician in allClinicians){
-        //[clinician writeToLog];
-        NSString* imageName = [clinician getImageFilename];
-        [allClinicianImages addObject:imageName];
-    }
-    
-    return allClinicianImages;
-    //    [pool release];
-}
-
-
 - (ClinicianInfo*) getCurrentClinician{
-    return [DynamicContent getClinician:attendingPhysicianIndex];
-}
-
-
-- (ClinicInfo*) getClinic:(NSString*)clinicNameShort{
-    NSLog(@"WRViewController.getClinic() clinicNameShort: %@", clinicNameShort);
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/clinics.txt", documentsDirectory];
-    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    NSMutableArray *allClinics = [[NSMutableArray alloc] init];
-    ClinicInfo* matchingClinic = NULL;
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-
-        NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        
-//        for (NSString *line in lines) {
-//            NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        
-            if (clinicLine.length > 0){
-                NSLog(@"WRViewController.getClinic() clinics.txt line: %@", line);
-                // parse row containing clinic details
-                NSString* output = nil;
-                if([clinicLine hasPrefix:@"//"]){
-                    NSLog(@"WRViewController.getClinic() comment: %@", clinicLine);
-                }
-                else {
-                    if ([clinicLine hasSuffix:@";"]){
-                        int index = [clinicLine length] -1;
-                        clinicLine = [clinicLine substringToIndex: index];
-                    }
-                    // read clinic page as triple <sub title, content, imagename>
-                    NSArray* clinicProperties = [clinicLine componentsSeparatedByCharactersInSet:
-                                                 [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                    
-                    //find the clinic container for all of the pages from that clinic
-                    NSString* clinicName = [clinicProperties objectAtIndex:4]; // try subclinicNameShort
-                    if ([clinicName length] == 0)
-                        clinicName = [clinicProperties objectAtIndex:2];
-                    if ([clinicName length] == 0)
-                            clinicName = [clinicProperties objectAtIndex:1];
-                    ClinicInfo* currentClinic = NULL;
-                    if (allClinics != NULL){
-                        for (ClinicInfo* clinic in allClinics){
-                            NSString* name = [clinic getClinicName];
-                            if ([name isEqualToString:clinicName]){
-                                currentClinic = clinic;
-                                break;
-                            }
-                        }
-                    }
-                    if (currentClinic == NULL){
-                        ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
-                        [clinicInfo setClinicName:clinicName];
-                        //                            [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
-                        [allClinics addObject:clinicInfo];
-                        currentClinic = clinicInfo;
-                    }
-                    
-                    if (matchingClinic == NULL && [[currentClinic getClinicName] isEqualToString:clinicNameShort])
-                        matchingClinic = currentClinic;
-                    
-                    NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
-                    
-                    NSLog(@"WRViewController.getClinic() clinic name: %@", clinicName);
-                    for (int i=0; i<[clinicProperties count]; i++) {
-                        NSString* value = clinicProperties[i];
-                        value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-                        NSLog(@"clinic %@ prop %d: %@", [currentClinic getClinicName], i, value);
-                        switch (i) {
-                            case 0: [page setObject:value forKey:@"clinicId"]; break;
-                            case 1: [page setObject:value forKey:@"clinicName"]; break;
-                            case 2: [page setObject:value forKey:@"clinicNameShort"]; break;
-                            case 3: [page setObject:value forKey:@"subclinicName"]; break;
-                            case 4: [page setObject:value forKey:@"subclinicNameShort"]; break;
-                            case 5: [page setObject:value forKey:@"pageNumber"]; break;
-                            case 6: [page setObject:value forKey:@"pageTitle"]; break;
-                            case 7: [page setObject:value forKey:@"pageText"]; break;
-                            case 8: [page setObject:value forKey:@"pageImage"]; break;
-                            case 9: [page setObject:value forKey:@"status"]; break;
-                            case 10: [page setObject:value forKey:@"clinicIcon"]; break;
-                                
-                        } // end switch
-                    }
-                    [currentClinic addPage:page];
-            } // end if not a comment line
-        }// end if clinicianLine.length > 0
-    }// end for line in lines
-    NSLog(@"Loaded %d clinics", [allClinics count]);
-    if (matchingClinic != NULL) {
-        NSLog(@"WRViewController.getClinic() found clinic!");
-        [matchingClinic writeToLog];
+    int originalPhysicianCount = [allClinicPhysiciansBioPLists count];
+    int index = attendingPhysicianIndex;
+    if (attendingPhysicianIndex >= originalPhysicianCount){
+        index = attendingPhysicianIndex-originalPhysicianCount;
     }
-    else
-        NSLog(@"WRViewController.getClinic() clinic not found!");
-    
-    return matchingClinic;
-    //    [pool release];
-}
-
-
-
-NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
-{   // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
-    char buffer[4096];
-    
-    // tune this capacity to your liking -- larger buffer sizes will be faster, but
-    // use more memory
-    NSMutableString *result = [NSMutableString stringWithCapacity:256];
-    
-    // Read up to 4095 non-newline characters, then read and discard the newline
-    int charsRead;
-    do
-    {
-        if(fscanf(file, "%4095[^\n]%n%*c", buffer, &charsRead) == 1)
-            [result appendFormat:@"%s", buffer];
-        else
-            break;
-    } while(charsRead == 4095);
-    
-    return result;
-}
-
-
-
-- (void) readFileLineByLine:(NSString*) filename { // rjl 8/16/14
-    // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
-    const char *filenameChars = [filename UTF8String];
-    FILE *file = fopen(filenameChars, "r");
-    // check for NULL
-    while(!feof(file))
-    {
-        NSString *line = readLineAsNSString(file);
-        NSLog(line);
-        // do stuff with line; line is autoreleased, so you should NOT release it (unless you also retain it beforehand)
-    }
-    fclose(file);
+    return [DynamicContent getClinician:index];
 }
 
 
@@ -6654,7 +6508,7 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
         //sandy's edits
         
         testMsg.fromEmail = @"psc.waitingroom.app2014@gmail.com";
-//        testMsg.toEmail = @"rich@brainaid.com";
+//        testMsg.toEmail = @"rich@brainaid.com"; //rjl 9/14/15
         testMsg.toEmail = @"spiraljetty@yahoo.com";
         testMsg.relayHost = @"smtp.gmail.com";
         testMsg.requiresAuth = YES;

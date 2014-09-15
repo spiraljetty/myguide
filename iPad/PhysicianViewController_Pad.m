@@ -343,12 +343,11 @@
 
         // Update to new sound
         if (vcIndex == 0) {
-            //            [self.queuePlayer replaceCurrentItemWithPlayerItem:pt_sound_1_item];
-//            self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:pt_sound_1_item,nil]];
             finishingLastItem = YES;
             [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showPreviousButton];
             
-
+//            [self.queuePlayer replaceCurrentItemWithPlayerItem:pt_sound_1_item];
+//            self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:pt_sound_1_item,nil]];
 //            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setEducationModuleInProgress:YES];
 //            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] updateMiniDemoSettings];
             
