@@ -552,11 +552,11 @@ static RootViewController_Pad* mViewController = NULL;
 //	databaseName = @"new_satisfaction_responses_deid.sql";
 //    databaseName = @"testdb.sql";
     
-   databaseName = @"myguide_WR_db_d.sql";
+    databaseName = @"myguide_WR_db_d.sql";
     //sandy updated dbase name but the table is not being written properly
     //databaseName = @"myguide_WR_db_e.sql";
     mainTable = @"sessiondata";
-    csvpath = @"satisfactiondata_7_23_14.csv";
+    csvpath = @"satisfactiondata_9_17_14.csv";
     // sandy 7-21 should append device name and date here
     NSString *thisdeviceName = [[UIDevice currentDevice] name];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

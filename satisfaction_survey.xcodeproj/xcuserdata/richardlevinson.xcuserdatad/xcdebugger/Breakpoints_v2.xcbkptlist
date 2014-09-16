@@ -9,29 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "YLViewController.m"
-            timestampString = "429910381.351662"
+            filePath = "DynamicContent.m"
+            timestampString = "432531478.351577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410"
-            landmarkName = "-uploadDataToCloudButtonPressed:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YLViewController.m"
-            timestampString = "429910421.674477"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
-            landmarkName = "-uploadDataToCloudButtonPressed:"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
+            landmarkName = "+getSurveyForCurrentClinicAndRespondent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "429926892.515366"
+            filePath = "DynamicContent.m"
+            timestampString = "432531582.638874"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6166"
-            endingLineNumber = "6166"
-            landmarkName = "-downloadFile:"
+            startingLineNumber = "612"
+            endingLineNumber = "612"
+            landmarkName = "+getSurveyForRespondentType:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "429926892.515366"
+            filePath = "iPad/RootViewController_Pad.m"
+            timestampString = "432531681.121776"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6164"
-            endingLineNumber = "6164"
-            landmarkName = "-downloadFile:"
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "-updateAllSatisfactionLabelItems"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,29 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "429929055.819174"
+            filePath = "DynamicContent.m"
+            timestampString = "432531859.907312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6238"
-            endingLineNumber = "6238"
-            landmarkName = "-readFileLineByLine:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "429929055.819174"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6231"
-            endingLineNumber = "6231"
-            landmarkName = "-readFileLineByLine:"
+            startingLineNumber = "604"
+            endingLineNumber = "604"
+            landmarkName = "+getSurveyForCurrentClinicAndRespondent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "429929055.819174"
+            filePath = "DynamicContent.m"
+            timestampString = "432531860.964805"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6232"
-            endingLineNumber = "6232"
-            landmarkName = "-readFileLineByLine:"
+            startingLineNumber = "607"
+            endingLineNumber = "607"
+            landmarkName = "+getSurveyForCurrentClinicAndRespondent"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,29 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "429926892.515366"
+            filePath = "iPad/RootViewController_Pad.m"
+            timestampString = "432531879.068513"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6158"
-            endingLineNumber = "6158"
-            landmarkName = "-readFile:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ClinicianInfo.m"
-            timestampString = "429926226.603892"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
-            landmarkName = "-print"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
+            landmarkName = "-updateAllSatisfactionLabelItems"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -451,6 +451,12 @@
 		5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */; };
 		5F64B31F19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */; };
 		5FA5252E1973938000297423 /* survey_module_choice_template_fourchoices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */; };
+		5FA753C119B8565100C930D3 /* ClinicInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA753C019B8565100C930D3 /* ClinicInfo.m */; };
+		5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FA9981E19BE396F000C68E3 /* download_from_cloud.png */; };
+		5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9982119BE655F000C68E3 /* GoalInfo.m */; };
+		5FD2816F19C803F40012E07E /* myguide_WR_v2_db_a.sql in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2816E19C803F40012E07E /* myguide_WR_v2_db_a.sql */; };
+		5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */; };
+		5FDBFA9119C4D4D8002D97C6 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */; };
 		5FFBC95619A024D700260832 /* ClinicianInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBC95519A024D700260832 /* ClinicianInfo.m */; };
 		B5D5188511757B1B00D5CDD0 /* MainView_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D5188211757B1B00D5CDD0 /* MainView_Phone.xib */; };
 		B5D5188611757B1B00D5CDD0 /* RootViewController_Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D5188411757B1B00D5CDD0 /* RootViewController_Phone.m */; };
@@ -993,6 +999,16 @@
 		5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image_pressed.png; sourceTree = "<group>"; };
 		5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_new_painscale_noprompt_template.storyboard; sourceTree = "<group>"; };
 		5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_module_choice_template_fourchoices.storyboard; sourceTree = "<group>"; };
+		5FA753BF19B8565100C930D3 /* ClinicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinicInfo.h; sourceTree = "<group>"; };
+		5FA753C019B8565100C930D3 /* ClinicInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinicInfo.m; sourceTree = "<group>"; };
+		5FA9981E19BE396F000C68E3 /* download_from_cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download_from_cloud.png; sourceTree = "<group>"; };
+		5FA9982019BE655F000C68E3 /* GoalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalInfo.h; sourceTree = "<group>"; };
+		5FA9982119BE655F000C68E3 /* GoalInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalInfo.m; sourceTree = "<group>"; };
+		5FD2816E19C803F40012E07E /* myguide_WR_v2_db_a.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = myguide_WR_v2_db_a.sql; sourceTree = "<group>"; };
+		5FDBFA8C19C2AC6B002D97C6 /* QuestionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionList.h; sourceTree = "<group>"; };
+		5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionList.m; sourceTree = "<group>"; };
+		5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicContent.h; sourceTree = "<group>"; };
+		5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicContent.m; sourceTree = "<group>"; };
 		5FFBC95419A024D700260832 /* ClinicianInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinicianInfo.h; sourceTree = "<group>"; };
 		5FFBC95519A024D700260832 /* ClinicianInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinicianInfo.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -1091,8 +1107,16 @@
 		29B97317FDCFA39411CA2CEA /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */,
+				5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */,
+				5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */,
+				5FDBFA8C19C2AC6B002D97C6 /* QuestionList.h */,
 				5FFBC95419A024D700260832 /* ClinicianInfo.h */,
 				5FFBC95519A024D700260832 /* ClinicianInfo.m */,
+				5FA9982019BE655F000C68E3 /* GoalInfo.h */,
+				5FA9982119BE655F000C68E3 /* GoalInfo.m */,
+				5FA753BF19B8565100C930D3 /* ClinicInfo.h */,
+				5FA753C019B8565100C930D3 /* ClinicInfo.m */,
 				1D3623240D0F684500981E51 /* AppDelegate_Pad.h */,
 				1D3623250D0F684500981E51 /* AppDelegate_Pad.mm */,
 				3D3838401672D8D500182FBF /* MainLoaderViewController.h */,
@@ -1302,6 +1326,7 @@
 			isa = PBXGroup;
 			children = (
 				3DD05BA017138E3000746186 /* myguide_WR_db_d.sql */,
+				5FD2816E19C803F40012E07E /* myguide_WR_v2_db_a.sql */,
 				3DD05B9E1713482300746186 /* myguide_WR_db_c.sql */,
 				3DD05B9C1713479400746186 /* myguide_WR_db_b.sql */,
 				3DD05B9A1713379A00746186 /* myguide_WR_db_a.sql */,
@@ -1901,6 +1926,7 @@
 		3DE8184915D896C8008EAF27 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				5FA9981E19BE396F000C68E3 /* download_from_cloud.png */,
 				5F0A29ED1988A68F0003E8AF /* PNS */,
 				3D13AFCF17388AED0001EA3C /* blue_glow.png */,
 				3D0EAE74171892C200560259 /* upload_to_cloud.png */,
@@ -2197,6 +2223,7 @@
 				3D78673B16967E2D00745E44 /* pmnr_kingery_thumb.png in Resources */,
 				3D78673E16967E2D00745E44 /* pmnr_scott_thumb.png in Resources */,
 				3D78674016967E2D00745E44 /* pmnr_teraoka_thumb.png in Resources */,
+				5FD2816F19C803F40012E07E /* myguide_WR_v2_db_a.sql in Resources */,
 				3DBC16F21698C3F400212339 /* PhysicianDetailViewController.xib in Resources */,
 				3DBC16F51698C76E00212339 /* blue_gradient_bar.png in Resources */,
 				3DBC16F71698C7FA00212339 /* pmnr_placeholder.png in Resources */,
@@ -2265,6 +2292,7 @@
 				3D80245016C2C81700001085 /* pmnr_pain_ed_module_test2.plist in Resources */,
 				3D2BFBBB16C2DBC800653E00 /* pmnr_pns_ed_module_test2.plist in Resources */,
 				3D2BFBBD16C2DBDF00653E00 /* pmnr_emg_ed_module_test2.plist in Resources */,
+				5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */,
 				3D2BFBC916C31CE100653E00 /* acupuncture_meridians.png in Resources */,
 				3D2BFBCA16C31CE100653E00 /* acupuncture_needle.png in Resources */,
 				3D2BFBCB16C31CE100653E00 /* back_pain.jpg in Resources */,
@@ -2431,11 +2459,14 @@
 				3DAF8A7016AE222200703EA3 /* ControlView.m in Sources */,
 				3D07BF9016B0314400EECE5E /* YLBackgroundView.m in Sources */,
 				3D07BF9116B0314400EECE5E /* YLProgressBar.m in Sources */,
+				5FA753C119B8565100C930D3 /* ClinicInfo.m in Sources */,
+				5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */,
 				3D07BF9216B0314400EECE5E /* YLViewController.m in Sources */,
 				3D3EB51616B0D5DE00997C12 /* Constants.m in Sources */,
 				3D3EB51916B0D5F000997C12 /* ArcTabViewController.m in Sources */,
 				3D3EB51E16B0D62A00997C12 /* KYArcTab.m in Sources */,
 				3D3EB51F16B0D62A00997C12 /* KYArcTabViewController.m in Sources */,
+				5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */,
 				3DD40AD916BA56330078B1A2 /* TTSPlayer.m in Sources */,
 				3DD40ADE16BADBBD0078B1A2 /* PronunciationFixer.m in Sources */,
 				3D330EB016C4373900719D3C /* ReturnTabletViewController.m in Sources */,
@@ -2447,6 +2478,7 @@
 				3D95DE9B16F24E08002BD4CC /* ADVViewController.m in Sources */,
 				3D13AFCE173883890001EA3C /* SLViewController.m in Sources */,
 				3DFE57F7174537960061D5AC /* DSFingerTipWindow.m in Sources */,
+				5FDBFA9119C4D4D8002D97C6 /* DynamicContent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
