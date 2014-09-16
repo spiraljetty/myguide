@@ -44,11 +44,16 @@
 @synthesize patientPromptLabelItems, familyPromptLabelItems, caregiverPromptLabelItems, masterTTSPlayer, numSurveyItems, newChildControllers;
 
 
+static RootViewController_Pad* mViewController = NULL;
+
++ (RootViewController_Pad*) getViewController {
+    return mViewController;
+}
 
 // Establish core interface
 - (void)viewDidLoad {
     NSLog(@"RootViewController.viewDidLoad()");
-    
+    mViewController = self;
     currentDeviceName = @"iPad";
     
     speakItemsAloud = YES;
@@ -447,7 +452,7 @@
     NSArray *satisfactionPromptLabelItemArrayToUse;
     
     
-    QuestionList* matchingSurvey = [DynamicContent getSurveyForRespondentType:respondentType];
+    QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     
     if (matchingSurvey != NULL){
         NSString* prompt = [matchingSurvey getHeader2];
@@ -642,6 +647,7 @@
     {
         sqlite3_bind_text(statement1, 1, [field1Vaue UTF8String], -1, nil);
         sqlite3_bind_text(statement1, 2, [field2Value UTF8String], -1, nil);
+        NSLog(@"insertrecordIntoTable()====== Field Updated! ======");
     }
     if(sqlite3_step(statement1) !=SQLITE_DONE)
         NSAssert(0, @"Error upadating table");
@@ -660,7 +666,7 @@
     {
         sqlite3_bind_text(statement1, 1, [newFieldValue UTF8String], -1, nil);
         sqlite3_bind_text(statement1, 2, [IDField1Vaue UTF8String], -1, nil);
-        NSLog(@"====== Field Updated! ======");
+        NSLog(@"updaterecordInTable()====== Field Updated! ======");
     }
     if(sqlite3_step(statement1) !=SQLITE_DONE)
         NSAssert(0, @"Error upadating table");
@@ -698,7 +704,7 @@
     if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
         // Loop through the results and add them to the feeds array
         if(sqlite3_step(compiledStatement) == SQLITE_DONE) {
-            NSLog(@"======== Updated row for respondent %d (%@ = '%@') ! =========", currentUniqueID, satisfactionItem, thisText);
+            NSLog(@"updateSatisfactionTextForField()======== Updated row for respondent %d (%@ = '%@') ! =========", currentUniqueID, satisfactionItem, thisText);
         } else {
             NSLog(@"======== Insert failed! =========");
         }
@@ -726,7 +732,7 @@
     if(result == SQLITE_OK) {
         // Loop through the results and add them to the feeds array
         if(sqlite3_step(compiledStatement) == SQLITE_DONE) {
-            NSLog(@"======== Updated row for respondent %d (%@ = %d) ! =========", currentUniqueID, satisfactionItem, currentIndex);
+            NSLog(@"updateSatisfactionRatingForField======== Updated row for respondent %d (%@ = %d) ! =========", currentUniqueID, satisfactionItem, currentIndex);
         } else {
             NSLog(@"======== Insert failed! =========");
         }
@@ -2884,11 +2890,11 @@
     
     [self putNewRespondentInDB];
     
-    [self updateAllSatisfactionLabelItems];
-    
-    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicContent setCurrentRespondent:[respondentType copy]];
+    QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    [self updateAllSatisfactionLabelItems];
 
     // sandy thiese will have to be a variable value for new clinics -> currentclinic.totalSurveyItems
     //sandy 7-14 updated totals 7-16 undo
@@ -2915,11 +2921,11 @@
     
     [self putNewRespondentInDB];
     
-    [self updateAllSatisfactionLabelItems];
-    
-    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicContent setCurrentRespondent:[respondentType copy]];
+    QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    [self updateAllSatisfactionLabelItems];
 
     totalSurveyItems = 18;
     surveyItemsRemaining = 18;
@@ -2942,10 +2948,12 @@
     
     [self putNewRespondentInDB];
     
-    [self updateAllSatisfactionLabelItems];
-    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicContent setCurrentRespondent:[respondentType copy]];
+    QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    [self updateAllSatisfactionLabelItems];
+
     totalSurveyItems = 22;
     surveyItemsRemaining = 22;
 }
@@ -2962,10 +2970,11 @@
     //    item.title = @"Patient Satisfaction Survey";
     item.title = @"Patient Satisfaction Survey";
     
-    [self updateAllSatisfactionLabelItems];
-    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicContent setCurrentRespondent:[respondentType copy]];
+    QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    [self updateAllSatisfactionLabelItems];
 
     //sandy 7-14 updated undid 7-16
     totalSurveyItems = 14;
@@ -2987,10 +2996,11 @@
     //    item.title = @"Family Satisfaction Survey";
     item.title = @"Family Satisfaction Survey";
     
-    [self updateAllSatisfactionLabelItems];
-    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicContent setCurrentRespondent:[respondentType copy]];
+    QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    [self updateAllSatisfactionLabelItems];
 
     totalSurveyItems = 18;
     surveyItemsRemaining = 18;
@@ -3009,10 +3019,11 @@
     
     item.title = @"Caregiver Satisfaction Survey";
     
-    [self updateAllSatisfactionLabelItems];
-    QuestionList* questionInfo = [DynamicContent getSurveyForRespondentType:respondentType];
+    [DynamicContent setCurrentRespondent:[respondentType copy]];
+    QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    [self updateAllSatisfactionLabelItems];
 
     totalSurveyItems = 22;
     surveyItemsRemaining = 22;
@@ -3113,7 +3124,7 @@
 
 - (void)overlayNextPressed {
     NSLog(@"overlayNextPressed...");
-    QuestionList* matchingSurvey = [DynamicContent getSurveyForRespondentType:respondentType];
+    QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     if (matchingSurvey !=  NULL){
         [self showNextSurveyPage];
     }

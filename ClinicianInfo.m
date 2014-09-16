@@ -24,6 +24,8 @@
         [self setBackground:@""];
         [self setPhilosophy:@""];
         [self setPersonalInterests:@""];
+        [self setImageFilename:@""];
+        [self setImageThumbFilename:@""];
     }
     return self;
 }
@@ -78,12 +80,12 @@
 }
 
 
--(void) setImage:(UIImage *)image {
-    mImage = image;
+-(void) setImageFilename:(NSString *)imageFilename {
+    mImageFilename = imageFilename;
 }
 
--(void) setImageThumb:(UIImage *)image {
-    mImageThumb = image;
+-(void) setImageThumbFilename:(NSString *)imageFilename {
+    mImageThumbFilename = imageFilename;
 }
 
 
@@ -137,16 +139,26 @@
 
 
 -(NSString*) getImageFilename {
-    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@.png",
-                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
-    return imageFilename;
+    return mImageFilename;
+//    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@.png",
+//                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
+//    return imageFilename;
 }
 
-//-(NSString*) getImageThumbFilename {
+-(NSString*) getImageThumbFilename {
+    return mImageThumbFilename;
 //    NSString* imageFilename = [NSString stringWithFormat:@"%@_%@_thumb.png",
 //                               [[self getFirstName] lowercaseString], [[self getLastName] lowercaseString]];
 //    return imageFilename;
-//}
+}
+
+-(NSString*) getDisplayName {
+    return [NSString stringWithFormat:@"%@ %@ %@ %@", [self getSalutation], [self getFirstName], [self getLastName], [self getDegrees]];
+}
+
+-(NSString*) getDbName {
+    return [NSString stringWithFormat:@"%@ %@",[self getFirstName], [self getLastName]];
+}
 
 
 - (void) writeToLog {
@@ -160,7 +172,9 @@
     NSLog(@"   Ed and Affil: %@", mEdAndAffil);
     NSLog(@"   Background: %@", mBackground);
     NSLog(@"   Philosophy: %@", mPhilosophy);
-    NSLog(@"   Personal  : %@]", mPersonalInterests);
+    NSLog(@"   Personal  : %@", mPersonalInterests);
+    NSLog(@"   Image     : %@", mImageFilename);
+    NSLog(@"   Image Thumb: %@]", mImageThumbFilename);
 }
 
 - (NSMutableDictionary*) writeToDictionary {
@@ -171,19 +185,24 @@
     NSString *background = [self getBackground];
     NSString *philosophy = [self getPhilosophy];
     NSString *personalInterests = [self getPersonalInterests];
-        
-    if (credentials)
+    NSString *imageFilename = [self getImageFilename];
+    NSString *imageThumbFilename = [self getImageThumbFilename];
+    
+    if (credentials && [credentials length] > 0)
         [rootObj setObject:credentials forKey:@"Credentials"];
-    if (edAndAffil)
+    if (edAndAffil  && [edAndAffil length] > 0)
         [rootObj setObject:edAndAffil forKey:@"Education and Afilliations"];
-    if (background)
+    if (background  && [background length] > 0)
         [rootObj setObject:background forKey:@"Background"];
-    if (philosophy)
+    if (philosophy  && [philosophy length] > 0)
         [rootObj setObject:philosophy forKey:@"Philosophy"];
-    if (personalInterests)
+    if (personalInterests  && [personalInterests length] > 0)
         [rootObj setObject:personalInterests forKey:@"Personal Interests"];
-
-        return rootObj;
+//    if (imageFilename  && [credentials length] > 0)
+//        [rootObj setObject:imageFilename forKey:@"image"];
+//    if (imageThumbFilename)
+//        [rootObj setObject:imageThumbFilename forKey:@"imageThumb"];
+    return rootObj;
 }
 
 -(Boolean) writeToDB {

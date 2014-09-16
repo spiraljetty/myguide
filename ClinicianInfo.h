@@ -21,8 +21,8 @@
     NSString* mBackground;
     NSString* mPhilosophy;
     NSString* mPersonalInterests;
-    UIImage * mImage;
-    UIImage * mImageThumb;
+    NSString* mImageFilename;
+    NSString* mImageThumbFilename;
 }
 
 // setters
@@ -38,8 +38,8 @@
 - (void) setBackground: (NSString*) text;
 - (void) setPhilosophy: (NSString*) text;
 - (void) setPersonalInterests: (NSString*) text;
-- (void) setImage: (UIImage*) image;
-- (void) setImageThumb: (UIImage*) image;
+- (void) setImageFilename: (NSString*) imageFilename;
+- (void) setImageThumbFilename: (NSString*) imageFilename;
 
 
 // getters
@@ -57,7 +57,8 @@
 - (NSString*) getPersonalInterests;
 - (NSString*) getImageFilename;
 - (NSString*) getImageThumbFilename;
-
+- (NSString*) getDisplayName;
+- (NSString*) getDbName;
 
 // writers
 

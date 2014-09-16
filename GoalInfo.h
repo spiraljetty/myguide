@@ -9,16 +9,18 @@
 #import <Foundation/Foundation.h>
 
 @interface GoalInfo : NSObject {
-
+    NSString* mClinic;
     NSArray* mSelfGoals;
     NSArray* mFamilyGoals;
     NSArray* mCaregiverGoals;
 }
 
+- (void) setClinic:(NSString*) clinic;
 - (void) setSelfGoals:(NSArray*) goals;
 - (void) setFamilyGoals:(NSArray*) goals;
 - (void) setCaregiverGoals:(NSArray*) goals;
 
+- (NSString*) getClinic;
 - (NSArray*) getSelfGoals;
 - (NSArray*) getFamilyGoals;
 - (NSArray*) getCaregiverGoals;

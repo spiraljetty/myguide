@@ -168,7 +168,7 @@
 - (void)sayEdModuleIntro;
 - (void)sayEducationModuleCompletion;
 
-
++ (RootViewController_Pad*) getViewController;
 
 -(void)sayFirstItem;
 
@@ -226,5 +226,6 @@
 - (void)updateRespondentToFamily;
 - (void)updateRespondentToCaregiver;
 - (NSString *)getRespondentTypeForUniqueId:(int)thisUniqueId;
+- (void) showNextSurveyPage;
 
 @end

@@ -13,11 +13,16 @@
 -(id)init {
     self = [super init];
     if (self) {
+        [self setClinic:@""];
         [self setSelfGoals:NULL];
         [self setFamilyGoals:NULL];
         [self setCaregiverGoals:NULL];
     }
     return self;
+}
+
+- (void) setClinic:(NSString*) clinic {
+    mClinic = [clinic copy];
 }
 
 - (void) setSelfGoals:(NSArray*) goals {
@@ -30,6 +35,10 @@
 
 - (void) setCaregiverGoals:(NSArray*) goals {
     mCaregiverGoals = goals;
+}
+
+- (NSString*) getClinic {
+    return mClinic;
 }
 
 - (NSArray*) getSelfGoals {
@@ -45,9 +54,10 @@
 }
 
 - (void) writeToLog {
-    NSLog(@"[Self Goals (%d): %@", [mSelfGoals count],  mSelfGoals);
-    NSLog(@"[Family Goals (%d): %@", [mFamilyGoals count], mFamilyGoals);
-    NSLog(@"[Caregiver Goals (%d): %@", [mCaregiverGoals count], mCaregiverGoals);
+    NSLog(@"[Goals for %@:", mClinic);
+    NSLog(@"  Self Goals (%d): %@", [mSelfGoals count],  mSelfGoals);
+    NSLog(@"  Family Goals (%d): %@", [mFamilyGoals count], mFamilyGoals);
+    NSLog(@"  Caregiver Goals (%d): %@", [mCaregiverGoals count], mCaregiverGoals);
 }
 
 

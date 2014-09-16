@@ -261,7 +261,7 @@
 }
 
 -(void)stronglyDisagreeFaceButtonPressed:(id)sender {
-    NSLog(@"Strongly disagree pressed...");
+    NSLog(@"SwitchedImageViewController.stronglyDisagreeFaceButtonPressed() Strongly disagree pressed...");
     
     int segmentedControlEquivalentIndexSelected;
     stronglyDisagreeButton.alpha = 1.0;
@@ -286,7 +286,7 @@
 }
 
 -(void)disagreeFaceButtonPressed:(id)sender {
-    NSLog(@"Disagree pressed...");
+    NSLog(@"SwitchedImageViewController.disagreeFaceButtonPressed() Disagree pressed...");
     
     int segmentedControlEquivalentIndexSelected;
     stronglyDisagreeButton.alpha = 1.0;
@@ -311,7 +311,7 @@
 }
 
 -(void)agreeFaceButtonPressed:(id)sender {
-    NSLog(@"Agree pressed...");
+    NSLog(@"SwitchedImageViewController.agreeFaceButtonPressed() Agree pressed...");
     
     int segmentedControlEquivalentIndexSelected;
     stronglyDisagreeButton.alpha = 1.0;
@@ -335,7 +335,7 @@
 }
 
 -(void)stronglyAgreeFaceButtonPressed:(id)sender {
-    NSLog(@"Strongly agree pressed...");
+    NSLog(@"SwitchedImageViewController.stronglyAgreeFaceButtonPressed() Strongly agree pressed...");
     
     int segmentedControlEquivalentIndexSelected;
     stronglyDisagreeButton.alpha = 1.0;
@@ -359,7 +359,7 @@
 }
 
 -(void)neutralFaceButtonPressed:(id)sender {
-    NSLog(@"Neutral pressed...");
+    NSLog(@"SwitchedImageViewController.neutralFaceButtonPressed() Neutral pressed...");
     
     int segmentedControlEquivalentIndexSelected;
     stronglyDisagreeButton.alpha = 1.0;
@@ -383,7 +383,7 @@
 }
 //removed from surveys in build 2.0.0
 -(void)doesNotApplyFaceButtonPressed:(id)sender {
-    NSLog(@"Does not apply pressed...");
+    NSLog(@"SwitchedImageViewController.doesNotApplyFaceButtonPressed() Does not apply pressed...");
     
     int segmentedControlEquivalentIndexSelected;
     stronglyDisagreeButton.alpha = 1.0;
@@ -409,7 +409,7 @@
 
 - (void)faceButtonPressed:(id)sender {
     
-    NSLog(@"Face button pressed...");
+    NSLog(@"SwitchedImageViewController.faceButtonPressed() Face button pressed...");
     
     UIButton *resultButton = (UIButton *)sender;
     //    NSLog(@" The button's title is %@." resultButton.currentTitle);
@@ -495,7 +495,8 @@
 }
 
 - (void)segmentedControlPressedWithIndex:(int)segmentedControlIndex {
-    
+    //This is called for the post-treatment satisfaction survey
+    NSLog(@"SwitchedImageViewController.segmentedControlPressedWithIndex() index: %d", segmentedControlIndex);
     if (segmentedControlIndex == 0) {
         stronglyDisagreeButton.alpha = 1.0;
         disagreeButton.alpha = 0.7;
@@ -545,10 +546,14 @@
     UISegmentedControl *currentlyActiveSegmentedControl = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] currentActiveSegmentedControlForIndex:currentVCIndex];
     
     currentlyActiveSegmentedControl.selectedSegmentIndex = segmentedControlIndex;
-    
-    [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] regress:self];
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    if (rootViewController != NULL)
+        [rootViewController showNextSurveyPage];
+   // [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] regress:self];
     
 }
+
+
 
 -(void)pressedSatisfactionReplayButton:(id)sender {
     NSLog(@"Pressed replay button");
@@ -896,7 +901,8 @@
                 NSString *currentRespondent = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType];
                 // sandy 7-20 removed the word doctor and replaced it with provider
 //                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
-                GoalInfo* goalInfo = [DynamicContent getAllGoals];
+                    NSString* selectedClinic = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
+                GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:selectedClinic];
                 if (goalInfo != NULL){
                     goal1Text = @"";
                     goal2Text = @"";

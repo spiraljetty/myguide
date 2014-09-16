@@ -726,17 +726,19 @@ int indexCount;
 }
 
 - (NSMutableArray*) getAllClinicPhysicians { //rjl 8/16/14
-//    NSLog(@"WRViewController.getAllClinicPhysicians()");
-    NSMutableArray *mutableAllClinicPhysicians = [allClinicPhysicians mutableCopy];
-    NSArray * newClinicians = [DynamicContent getNewClinicianNames];
-    for (NSString *name in newClinicians){
-
-//        NSString* newClinicianName = @"Eleanor Roosevelt";
-        [mutableAllClinicPhysicians addObject:name];
-    }
-//    NSLog(@"WRViewController.getAllClinicPhysicians() exit");
-    return mutableAllClinicPhysicians;
+    return [DynamicContent getNewClinicianNames];
 }
+//    NSLog(@"WRViewController.getAllClinicPhysicians()");
+//    NSMutableArray *mutableAllClinicPhysicians = [[NSMutableArray alloc] init];//[allClinicPhysicians mutableCopy];
+//    NSArray * newClinicians = [DynamicContent getNewClinicianNames];
+//    for (NSString *name in newClinicians){
+//
+////        NSString* newClinicianName = @"Eleanor Roosevelt";
+//        [mutableAllClinicPhysicians addObject:name];
+//    }
+//    NSLog(@"WRViewController.getAllClinicPhysicians() exit");
+//    return newClinicians; //mutableAllClinicPhysicians;
+//}
 
 //- (NSMutableArray*) getAllClinicPhysiciansThumbs { //rjl 8/16/14
 ////    NSLog(@"WRViewController.getAllClinicPhysiciansThumbs()");
@@ -754,17 +756,18 @@ int indexCount;
 
 - (NSMutableArray*) getAllClinicPhysiciansImages { //rjl 8/16/14
     //    NSLog(@"WRViewController.getAllClinicPhysiciansImages()");
-    
-    NSMutableArray *mutableAllClinicPhysiciansImages = [allClinicPhysiciansImages mutableCopy];
-    NSMutableArray * newClinicianImages = [DynamicContent getNewClinicianImages];
-    for (NSString *imageFilename in newClinicianImages){
-//        NSString* newClinicianImage = @"pmnr_teraoka.png";
-        [mutableAllClinicPhysiciansImages addObject:imageFilename];
-    }
-    //    NSLog(@"WRViewController.getAllClinicPhysiciansImages() exit()");
-    
-    return mutableAllClinicPhysiciansImages;
+    return  [DynamicContent getNewClinicianImages];
 }
+//    NSMutableArray *mutableAllClinicPhysiciansImages = [allClinicPhysiciansImages mutableCopy];
+//    NSMutableArray * newClinicianImages = [DynamicContent getNewClinicianImages];
+//    for (NSString *imageFilename in newClinicianImages){
+////        NSString* newClinicianImage = @"pmnr_teraoka.png";
+//        [mutableAllClinicPhysiciansImages addObject:imageFilename];
+//    }
+//    //    NSLog(@"WRViewController.getAllClinicPhysiciansImages() exit()");
+//    
+//    return mutableAllClinicPhysiciansImages;
+//}
 
 
 - (NSMutableArray*) getAllClinicPhysiciansBioPlists { //rjl 8/16/14
@@ -927,6 +930,7 @@ int indexCount;
         currentMainClinic = kATLab;
         
         [self fadeOutSpecialtyClinicSegmentedControl];
+        [DynamicContent setCurrentClinic:@"at"];
         currentSpecialtyClinicName = @"AT";
         selectedSubclinic = YES;
         NSLog(@"WRViewController.clinicSegmentChanged() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
@@ -935,6 +939,7 @@ int indexCount;
         
         [self setDynamicEdClinicSpecFileForSpecialtyClinicName:currentSpecialtyClinicName];
     } else if (clinicSegmentedControl.selectedSegmentIndex == 1) {
+        [DynamicContent setCurrentClinic:@"pmnr"];
         currentClinicName = @"PM&R Clinic";
         currentMainClinic = kPMNRClinic;
         
@@ -942,6 +947,7 @@ int indexCount;
         
         [self fadeInSpecialtyClinicSegmentedControl];
     } else {
+        [DynamicContent setCurrentClinic:@"pns"];
         currentClinicName = @"PNS Clinic";
         currentMainClinic = kPNSClinic;
         
@@ -1008,14 +1014,19 @@ int indexCount;
 - (void)specialtyClinicSegmentChanged:(id)sender {
     if (specialtyClinicSegmentedControl.selectedSegmentIndex == 0) {
         currentSpecialtyClinicName = @"General PM&R";
+        [DynamicContent setCurrentClinic:@"pmnr"];
     } else if (specialtyClinicSegmentedControl.selectedSegmentIndex == 1) {
         currentSpecialtyClinicName = @"Acupuncture";
+        [DynamicContent setCurrentClinic:@"acupuncture"];
     } else if (specialtyClinicSegmentedControl.selectedSegmentIndex == 2) {
         currentSpecialtyClinicName = @"Pain";
+        [DynamicContent setCurrentClinic:@"pain"];
    } else if (specialtyClinicSegmentedControl.selectedSegmentIndex == 3) {
-           currentSpecialtyClinicName = @"EMG";
+        currentSpecialtyClinicName = @"EMG";
+       [DynamicContent setCurrentClinic:@"emg"];
    } else {
        currentSpecialtyClinicName = @"Pain";
+       [DynamicContent setCurrentClinic:@"pain"];
    }
     
     NSLog(@"WRViewController.specialtyClinicSegmentChanged() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
@@ -1391,43 +1402,60 @@ int indexCount;
     [self.view addSubview:physicianDetailVC.view];
     [self.view sendSubviewToBack:physicianDetailVC.view];
     
-    [self setUpPhysicianViewContentsFromPropertyList];
-    
-    
+    [self setUpPhysicianViewContents];
+    //[self setUpPhysicianViewContentsFromPropertyList];
     
     NSLog(@"WRViewController.initializePhysicianDetailView() exit");
 }
 
-- (void)setUpPhysicianViewContentsFromPropertyList {
-    NSLog(@"WRViewController.setUpPhysicianViewContentsFromPropertyList()");
-
+- (void)setUpPhysicianViewContents {
+    NSLog(@"WRViewController.setUpPhysicianViewContents()");
+    
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    int index = attendingPhysicianIndex;
+    ClinicianInfo *clinician = [DynamicContent getClinician:index];//[self getCurrentClinician];
+    if (clinician)
+        physicianModule.currentPhysicianDetails = [clinician writeToDictionary];
     
-    NSMutableArray* allPhysicianBioPlists = [self getAllClinicPhysiciansBioPlists];
-    
-//    if (attendingPhysicianIndex < [allClinicPhysiciansBioPLists count]){ // rjl 8/16/14
-//    NSString *currentPhysicianPListName = [allClinicPhysiciansBioPLists objectAtIndex:attendingPhysicianIndex];
-    NSString *currentPhysicianPListName = [allPhysicianBioPlists objectAtIndex:attendingPhysicianIndex];
- 
-    NSData *tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:currentPhysicianPListName withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
-    int originalPhysicianCount = [allClinicPhysiciansBioPLists count];
-    if (attendingPhysicianIndex < originalPhysicianCount){ // rjl 8/16/14
-        physicianModule.currentPhysicianDetails = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
-    } else {
-        int index = attendingPhysicianIndex-originalPhysicianCount;
-        ClinicianInfo *clinician = [DynamicContent getClinician:index];//[self getCurrentClinician];
-        if (clinician)
-            physicianModule.currentPhysicianDetails = [clinician writeToDictionary];
-    }
     physicianModule.currentPhysicianDetailSectionNames = [[physicianModule.currentPhysicianDetails allKeys] sortedArrayUsingSelector:@selector(compare:)];
-//    }
     physicianModule.view.alpha = 0.0;
     physicianModule.view.transform = rotateRight;
     [self.view addSubview:physicianModule.view];
     [self.view sendSubviewToBack:physicianModule.view];
-
+    
 }
+
+//- (void)setUpPhysicianViewContentsFromPropertyList {
+//    NSLog(@"WRViewController.setUpPhysicianViewContentsFromPropertyList()");
+//    
+//    float angle =  270 * M_PI  / 180;
+//    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+//    
+//    NSMutableArray* allPhysicianBioPlists = [self getAllClinicPhysiciansBioPlists];
+//    
+//    //    if (attendingPhysicianIndex < [allClinicPhysiciansBioPLists count]){ // rjl 8/16/14
+//    //    NSString *currentPhysicianPListName = [allClinicPhysiciansBioPLists objectAtIndex:attendingPhysicianIndex];
+//    NSString *currentPhysicianPListName = [allPhysicianBioPlists objectAtIndex:attendingPhysicianIndex];
+//    
+//    NSData *tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:currentPhysicianPListName withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
+//    int originalPhysicianCount = [allClinicPhysiciansBioPLists count];
+//    if (attendingPhysicianIndex < originalPhysicianCount){ // rjl 8/16/14
+//        physicianModule.currentPhysicianDetails = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
+//    } else {
+//        int index = attendingPhysicianIndex-originalPhysicianCount;
+//        ClinicianInfo *clinician = [DynamicContent getClinician:index];//[self getCurrentClinician];
+//        if (clinician)
+//            physicianModule.currentPhysicianDetails = [clinician writeToDictionary];
+//    }
+//    physicianModule.currentPhysicianDetailSectionNames = [[physicianModule.currentPhysicianDetails allKeys] sortedArrayUsingSelector:@selector(compare:)];
+//    //    }
+//    physicianModule.view.alpha = 0.0;
+//    physicianModule.view.transform = rotateRight;
+//    [self.view addSubview:physicianModule.view];
+//    [self.view sendSubviewToBack:physicianModule.view];
+//    
+//}
 
 
 - (void)combineAllSoundfileDicts {
@@ -2052,8 +2080,8 @@ int indexCount;
     NSLog(@"WRViewController.addPhysicianNamesAndIntro()");
 
     int physicianIndexNum = 0;
-    
-    for (NSString *thisFullPhysicianName in allClinicPhysicians) {
+    NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
+    for (NSString *thisFullPhysicianName in allPhysicians) {
         NSMutableArray *physicianNameTokens = [[NSMutableArray alloc] initWithArray:[thisFullPhysicianName componentsSeparatedByString:@","] copyItems:YES];
         NSString *thisPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
         NSString *textForPhysicianName = [NSString stringWithFormat:@"Doctor %@",thisPhysicianNameAlone];
@@ -3786,7 +3814,7 @@ int indexCount;
 }
 
 - (void)setDefaultPhysician {
-    [self storeAttendingPhysicianSettingsForPhysicianName:[allClinicPhysicians objectAtIndex:0]];
+    [self storeAttendingPhysicianSettingsForPhysicianName:[[DynamicContent getNewClinicianNames] objectAtIndex:0]];
 }
 
 - (void)setDefaultSubClinic {
@@ -6452,12 +6480,15 @@ int indexCount;
 
 
 - (ClinicianInfo*) getCurrentClinician{
-    int originalPhysicianCount = [allClinicPhysiciansBioPLists count];
-    int index = attendingPhysicianIndex;
-    if (attendingPhysicianIndex >= originalPhysicianCount){
-        index = attendingPhysicianIndex-originalPhysicianCount;
-    }
-    return [DynamicContent getClinician:index];
+    return [DynamicContent getClinician:attendingPhysicianIndex];
+//    int originalPhysicianCount = [allClinicPhysiciansBioPLists count];
+//    int index = attendingPhysicianIndex;
+//    if (attendingPhysicianIndex >= originalPhysicianCount){
+//        index = attendingPhysicianIndex-originalPhysicianCount;
+//        return [DynamicContent getClinician:index];
+//    }
+//    else
+//        return NULL;
 }
 
 

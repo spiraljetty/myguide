@@ -407,7 +407,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 
 - (NSMutableArray *)createArrayOfAllSurveyPages {
     NSLog(@"DynamicSurveyViewController.createArrayOfAllSurveyPages()");
-    
+    NSString* selectedClinic = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
     NSMutableArray *surveyPageArray = [[NSMutableArray alloc] initWithObjects: nil];
     
     int pageIndex = 0;
@@ -507,32 +507,32 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         subclinicTest.subclinicTestText = @"Please tap the clinic you will be seen in today.";
         subclinicTest.subclinicTestLabel.text = subclinicTest.subclinicTestText;
         
-        if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"General PM&R"]) {
+        if ([selectedClinic isEqualToString:@"General PM&R"]) {
             subclinicTest.subclinic1Text = @"Chronic Pain Clinic";
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"EMG Clinic";
             subclinicTest.subclinic4Text = @"PM&R Clinic";
-        } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"Acupuncture"]) {
+        } else if ([selectedClinic isEqualToString:@"Acupuncture"]) {
             subclinicTest.subclinic1Text = @"Chronic Pain Clinic";
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"EMG Clinic";
             subclinicTest.subclinic4Text = @"Acupuncture Clinic";
-        } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"Pain"]) {
+        } else if ([selectedClinic isEqualToString:@"Pain"]) {
             subclinicTest.subclinic1Text = @"Acupuncture Clinic";
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"EMG Clinic";
             subclinicTest.subclinic4Text = @"Chronic Pain Clinic";
-        } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"PNS"]) {
+        } else if ([selectedClinic isEqualToString:@"PNS"]) {
             subclinicTest.subclinic1Text = @"Chronic Pain Clinic";
             subclinicTest.subclinic2Text = @"Acupuncture Clinic";
             subclinicTest.subclinic3Text = @"EMG Clinic";
             subclinicTest.subclinic4Text = @"PNS Clinic";
-        } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"EMG"]) {
+        } else if ([selectedClinic isEqualToString:@"EMG"]) {
             subclinicTest.subclinic1Text = @"Chronic Pain Clinic";
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"Acupuncture Clinic";
             subclinicTest.subclinic4Text = @"EMG Clinic";
-        } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"AT"]) {
+        } else if ([selectedClinic isEqualToString:@"AT"]) {
             subclinicTest.subclinic1Text = @"Chronic Pain Clinic";
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"Acupuncture Clinic";
@@ -571,7 +571,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
 //        DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
 //        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
-        GoalInfo* goalInfo = [DynamicContent getAllGoals];
+        GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:selectedClinic];
         if (goalInfo != NULL){
             chooseGoalPatient.goal1Text = @"";
             chooseGoalPatient.goal2Text = @"";
@@ -1416,7 +1416,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     if (speakItemsAloud) {
         
         int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
-        int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] count];
+        int numAttendingPhysicians = [[DynamicContent getNewClinicianNames] count]; //[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] count];
 //        NSMutableArray *physicianSoundfiles = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansSoundFiles];
         
         NSMutableArray *allPhysicianSoundfiles = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysiciansSoundFiles];

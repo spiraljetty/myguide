@@ -39,9 +39,26 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 
 - (void)initNumberOfCellsForCurrentlySelectedRowWithIndex:(int)currentRowIndex {
     NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() currentRowIndex: %d", currentRowIndex);
-
-    currentlySelectedClinicPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] pmnrSubClinicPhysicians] objectAtIndex:currentRowIndex];
+    if (currentRowIndex == 0)
+        currentlySelectedClinicPhysicians = [DynamicContent getNewClinicianNames];
+    else
+    if (currentRowIndex == 1)
+        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pmnr"];
+    else
+    if (currentRowIndex == 2)
+        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"emg"];
+    else
+    if (currentRowIndex == 3)
+        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pns"];
+    else
+    if (currentRowIndex == 4)
+        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"acupuncture"];
+    else
+    if (currentRowIndex == 5)
+        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"at"];
     
+//    currentlySelectedClinicPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] pmnrSubClinicPhysicians] objectAtIndex:currentRowIndex];
+
     currentNumberOfCells = [currentlySelectedClinicPhysicians count];
     NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() Number of cells initialized to: %d",currentNumberOfCells);
 }
@@ -102,24 +119,30 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     
     // load the image for this cell
     //rjl 8/16/14
-    NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
-    NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
-    int originalPhysicianCount = [allClinicPhysicians count];
-    int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
-    if (currentPhysicianIndex < originalPhysicianCount){
-        // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
-        NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
-        NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
-        NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
-        cell.image.image = [UIImage imageNamed:imageToLoad];
+//    NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
+    NSMutableArray *allPhysicianNames = [DynamicContent getNewClinicianNames];
+//    int originalPhysicianCount = [allClinicPhysicians count];
+    NSString* matchingDoc = NULL;
+    for (NSString* name in allPhysicianNames){
+        if ([name isEqualToString:thisCellText]){
+            matchingDoc = name;
+            break;
+        }
     }
-    else {
+    int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
+//    if (currentPhysicianIndex < originalPhysicianCount){
+//        // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
+//        NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
+//        NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
+//        NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
+//        cell.image.image = [UIImage imageNamed:imageToLoad];
+//    }
+//    else {
         // if index is for new (not hardcoded) clinician then get thumb image from documents directory
 //        NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 //        NSString  *documentsDirectory = [paths objectAtIndex:0];
 //            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
 //                    getClinician:currentPhysicianIndex];
-        currentPhysicianIndex = currentPhysicianIndex - originalPhysicianCount;
         ClinicianInfo *currentClinician = [DynamicContent getClinician:currentPhysicianIndex];
         if (currentClinician){
             NSString *filename = [currentClinician getImageFilename];
@@ -127,7 +150,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
             //if (!cell.image.image)
                 cell.image.image = [DynamicContent loadImage:filename];
         }
-    }
+//    }
     return cell;
 }
 

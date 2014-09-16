@@ -531,7 +531,7 @@
     
     if (speakItemsAloud) {
         
-//        NSString *thisPhysicianTextFilename = [NSString stringWithFormat:@"%@_name",[allClinicPhysiciansSoundFiles objectAtIndex:physicianIndexNum]];
+//        NSString *thisPhysicianTextFiflename = [NSString stringWithFormat:@"%@_name",[allClinicPhysiciansSoundFiles objectAtIndex:physicianIndexNum]];
         
         NSLog(@"Today your care is being handled by...");
  
