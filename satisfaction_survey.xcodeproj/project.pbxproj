@@ -455,6 +455,7 @@
 		5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FA9981E19BE396F000C68E3 /* download_from_cloud.png */; };
 		5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9982119BE655F000C68E3 /* GoalInfo.m */; };
 		5FD2816F19C803F40012E07E /* myguide_WR_v2_db_a.sql in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2816E19C803F40012E07E /* myguide_WR_v2_db_a.sql */; };
+		5FD2817119C91EE20012E07E /* at_ed_module_test1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */; };
 		5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */; };
 		5FDBFA9119C4D4D8002D97C6 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */; };
 		5FFBC95619A024D700260832 /* ClinicianInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBC95519A024D700260832 /* ClinicianInfo.m */; };
@@ -1005,6 +1006,7 @@
 		5FA9982019BE655F000C68E3 /* GoalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalInfo.h; sourceTree = "<group>"; };
 		5FA9982119BE655F000C68E3 /* GoalInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalInfo.m; sourceTree = "<group>"; };
 		5FD2816E19C803F40012E07E /* myguide_WR_v2_db_a.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = myguide_WR_v2_db_a.sql; sourceTree = "<group>"; };
+		5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = at_ed_module_test1.plist; sourceTree = "<group>"; };
 		5FDBFA8C19C2AC6B002D97C6 /* QuestionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionList.h; sourceTree = "<group>"; };
 		5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionList.m; sourceTree = "<group>"; };
 		5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicContent.h; sourceTree = "<group>"; };
@@ -1794,6 +1796,7 @@
 			children = (
 				3DAE2D8A16A75C9800767134 /* pmnr_education_module_test1.plist */,
 				3D2BFBBA16C2DBC800653E00 /* pmnr_pns_ed_module_test2.plist */,
+				5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */,
 				3D2BFBBC16C2DBDF00653E00 /* pmnr_emg_ed_module_test2.plist */,
 				3D80244F16C2C81700001085 /* pmnr_pain_ed_module_test2.plist */,
 				3D80244D16C2BBB300001085 /* pmnr_acu_ed_module_test2.plist */,
@@ -2280,6 +2283,7 @@
 				3D94C77016B216A1005F58E6 /* white_line_gradient.png in Resources */,
 				3D94C77216B216C0005F58E6 /* gears_settings_image_w_tab2.png in Resources */,
 				3D94C77416B221B3005F58E6 /* white_line_solid.png in Resources */,
+				5FD2817119C91EE20012E07E /* at_ed_module_test1.plist in Resources */,
 				3D221DA016B9DCE8000C29F9 /* demoButton5.png in Resources */,
 				3D221DA116B9DCE8000C29F9 /* demoButton5@2x.png in Resources */,
 				3DD40ADB16BAD05C0078B1A2 /* pmnr_mandal_bio.plist in Resources */,
