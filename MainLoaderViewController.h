@@ -53,6 +53,8 @@
 
 @property (nonatomic, retain) SwitchedImageViewController *modalEnterGoal;
 
++ (MainLoaderViewController*) getViewController;
+
 -(IBAction)fadeInMiniDemoMenu;
 -(IBAction)fadeOutMiniDemoMenu;
 -(IBAction)showMiniDemoMenu;

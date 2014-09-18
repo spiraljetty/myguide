@@ -28,6 +28,14 @@
     mClinicNameShort = clinicNameShort;
 }
 
+-(void) setSubclinicName:(NSString *)clinicName{
+    mSubclinicName = clinicName;
+}
+
+-(void) setSubclinicNameShort:(NSString *)clinicNameShort{
+    mSubclinicNameShort = clinicNameShort;
+}
+
 
 //-(void) setClinicPages:(NSString *)clinicPages{
 //    mClinicPages = clinicPages;
@@ -48,6 +56,14 @@
     return mClinicNameShort;
 }
 
+-(NSString*) getSubclinicName {
+    return mSubclinicName;
+}
+
+-(NSString*) getSubclinicNameShort {
+    return mSubclinicNameShort;
+}
+
 -(NSMutableArray*) getClinicPages {
     return mClinicPages;
 }
@@ -58,7 +74,7 @@
 }
 
 -(NSString*) getPageImageFilename:(int) pageNumber {
-    NSString* clinicNameLowerCase = [mClinicNameShort lowerCaseString];
+    NSString* clinicNameLowerCase = [mClinicNameShort lowercaseString];
     NSString* imageFilename = [NSString stringWithFormat:@"%@_%d.png", clinicNameLowerCase, pageNumber];
     return imageFilename;
 }
@@ -69,7 +85,7 @@
 
 
 - (void) writeToLog {
-    NSLog(@"[Clinic: %@:", mClinicName);
+    NSLog(@"[Clinic: %@, Clinic short: %@, Subclinic: %@, Subclinic short: %@", mClinicName, mClinicNameShort, mSubclinicName, mSubclinicNameShort);
     int i = 1;
     for (NSDictionary* page in [self  getClinicPages]){
         NSLog(@"  page %d: %@",i++, page);

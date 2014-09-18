@@ -20,6 +20,8 @@
 @synthesize currentWRViewController;
 @synthesize miniDemoVC, waitSpinner, waitBlack, waitLabel, shortWaitTimer, standardPageButtonOverlay, readyForAppointmentButton, modalConfirmReadyForAppointment, revealSettings, modalEnterGoal;
 
+static MainLoaderViewController* mViewController = NULL;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -558,7 +560,7 @@
 }
 
 - (void)performAppReset {
-    NSLog(@"Resetting app...");
+    NSLog(@"MainLoaderViewcontroller.performAppReset() Resetting app...");
     
     [currentWRViewController.mainTTSPlayer stopPlayer];
     [miniDemoVC menuButtonPressed];
@@ -717,9 +719,14 @@
     [waitSpinner stopAnimating];
 }
 
++ (MainLoaderViewController*) getViewController{
+    return mViewController;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    mViewController = self;
 	// Do any additional setup after loading the view.
     NSLog(@"MainLoaderViewController.viewDidLoad()");
     [readyForAppointmentButton setTitle:@"Ready for Appointment" forState:UIControlStateNormal];

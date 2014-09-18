@@ -902,7 +902,7 @@
                 // sandy 7-20 removed the word doctor and replaced it with provider
 //                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
                     NSString* selectedClinic = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
-                GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:selectedClinic];
+                GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinic]];
                 if (goalInfo != NULL){
                     goal1Text = @"";
                     goal2Text = @"";
@@ -1534,14 +1534,16 @@
 //    SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] newChildControllers] objectAtIndex:[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] vcIndex]];
     
-    userEnteredGoalText = enterGoalTextField.text;
+    userEnteredGoalText = [enterGoalTextField.text copy];
     [DynamicContent speakText:userEnteredGoalText];
 
-    [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateNormal];
-    [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateHighlighted];
-    [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateDisabled];
-    [thisSurveyPage.goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateSelected];
+    [thisSurveyPage.goal9TextButton setTitle:userEnteredGoalText forState:UIControlStateNormal];
+    [thisSurveyPage.goal9TextButton setTitle:userEnteredGoalText forState:UIControlStateHighlighted];
+    [thisSurveyPage.goal9TextButton setTitle:userEnteredGoalText forState:UIControlStateDisabled];
+    [thisSurveyPage.goal9TextButton setTitle:userEnteredGoalText forState:UIControlStateSelected];
     [thisSurveyPage.goal9TextButton setEnabled:NO];
+    
+    enterGoalTextField.text = @"";
     
 //    [goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateNormal];
 //    [goal9TextButton setTitle:enterGoalTextField.text forState:UIControlStateHighlighted];
@@ -1551,9 +1553,16 @@
 //    [goal9TextButton setEnabled:NO];
     
     NSLog(@"Storing and updating user entered goal: %@",userEnteredGoalText);
-        DynamicSurveyViewController_Pad *thisDelegate = (DynamicSurveyViewController_Pad *)delegate;
-        [thisDelegate overlayNextPressed];
+// 9_17_14 sandy
+   NSLog(@"Attempting to store user typed goal to db: %@...",userEnteredGoalText);
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    if (rootViewController != NULL)
+        [rootViewController updateSurveyTextForField:@"goaltyped" withThisText:[NSString stringWithFormat:@"%@",userEnteredGoalText]];
+    DynamicSurveyViewController_Pad *thisDelegate = (DynamicSurveyViewController_Pad *)delegate;
+    [thisDelegate overlayNextPressed];
 }
+
+
 
 - (void)disableAllProviderButtons {
     provider1ImageButton.enabled = NO;

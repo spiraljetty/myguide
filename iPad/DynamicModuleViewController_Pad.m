@@ -105,7 +105,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 }
 
 - (void)setupWithPropertyList:(NSString *)propertyListName {
-    NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", propertyListName);
+    NSString* currentClinicName = [DynamicContent getCurrentClinic];
+    NSLog(@"DynamicModuleViewController.setupWithPropertyList() clinic: %@, plist: %@", currentClinicName, propertyListName);
     NSData* tmp = NULL;
     if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
         tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"pmnr_pns_ed_module_test2" withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
@@ -113,9 +114,15 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
         tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:propertyListName withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
     dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
     dynModDictKeys = [[dynModDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
-        
-        
-    moduleName = [dynModDict objectForKey:kModuleNameKey];
+    
+    if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"] || [propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"] ||[propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
+        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
+        moduleName = [currentClinic getSubclinicName]; //[dynModDict objectForKey:kModuleNameKey];
+    }
+    else {
+        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
+        moduleName = [currentClinic getClinicName]; //[dynModDict objectForKey:kModuleNameKey];
+    }
         moduleType = [dynModDict objectForKey:kModuleTypeKey];
         createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
         moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
@@ -262,11 +269,11 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 }
 
 - (void)loadLabelObjects {
-    NSLog(@"Loading label objects -- NEED TO COMPLETE THIS");
+    NSLog(@"DynamicModuleViewController_Pad.loadLabelObjects() Loading label objects -- NEED TO COMPLETE THIS");
 }
 
 - (void)loadButtonOverlays {
-    NSLog(@"Loading button overlays...");
+    NSLog(@"DynamicModuleViewController_Pad.loadButtonOverlays() Loading button overlays...");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     float leftAngle =  90 * M_PI  / 180;
@@ -292,7 +299,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 }
 
 - (void)loadModuleHeader {
-    NSLog(@"Loading module header...");
+    NSLog(@"DynamicModuleViewController_Pad.loadModuleHeader() Loading module header...");
     
     
     float angle =  270 * M_PI  / 180;

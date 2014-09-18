@@ -12,6 +12,7 @@
 #import "GoalInfo.h"
 #import "ClinicInfo.h"
 #import "YLViewController.h"
+#import "MainLoaderViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
 
@@ -113,7 +114,7 @@ static NSString* mCurrentRespondent = @"patient";
         }
         
         NSString* msg = [NSString stringWithFormat:@"Downloaded:\n%d clinics\n%d clinicians", clinicCount, clinicianCount];
-        [DynamicContent showAlertMsg:msg];
+        [DynamicContent showAlertMsgAndResetApp:msg];
     
 //        // update UI on the main thread
 //        if (viewController != NULL){
@@ -195,6 +196,10 @@ static NSString* mCurrentRespondent = @"patient";
             match = info;
             break;
         }
+        if ([clinicLowerCase hasPrefix:@"acu"] && [otherClinicName hasPrefix:@"acu"]){
+            match = info;
+            break;
+        }
     }
     if (match != NULL)
         return match;
@@ -207,7 +212,7 @@ static NSString* mCurrentRespondent = @"patient";
 
 + (NSMutableArray*) readClinicianInfo:(BOOL) isDownload{
     YLViewController* viewController = [YLViewController getViewController];
-    NSLog(@"DynamicContent.getAllClinicians() isDownload: %d", isDownload);
+    NSLog(@"DynamicContent.readClinicianInfo() isDownload: %d", isDownload);
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
     NSString  *filePath = [NSString stringWithFormat:@"%@/clinicians.txt", documentsDirectory];
@@ -300,7 +305,7 @@ static NSString* mCurrentRespondent = @"patient";
     int total = [lines count];
     for (NSString *line in lines) {
         index++;
-        if (viewController != NULL){
+        if (isDownload && viewController != NULL){
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSString* msg = [NSString stringWithFormat:@"Downloading Clinic %d/%d", index, total];
                 viewController.downloadDataStatus.text = msg;
@@ -322,26 +327,57 @@ static NSString* mCurrentRespondent = @"patient";
                                              [NSCharacterSet characterSetWithCharactersInString:@";"]];
                 
                 //find the clinic container for all of the pages from that clinic
-                NSString* clinicName = [clinicProperties objectAtIndex:4]; // try subclinicNameShort
-                if ([clinicName length] == 0)
-                    clinicName = [clinicProperties objectAtIndex:2];
-                if ([clinicName length] == 0)
-                    clinicName = [clinicProperties objectAtIndex:1];
+                NSString* clinicName    = [clinicProperties objectAtIndex:1];
+                NSString* clinicNameShort = [clinicProperties objectAtIndex:2];
+                NSString* subclinicName   = [clinicProperties objectAtIndex:3];
+                NSString* subclinicNameShort = [clinicProperties objectAtIndex:4];
                 ClinicInfo* currentClinic = NULL;
                 if (allClinics != NULL){
                     for (ClinicInfo* clinic in allClinics){
-                        NSString* name = [clinic getClinicName];
-                        if ([name isEqualToString:clinicName]){
-                            currentClinic = clinic;
-                            break;
+                        if ([subclinicNameShort length] > 0){
+                            // match on subclinic short name
+                            NSString* nameToMatch = [clinic getSubclinicNameShort];
+                            if ([nameToMatch isEqualToString:subclinicNameShort]){
+                                currentClinic = clinic;
+                                break;
+                            }
+                        }
+                        else
+                        if ([subclinicName length] > 0){
+                            // match on subclinic name
+                            NSString* nameToMatch = [clinic getSubclinicName];
+                            if ([nameToMatch isEqualToString:subclinicName]){
+                                currentClinic = clinic;
+                                break;
+                            }
+                        }
+                        else
+                        if ([clinicNameShort length] > 0){
+                            // match on clinic short name
+                            NSString* nameToMatch = [clinic getClinicNameShort];
+                            if ([nameToMatch isEqualToString:clinicNameShort]){
+                                currentClinic = clinic;
+                                break;
+                            }
+                        }
+                        else
+                        if ([clinicName length] > 0){
+                            // match on clinic name
+                            NSString* nameToMatch = [clinic getClinicName];
+                            if ([nameToMatch isEqualToString:clinicName]){
+                                currentClinic = clinic;
+                                break;
+                            }
                         }
                     }
                 }
                 //                    int currentClinicIndex = [allClinics indexOfObject:clinicName];
                 if (currentClinic == NULL){
                     ClinicInfo* clinicInfo = [[ClinicInfo alloc]init];
-                    [clinicInfo setClinicName:clinicName];
-                    //                    [clinicInfo setClinicNameShort: [clinicProperties objectAtIndex:2]];
+                    [clinicInfo setClinicName:[clinicName copy]];
+                    [clinicInfo setClinicNameShort: [clinicNameShort copy]];
+                    [clinicInfo setSubclinicName:[subclinicName copy]];
+                    [clinicInfo setSubclinicNameShort: [subclinicNameShort copy]];
                     [allClinics addObject:clinicInfo];
                     currentClinic = clinicInfo;
                 }
@@ -589,8 +625,17 @@ static NSString* mCurrentRespondent = @"patient";
     NSString* clinicNameLowerCase = [clinicNameShort lowercaseString];
     NSArray* allClinics = [self getAllClinics];
     for (ClinicInfo* clinic in allClinics){
+        if ([[clinic getSubclinicName] isEqualToString:clinicNameLowerCase] ||
+            [[clinic getSubclinicNameShort] isEqualToString:clinicNameLowerCase])
+            return clinic;
         if ([[clinic getClinicName] isEqualToString:clinicNameLowerCase] ||
-             [[clinic getClinicNameShort] isEqualToString:clinicNameLowerCase])
+            [[clinic getClinicNameShort] isEqualToString:clinicNameLowerCase])
+            return clinic;
+        if ([clinicNameLowerCase hasPrefix:@"acu"] &&
+            [[clinic getClinicNameShort] hasPrefix:@"acu"])
+            return clinic;
+        if ([clinicNameLowerCase hasPrefix:@"acu"] &&
+            [[clinic getSubclinicNameShort] hasPrefix:@"acu"])
             return clinic;
     }
     return NULL;
@@ -828,10 +873,26 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     //    [tbvc sayComingSoon];
     dispatch_async(dispatch_get_main_queue(), ^{
         UIAlertView *msgAlert = [[UIAlertView alloc] initWithTitle:@"Alert" message:[NSString stringWithFormat:@"%@",msg] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [msgAlert show];
+        [msgAlert release];
+    });
+}
+
++ (void)showAlertMsgAndResetApp:(NSString *)msg {
+    //    [tbvc sayComingSoon];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *msgAlert = [[UIAlertView alloc] initWithTitle:@"Download complete!" message:[NSString stringWithFormat:@"%@",msg] delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         msgAlert.delegate = self;
         [msgAlert show];
         [msgAlert release];
     });
+}
+
++(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"WRViewController.alertView.clickedButtonAtIndex() index: %d", buttonIndex);
+    MainLoaderViewController* viewController = [MainLoaderViewController getViewController];
+    if (viewController != NULL)
+        [viewController performAppReset];
 }
 
 + (void) speakText:(NSString*) text {

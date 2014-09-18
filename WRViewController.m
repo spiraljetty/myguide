@@ -975,7 +975,6 @@ int indexCount;
         nextSettingsButton.enabled = YES;
     }
     
-    [self setDynamicEdClinicSpecFileForClinicName:currentClinicName];
     
     if (!whatsNewInitialized) {
         [self initializeWhatsNewModule];
@@ -1016,7 +1015,7 @@ int indexCount;
         currentSpecialtyClinicName = @"General PM&R";
         [DynamicContent setCurrentClinic:@"pmnr"];
     } else if (specialtyClinicSegmentedControl.selectedSegmentIndex == 1) {
-        currentSpecialtyClinicName = @"Acupuncture";
+        currentSpecialtyClinicName = @"Acupuncture clinic";
         [DynamicContent setCurrentClinic:@"acupuncture"];
     } else if (specialtyClinicSegmentedControl.selectedSegmentIndex == 2) {
         currentSpecialtyClinicName = @"Pain";
@@ -1048,9 +1047,9 @@ int indexCount;
 
     if ([thisSpecialtyClinicName isEqualToString:@"None"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
-    } else if ([thisSpecialtyClinicName isEqualToString:@"Acupuncture"]) {
+    } else if ([thisSpecialtyClinicName hasPrefix:@"Acupuncture"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_acu_ed_module_test2";
-    } else if ([thisSpecialtyClinicName isEqualToString:@"Pain"]) {
+    } else if ([thisSpecialtyClinicName hasPrefix:@"Pain"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
     } else if ([thisSpecialtyClinicName isEqualToString:@"PNS"]) {
         currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test3";
@@ -1083,7 +1082,7 @@ int indexCount;
         currentDynamicClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
         NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
     } else if ([thisClinicName isEqualToString:@"AT Center"]) {
-        currentDynamicClinicEdModuleSpecFilename = @"at_module_test1";
+        currentDynamicClinicEdModuleSpecFilename = @"at_ed_module_test1";
         NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
     }
     

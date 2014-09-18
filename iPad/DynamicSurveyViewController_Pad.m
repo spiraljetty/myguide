@@ -512,7 +512,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"EMG Clinic";
             subclinicTest.subclinic4Text = @"PM&R Clinic";
-        } else if ([selectedClinic isEqualToString:@"Acupuncture"]) {
+        } else if ([selectedClinic hasPrefix:@"Acupuncture"]) {
             subclinicTest.subclinic1Text = @"Chronic Pain Clinic";
             subclinicTest.subclinic2Text = @"PNS Clinic";
             subclinicTest.subclinic3Text = @"EMG Clinic";
@@ -571,7 +571,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
 //        DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
 //        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
-        GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:selectedClinic];
+        GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinic]];
         if (goalInfo != NULL){
             chooseGoalPatient.goal1Text = @"";
             chooseGoalPatient.goal2Text = @"";
