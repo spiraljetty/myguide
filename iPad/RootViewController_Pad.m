@@ -554,7 +554,7 @@ static RootViewController_Pad* mViewController = NULL;
     
     //databaseName = @"myguide_WR_db_d.sql";
     //sandy updated dbase name but the table is not being written properly
-    databaseName = @"myguide_WR_v2_db_a.sql";
+    databaseName = @"myguide_WR_v3_db_a.sql";
     //mainTable = @"sessiondata";
     //mainTable = @"sessiondatav3";
     mainTable = @"sessiondatav3";
