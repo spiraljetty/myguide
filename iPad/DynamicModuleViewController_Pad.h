@@ -214,6 +214,8 @@
 
 -(void)createImageRootInDocDir;
 
++ (DynamicModuleViewController_Pad*) getViewController;
+- (void) updateViewContents;
 - (void)showTempPopover;
 - (void)playSoundForPage:(DynamicModulePageViewController *)currentPage;
 

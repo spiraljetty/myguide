@@ -1241,6 +1241,14 @@ int indexCount;
 }
 
 - (void)slideVisitButtonsOut {
+    
+    // rjl 9/22/14 hack below attempting to regenerate ed module pages for case when
+    // when user first taps "AT" clinic then taps "PM&R" and subclinic
+//    [self setDynamicEdClinicSpecFileForSpecialtyClinicName:currentSpecialtyClinicName];
+//    DynamicModuleViewController_Pad* dynamicModuleViewController = [DynamicModuleViewController_Pad getViewController];
+//    if (dynamicModuleViewController != NULL)
+//       [dynamicModuleViewController updateViewContents];
+
     CGRect firstVisitFrame = firstVisitButton.frame;
     CGRect returnVisitFrame = returnVisitButton.frame;
     CGRect labelFrame = visitSelectionLabel.frame;
@@ -2249,6 +2257,7 @@ int indexCount;
 #pragma mark - Dynamic Clinic Education Module Methods
 
 - (void)initializeWhatsNewModule {
+    NSLog(@"WRViewController.initializeWhatsNewModule()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
@@ -2703,13 +2712,13 @@ int indexCount;
 }
 
 - (void)launchDynamicWhatsNewModule {
-    
+    NSLog(@"WRViewController.launchDynamicWhatsNewModule()");
     [self fadeDynamicWhatsNewModuleIn];
 }
 
 - (void)fadeDynamicWhatsNewModuleIn {
     
-    NSLog(@"Fading in dynamic what's new module");
+    NSLog(@"WRViewController.fadeDynamicWhatsNewModuleIn() Fading in dynamic what's new module");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showCurrentButtonOverlay];
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];

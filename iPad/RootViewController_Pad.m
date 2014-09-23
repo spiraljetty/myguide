@@ -557,7 +557,7 @@ static RootViewController_Pad* mViewController = NULL;
     databaseName = @"myguide_WR_v3_db_a.sql";
     //mainTable = @"sessiondata";
     //mainTable = @"sessiondatav3";
-    mainTable = @"sessiondatav3";
+    mainTable = @"sessiondata";
     csvpath = @"satisfactiondata_9_17_14.csv";
     // sandy 7-21 should append device name and date here
     NSString *thisdeviceName = [[UIDevice currentDevice] name];
@@ -587,25 +587,25 @@ static RootViewController_Pad* mViewController = NULL;
 	self.databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
 	
     //---- this is one time only use data for building a new database table for the app
- //   int result = sqlite3_open([self.databasePath UTF8String], &db);
+  // int result = sqlite3_open([self.databasePath UTF8String], &db);
     
   //  if (SQLITE_OK == result) {
-  //    }else {
-  //     NSLog(@"db opening error");
-        
+  //  }else {
+   //    NSLog(@"db opening error");
+   //
   //  }
     //create table here once for version2 of database
- //   const char* sessiondatav3TableQuery = "CREATE TABLE IF NOT EXISTS sessiondatav3 ( uniqueid INTEGER, pilot NUMERIC, posttxcompleteper NUMERIC, pretxcompleteper NUMERIC, accesspoint TEXT, wanderON NUMERIC, appversion TEXT, posttxdur NUMERIC, pretxdur NUMERIC, s15tech NUMERIC, s14recommend NUMERIC, s13know NUMERIC, s12prepared NUMERIC, s11metgoal NUMERIC, s8clinichelp NUMERIC, s7prohelp NUMERIC, s5looking NUMERIC, s4prepared NUMERIC, s3reason NUMERIC, s2goalchoice NUMERIC, todaysGoal TEXT, s1clinictest NUMERIC, s0protest NUMERIC, setprovider TEXT, setvisit TEXT, setspecialty TEXT, setclinic TEXT, ipadname TEXT, demo NUMERIC, respondenttype TEXT, month NUMERIC, year NUMERIC, startedsurvey NUMERIC, finishedsurvey NUMERIC, totalsurveyduration NUMERIC, q1 NUMERIC, q2 NUMERIC, q3 NUMERIC, q4 NUMERIC, q5 NUMERIC, q6 NUMERIC, q7 NUMERIC, q8 NUMERIC, q9 NUMERIC, q10 NUMERIC, q11 NUMERIC, q12 NUMERIC, q13 NUMERIC, q14 NUMERIC, q15 NUMERIC, q16 NUMERIC, q17 NUMERIC, q18 NUMERIC, q19 NUMERIC, q20 NUMERIC, q21 NUMERIC, q22 NUMERIC, q23 NUMERIC, q24 NUMERIC, q25 NUMERIC, q26 NUMERIC, q27 NUMERIC, q28 NUMERIC, q29 NUMERIC, q30 NUMERIC, voiceassist NUMERIC, fontsize NUMERIC)";
+  //  const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER, pilot NUMERIC, posttxcompleteper NUMERIC, pretxcompleteper NUMERIC, accesspoint TEXT, wanderON NUMERIC, appversion TEXT, posttxdur NUMERIC, pretxdur NUMERIC, s15tech NUMERIC, s14recommend NUMERIC, s13know NUMERIC, s12prepared NUMERIC, s11metgoal NUMERIC, s8clinichelp NUMERIC, s7prohelp NUMERIC, s5looking NUMERIC, s4prepared NUMERIC, s3reason NUMERIC, s2goalchoice NUMERIC, todaysGoal TEXT, s1clinictest NUMERIC, s0protest NUMERIC, setprovider TEXT, setvisit TEXT, setspecialty TEXT, setclinic TEXT, ipadname TEXT, demo NUMERIC, respondenttype TEXT, month NUMERIC, year NUMERIC, startedsurvey NUMERIC, finishedsurvey NUMERIC, totalsurveyduration NUMERIC, q1 NUMERIC, q2 NUMERIC, q3 NUMERIC, q4 NUMERIC, q5 NUMERIC, q6 NUMERIC, q7 NUMERIC, q8 NUMERIC, q9 NUMERIC, q10 NUMERIC, q11 NUMERIC, q12 NUMERIC, q13 NUMERIC, q14 NUMERIC, q15 NUMERIC, q16 NUMERIC, q17 NUMERIC, q18 NUMERIC, q19 NUMERIC, q20 NUMERIC, q21 NUMERIC, q22 NUMERIC, q23 NUMERIC, q24 NUMERIC, q25 NUMERIC, q26 NUMERIC, q27 NUMERIC, q28 NUMERIC, q29 NUMERIC, q30 NUMERIC, voiceassist NUMERIC, fontsize NUMERIC)";
     
- //   char * errInfo ;
-  //  result = sqlite3_exec(db, sessiondatav3TableQuery, nil, nil, &errInfo);
+   // char * errInfo ;
+  //  result = sqlite3_exec(db, sessiondataTableQuery, nil, nil, &errInfo);
     
- //   if (SQLITE_OK == result) {
-//        NSLog(@"sessiondatav3Table Created :)");
+  //  if (SQLITE_OK == result) {
+  //      NSLog(@"sessiondata Table Created :)");
  //   }else {
-    //    NSString* err = [[NSString alloc]initWithUTF8String:errInfo];
-   //     NSLog(@"error in creating table :(", err);
-   // }
+  //      NSString* err = [[NSString alloc]initWithUTF8String:errInfo];
+  //      NSLog(@"error in creating table :(", err);
+  //  }
     //--------------- end of one time table building code
     
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
@@ -722,7 +722,7 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *sqlStatementString;
     // Setup the SQL Statement and compile it for faster access
     //sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = '%@' Where uniqueid = %d", satisfactionItem, thisText, currentUniqueID];
-    sqlStatementString = [NSString stringWithFormat:@"update sessiondatav3 Set %@ = '%@' Where uniqueid = %d", satisfactionItem, thisText, currentUniqueID];
+    sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = '%@' Where uniqueid = %d", satisfactionItem, thisText, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
     NSLog(@"RootViewController_Pad.updateSatisfactionTextForField() sqlStr is %@", sqlStatementString);
@@ -749,7 +749,7 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *sqlStatementString;
     // Setup the SQL Statement and compile it for faster access
     //sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
-    sqlStatementString = [NSString stringWithFormat:@"update sessiondatav3 Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
+    sqlStatementString = [NSString stringWithFormat:@"update sessiondata Set %@ = %d Where uniqueid = %d", satisfactionItem, currentIndex, currentUniqueID];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
     NSLog(@"RootViewController_Pad.updateSatisfactionRatingForField() sqlStr is %@", sqlStatementString);
@@ -830,7 +830,7 @@ static RootViewController_Pad* mViewController = NULL;
    // sqlStatementString = [NSString stringWithFormat:@"insert into sessiondatav3 values(%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name], currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentDateTime], [[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
    
     //sg for tomorrow match this 666
-    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondatav3 values(%d,%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%s',-1,-1,'%@','%@','%@','%@','%@',%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,todaysGoal,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],respondentType,[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
+    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%s',-1,-1,'%@','%@','%@','%@','%@',%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,todaysGoal,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],respondentType,[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
   
    // uniqueid INTEGER, pilot NUMERIC, posttxcompleteper NUMERIC, pretxcompleteper NUMERIC, accesspoint TEXT,
   //  wanderON NUMERIC, appversion TEXT, posttxdur NUMERIC, pretxdur NUMERIC,
@@ -864,7 +864,7 @@ static RootViewController_Pad* mViewController = NULL;
 		//		const char *sqlStatement = "select * from animals";
 		// version one data table was sessiondata
         //sqlStatement = "SELECT MAX(uniqueid) FROM sessiondata";
-        sqlStatement = "SELECT MAX(uniqueid) FROM sessiondatav3";
+        sqlStatement = "SELECT MAX(uniqueid) FROM sessiondata";
         
         
         //		sqlite3_stmt *compiledStatement;
@@ -874,7 +874,7 @@ static RootViewController_Pad* mViewController = NULL;
                 
 				maxRowID = (int)sqlite3_column_int(compiledStatement, 0);
 				//NSLog(@"New maximum uniqueID in sessiondata table = %d", maxRowID);
-                NSLog(@"New maximum uniqueID in sessiondatav3 table = %d", maxRowID);
+                NSLog(@"New maximum uniqueID in sessiondata table = %d", maxRowID);
 				
 			}
 		}
@@ -889,7 +889,7 @@ static RootViewController_Pad* mViewController = NULL;
 		//		const char *sqlStatement = "select * from animals";
 		//sg 9_16_14
         //sqlStatement = "SELECT COUNT(*) FROM sessiondata";
-        sqlStatement = "SELECT COUNT(*) FROM sessiondatav3";
+        sqlStatement = "SELECT COUNT(*) FROM sessiondata";
         
         //		sqlite3_stmt *compiledStatement;
 		if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
@@ -897,7 +897,7 @@ static RootViewController_Pad* mViewController = NULL;
 			if(sqlite3_step(compiledStatement) == SQLITE_ROW) {
                 
 				totalNumPatientEntries = (int)sqlite3_column_int(compiledStatement, 0);
-				NSLog(@"New num patients in sessiondatav3 table = %d", totalNumPatientEntries);
+				NSLog(@"New num patients in sessiondata table = %d", totalNumPatientEntries);
 				
 			}
 		}
@@ -931,7 +931,7 @@ static RootViewController_Pad* mViewController = NULL;
     // Setup the SQL Statement and compile it for faster access
     // sg 9_16_14
     //sqlStatementString = [NSString stringWithFormat:@"SELECT respondenttype FROM sessiondata where uniqueid = %d",thisUniqueId];
-        sqlStatementString = [NSString stringWithFormat:@"SELECT respondenttype FROM sessiondatav3 where uniqueid = %d",thisUniqueId];
+        sqlStatementString = [NSString stringWithFormat:@"SELECT respondenttype FROM sessiondata where uniqueid = %d",thisUniqueId];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
     if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
@@ -976,7 +976,7 @@ static RootViewController_Pad* mViewController = NULL;
         
         // Setup the SQL Statement and compile it for faster access
         //sqlStatementString = [NSString stringWithFormat:@"SELECT uniqueid FROM sessiondata"];
-        sqlStatementString = [NSString stringWithFormat:@"SELECT uniqueid FROM sessiondatav3"];
+        sqlStatementString = [NSString stringWithFormat:@"SELECT uniqueid FROM sessiondata"];
         sqlStatement = (const char *)[sqlStatementString UTF8String];
         
         if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
@@ -1382,7 +1382,7 @@ static RootViewController_Pad* mViewController = NULL;
 
     // Setup the SQL Statement and compile it for faster access
     //sqlStatementString = [NSString stringWithFormat:@"SELECT * FROM sessiondata"];
-    sqlStatementString = [NSString stringWithFormat:@"SELECT * FROM sessiondatav3"];
+    sqlStatementString = [NSString stringWithFormat:@"SELECT * FROM sessiondata"];
     sqlStatement = (const char *)[sqlStatementString UTF8String];
     
     if(sqlite3_prepare_v2(db, sqlStatement, -1, &compiledStatement, NULL) == SQLITE_OK) {
@@ -1964,6 +1964,7 @@ static RootViewController_Pad* mViewController = NULL;
 }
 
 - (void) showNextSurveyPage {
+    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
     QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     finishingLastItem = NO;
     if (matchingSurvey != NULL){
@@ -3215,6 +3216,7 @@ static RootViewController_Pad* mViewController = NULL;
     NSLog(@"overlayNextPressed...");
     QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     if (matchingSurvey !=  NULL){
+        NSLog(@"matchingsurvey not null - should have called incrementProgressBar");
         [self showNextSurveyPage];
     }
     else

@@ -93,6 +93,14 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 
 @synthesize termPopoverViewController, hiddenPopoverButton;
 
+
+static DynamicModuleViewController_Pad* mViewController = NULL;
+//static DynamicPageDetailViewController *dynamicModuleHeader = NULL;
+
++ (DynamicModuleViewController_Pad*) getViewController{
+    return mViewController;
+}
+
 - (id)initWithPropertyList:(NSString *)propertyListName {
     self = [super init];
     if (self) {
@@ -115,14 +123,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
     dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
     dynModDictKeys = [[dynModDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
     
-    if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"] || [propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"] ||[propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
-        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
-        moduleName = [currentClinic getSubclinicName]; //[dynModDict objectForKey:kModuleNameKey];
-    }
-    else {
-        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
-        moduleName = [currentClinic getClinicName]; //[dynModDict objectForKey:kModuleNameKey];
-    }
+    if ([propertyListName isEqualToString:@"psc_whats_new_module_test2"]){
+        moduleName = [dynModDict objectForKey:kModuleNameKey];
         moduleType = [dynModDict objectForKey:kModuleTypeKey];
         createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
         moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
@@ -141,7 +143,37 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
         superModule = [dynModDict objectForKey:kSuperModuleKey];
         subModules = [dynModDict objectForKey:kSubModulesKey];
         pages = [dynModDict objectForKey:kModulePagesKey];
+        return;
+    }
+    else
+    if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"] || [propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"] ||[propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
+        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
+        moduleName = [currentClinic getSubclinicName]; //[dynModDict objectForKey:kModuleNameKey];
+    }
+    else {
+        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
+        moduleName = [currentClinic getClinicName]; //[dynModDict objectForKey:kModuleNameKey];
+    }
+    moduleType = [dynModDict objectForKey:kModuleTypeKey];
+    createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
+    moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
+        
+    NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
+    start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
+    end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
+    start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
+    end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
+        
+    moduleTheme = [[dynModDict objectForKey:kModuleThemeKey] copy];
+    moduleColor = [[dynModDict objectForKey:kModuleColorKey] copy];
+    isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
+    showModuleHeader = [[dynModDict objectForKey:kShowModuleHeaderKey] boolValue];
+    recognizeUserSpeechWords = [dynModDict objectForKey:kModuleShouldRecognizeUserSpeechWordsKey];
+    superModule = [dynModDict objectForKey:kSuperModuleKey];
+    subModules = [dynModDict objectForKey:kSubModulesKey];
+    pages = [dynModDict objectForKey:kModulePagesKey];
     NSMutableDictionary* samplePage = NULL;
+    
     if ([pages count] > 0){
         samplePage = [pages objectAtIndex:0];
     }
@@ -321,7 +353,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
     dynamicModuleHeader.dynamicModuleName = moduleName;
     dynamicModuleHeader.dynamicModuleNameLabel.text = moduleName;
     
-    NSLog(@"Header set to: %@",moduleName);
+    NSLog(@"DynamicModuleViewController.loadModuleHeader() Header set to: %@",moduleName);
     
     [self.view addSubview:dynamicModuleHeader.view];
     //    [self.view sendSubviewToBack:physicianDetailVC.view];
@@ -330,6 +362,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 // Establish core interface
 - (void)viewDidLoad
 {
+    mViewController = self;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     float leftAngle =  90 * M_PI  / 180;
@@ -385,46 +418,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 //    pageControl.backgroundColor = [UIColor clearColor];
     [self.view addSubview:pageControl];
     
-    [self loadPages];
-    [self loadSoundFileNames];
-    [self loadLabelObjects];
-    if (showModuleHeader) {
-        [self loadModuleHeader];
-    }
-    
-    [self loadButtonOverlays];
-    
-    int pageIndex = 0;
-    
-    for (DynamicModulePageViewController *thisPage in newChildControllers) {
-        DynamicPageSubDetailViewController *dynamicPageSubDetailVC = [[DynamicPageSubDetailViewController alloc] init];
-        
-        dynamicPageSubDetailVC.subDetailSectionLabelText = thisPage.text;
-        dynamicPageSubDetailVC.dynamicPageSubDetailSectionLabel.text = thisPage.text;
-        
-//        if ([thisPage.headerText isEqualToString:@"NA"]) {
-//            dynamicPageSubDetailVC.headerLabelText = @"";
-//            dynamicPageSubDetailVC.dynamicPageHeaderLabel.text = @"";
-//        } else {
-            dynamicPageSubDetailVC.headerLabelText = thisPage.headerText;
-            dynamicPageSubDetailVC.dynamicPageHeaderLabel.text = thisPage.headerText;
-//        }
-        
-        if (thisPage.imagePage) {
-            dynamicPageSubDetailVC.needsImage = YES;
-//            dynamicPageSubDetailVC.dynamicImageView.image = [UIImage imageNamed:thisPage.imageFilename];
-            dynamicPageSubDetailVC.currentImageFilename = thisPage.imageFilename;
-        }
-        
-        dynamicPageSubDetailVC.view.tag = 1066;
-        dynamicPageSubDetailVC.view.frame = backsplash.bounds;
-        
-        [thisPage.view addSubview:dynamicPageSubDetailVC.view];
-        
-        [self addChildViewController:thisPage];
-        
-        pageIndex++;
-    }
+    [self updateViewContents];
+}
     
 //    if (addPrePostSurveyItems) {
 //        
@@ -600,14 +595,60 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 //        [newChildControllers addObject:miniSurveyPage8];
 //    }
     
+//    [self.view bringSubviewToFront:pageControl];
+    
+//}
+
+- (void) updateViewContents {
+    [self loadPages];
+    [self loadSoundFileNames];
+    [self loadLabelObjects];
+    if (showModuleHeader) {
+        [self loadModuleHeader];
+    }
+    
+    [self loadButtonOverlays];
+    
+    int pageIndex = 0;
+    
+    for (DynamicModulePageViewController *thisPage in newChildControllers) {
+        DynamicPageSubDetailViewController *dynamicPageSubDetailVC = [[DynamicPageSubDetailViewController alloc] init];
+        
+        dynamicPageSubDetailVC.subDetailSectionLabelText = thisPage.text;
+        dynamicPageSubDetailVC.dynamicPageSubDetailSectionLabel.text = thisPage.text;
+        
+        //        if ([thisPage.headerText isEqualToString:@"NA"]) {
+        //            dynamicPageSubDetailVC.headerLabelText = @"";
+        //            dynamicPageSubDetailVC.dynamicPageHeaderLabel.text = @"";
+        //        } else {
+        dynamicPageSubDetailVC.headerLabelText = thisPage.headerText;
+        dynamicPageSubDetailVC.dynamicPageHeaderLabel.text = thisPage.headerText;
+        //        }
+        
+        if (thisPage.imagePage) {
+            dynamicPageSubDetailVC.needsImage = YES;
+            //            dynamicPageSubDetailVC.dynamicImageView.image = [UIImage imageNamed:thisPage.imageFilename];
+            dynamicPageSubDetailVC.currentImageFilename = thisPage.imageFilename;
+        }
+        
+        dynamicPageSubDetailVC.view.tag = 1066;
+        dynamicPageSubDetailVC.view.frame = backsplash.bounds;
+        
+        [thisPage.view addSubview:dynamicPageSubDetailVC.view];
+        
+        [self addChildViewController:thisPage];
+        
+        pageIndex++;
+    }
+    
     int numChildControllers = [newChildControllers count];
     
-    NSLog(@"CREATED %d DYNAMIC SUB DETAIL CHILDCONTROLLERS...",numChildControllers);
+    NSLog(@"DynamicModuleViewController.updateViewContents() CREATED %d DYNAMIC SUB DETAIL CHILDCONTROLLERS...",numChildControllers);
     
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] addToTotalSlides:numChildControllers];
     
     // Initialize scene with first child controller
-//    vcIndex = numChildControllers-1;
+    //    vcIndex = numChildControllers-1;
     vcIndex = 0;
     
     DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
@@ -615,7 +656,6 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
     [backsplash addSubview:firstPage.view];
     
     [self.view bringSubviewToFront:backsplash];
-//    [self.view bringSubviewToFront:pageControl];
     
 }
 
@@ -702,6 +742,8 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 //    [currentModalVC dismissModalViewControllerAnimated:YES];
 //    [self showButtonOverlay:standardPageButtonOverlay];
 //}
+
+
 
 - (void)showTempPopover {
     

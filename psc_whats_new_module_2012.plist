@@ -59,7 +59,7 @@
 			<key>ImagePage</key>
 			<true/>
 			<key>ImageFilename</key>
-			<string>psc_logo_withwords.png</string>
+			<string>psc_logo.png</string>
 			<key>ShowHeader</key>
 			<true/>
 			<key>HeaderText</key>
@@ -69,9 +69,7 @@
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
-			<string>Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC).  This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. 
-We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program.
-The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care.  Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission.</string>
+			<string>As always, the delivery of outstanding patient care continues to be our #1 priority.  Integral to achieving this, is a simultaneous focus on Innovation and Research that directly drives and benefits our clinical management, the outcomes of our patients, and support of our overall mission.</string>
 			<key>TTSFilenamePrefix</key>
 			<string>~psc_whats_new_page0</string>
 			<key>ContainsTerminology</key>
@@ -87,17 +85,17 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 			<key>ImagePage</key>
 			<true/>
 			<key>ImageFilename</key>
-			<string>psc_whatsnew_2013q4_page1.png</string>
+			<string>laura_gomez.png</string>
 			<key>ShowHeader</key>
 			<true/>
 			<key>HeaderText</key>
-			<string>Strategic Planning Update</string>
+			<string>Veterans’ Healthcare for OEF/OIF/OND</string>
 			<key>HeaderTTSFilenamePrefix</key>
 			<string>psc_whats_new_page1_header</string>
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
-			<string>In an effort to incorporate all stakeholder feedback gathered during a 9-month strategic planning process, Polytrauma System of Care (PSC) leadership is moving forward with a planned expansion of the Assistive Technology Center to include a Center for Innovation and Technology (CIT).  The expanded organizational structure will provide a design, learning, and development pathway for new health care technologies while maintaining the current service delivery of assistive technologies within the PSC. </string>
+			<string>Laura Gomez, LCSW, Director of the OEF/OIF/OND Program, has published a new chapter with her colleagues reviewing salient health and social issues most relevant to this era of service members.  The chapter focuses on a broad range of issues OEF/OIF/OND service members experience, including traumatic brain injury, PTSD, and transition to civilian life.</string>
 			<key>TTSFilenamePrefix</key>
 			<string>~psc_whats_new_page1</string>
 			<key>ContainsTerminology</key>
@@ -113,17 +111,17 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 			<key>ImagePage</key>
 			<true/>
 			<key>ImageFilename</key>
-			<string>at_icon.png</string>
+			<string>new_dvbic_logo-framed.png</string>
 			<key>ShowHeader</key>
 			<true/>
 			<key>HeaderText</key>
-			<string>Strategic Planning Update..(cont.)</string>
+			<string>Defense and Veterans Brain Injury Center (DVBIC)</string>
 			<key>HeaderTTSFilenamePrefix</key>
 			<string>psc_whats_new_page2_header</string>
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
-			<string>The new Center signals a commitment to thoughtful creativity, collaborative entrepreneurialism, new project development and incubation, and continuous performance improvement in patient care. Jonathan Sills, PhD, Program Director of Assistive Technology and the main force behind the 2013-2015 strategic plan that included the conceptualization of the Center for Innovation and Technology (CIT) within the Polytrauma System of Care, will oversee the new center.</string>
+			<string>The Prospective Clinical Tracking Protocol (CTF) multi-site study continues to enroll TBI patients from the PSC. Since 2002, this longitudinal study has enrolled a total of 202 participants with an average of 20 participants per year. The Structured Telephonic Testing 5 to 15 Years after TBI study (STT) is now in Phase 2 and recruiting patients from PNS and PTRP.</string>
 			<key>TTSFilenamePrefix</key>
 			<string>~psc_whats_new_page2</string>
 			<key>ContainsTerminology</key>
@@ -198,110 +196,19 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 			<key>ImagePage</key>
 			<true/>
 			<key>ImageFilename</key>
-			<string>psc_whatsnew_2013q4_section2_1.png</string>
+			<string>psc_cam_day2.png</string>
 			<key>ShowHeader</key>
 			<true/>
 			<key>HeaderText</key>
-			<string>Setting the pace with Tech Projects!</string>
+			<string>Relaxation, Rejuvenation, and Recovery</string>
 			<key>HeaderTTSFilenamePrefix</key>
 			<string>psc_whats_new_page3_header</string>
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
-			<string>Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction.
-
-In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established.
-•	16 Strength practices
-•	2 Exemplary practices</string>
+			<string>On Saturday, September 15, 2012, VA Palo Alto PSC, supported by DVBIC and the War Related Injury and Illness Study Center, held a joint Health and Wellness Initiative for PSC Veterans, Active Duty Service Members and their families. The event encouraged participants to take part in a sampling of Complementary and Alternative Medicine (CAM) therapy classes which included: Chair Yoga, Traditional Yoga, Tai Chi, and Chair Massage.</string>
 			<key>TTSFilenamePrefix</key>
 			<string>~psc_whats_new_page3</string>
-			<key>ContainsTerminology</key>
-			<false/>
-			<key>TerminologyButtons</key>
-			<array>
-				<dict>
-					<key>Text</key>
-					<string>physiatrist</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_physiatrist</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>A physiatrist is a physician specializing in physical medicine and rehabilitation, focusing on restoring function.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_physiatrist_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>15</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>20</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>10</integer>
-					</array>
-				</dict>
-				<dict>
-					<key>Text</key>
-					<string>electromyography</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_electromyography</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>Electromyography, or EMG, tests the electrical activity of muscles. When this activity is abnormal, understanding why can help the doctor diagnose the patient&apos;s condition.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_electromyography_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>25</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>30</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>20</integer>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>page4</string>
-			<key>Type</key>
-			<string>page</string>
-			<key>ImagePage</key>
-			<true/>
-			<key>ImageFilename</key>
-			<string>psc_whatsnew_2013q4_section3_1.png</string>
-			<key>ShowHeader</key>
-			<true/>
-			<key>HeaderText</key>
-			<string>Featured &gt;&gt;&gt; PSC Tablet Based Mobile Waiting Room Application</string>
-			<key>HeaderTTSFilenamePrefix</key>
-			<string>psc_whats_new_page4_header</string>
-			<key>ShowButtonsFor</key>
-			<string>previousnext</string>
-			<key>Text</key>
-			<string>In our efforts of continuous innovation, the VA Palo Alto Health Care System (VAPAHCS) Polytrauma System of Care (PSC), in collaboration with the Assistive Technology Center (ATC), developed and deployed an Apple iPad tablet-based Waiting Room mobile application.
-
-Key members on the project development team - Odette Harris, MD, Associate Chief of staff of Polytrauma, David M. Horton, PSC Program Support Assistant/Lead Mobile Healthcare Application Developer, and Jonathan Sills, PhD, Program Director of Assistive Technology Center- made the initial version of the developed application available to willing participants in April of 2013.</string>
-			<key>TTSFilenamePrefix</key>
-			<string>~psc_whats_new_page4</string>
 			<key>ContainsTerminology</key>
 			<false/>
 			<key>TerminologyButtons</key>

@@ -455,6 +455,17 @@
 		5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FA9981E19BE396F000C68E3 /* download_from_cloud.png */; };
 		5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9982119BE655F000C68E3 /* GoalInfo.m */; };
 		5FD2817119C91EE20012E07E /* at_ed_module_test1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */; };
+		5FD2817619D123FE0012E07E /* psc_whats_new_module_2012.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */; };
+		5FD2817919D12D000012E07E /* psc_whatsnew_2013q4_page1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817819D12D000012E07E /* psc_whatsnew_2013q4_page1.png */; };
+		5FD2817B19D12D210012E07E /* at_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817A19D12D210012E07E /* at_icon.png */; };
+		5FD2818419D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817C19D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png */; };
+		5FD2818519D12D690012E07E /* psc_logo_withwords.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817D19D12D690012E07E /* psc_logo_withwords.png */; };
+		5FD2818619D12D690012E07E /* psc_whatsnew_2013q4_section6_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817E19D12D690012E07E /* psc_whatsnew_2013q4_section6_1.png */; };
+		5FD2818719D12D690012E07E /* psc_whatsnew_2013q4_section3_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817F19D12D690012E07E /* psc_whatsnew_2013q4_section3_2.png */; };
+		5FD2818819D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818019D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png */; };
+		5FD2818919D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818119D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png */; };
+		5FD2818A19D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818219D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png */; };
+		5FD2818B19D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818319D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png */; };
 		5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */; };
 		5FDBFA9119C4D4D8002D97C6 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */; };
 		5FFBC95619A024D700260832 /* ClinicianInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBC95519A024D700260832 /* ClinicianInfo.m */; };
@@ -1006,6 +1017,17 @@
 		5FA9982119BE655F000C68E3 /* GoalInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalInfo.m; sourceTree = "<group>"; };
 		5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = at_ed_module_test1.plist; sourceTree = "<group>"; };
 		5FD2817219CF83570012E07E /* myguide_WR_v3_db_a.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = myguide_WR_v3_db_a.sql; sourceTree = "<group>"; };
+		5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = psc_whats_new_module_2012.plist; sourceTree = "<group>"; };
+		5FD2817819D12D000012E07E /* psc_whatsnew_2013q4_page1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_page1.png; sourceTree = "<group>"; };
+		5FD2817A19D12D210012E07E /* at_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = at_icon.png; sourceTree = "<group>"; };
+		5FD2817C19D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section9_1.png; sourceTree = "<group>"; };
+		5FD2817D19D12D690012E07E /* psc_logo_withwords.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_logo_withwords.png; sourceTree = "<group>"; };
+		5FD2817E19D12D690012E07E /* psc_whatsnew_2013q4_section6_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section6_1.png; sourceTree = "<group>"; };
+		5FD2817F19D12D690012E07E /* psc_whatsnew_2013q4_section3_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section3_2.png; sourceTree = "<group>"; };
+		5FD2818019D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section7_1.png; sourceTree = "<group>"; };
+		5FD2818119D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section5_1.png; sourceTree = "<group>"; };
+		5FD2818219D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section7_2.png; sourceTree = "<group>"; };
+		5FD2818319D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q3_section6_2.png; sourceTree = "<group>"; };
 		5FDBFA8C19C2AC6B002D97C6 /* QuestionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionList.h; sourceTree = "<group>"; };
 		5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionList.m; sourceTree = "<group>"; };
 		5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicContent.h; sourceTree = "<group>"; };
@@ -1391,6 +1413,16 @@
 		3D2BFBBE16C31CD400653E00 /* Subclinics */ = {
 			isa = PBXGroup;
 			children = (
+				5FD2817C19D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png */,
+				5FD2817D19D12D690012E07E /* psc_logo_withwords.png */,
+				5FD2817E19D12D690012E07E /* psc_whatsnew_2013q4_section6_1.png */,
+				5FD2817F19D12D690012E07E /* psc_whatsnew_2013q4_section3_2.png */,
+				5FD2818019D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png */,
+				5FD2818119D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png */,
+				5FD2818219D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png */,
+				5FD2818319D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png */,
+				5FD2817A19D12D210012E07E /* at_icon.png */,
+				5FD2817819D12D000012E07E /* psc_whatsnew_2013q4_page1.png */,
 				3D2BFBBF16C31CE100653E00 /* acupuncture_meridians.png */,
 				3D2BFBC016C31CE100653E00 /* acupuncture_needle.png */,
 				3D2BFBC116C31CE100653E00 /* back_pain.jpg */,
@@ -1800,6 +1832,7 @@
 				3D80244F16C2C81700001085 /* pmnr_pain_ed_module_test2.plist */,
 				3D80244D16C2BBB300001085 /* pmnr_acu_ed_module_test2.plist */,
 				3D2BFBD316C3234000653E00 /* psc_whats_new_module_test2.plist */,
+				5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */,
 			);
 			name = Module_Specifications;
 			sourceTree = "<group>";
@@ -2140,10 +2173,12 @@
 				3D5112E71664CA7900609EBD /* DoneDown3.png in Resources */,
 				3D5112E81664CA7900609EBD /* DoneUp.png in Resources */,
 				3D5112E91664CA7900609EBD /* DoneUp3.png in Resources */,
+				5FD2818A19D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png in Resources */,
 				3D5112F01664D9DF00609EBD /* senddata_button_image_pressed.png in Resources */,
 				3D5112F11664D9DF00609EBD /* senddata_button_image.png in Resources */,
 				3D5112F91664F70100609EBD /* menu_back_wht_gradient_clearback.png in Resources */,
 				3D5112FB1664F82A00609EBD /* menu_back_wht_gradient_clearback2.png in Resources */,
+				5FD2818919D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png in Resources */,
 				3D5112FD1664F9B700609EBD /* menu_back_wht_gradient_clearback3.png in Resources */,
 				3D5112FF166505A500609EBD /* psc_staff_collage.png in Resources */,
 				5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */,
@@ -2153,6 +2188,7 @@
 				3DB1BB0C1670759C00BC4466 /* tapered_fade_dividing_line-horiz-lrg.png in Resources */,
 				3DB1BB1716708FFC00BC4466 /* indicator.png in Resources */,
 				3D66EE8816711D8800141218 /* ed_module.storyboard in Resources */,
+				5FD2817619D123FE0012E07E /* psc_whats_new_module_2012.plist in Resources */,
 				3D66EE8B16711DE200141218 /* what_is_tbi.png in Resources */,
 				3D66EE8D16711DEE00141218 /* what_is_tbi_video.png in Resources */,
 				3D66EEA11671280900141218 /* anatomy_brain.mp4 in Resources */,
@@ -2192,6 +2228,7 @@
 				3D29625A1676317A00C99C1D /* mod_severe_tbi_details.png in Resources */,
 				3D29625C1676320600C99C1D /* parts_of_brain.png in Resources */,
 				3D29625E167633A100C99C1D /* anatomy_of_brain-play.png in Resources */,
+				5FD2818719D12D690012E07E /* psc_whatsnew_2013q4_section3_2.png in Resources */,
 				5F0A29F11988A7300003E8AF /* pns_timmerman.png in Resources */,
 				3D29628516763DAF00C99C1D /* whole_brain-horiz-hires_smallest.zip in Resources */,
 				3DAF70D61677180200AD2E73 /* learntbi_image_pressed3.png in Resources */,
@@ -2227,6 +2264,7 @@
 				3D78674016967E2D00745E44 /* pmnr_teraoka_thumb.png in Resources */,
 				3DBC16F21698C3F400212339 /* PhysicianDetailViewController.xib in Resources */,
 				3DBC16F51698C76E00212339 /* blue_gradient_bar.png in Resources */,
+				5FD2818B19D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png in Resources */,
 				3DBC16F71698C7FA00212339 /* pmnr_placeholder.png in Resources */,
 				3D7B8FB0169A389300567922 /* blue_gradient_bar_sml.png in Resources */,
 				3D7B8FB5169A4DF700567922 /* PhysicianSubDetailViewController.xib in Resources */,
@@ -2283,6 +2321,7 @@
 				3D94C77416B221B3005F58E6 /* white_line_solid.png in Resources */,
 				5FD2817119C91EE20012E07E /* at_ed_module_test1.plist in Resources */,
 				3D221DA016B9DCE8000C29F9 /* demoButton5.png in Resources */,
+				5FD2818419D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png in Resources */,
 				3D221DA116B9DCE8000C29F9 /* demoButton5@2x.png in Resources */,
 				3DD40ADB16BAD05C0078B1A2 /* pmnr_mandal_bio.plist in Resources */,
 				3DD87EEE16BAF9B9002B4C1D /* pmnr_chao_bio.plist in Resources */,
@@ -2313,6 +2352,7 @@
 				3D7323A516C9F1C400602E61 /* silence_one_second.wav in Resources */,
 				3D7323A816C9F1D500602E61 /* silence_half_second.wav in Resources */,
 				3D7323A916C9F1D500602E61 /* silence_quarter_second.wav in Resources */,
+				5FD2818519D12D690012E07E /* psc_logo_withwords.png in Resources */,
 				3DA8F6BE16CC5C5100111C8E /* survey_agree_disagree_template.storyboard in Resources */,
 				3DA8F6BF16CC5C5100111C8E /* survey_choose_goal_template.storyboard in Resources */,
 				3DA8F6C016CC5C5100111C8E /* survey_recommend_template.storyboard in Resources */,
@@ -2342,6 +2382,8 @@
 				3D95DE8216F182D4002BD4CC /* headphones_red_icon.png in Resources */,
 				3D95DE8416F1848E002BD4CC /* satellite-yellow.png in Resources */,
 				3D95DE8616F18B07002BD4CC /* wanderguard_logo.png in Resources */,
+				5FD2818619D12D690012E07E /* psc_whatsnew_2013q4_section6_1.png in Resources */,
+				5FD2817B19D12D210012E07E /* at_icon.png in Resources */,
 				3D95DE8916F18D07002BD4CC /* data_icon.png in Resources */,
 				3D95DE8A16F18D07002BD4CC /* speech_icon_small.png in Resources */,
 				3D95DE9516F1BF09002BD4CC /* geofence_small.png in Resources */,
@@ -2370,10 +2412,12 @@
 				3DD05B9F1713482300746186 /* myguide_WR_db_c.sql in Resources */,
 				3DD05BA117138E3000746186 /* myguide_WR_db_d.sql in Resources */,
 				3DD05BA31713BBBA00746186 /* GreySidebar_rotated.png in Resources */,
+				5FD2818819D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png in Resources */,
 				3D68E0F51715C60800A088BD /* pmnr_shankar2.png in Resources */,
 				3D68E0F71715C61400A088BD /* pmnr_shankar_thumb2.png in Resources */,
 				3D0EAE75171892C200560259 /* upload_to_cloud.png in Resources */,
 				3DB7B78C17372168003A34EB /* dont_know.png in Resources */,
+				5FD2817919D12D000012E07E /* psc_whatsnew_2013q4_page1.png in Resources */,
 				3DB7B78E17372430003A34EB /* dont_know_stroke.png in Resources */,
 				3D1E6F28173819B300145DB9 /* survey_enter_goal_template.storyboard in Resources */,
 				3D13AFCB1738837E0001EA3C /* SLViewController.xib in Resources */,
