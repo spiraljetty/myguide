@@ -465,7 +465,13 @@
 		5FD2818819D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818019D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png */; };
 		5FD2818919D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818119D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png */; };
 		5FD2818A19D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818219D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png */; };
-		5FD2818B19D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818319D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png */; };
+		5FD2818B19D12D690012E07E /* psc_whatsnew_2013q4_section6_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818319D12D690012E07E /* psc_whatsnew_2013q4_section6_2.png */; };
+		5FD2818D19D140E80012E07E /* psc_whatsnew_2013q4_section2_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2818C19D140E80012E07E /* psc_whatsnew_2013q4_section2_1.png */; };
+		5FD2819119D15DCD0012E07E /* bb-logo-215x215.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2819019D15DCD0012E07E /* bb-logo-215x215.jpg */; };
+		5FD2819319D15FBC0012E07E /* psc_whatsnew_2013q4_section3_3.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2819219D15FBC0012E07E /* psc_whatsnew_2013q4_section3_3.PNG */; };
+		5FD2819519D161300012E07E /* psc_wharsnew_2013q4_section5_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2819419D161300012E07E /* psc_wharsnew_2013q4_section5_2.jpg */; };
+		5FD2819719D1695F0012E07E /* psc_whatsnew_odette_harris.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2819619D1695F0012E07E /* psc_whatsnew_odette_harris.png */; };
+		5FD2819919D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2819819D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png */; };
 		5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */; };
 		5FDBFA9119C4D4D8002D97C6 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */; };
 		5FFBC95619A024D700260832 /* ClinicianInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBC95519A024D700260832 /* ClinicianInfo.m */; };
@@ -1027,7 +1033,13 @@
 		5FD2818019D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section7_1.png; sourceTree = "<group>"; };
 		5FD2818119D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section5_1.png; sourceTree = "<group>"; };
 		5FD2818219D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section7_2.png; sourceTree = "<group>"; };
-		5FD2818319D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q3_section6_2.png; sourceTree = "<group>"; };
+		5FD2818319D12D690012E07E /* psc_whatsnew_2013q4_section6_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section6_2.png; sourceTree = "<group>"; };
+		5FD2818C19D140E80012E07E /* psc_whatsnew_2013q4_section2_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section2_1.png; sourceTree = "<group>"; };
+		5FD2819019D15DCD0012E07E /* bb-logo-215x215.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bb-logo-215x215.jpg"; sourceTree = "<group>"; };
+		5FD2819219D15FBC0012E07E /* psc_whatsnew_2013q4_section3_3.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section3_3.PNG; sourceTree = "<group>"; };
+		5FD2819419D161300012E07E /* psc_wharsnew_2013q4_section5_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = psc_wharsnew_2013q4_section5_2.jpg; sourceTree = "<group>"; };
+		5FD2819619D1695F0012E07E /* psc_whatsnew_odette_harris.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_odette_harris.png; sourceTree = "<group>"; };
+		5FD2819819D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = psc_whatsnew_2013q4_section3_1a.png; sourceTree = "<group>"; };
 		5FDBFA8C19C2AC6B002D97C6 /* QuestionList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionList.h; sourceTree = "<group>"; };
 		5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionList.m; sourceTree = "<group>"; };
 		5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicContent.h; sourceTree = "<group>"; };
@@ -1413,6 +1425,11 @@
 		3D2BFBBE16C31CD400653E00 /* Subclinics */ = {
 			isa = PBXGroup;
 			children = (
+				5FD2819419D161300012E07E /* psc_wharsnew_2013q4_section5_2.jpg */,
+				5FD2819819D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png */,
+				5FD2819219D15FBC0012E07E /* psc_whatsnew_2013q4_section3_3.PNG */,
+				5FD2819019D15DCD0012E07E /* bb-logo-215x215.jpg */,
+				5FD2818C19D140E80012E07E /* psc_whatsnew_2013q4_section2_1.png */,
 				5FD2817C19D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png */,
 				5FD2817D19D12D690012E07E /* psc_logo_withwords.png */,
 				5FD2817E19D12D690012E07E /* psc_whatsnew_2013q4_section6_1.png */,
@@ -1420,8 +1437,9 @@
 				5FD2818019D12D690012E07E /* psc_whatsnew_2013q4_section7_1.png */,
 				5FD2818119D12D690012E07E /* psc_whatsnew_2013q4_section5_1.png */,
 				5FD2818219D12D690012E07E /* psc_whatsnew_2013q4_section7_2.png */,
-				5FD2818319D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png */,
+				5FD2818319D12D690012E07E /* psc_whatsnew_2013q4_section6_2.png */,
 				5FD2817A19D12D210012E07E /* at_icon.png */,
+				5FD2819619D1695F0012E07E /* psc_whatsnew_odette_harris.png */,
 				5FD2817819D12D000012E07E /* psc_whatsnew_2013q4_page1.png */,
 				3D2BFBBF16C31CE100653E00 /* acupuncture_meridians.png */,
 				3D2BFBC016C31CE100653E00 /* acupuncture_needle.png */,
@@ -2070,6 +2088,7 @@
 				3DB1E4B11662EF1400355330 /* new_satisfaction_c.sql in Resources */,
 				28AD733F0D9D9553002E5188 /* MainWindow_Pad.xib in Resources */,
 				2860E38B111B897F00E27156 /* MainWindow_Phone.xib in Resources */,
+				5FD2819519D161300012E07E /* psc_wharsnew_2013q4_section5_2.jpg in Resources */,
 				B5D5188511757B1B00D5CDD0 /* MainView_Phone.xib in Resources */,
 				B5D5188C11757B3100D5CDD0 /* MainView_Pad.xib in Resources */,
 				3D66069315D6E0D0002E9CE9 /* h1n1_resources_back.png in Resources */,
@@ -2082,6 +2101,7 @@
 				3D163E3E15E3461C002CDFF0 /* survey_icon_lrg.png in Resources */,
 				3D163E4115E346F6002CDFF0 /* survey_icon_med.png in Resources */,
 				3D163E4215E346F6002CDFF0 /* survey_icon_sml.png in Resources */,
+				5FD2819719D1695F0012E07E /* psc_whatsnew_odette_harris.png in Resources */,
 				3D163E4415E34A09002CDFF0 /* loading_box.png in Resources */,
 				3D163E4815E34D24002CDFF0 /* Default.png in Resources */,
 				3D3846EB15E3F24800F90DAD /* care7.png in Resources */,
@@ -2137,6 +2157,7 @@
 				5F0A29F01988A7300003E8AF /* pns_timmerman_thumb.png in Resources */,
 				3D714AE016643BD300D92448 /* new_satisfaction_db.sql in Resources */,
 				3D714AF2166480CD00D92448 /* fontsize_button_image.png in Resources */,
+				5FD2819119D15DCD0012E07E /* bb-logo-215x215.jpg in Resources */,
 				3D714AF3166480CD00D92448 /* fontsize_button_image_pressed.png in Resources */,
 				3D714AF4166480CD00D92448 /* sound_button_image_on.png in Resources */,
 				3D714AF5166480CD00D92448 /* sound_button_image_pressed.png in Resources */,
@@ -2162,6 +2183,7 @@
 				3D5112CA1664B55300609EBD /* cat.png in Resources */,
 				3D5112CB1664B55300609EBD /* dog.png in Resources */,
 				3D5112CC1664B55300609EBD /* goose.png in Resources */,
+				5FD2819319D15FBC0012E07E /* psc_whatsnew_2013q4_section3_3.PNG in Resources */,
 				3D5112CD1664B55300609EBD /* mouse.png in Resources */,
 				3D5112CE1664B55300609EBD /* newt.png in Resources */,
 				3D5112CF1664B55300609EBD /* pig.png in Resources */,
@@ -2170,6 +2192,7 @@
 				3D5112D91664C77600609EBD /* admin_button_image_pressed.png in Resources */,
 				3D5112DA1664C77600609EBD /* admin_button_image.png in Resources */,
 				3D5112E61664CA7900609EBD /* DoneDown.png in Resources */,
+				5FD2818D19D140E80012E07E /* psc_whatsnew_2013q4_section2_1.png in Resources */,
 				3D5112E71664CA7900609EBD /* DoneDown3.png in Resources */,
 				3D5112E81664CA7900609EBD /* DoneUp.png in Resources */,
 				3D5112E91664CA7900609EBD /* DoneUp3.png in Resources */,
@@ -2236,6 +2259,7 @@
 				3DAF70E816773B4300AD2E73 /* movie_play_icon.png in Resources */,
 				3D5A5798167758B00095FA1D /* calvin_gordon.png in Resources */,
 				3D5A5799167758B00095FA1D /* laura_howe.png in Resources */,
+				5FD2819919D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png in Resources */,
 				3D5A579A167758B00095FA1D /* odette_harris.png in Resources */,
 				3D5A57A1167758D20095FA1D /* appointment_button_image_pressed.png in Resources */,
 				3D5A57A2167758D20095FA1D /* appointment_button_image.png in Resources */,
@@ -2264,7 +2288,7 @@
 				3D78674016967E2D00745E44 /* pmnr_teraoka_thumb.png in Resources */,
 				3DBC16F21698C3F400212339 /* PhysicianDetailViewController.xib in Resources */,
 				3DBC16F51698C76E00212339 /* blue_gradient_bar.png in Resources */,
-				5FD2818B19D12D690012E07E /* psc_whatsnew_2013q3_section6_2.png in Resources */,
+				5FD2818B19D12D690012E07E /* psc_whatsnew_2013q4_section6_2.png in Resources */,
 				3DBC16F71698C7FA00212339 /* pmnr_placeholder.png in Resources */,
 				3D7B8FB0169A389300567922 /* blue_gradient_bar_sml.png in Resources */,
 				3D7B8FB5169A4DF700567922 /* PhysicianSubDetailViewController.xib in Resources */,

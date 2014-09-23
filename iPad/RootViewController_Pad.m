@@ -558,7 +558,7 @@ static RootViewController_Pad* mViewController = NULL;
     //mainTable = @"sessiondata";
     //mainTable = @"sessiondatav3";
     mainTable = @"sessiondata";
-    csvpath = @"satisfactiondata_9_17_14.csv";
+    csvpath = @"satisfactiondata_9_23_14.csv";
     // sandy 7-21 should append device name and date here
     NSString *thisdeviceName = [[UIDevice currentDevice] name];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -587,25 +587,25 @@ static RootViewController_Pad* mViewController = NULL;
 	self.databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
 	
     //---- this is one time only use data for building a new database table for the app
-  // int result = sqlite3_open([self.databasePath UTF8String], &db);
+   //int result = sqlite3_open([self.databasePath UTF8String], &db);
     
-  //  if (SQLITE_OK == result) {
-  //  }else {
-   //    NSLog(@"db opening error");
-   //
-  //  }
+    //if (SQLITE_OK == result) {
+    //}else {
+    //   NSLog(@"db opening error");
+
+    //}
     //create table here once for version2 of database
-  //  const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER, pilot NUMERIC, posttxcompleteper NUMERIC, pretxcompleteper NUMERIC, accesspoint TEXT, wanderON NUMERIC, appversion TEXT, posttxdur NUMERIC, pretxdur NUMERIC, s15tech NUMERIC, s14recommend NUMERIC, s13know NUMERIC, s12prepared NUMERIC, s11metgoal NUMERIC, s8clinichelp NUMERIC, s7prohelp NUMERIC, s5looking NUMERIC, s4prepared NUMERIC, s3reason NUMERIC, s2goalchoice NUMERIC, todaysGoal TEXT, s1clinictest NUMERIC, s0protest NUMERIC, setprovider TEXT, setvisit TEXT, setspecialty TEXT, setclinic TEXT, ipadname TEXT, demo NUMERIC, respondenttype TEXT, month NUMERIC, year NUMERIC, startedsurvey NUMERIC, finishedsurvey NUMERIC, totalsurveyduration NUMERIC, q1 NUMERIC, q2 NUMERIC, q3 NUMERIC, q4 NUMERIC, q5 NUMERIC, q6 NUMERIC, q7 NUMERIC, q8 NUMERIC, q9 NUMERIC, q10 NUMERIC, q11 NUMERIC, q12 NUMERIC, q13 NUMERIC, q14 NUMERIC, q15 NUMERIC, q16 NUMERIC, q17 NUMERIC, q18 NUMERIC, q19 NUMERIC, q20 NUMERIC, q21 NUMERIC, q22 NUMERIC, q23 NUMERIC, q24 NUMERIC, q25 NUMERIC, q26 NUMERIC, q27 NUMERIC, q28 NUMERIC, q29 NUMERIC, q30 NUMERIC, voiceassist NUMERIC, fontsize NUMERIC)";
+   // const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER, pilot NUMERIC, posttxcompleteper NUMERIC, pretxcompleteper NUMERIC, accesspoint TEXT, wanderON NUMERIC, appversion TEXT, posttxdur NUMERIC, pretxdur NUMERIC, s15tech NUMERIC, s14recommend NUMERIC, s13know NUMERIC, s12prepared NUMERIC, s11metgoal NUMERIC, s8clinichelp NUMERIC, s7prohelp NUMERIC, s5looking NUMERIC, s4prepared NUMERIC, s3reason NUMERIC, s2goalchoice NUMERIC, todaysGoal TEXT, s1clinictest NUMERIC, s0protest NUMERIC, setprovider TEXT, setvisit TEXT, setspecialty TEXT, setclinic TEXT, ipadname TEXT, demo NUMERIC, respondenttype TEXT, month NUMERIC, year NUMERIC, startedsurvey NUMERIC, finishedsurvey NUMERIC, totalsurveyduration NUMERIC, q1 NUMERIC, q2 NUMERIC, q3 NUMERIC, q4 NUMERIC, q5 NUMERIC, q6 NUMERIC, q7 NUMERIC, q8 NUMERIC, q9 NUMERIC, q10 NUMERIC, q11 NUMERIC, q12 NUMERIC, q13 NUMERIC, q14 NUMERIC, q15 NUMERIC, q16 NUMERIC, q17 NUMERIC, q18 NUMERIC, q19 NUMERIC, q20 NUMERIC, q21 NUMERIC, q22 NUMERIC, q23 NUMERIC, q24 NUMERIC, q25 NUMERIC, q26 NUMERIC, q27 NUMERIC, q28 NUMERIC, q29 NUMERIC, q30 NUMERIC, voiceassist NUMERIC, fontsize NUMERIC)";
     
-   // char * errInfo ;
-  //  result = sqlite3_exec(db, sessiondataTableQuery, nil, nil, &errInfo);
+    //char * errInfo ;
+    //result = sqlite3_exec(db, sessiondataTableQuery, nil, nil, &errInfo);
     
-  //  if (SQLITE_OK == result) {
-  //      NSLog(@"sessiondata Table Created :)");
- //   }else {
-  //      NSString* err = [[NSString alloc]initWithUTF8String:errInfo];
-  //      NSLog(@"error in creating table :(", err);
-  //  }
+    //if (SQLITE_OK == result) {
+    //    NSLog(@"sessiondata Table Created :)");
+   // }else {
+   //     NSString* err = [[NSString alloc]initWithUTF8String:errInfo];
+   //     NSLog(@"error in creating table :(", err);
+   // }
     //--------------- end of one time table building code
     
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over

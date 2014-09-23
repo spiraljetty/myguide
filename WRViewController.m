@@ -6583,8 +6583,8 @@ int indexCount;
         
         //    NSDictionary *vcfPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"test.vcf\"",kSKPSMTPPartContentTypeKey,
         //                             @"attachment;\r\n\tfilename=\"test.vcf\"",kSKPSMTPPartContentDispositionKey,[vcfData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
-        NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata_9_16_14.csv\"",kSKPSMTPPartContentTypeKey,
-                                 @"attachment;\r\n\tfilename=\"satisfactiondata_9_16_14.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
+        NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata_9_23_14.csv\"",kSKPSMTPPartContentTypeKey,
+                                 @"attachment;\r\n\tfilename=\"satisfactiondata_9_23_14.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
         
         //NSDictionary *csvPart = [NSDictionary dictionaryWithObjectsAndKeys:@"text/directory;\r\n\tx-unix-mode=0644;\r\n\tname=\"satisfactiondata.csv\"",kSKPSMTPPartContentTypeKey,@"attachment;\r\n\tfilename=\"satisfactiondata.csv\"",kSKPSMTPPartContentDispositionKey,[csvData encodeBase64ForData],kSKPSMTPPartMessageKey,@"base64",kSKPSMTPPartContentTransferEncodingKey,nil];
         

@@ -59,19 +59,17 @@
 			<key>ImagePage</key>
 			<true/>
 			<key>ImageFilename</key>
-			<string>psc_logo_withwords.png</string>
+			<string>psc_whatsnew_odette_harris.png</string>
 			<key>ShowHeader</key>
 			<true/>
 			<key>HeaderText</key>
-			<string>A note from Odette Harris, MD, MPH (Associate Chief of Staff)</string>
+			<string>A note from Odette Harris, MD, MPH </string>
 			<key>HeaderTTSFilenamePrefix</key>
 			<string>psc_whats_new_page0_header</string>
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
-			<string>Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC).  This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. 
-We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program.
-The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care.  Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission.</string>
+			<string>Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC). The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care.</string>
 			<key>TTSFilenamePrefix</key>
 			<string>~psc_whats_new_page0</string>
 			<key>ContainsTerminology</key>
@@ -82,6 +80,32 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 		<dict>
 			<key>Name</key>
 			<string>page1</string>
+			<key>Type</key>
+			<string>intro_page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_logo_withwords.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>A note ...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page0_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission. This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>~psc_whats_new_page1</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page2</string>
 			<key>Type</key>
 			<string>page</string>
 			<key>ImagePage</key>
@@ -99,7 +123,7 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 			<key>Text</key>
 			<string>In an effort to incorporate all stakeholder feedback gathered during a 9-month strategic planning process, Polytrauma System of Care (PSC) leadership is moving forward with a planned expansion of the Assistive Technology Center to include a Center for Innovation and Technology (CIT).  The expanded organizational structure will provide a design, learning, and development pathway for new health care technologies while maintaining the current service delivery of assistive technologies within the PSC. </string>
 			<key>TTSFilenamePrefix</key>
-			<string>~psc_whats_new_page1</string>
+			<string>~psc_whats_new_page2</string>
 			<key>ContainsTerminology</key>
 			<false/>
 			<key>TerminologyButtons</key>
@@ -107,7 +131,7 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>page2</string>
+			<string>page3</string>
 			<key>Type</key>
 			<string>page</string>
 			<key>ImagePage</key>
@@ -119,80 +143,21 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 			<key>HeaderText</key>
 			<string>Strategic Planning Update..(cont.)</string>
 			<key>HeaderTTSFilenamePrefix</key>
-			<string>psc_whats_new_page2_header</string>
+			<string>psc_whats_new_page3_header</string>
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
 			<string>The new Center signals a commitment to thoughtful creativity, collaborative entrepreneurialism, new project development and incubation, and continuous performance improvement in patient care. Jonathan Sills, PhD, Program Director of Assistive Technology and the main force behind the 2013-2015 strategic plan that included the conceptualization of the Center for Innovation and Technology (CIT) within the Polytrauma System of Care, will oversee the new center.</string>
 			<key>TTSFilenamePrefix</key>
-			<string>~psc_whats_new_page2</string>
+			<string>~psc_whats_new_page3</string>
 			<key>ContainsTerminology</key>
 			<false/>
 			<key>TerminologyButtons</key>
-			<array>
-				<dict>
-					<key>Text</key>
-					<string>physiatry</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_physiatry</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>Physiatry is a branch of medicine that diagnoses and treats disorders causing temporary or permanent impairment.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_physiatry_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>15</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>20</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>10</integer>
-					</array>
-				</dict>
-				<dict>
-					<key>Text</key>
-					<string>fibromyalgia</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_fibromyalgia</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>Fibromyalgia is a common syndrome in which a person has long-term, body-wide pain and tenderness in the joints, muscles, tendons, and other soft tissues.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_fibromyalgia_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>25</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>30</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>20</integer>
-					</array>
-				</dict>
-			</array>
+			<array/>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>page3</string>
+			<string>page4</string>
 			<key>Type</key>
 			<string>page</string>
 			<key>ImagePage</key>
@@ -204,167 +169,598 @@ The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermor
 			<key>HeaderText</key>
 			<string>Setting the pace with Tech Projects!</string>
 			<key>HeaderTTSFilenamePrefix</key>
-			<string>psc_whats_new_page3_header</string>
-			<key>ShowButtonsFor</key>
-			<string>previousnext</string>
-			<key>Text</key>
-			<string>Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction.
-
-In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established.
-•	16 Strength practices
-•	2 Exemplary practices</string>
-			<key>TTSFilenamePrefix</key>
-			<string>~psc_whats_new_page3</string>
-			<key>ContainsTerminology</key>
-			<false/>
-			<key>TerminologyButtons</key>
-			<array>
-				<dict>
-					<key>Text</key>
-					<string>physiatrist</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_physiatrist</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>A physiatrist is a physician specializing in physical medicine and rehabilitation, focusing on restoring function.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_physiatrist_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>15</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>20</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>10</integer>
-					</array>
-				</dict>
-				<dict>
-					<key>Text</key>
-					<string>electromyography</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_electromyography</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>Electromyography, or EMG, tests the electrical activity of muscles. When this activity is abnormal, understanding why can help the doctor diagnose the patient&apos;s condition.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_electromyography_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>25</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>30</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>20</integer>
-					</array>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>page4</string>
-			<key>Type</key>
-			<string>page</string>
-			<key>ImagePage</key>
-			<true/>
-			<key>ImageFilename</key>
-			<string>psc_whatsnew_2013q4_section3_1.png</string>
-			<key>ShowHeader</key>
-			<true/>
-			<key>HeaderText</key>
-			<string>Featured &gt;&gt;&gt; PSC Tablet Based Mobile Waiting Room Application</string>
-			<key>HeaderTTSFilenamePrefix</key>
 			<string>psc_whats_new_page4_header</string>
 			<key>ShowButtonsFor</key>
 			<string>previousnext</string>
 			<key>Text</key>
-			<string>In our efforts of continuous innovation, the VA Palo Alto Health Care System (VAPAHCS) Polytrauma System of Care (PSC), in collaboration with the Assistive Technology Center (ATC), developed and deployed an Apple iPad tablet-based Waiting Room mobile application.
-
-Key members on the project development team - Odette Harris, MD, Associate Chief of staff of Polytrauma, David M. Horton, PSC Program Support Assistant/Lead Mobile Healthcare Application Developer, and Jonathan Sills, PhD, Program Director of Assistive Technology Center- made the initial version of the developed application available to willing participants in April of 2013.</string>
+			<string>Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction.</string>
 			<key>TTSFilenamePrefix</key>
 			<string>~psc_whats_new_page4</string>
 			<key>ContainsTerminology</key>
 			<false/>
 			<key>TerminologyButtons</key>
-			<array>
-				<dict>
-					<key>Text</key>
-					<string>physiatrist</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_physiatrist</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>A physiatrist is a physician specializing in physical medicine and rehabilitation, focusing on restoring function.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_physiatrist_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>15</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>20</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>10</integer>
-					</array>
-				</dict>
-				<dict>
-					<key>Text</key>
-					<string>electromyography</string>
-					<key>TTSTextFilenamePrefix</key>
-					<string>term_electromyography</string>
-					<key>ImageTerm</key>
-					<false/>
-					<key>ImageFilename</key>
-					<string>NA</string>
-					<key>TermText</key>
-					<string>Electromyography, or EMG, tests the electrical activity of muscles. When this activity is abnormal, understanding why can help the doctor diagnose the patient&apos;s condition.</string>
-					<key>TTSTermTextFilenamePrefix</key>
-					<string>term_electromyography_text</string>
-					<key>MediumOriginCoords</key>
-					<array>
-						<integer>15</integer>
-						<integer>25</integer>
-					</array>
-					<key>LargeOriginCoords</key>
-					<array>
-						<integer>20</integer>
-						<integer>30</integer>
-					</array>
-					<key>SmallOriginCoords</key>
-					<array>
-						<integer>10</integer>
-						<integer>20</integer>
-					</array>
-				</dict>
-			</array>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page5</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section2_1.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Setting the pace...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page5_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established.
+•	16 Strength practices
+•	2 Exemplary practices</string>
+			<key>TTSFilenamePrefix</key>
+			<string>~psc_whats_new_page5</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page6</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section3_1a.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>PSC Mobile Tablet Waiting Room App</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page6_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>In our efforts of continuous innovation, the VA Palo Alto Health Care System (VAPAHCS) Polytrauma System of Care (PSC), in collaboration with the Assistive Technology Center (ATC), developed and deployed an Apple iPad tablet-based Waiting Room mobile application. Participants provided feedback information by selecting various responses on the tablets graphical user interface (GUI) and by responding to open ended questions asked verbally by project team members following application use.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>~psc_whats_new_page6</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page7</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section3_2.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Waiting Room App..(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page7_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>The design of the application allows content to be customized for a various clinics, provider, or stakeholders. During the initial test all participants were presented with a similar set of options to view various healthcare education materials and satisfaction survey questions.  Health educational materials include information made available from Defense and Veterans Brain Injury Center (DVBIC), educational materials created by clinical staff, and various open-source and freely available online health education and digital media.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>~psc_whats_new_page7</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page8</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section3_3.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Waiting Room App..(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page8_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>Survey questions were informed by current psychology research findings focusing on healthcare utilization, patient accessibility, and patient experience. The overall response thus far has been overwhelmingly positive. Key members on the project development team - Odette Harris, MD, Associate Chief of staff of Polytrauma, David M. Horton, PSC Program Support Assistant/Lead Mobile Healthcare Application Developer, and Jonathan Sills, PhD, Program Director of Assistive Technology Center made the initial version of the application available in April of 2013.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>~psc_whats_new_page8</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page9</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Clinical Video Telehealth (CVT) Encounters</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page9_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>OEF/OIF/OND Meeting &amp; Exceeding Clinical Video Telehealth (CVT) Encounter Expectations! We are very excited to report that for Q1FY13 and Q2FY13 we had a total of 71 telehealth encounters in our OEF/OIF/OND program.  This positive trend was continued in Q3FY13 with 57 additional telehealth encounters. This trend shows that our OEF/OIF/OND case management program is well on its way to meet their target of 30% increase from previous FY12 encounters. </string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page9</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page10</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Telehealth (CVT)..cont.</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page9_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>It also provides us with increased confidence that our plan to increase encounters in other Polytrauma programs by expanding Social Work telehealth care coordination and office hours will be successful.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page9</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page10</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>VA Palo Alto Health Care System Named 2013 &quot;Most Wired&quot;</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page10_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>PALO ALTO, Calif.--The Hospitals and Health Networks, a publication of the American Hospital Association, has named the VA Palo Alto Health Care System as one of the nation&apos;s Most Wired hospitals. This is the 15th year the magazine has recognized hospitals and health systems for excellence in Information Technology, and the 8th year VAPAHCS has received the award.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page10</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page11</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_wharsnew_2013q4_section5_2.jpg</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>&quot;Most Wired&quot;...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page11_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>&quot;Being in Silicon Valley, we know that maintaining cutting-edge technologies for our patients and staff is essential to enhancing our health care delivery,&quot; said Matthew Montano, VA Palo Alto Health Care System&apos;s Chief Information Officer. Our ability to provide safe, effective and efficient care to our Veterans is the most important thing we do -- and harnessing technology that allows us to do that even better is critical.&quot;</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page11</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page12</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>&quot;Most Wired&quot;...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page12_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>AHA used an analytic structure to stratify hospitals based on progress in adoption, implementation and use of information technology in four areas: infrastructure, business and administration management, clinical quality and safety, and care continuum. Only organizations whose responses reflect development across all four focus areas were designated Most Wired.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page12</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page13</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section5_1</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>&quot;Most Wired&quot;...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page13_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>VA Palo Alto Health Care System Veterans Alfredo Capps and Arthur Pireda use an Apple iPad at the VA Palo Alto Campus July 9 to preview future functions within the Polytrauma Transitional Rehabilitation Program. For the 8th year, the VA Palo Alto Health Care System was named one of the nation&apos;s Most Wired hospitals by the American Hospital Association. (VAPAHCS Photo by Joe Matthews).</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page13</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page14</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>bb-logo-215x215.jpg</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in the PNS Program</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page14_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>For the past year, program Veterans have been tapping away on an interactive mobile health system that gives Veterans instant and secure access to everything from appointment reminders and health diaries to video conferencing and individualized electronic medical records via the VA&apos;s secure Blue Button system. </string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page14</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page14</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section6_1.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in the PNS Program</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page14_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>The IntelaCare developed and championed locally by Julianna Brooks, LCSW, Polytrauma Network Site Director for VISN 21 at VAPAHCS and Laura Gomez, LCSW, OEF/OIF/OND Program Manager at VAPAHCS, brings this comprehensive, cutting-edge technology to Veterans who have experienced traumatic brain injuries (TBI) and/or Post-Traumatic Stress Disorder (PTSD). </string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page14</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page15</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section6_2.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in PNS..(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page15_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>IntelaCare delivers Home Tele-health with a few easy clicks. To videoconference with practitioners, Veterans don&apos;t have to download a separate app or figure out any equipment; the providers can access patients directly from their offices in the VA facility.
+The rollout is part of VAi2, the national VHA&apos;s Innovation Initiative that strives to make the twenty-first century Department of Veterans Affairs people-centric, results-driven, and forward-looking.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page15</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page16</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in PNS..(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page1_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>The IntelaCare project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the 2013 accreditation survey. At the heart of this mobile healthcare system is a sophisticated eLearning system. A curriculum consisting of more than six months of TBI/PTSD educational videos and clinical assessment tools has been co-created as part of this project. </string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page16</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page17</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in PNS..(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page1_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>VAPAHCS and Affinity Network, Inc. staff mutually developed this curriculum that empowers patients to learn to self-manage their condition(s) at their own pace. Veterans can watch their daily, custom-tailored eLearning video; listen and watch as an animated avatar walks them through the lesson, giving them suggestions on how to record their own information in the health diary and what to discuss at their next health appointment; schedule an appointment; or reach out to their practitioner for more information or with concerns.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page17</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page18</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section7_1.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Tech Highlights in the PTRP Program</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page18_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>A new collaborative working relationship has been developed by VAPAHCS Assistive Technology (AT) Center Director, Jonathan Sills, Ph.D., Polytrauma Transitional Rehabilitation Program (PTRP) Neuropsychologist Maya Yutsis, Ph.D., PTRP Psychologist, Carey Pawlowski, Ph.D., and Rich Levinson, founder of BrainAid.Com. The collaboration expands use of the PEAT technology platform for brain injured PTRP patients.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page18</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page19</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section7_2.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in PTRP ...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page19_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>PEAT is an Android based smartphone technology that provides individualized cueing and scheduling assistance for patients with memory, attention, and executive functioning deficits. Brainaid.com engineers have made the platform user friendly and accessible to patients with various functional limitations. </string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page19</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page20</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Technology in PTRP ...(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page20_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>As part of the project, psychology staff identified those patients who would benefit from using new technologies to maximize independence, reintegration to community, and return to meaningful activity after discharge. Increasing individuals&apos; use of compensation strategies has been shown to improve independence in daily life after post-acute cognitive rehabilitation. By incorporating new technology into the rehabilitation plan, it is expected that patients and caregivers will be able to utilize compensatory strategies that promote sustainable, long-term functional gains.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page20</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page21</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Tech for Vets Donate iPads for Photography</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page21_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>Jason Rorie and Gary Moore, Jr, founders of Tech for Vets (www.techforvets.org) in collaboration with the Wounded Warrior Project&apos;s Ken Misa, personally visited the PTRP program to learn how their donated the iPads and docking station may provide maximal benefit to our service members and veterans. Their generosity has allowed PTRP staff to start up a new photography program which has already enhanced the recovery for those in PTRP.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page21</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page22</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_whatsnew_2013q4_section9_1.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Evidence-Based Practice</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page22_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>One early morning, following completion of an 8-hour night shift, Dat Hoang, 7-D Polytrauma Nurse, asked himself how his patients may benefit from using mobile technologies during their acute rehabilitation.  Realizing that nursing staff would play a critical role in helping to support patients during the evenings, Mr. Hoang, a Fellow in the Evidence-Based Practice Fellowship program, integrated current evidence that would support nursing education around patients&apos; use of Augmentative/Alternative Communication and Electronic Cognitive Devices.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page22</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page23</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<false/>
+			<key>ImageFilename</key>
+			<string>NA</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Evidence-Based..(cont.)</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page23_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>After forming a multidisciplinary working group and months of curriculum development, Mr. Hoang successfully led efforts to deliver four trainings that included information as to how Polytrauma inpatient nursing staff can support patients in their use of various assistive technologies.  Feedback following the training showed that participants felt a greater sense of collaboration with AT Center staff and gained an increase in knowledge of various assistive technologies used across the rehabilitation continuum of care.</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page23</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>page24</string>
+			<key>Type</key>
+			<string>page</string>
+			<key>ImagePage</key>
+			<true/>
+			<key>ImageFilename</key>
+			<string>psc_logo.png</string>
+			<key>ShowHeader</key>
+			<true/>
+			<key>HeaderText</key>
+			<string>Around the PSC</string>
+			<key>HeaderTTSFilenamePrefix</key>
+			<string>psc_whats_new_page24_header</string>
+			<key>ShowButtonsFor</key>
+			<string>previousnext</string>
+			<key>Text</key>
+			<string>✓ PSC Strategic Plan Released-October 2012
+✓ AT Lab Strategic Plan Released-October 2012
+✓ Planning for New Rehabilitation Center-Ongoing 
+✓ PSC CARF Accreditation-May 2013
+✓ Employee Appreciation Ceremony-June 2013
+✓ FY14 Education Roster Created by PSC Staff-July    2013
+✓ Planning for AT Center &amp; RAC CARF Accreditation-   August 2013</string>
+			<key>TTSFilenamePrefix</key>
+			<string>psc_whats_new_page24</string>
+			<key>ContainsTerminology</key>
+			<false/>
+			<key>TerminologyButtons</key>
+			<array/>
 		</dict>
 		<dict>
 			<key>Name</key>
