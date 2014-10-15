@@ -9,6 +9,7 @@
 #import "RVRotationViewDelegate.h"
 #import "RVRotationView.h"
 #import "SLGlowingTextField.h"
+#import "DynamicModulePageViewController.h"
 
 typedef enum {
     kAgreementPainScale,

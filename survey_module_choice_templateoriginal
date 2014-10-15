@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Choose Module Label text" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="752" translatesAutoresizingMaskIntoConstraints="NO" id="SVj-r0-ZGy">
-                                <rect key="frame" x="40" y="78" width="752" height="190"/>
+                                <rect key="frame" x="42" y="164" width="752" height="190"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="30"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -38,7 +38,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UuX-9A-NH2">
-                                <rect key="frame" x="91" y="311" width="258" height="169"/>
+                                <rect key="frame" x="91" y="398" width="258" height="169"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="learntbi_image.png">
@@ -53,7 +53,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wTI-u1-Acj">
-                                <rect key="frame" x="91" y="525" width="258" height="169"/>
+                                <rect key="frame" x="481" y="398" width="258" height="169"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="whatsnew_image.png">
@@ -67,58 +67,14 @@
                                     <action selector="module2ButtonPressed:" destination="2" eventType="touchUpInside" id="8ON-Qk-wmP"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" fixedFrame="YES" text="Extra Module 1 Text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="500" translatesAutoresizingMaskIntoConstraints="NO" id="hGy-Uh-1Uy">
-                                <rect key="frame" x="422" y="323" width="500" height="103"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="left" fixedFrame="YES" text="Extra Module 2 Text" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="500" translatesAutoresizingMaskIntoConstraints="NO" id="8Nw-s5-izG">
-                                <rect key="frame" x="422" y="535" width="500" height="103"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" image="green_check.png" translatesAutoresizingMaskIntoConstraints="NO" id="Qdw-Hj-zhU">
-                                <rect key="frame" x="291" y="283" width="58" height="58"/>
+                                <rect key="frame" x="301" y="366" width="58" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" image="green_check.png" translatesAutoresizingMaskIntoConstraints="NO" id="EAB-tl-bij">
-                                <rect key="frame" x="291" y="501" width="58" height="58"/>
+                                <rect key="frame" x="692" y="366" width="58" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WJG-gd-iZl">
-                                <rect key="frame" x="454" y="311" width="258" height="169"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="comingsoon_image.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="module3ButtonPressed:" destination="4" eventType="touchUpInside" id="KRe-I6-5oZ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfL-WS-Z7Q">
-                                <rect key="frame" x="454" y="525" width="258" height="169"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="comingsoon_image.png">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="module4ButtonPressed:" destination="4" eventType="touchUpInside" id="GvU-bd-EG9"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -128,8 +84,6 @@
                     <connections>
                         <outlet property="chooseModuleLabel" destination="SVj-r0-ZGy" id="Cl2-OV-21f"/>
                         <outlet property="currentReplayButton" destination="TSn-AL-JrJ" id="VXH-Pu-NHL"/>
-                        <outlet property="extraModule1Label" destination="hGy-Uh-1Uy" id="jVC-HQ-vuo"/>
-                        <outlet property="extraModule2Label" destination="8Nw-s5-izG" id="nm5-Re-PLF"/>
                         <outlet property="module1Badge" destination="Qdw-Hj-zhU" id="aqR-Os-XXV"/>
                         <outlet property="module1Button" destination="UuX-9A-NH2" id="FLa-4C-0nn"/>
                         <outlet property="module2Badge" destination="EAB-tl-bij" id="uvb-i7-9By"/>
@@ -142,7 +96,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="comingsoon_image.png" width="318" height="214"/>
         <image name="green_arrow_w_shadow.png" width="131" height="131"/>
         <image name="green_check.png" width="58" height="58"/>
         <image name="learntbi_image.png" width="318" height="214"/>

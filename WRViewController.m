@@ -57,7 +57,7 @@
 @synthesize readAloudLabel, respondentLabel, selectActivityLabel, surveyIntroLabel, presurveyIntroLabel, surveyCompleteLabel, visitSelectionLabel, selectedClinic, selectedVisit, selectedSubclinic;
 @synthesize popoverViewController;
 @synthesize taperedWhiteLine, demoSwitch, demoModeLabel, clinicSelectionLabel, clinicPickerView, currentClinicName, currentSubClinicName, currentSpecialtyClinicName;
-@synthesize educationModuleCompleted, educationModuleInProgress, satisfactionSurveyCompleted, satisfactionSurveyDeclined, satisfactionSurveyInProgress, cameFromMainMenu, mainMenuInitialized, whatsNewInitialized, dynamicSurveyInitialized, dynamicEdModuleCompleted, whatsNewModuleCompleted, completedProviderSession, completedFinalSurvey, completedProviderAndSubclinicSurvey, usingFullMenu;
+@synthesize educationModuleCompleted, educationModuleInProgress, satisfactionSurveyCompleted, satisfactionSurveyDeclined, satisfactionSurveyInProgress, cameFromMainMenu, mainMenuInitialized, whatsNewInitialized, dynamicSurveyInitialized, dynamicEdModuleCompleted, whatsNewModuleCompleted, completedProviderSession, completedFinalSurvey, startedsurvey, finishedsurvey,completedProviderAndSubclinicSurvey, usingFullMenu;
 @synthesize initialSettingsLabel, clinicSegmentedControl, specialtyClinicSegmentedControl, switchToSectionSegmentedControl, nextSettingsButton, edModule, physicianModule, dynamicEdModule, dynamicSubclinicEdModule, currentDynamicSubClinicEdModuleSpecFilename, nextEdItemButton, previousEdItemButton, nextPhysicianDetailButton, previousPhysicianDetailButton;
 @synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, currentDynamicWhatsNewModuleSpecFilename;
 @synthesize agreeButton, disagreeButton, badgeImageView, badgeLabel, completedBadgeImageView, completedBadgeImageViewEdModule, completedBadgeImageViewDynEdModule, completedBadgeImageViewWhatsNewModule, edModuleCompleteLabel, edModuleIntroLabel, playMovieIcon;
@@ -72,6 +72,13 @@
 #pragma mark - INIT
 NSMutableArray *titleArray;
 int indexCount;
+
+static WRViewController* mViewController = NULL;
+
++ (WRViewController*) getViewController {
+    return mViewController;
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -133,7 +140,7 @@ int indexCount;
         
         //appVersion = @"1.9.2";
         // sandy updated
-        appVersion = @"2.0.0";
+        appVersion = @"2.0.1"; //sandy updated 10-9-14
         deviceName = [[UIDevice currentDevice] name];
         secondsDur = 0.0;
         
@@ -176,7 +183,8 @@ int indexCount;
         
         completedProviderAndSubclinicSurvey = NO;
         completedProviderSession = NO;
-        completedFinalSurvey = NO;
+        startedsurvey = NO;
+        finishedsurvey = NO;
         
         needToReturnToMainMenu = NO;
         
@@ -193,6 +201,7 @@ int indexCount;
     }
     return self;
 }
+
 
 - (void)timerTick:(NSTimer *)timer
 {
@@ -802,19 +811,22 @@ int indexCount;
 
 
 
-
+// TBD sandy 10_13_14 add variables for other progress values
+//selfcompleteper;
+//totalcompleteper;
 - (void)incrementProgressBar {
 //    totalSlidesInThisSection = 0;
     slidesCompleted += 1;
     progressSoFar = (CGFloat)slidesCompleted / totalSlidesInThisSection;
     [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] standardPageButtonOverlay] progressVC] updateProgressTo:progressSoFar];
     
-    int perCom = (int)progressSoFar * 100;
+    //int perCom = (int)progressSoFar * 100; %.0f%
+    float perCom = (float)progressSoFar * 100;
     if (completedProviderSession) {
-        NSLog(@"Updating post tx progress to: %d %%...",perCom);
+        NSLog(@"Updating post tx progress to: %.0f %%...",perCom);
         [tbvc updateSurveyNumberForField:@"posttxcompleteper" withThisRatingNum:perCom];
     } else {
-        NSLog(@"Updating pre tx progress to: %d %%...",perCom);
+        NSLog(@"Updating pre tx progress to: %.0f %%...",perCom);
         [tbvc updateSurveyNumberForField:@"pretxcompleteper" withThisRatingNum:perCom];
     }
 }
@@ -1369,25 +1381,91 @@ int indexCount;
     secondsDur = 0.0;
     uxTimer = [[NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES] retain];
     [[NSRunLoop currentRunLoop] addTimer:uxTimer forMode:NSDefaultRunLoopMode];
-    
+    NSLog(@"WRViewController.startButtonPressed() - starts timing the pretxdur");
+    // sandy 10-12-14 writes startedsurvey to db when respondent type is set
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    int surveyStartedTimeStamp = [rootViewController getCurrentDateTime];
+    //     int endofpresurveyTimeStamp = [tbvc getCurrentDateTime];
+    NSLog(@"WRViewController.startButtonPressed() - surveyStartedTimeStamp %d", surveyStartedTimeStamp);
+    //store timestamp
+    NSNumber *digitAsNumber = [NSNumber numberWithInt:surveyStartedTimeStamp];
+    NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+   [myTimeSegmentsArray addObject:digitAsNumber];
+
 //    tbvc.currentDeviceName = deviceName;
 }
 
 - (void)storeCurrentUXTimeForPreTreatment {
     NSLog(@"Attempting to store pre-treatment time duration to db: %4.4f...",secondsDur);
-//    [tbvc updateSurveyTextForField:@"pretxdur" withThisText:uxTimerCurrentTimeString];
     [tbvc updateSurveyTextForField:@"pretxdur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
+    
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    int endofpresurveyTimeStamp = [rootViewController getCurrentDateTime];
+     NSLog(@"WRViewController.storeCurrentUXTimeForPreTreatment() - End of PreTreatment %d", endofpresurveyTimeStamp);
+    //NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+   // [myTimeSegmentsArray addObject:endofpresurveyTimeStamp];
+    //store timestamp
+    NSNumber *digitAsNumber = [NSNumber numberWithInt:endofpresurveyTimeStamp];
+    NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    [myTimeSegmentsArray addObject:digitAsNumber];
 //    [self resetUXTimer];
 }
 
-- (void)storeCurrentUXTimeForPostTreatment {
-//    NSLog(@"Attempting to store pre-treatment time duration to db: %@...",uxTimerCurrentTimeString);
-//    [tbvc updateSurveyTextForField:@"posttxdur" withThisText:uxTimerCurrentTimeString];
-    NSLog(@"Attempting to store post-treatment time duration to db: %4.4f...",secondsDur);
+
+- (void)storeCurrentUXTimeForSelfGuidedStop {
+
+    NSLog(@"Stopped selfguided use duration is db: %4.4f...",secondsDur);
+    [tbvc updateSurveyTextForField:@"selfguidedur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
+    
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    int endofselfguideTimeStamp = [rootViewController getCurrentDateTime];
+    NSLog(@"WRViewController.storeCurrentUXTimeForSelfGuidedStop() - End of selfguided %d", endofselfguideTimeStamp);
+   // NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    //[myTimeSegmentsArray addObject:endofselfguideTimeStamp];
+    NSNumber *digitAsNumber = [NSNumber numberWithInt:endofselfguideTimeStamp];
+    NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    [myTimeSegmentsArray addObject:digitAsNumber];
+//    [self resetUXTimer];
+}
+
+- (void)storeCurrentUXTimeForTreatmentStop {
+    NSLog(@"Treatment ended -  post-treatment time start value to db: %4.4f...",secondsDur);
+    [tbvc updateSurveyTextForField:@"treatmentdur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
+   
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    int endoftreatmentTimeStamp = [rootViewController getCurrentDateTime];
+    NSLog(@"WRViewController.storeCurrentUXTimeForTreatmentStop() - End of Treatment %d", endoftreatmentTimeStamp);
+    //NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+   // [myTimeSegmentsArray addObject:endoftreatmentTimeStamp];
+    NSNumber *digitAsNumber = [NSNumber numberWithInt:endoftreatmentTimeStamp];
+    NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    [myTimeSegmentsArray addObject:digitAsNumber];
+    //    [self resetUXTimer];
+}
+- (void)storeCurrentUXTimeForPostSurveyStop {
+    NSLog(@"Storing postsurvey to db: %4.4f...",secondsDur);
     [tbvc updateSurveyTextForField:@"posttxdur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
-//    [self resetUXTimer];
+    
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    int endofpostsurveyTimeStamp = [rootViewController getCurrentDateTime];
+    NSLog(@"WRViewController.storeCurrentUXTimeForPostSurveyStop() - End of PostSurvey %d", endofpostsurveyTimeStamp);
+    //[myTimeSegmentsArray addObject:endofpostsurveyTimeStamp];
+    NSNumber *digitAsNumber = [NSNumber numberWithInt:endofpostsurveyTimeStamp];
+    NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    [myTimeSegmentsArray addObject:digitAsNumber];
+    //    [self resetUXTimer];
 }
 
+- (void)storeTotalTime {
+    [tbvc updateSurveyTextForField:@"totaldur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    int endofAppTimeStamp = [rootViewController getCurrentDateTime];
+    NSLog(@"WRViewController.storeTotalTime() - End of AppUse or Reset %d", endofAppTimeStamp);
+    NSNumber *digitAsNumber = [NSNumber numberWithInt:endofAppTimeStamp];
+    NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    [myTimeSegmentsArray addObject:digitAsNumber];
+    //    [self resetUXTimer];
+}
 - (void)resetUXTimer {
     [uxTimer invalidate];
 }
@@ -1790,7 +1868,7 @@ int indexCount;
     [dynamicSurveyTTSItemsDict setObject:@"Yes, I would like additional information." forKey:@"wantExtraInfo3_followup"];
     [dynamicSurveyTTSItemsDict setObject:@"No, I do not need additional information." forKey:@"wantExtraInfo4_followup"];
     
-    [dynamicSurveyTTSItemsDict setObject:@"Thank you for sharing your thoughts about today's visit.  Press next to continue." forKey:@"dynamicSurveyPage6_followup"];
+    [dynamicSurveyTTSItemsDict setObject:@"Thank you for sharing your thoughts about today's visit.  Press the NEXT button on the bottom row to continue." forKey:@"dynamicSurveyPage6_followup"];
     
     NSString *fullPromptWithGoal = [NSString stringWithFormat:@"Right before your visit, you shared this goal."];
     NSString *goalSelected = @"Please indicate how much you agree or disagree that today's visit met your expectations regarding this goal.";
@@ -2639,7 +2717,7 @@ int indexCount;
 }
 
 - (void)fadeDynamicSubclinicEducationModuleIn {
-    
+    // right before clinic info module
     NSLog(@"WRViewController.fadeDynamicSubclinicEducationModuleIn() Fading in dynamic subclinic ed module");
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicSubclinicEdModule];
@@ -2714,6 +2792,8 @@ int indexCount;
 - (void)launchDynamicWhatsNewModule {
     NSLog(@"WRViewController.launchDynamicWhatsNewModule()");
     [self fadeDynamicWhatsNewModuleIn];
+    //sandy 10-14-14
+    //TBD add code to indicate that this module was started in the db
 }
 
 - (void)fadeDynamicWhatsNewModuleIn {
@@ -5260,6 +5340,10 @@ int indexCount;
     
     NSLog(@"WRViewController.beginSatisfactionSurvey()");
     
+    // sandy 10_8_14 I think this should be added here or else just write new value to posttxdurstart
+            [self resumeAppAfterTreatmentIntermission];
+    // or this
+    //    [self storeCurrentUXTimeForPostTreatmentStart];
     nextSettingsButton.alpha = 0.0; //rjl 9/8/14
 
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:tbvc];
@@ -5812,7 +5896,11 @@ int indexCount;
     
     inTreatmentIntermission = YES;
     
-    [self storeCurrentUXTimeForPreTreatment];
+    //[self storeCurrentUXTimeForPreTreatment];
+    [self storeCurrentUXTimeForSelfGuidedStop];
+// TBD sandy 10-12-14 reset to time treatment session
+    //record selfguidedsession use
+    
     
     [mainTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"treatment_intermission", nil]];
     
@@ -6157,11 +6245,14 @@ int indexCount;
 }
 
 - (void)resumeAppAfterTreatmentIntermission {
+    // sandy 10-8-14 grabbing the timer setting here  to calculate tx time
+    [self storeCurrentUXTimeForPostTreatmentStop];
     [self resetUXTimer];
     [uxTimer release];
     uxTimer = nil;
     
     secondsDur = 0.0;
+    NSLog(@"WRViewController.resumeAppAfterTreatmentIntermission()",secondsDur);
     uxTimer = [[NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES] retain];
     [[NSRunLoop currentRunLoop] addTimer:uxTimer forMode:NSDefaultRunLoopMode];
     
@@ -6171,7 +6262,7 @@ int indexCount;
 
 - (void)showReturnTabletView {
     
-    [self storeCurrentUXTimeForPostTreatment];
+    [self storeCurrentUXTimeForPostSurvey];
     
     NSString *returnTabletText;
     NSString *returnTabletSoundfile;
@@ -6199,6 +6290,11 @@ int indexCount;
     
     [mainTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:returnTabletSoundfile, nil]];
     completedFinalSurvey = true; //rjl 7/16/14
+    //TBD sandy 10-12-14
+    // update database value
+    finishedsurvey = true;
+    [tbvc updateSurveyNumberForField:@"finishedsurvey" withThisRatingNum:1];
+    
 }
 
 - (BOOL)didSplashAnimationsFinish {
@@ -6645,7 +6741,7 @@ int indexCount;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    mViewController = self;
 	// Do any additional setup after loading the view.
     NSLog(@"WRViewController.viewDidLoad()");
     if (forceToDemoMode) {

@@ -192,6 +192,7 @@
 
 - (int)getCurrentMonth;
 - (int)getCurrentYear;
++ (int)getCurrentDateTime;
 
 - (void)cycleFontSizeForAllLabels;
 

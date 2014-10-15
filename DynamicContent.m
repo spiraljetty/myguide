@@ -21,6 +21,10 @@ static NSArray* mAllClinics = NULL;
 static NSArray* mAllClinicians = NULL;
 static NSArray* mAllSurveyQuestions = NULL;
 
+static NSMutableArray* mProviderStrings = NULL;  // for provider test
+static NSMutableArray* mClinicTestStrings = NULL;  // for clinic test
+static NSMutableArray* mTimeSegments = NULL;  // for timers
+
 static NSString* mCurrentClinic = @"at";
 static NSString* mCurrentRespondent = @"patient";
 
@@ -905,5 +909,33 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     });
 }
 
++ (NSMutableArray*) getProviderStrings {
+    if (mProviderStrings == NULL){
+        mProviderStrings = [[NSMutableArray alloc] init];
+    }
+    // access as:
+    // NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+    // [myProviderStringArray addObject:@"ha"];
+    return mProviderStrings;
+}
 
++ (NSMutableArray*) getClinicTestStrings {
+    if (mClinicTestStrings == NULL){
+        mClinicTestStrings = [[NSMutableArray alloc] init];
+    }
+    // access as:
+    // NSMutableArray* myClinicTestStringArray = [DynamicContent getClinicTestStrings];
+    // [myClinicTestStringArray addObject:@"ha"];
+    return mClinicTestStrings;
+}
+
++ (NSMutableArray*) getTimeSegments {
+    if (mTimeSegments == NULL){
+        mTimeSegments = [[NSMutableArray alloc] init];
+    }
+    // access as:
+    // NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    // [myTimeSegmentsArray addObject:@"ha"];
+    return mTimeSegments;
+}
 @end

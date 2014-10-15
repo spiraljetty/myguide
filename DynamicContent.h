@@ -40,6 +40,10 @@
 + (void)saveImage: (UIImage*)image filename:(NSString*)filename;
 + (UIImage*)loadImage: (NSString*)filename;
 
++ (NSMutableArray*) getProviderStrings;   // stored values to be displayed to uses
++ (NSMutableArray*) getTimeSegments;
++ (NSMutableArray*) getClinicTestStrings; // stored values to be displayed to uses
+
 + (void) showAlertMsg:(NSString *)msg;
 + (void) speakText:(NSString*) text;
 

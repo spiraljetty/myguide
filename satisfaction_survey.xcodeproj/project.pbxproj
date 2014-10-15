@@ -450,6 +450,9 @@
 		5F0C84231968BC7B00DCA765 /* comingsoon_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84221968BC7B00DCA765 /* comingsoon_image.png */; };
 		5F0C84251968BC9100DCA765 /* comingsoon_image_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */; };
 		5F64B31F19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */; };
+		5F65A5D819EDF18B00625905 /* new_newsletter.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F65A5D619EDF18B00625905 /* new_newsletter.png */; };
+		5F65A5D919EDF18B00625905 /* new_tbi_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F65A5D719EDF18B00625905 /* new_tbi_big.png */; };
+		5F65A5DB19EDF2A500625905 /* survey_module_choice_templateoriginal in Resources */ = {isa = PBXBuildFile; fileRef = 5F65A5DA19EDF2A500625905 /* survey_module_choice_templateoriginal */; };
 		5FA5252E1973938000297423 /* survey_module_choice_template_fourchoices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */; };
 		5FA753C119B8565100C930D3 /* ClinicInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA753C019B8565100C930D3 /* ClinicInfo.m */; };
 		5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FA9981E19BE396F000C68E3 /* download_from_cloud.png */; };
@@ -1015,6 +1018,9 @@
 		5F0C84221968BC7B00DCA765 /* comingsoon_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image.png; sourceTree = "<group>"; };
 		5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = comingsoon_image_pressed.png; sourceTree = "<group>"; };
 		5F64B31E19770C3B00F4ED3D /* survey_new_painscale_noprompt_template.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_new_painscale_noprompt_template.storyboard; sourceTree = "<group>"; };
+		5F65A5D619EDF18B00625905 /* new_newsletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_newsletter.png; sourceTree = "<group>"; };
+		5F65A5D719EDF18B00625905 /* new_tbi_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_tbi_big.png; sourceTree = "<group>"; };
+		5F65A5DA19EDF2A500625905 /* survey_module_choice_templateoriginal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = survey_module_choice_templateoriginal; sourceTree = "<group>"; };
 		5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_module_choice_template_fourchoices.storyboard; sourceTree = "<group>"; };
 		5FA753BF19B8565100C930D3 /* ClinicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinicInfo.h; sourceTree = "<group>"; };
 		5FA753C019B8565100C930D3 /* ClinicInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinicInfo.m; sourceTree = "<group>"; };
@@ -1819,6 +1825,7 @@
 				3DA8F6B916CC5C5100111C8E /* survey_recommend_template.storyboard */,
 				3DA8F6BA16CC5C5100111C8E /* survey_provider_test_template.storyboard */,
 				3D48FEDF16D2E7E100AF2EF3 /* survey_module_choice_template.storyboard */,
+				5F65A5DA19EDF2A500625905 /* survey_module_choice_templateoriginal */,
 				5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */,
 				3D1E6F27173819B300145DB9 /* survey_enter_goal_template.storyboard */,
 				3D1B1E4816CDE46600CE9948 /* survey_yes_no_template.storyboard */,
@@ -1888,6 +1895,8 @@
 			children = (
 				5F0C84241968BC9100DCA765 /* comingsoon_image_pressed.png */,
 				5F0C84221968BC7B00DCA765 /* comingsoon_image.png */,
+				5F65A5D619EDF18B00625905 /* new_newsletter.png */,
+				5F65A5D719EDF18B00625905 /* new_tbi_big.png */,
 				3D5A579B167758D20095FA1D /* appointment_button_image_pressed.png */,
 				3D5A579C167758D20095FA1D /* appointment_button_image.png */,
 				3D5A579D167758D20095FA1D /* doctor_button_image_pressed.png */,
@@ -2172,11 +2181,13 @@
 				3D714AFE166480CD00D92448 /* first_visit_button_image_pressed.png in Resources */,
 				3D714AFF166480CD00D92448 /* next_button_image.png in Resources */,
 				3D714B00166480CD00D92448 /* next_button_image_pressed.png in Resources */,
+				5F65A5D919EDF18B00625905 /* new_tbi_big.png in Resources */,
 				3D714B01166480CD00D92448 /* previous_button_image.png in Resources */,
 				3D714B02166480CD00D92448 /* previous_button_image_pressed.png in Resources */,
 				3D714B041664813C00D92448 /* menu_back_wht_gradient.png in Resources */,
 				3D714B061664843B00D92448 /* all_white.png in Resources */,
 				3D714B0816648DC300D92448 /* Default-Landscape@2x~ipad.png in Resources */,
+				5F65A5DB19EDF2A500625905 /* survey_module_choice_templateoriginal in Resources */,
 				3D5112B216649A0500609EBD /* cube_very_sml.html in Resources */,
 				3D5112BE1664B4FF00609EBD /* PopoverContentViewController.xib in Resources */,
 				3D5112C91664B55300609EBD /* bear.png in Resources */,
@@ -2441,6 +2452,7 @@
 				3D68E0F71715C61400A088BD /* pmnr_shankar_thumb2.png in Resources */,
 				3D0EAE75171892C200560259 /* upload_to_cloud.png in Resources */,
 				3DB7B78C17372168003A34EB /* dont_know.png in Resources */,
+				5F65A5D819EDF18B00625905 /* new_newsletter.png in Resources */,
 				5FD2817919D12D000012E07E /* psc_whatsnew_2013q4_page1.png in Resources */,
 				3DB7B78E17372430003A34EB /* dont_know_stroke.png in Resources */,
 				3D1E6F28173819B300145DB9 /* survey_enter_goal_template.storyboard in Resources */,

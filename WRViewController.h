@@ -263,6 +263,8 @@ typedef enum {
     BOOL completedProviderAndSubclinicSurvey;
     BOOL completedProviderSession;
     BOOL completedFinalSurvey;
+    BOOL startedsurvey;
+    BOOL finishedsurvey;
     
     BOOL selectedClinic;
     BOOL selectedVisit;
@@ -432,6 +434,8 @@ typedef enum {
 @property BOOL completedProviderAndSubclinicSurvey;
 @property BOOL completedProviderSession;
 @property BOOL completedFinalSurvey;
+@property BOOL startedsurvey;
+@property BOOL finishedsurvey;
 
 @property BOOL dynamicEdModuleInProgress;
 @property BOOL dynamicEdSubclinicModuleInProgress;
@@ -563,6 +567,8 @@ typedef enum {
 @property (nonatomic, retain) NSArray *allClinicPhysiciansBioPLists;
 
 @property (nonatomic, retain) PhysicianDetailViewController *physicianDetailVC;
+
++ (WRViewController*) getViewController;
 
 - (void)createClinicSplitViewController;
 
@@ -712,7 +718,10 @@ typedef enum {
 
 - (void)fadeOutSatisfactionSurvey;
 - (void)storeCurrentUXTimeForPreTreatment;
-- (void)storeCurrentUXTimeForPostTreatment;
+- (void)storeCurrentUXTimeForSelfGuidedStop;
+- (void)storeCurrentUXTimeForTreatmentStop;
+- (void)storeCurrentUXTimeForPostTreatmentStop;
+- (void)storeTotalTime;
 
 - (void)showModalUnlockSettingsView;
 

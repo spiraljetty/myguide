@@ -483,6 +483,19 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         [providerTest.provider3TextButton setTitle:providerTest.provider3Text forState:UIControlStateNormal];
         [providerTest.provider4TextButton setTitle:providerTest.provider4Text forState:UIControlStateNormal];
         
+        
+        //created an arrary of these to use later for tests
+        NSString *str1 = providerTest.provider1Text;
+        NSString *str2 = providerTest.provider2Text;
+        NSString *str3 = providerTest.provider3Text;
+        NSString *str4 = providerTest.provider4Text;
+        NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+        [myProviderStringArray addObject:str1];
+        [myProviderStringArray addObject:str2];
+        [myProviderStringArray addObject:str3];
+        [myProviderStringArray addObject:str4];
+    
+        
         providerTest.view.frame = backsplash.bounds;
         
         [surveyPageArray addObject:providerTest];
@@ -543,6 +556,22 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         [subclinicTest.subclinic2TextButton setTitle:subclinicTest.subclinic2Text forState:UIControlStateNormal];
         [subclinicTest.subclinic3TextButton setTitle:subclinicTest.subclinic3Text forState:UIControlStateNormal];
         [subclinicTest.subclinic4TextButton setTitle:subclinicTest.subclinic4Text forState:UIControlStateNormal];
+        
+        // sandy 10-13-14
+        //created an arrary of these to use later for tests
+        NSString *clinic0 = selectedClinic;
+        NSString *clinic1 = subclinicTest.subclinic1Text;
+        NSString *clinic2 = subclinicTest.subclinic2Text;
+        NSString *clinic3 = subclinicTest.subclinic3Text;
+        NSString *clinic4 = subclinicTest.subclinic4Text;
+        NSMutableArray* myClinicTestStringArray = [DynamicContent getClinicTestStrings];
+        [myClinicTestStringArray addObject:clinic0];
+        [myClinicTestStringArray addObject:clinic1];
+        [myClinicTestStringArray addObject:clinic2];
+        [myClinicTestStringArray addObject:clinic3];
+        [myClinicTestStringArray addObject:clinic4];
+        
+        
         
         [surveyPageArray addObject:subclinicTest];
         
@@ -801,9 +830,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         //sandy right before ready button is enabled
         // sandy 7-20 removed the word doctor and replaced it with provider
         if ([[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] isFirstVisit]) {
-            miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press next to learn more about your provider and the clinic where you will be seen today.";
+            miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press the NEXT button on the bottom row to learn more about your provider and the clinic where you will be seen today.";
         } else {
-            miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press next to continue.";
+            miniSurveyPageTransition.currentPromptString = @"Thank you for sharing your thoughts about today's visit.  Press the NEXT button on the bottom row to continue.";
         }
         
         miniSurveyPageTransition.currentPromptLabel.text = miniSurveyPage2.currentPromptString;
@@ -862,7 +891,8 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseModule.hideNextButton = YES;
         chooseModule.hidePreviousButton = YES;
         
-        chooseModule.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
+        //chooseModule.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
+        chooseModule.chooseModuleText = @"Thank you for this information. \n• Select a TOPIC button to learn more while you wait. \n• Press the DOCTOR button on the bottom row to skip this section.";
         chooseModule.chooseModuleLabel.text = chooseModule.chooseModuleText;
         chooseModule.extraModule1Text = @"Learn more about TBI and the Brain?";
         chooseModule.extraModule2Text = @"Learn more about What's New at the VA Polytrauma System of Care?";
@@ -889,7 +919,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         resumePageTransition.isSurveyPage = YES;
         resumePageTransition.hidePreviousButton = YES;
         
-        resumePageTransition.currentPromptString = @"Now that you have finished your visit with your treatment provider, please press next to move on to the satisfaction survey.";
+        resumePageTransition.currentPromptString = @"Now that you have finished your visit with your treatment provider, please press NEXT on the bottom row to move on to the satisfaction survey.";
         resumePageTransition.currentPromptLabel.text = resumePageTransition.currentPromptString;
         
         [surveyPageArray addObject:resumePageTransition];
@@ -1160,7 +1190,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     [subclinicTestCorrect release];
     
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
-    thisSurveyPage.subclinicTestLabel.text = @"Press next to continue.";
+    thisSurveyPage.subclinicTestLabel.text = @"Press the NEXT button on the bottom rowto continue.";
     
     //    [self hideButtonOverlay:standardPageButtonOverlay];
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideCurrentButtonOverlay];
@@ -1200,7 +1230,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     [subclinicTestCorrect release];
     
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
-    thisSurveyPage.subclinicTestLabel.text = @"Press next to continue.";
+    thisSurveyPage.subclinicTestLabel.text = @"Press the NEXT button on the bottom row to continue.";
     
     //    [self hideButtonOverlay:standardPageButtonOverlay];
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideCurrentButtonOverlay];

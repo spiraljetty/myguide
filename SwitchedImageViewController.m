@@ -12,6 +12,8 @@
 #import "DynamicSurveyViewController_Pad.h"
 #import "SLGlowingTextField.h"
 #import "DynamicContent.h"
+#import "DynamicModuleViewController_Pad.h"
+#import "WRViewController.h"
 
 @implementation SwitchedImageViewController
 
@@ -1070,6 +1072,11 @@
                 chooseModuleLabel.text = chooseModuleText;
                 extraModule1Label.text = extraModule1Text;
                 extraModule2Label.text = extraModule2Text;
+              
+                WRViewController* wrvc = [WRViewController getViewController];
+                if (wrvc != NULL)
+                    //WRViewController* wrvc = [WRViewController getViewController];
+                    [wrvc storeCurrentUXTimeForPreTreatment];  // sandy 10-14-14 this is a hack that this is called here - cant find actual start
                 
                 //                module1Button, module2Button, chooseModuleLabel, chooseModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text;
                 break;
@@ -1585,10 +1592,12 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 1;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
-    
+    [self providerButtonVerification:thisEquivalentSegmentIndex];
+   // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
-    //    [currentDelegate showModalProviderTestIncorrectView];
+    //sandy 10-13-14t emp uncomment to check for how the provider test is being validated
+    //[currentDelegate showModalProviderTestCorrectView];
+
     [currentDelegate overlayNextPressed];
 }
 
@@ -1599,10 +1608,13 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 2;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+    [self providerButtonVerification:thisEquivalentSegmentIndex];
+    //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
+    //sandy 10-13-14t emp uncomment to check for how the provider test is being validated
     //    [currentDelegate showModalProviderTestCorrectView];
+
     [currentDelegate overlayNextPressed];
 }
 
@@ -1615,12 +1627,15 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 3;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+    [self providerButtonVerification:thisEquivalentSegmentIndex];
+   // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
-    //    [currentDelegate showModalProviderTestIncorrectView];
+    //sandy 10-13-14t emp uncomment to check for how the provider test is being validated
+    //[currentDelegate showModalProviderTestCorrectView];
     // sandy testing showing the next button after the provider is selected
     //[currentDelegate showOverlayNextButton];
+    
     [currentDelegate overlayNextPressed];
 }
 
@@ -1631,24 +1646,82 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 4;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+    [self providerButtonVerification:thisEquivalentSegmentIndex];
+   // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
-    //    [currentDelegate showModalProviderTestIncorrectView];
+    //sandy 10-13-14t emp uncomment to check for how the provider test is being validated
+    //[currentDelegate showModalProviderTestCorrectView];
+
+
     [currentDelegate overlayNextPressed];
 }
 
 - (void)provider5ButtonPressed:(id)sender {
     NSLog(@"provider5ButtonPressed (don't know)...");
 //    [self disableAllProviderButtons];
-    
+    NSString* dontknow = @"dont know";
     // Store rating for dynamic survey item
-    int thisEquivalentSegmentIndex = 5;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+   // int thisEquivalentSegmentIndex = 5;
+    BOOL matched = FALSE;
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    
+    [rootViewController  updateSurveyNumberForField:@"protest" withThisRatingNum: matched];
+    [rootViewController updateSurveyTextForField:@"providernameselected" withThisText:[NSString stringWithFormat:@"%@",dontknow]];
+
+  //  bypass this
+  //  [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalProviderTestIncorrectView];
     [currentDelegate overlayNextPressed];
+}
+
+- (void)providerButtonVerification:(int)segmentIndex {
+    
+    //   need an arrary of values setup when this is initialized
+    //   providerTest.provider4Text = [allPhysicians objectAtIndex:provider4Index];
+    // access as:
+    // NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+    // NSString *str1 = providerTest.provider1Text;
+    BOOL matched = false;
+    NSString *selectedProviderFullName  = NULL;
+    NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+    selectedProviderFullName  = [myProviderStringArray objectAtIndex:segmentIndex-1];
+    //get value selected by user and store to selectedPhysicianNameAlone
+    NSMutableArray *selectedPhysicianNameTokens = [[NSMutableArray alloc] initWithArray:[selectedProviderFullName componentsSeparatedByString:@","] copyItems:YES];
+    NSString *selectedPhysicianNameAlone = [selectedPhysicianNameTokens objectAtIndex:0];
+    NSLog(@"selected provider was%@",selectedPhysicianNameAlone);
+    
+    //get value stored by receptionist and store to correctPhysicianNameAlone
+    NSString *thecurrentProviderName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianName];
+    NSMutableArray *physicianNameTokens = [[NSMutableArray alloc] initWithArray:[thecurrentProviderName componentsSeparatedByString:@","] copyItems:YES];
+    NSString *correctPhysicianNameAlone = [physicianNameTokens objectAtIndex:0];
+    NSLog(@"correct value should be %@",correctPhysicianNameAlone);
+    
+   // NSString *providerCorrectText = [NSString stringWithFormat:@"That's right, you are meeting with Dr. %@ today.  Press OK to continue.",thisPhysicianNameAlone];
+    //char *cStr = "Homebrew";
+    NSString *str3 = [NSString stringWithUTF8String:selectedPhysicianNameAlone];
+    NSString *str4 = [NSString stringWithUTF8String:correctPhysicianNameAlone];
+
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    
+    if ([str3 isEqualToString:str4]){
+        NSLog (@"str3 equals str4 - strings match - correct physician selected");
+    //update value in db
+        
+       matched = true;
+        [rootViewController updateSurveyNumberForField:@"protest" withThisRatingNum: matched];
+        }
+    else {
+        NSLog (@"str3 does not equal str4- strings don't match - wrong physician selected");
+        matched = FALSE;
+        [rootViewController  updateSurveyNumberForField:@"protest" withThisRatingNum: matched];
+    }
+    
+    [rootViewController updateSurveyTextForField:@"providernameselected" withThisText:[NSString stringWithFormat:@"%@",selectedPhysicianNameAlone]];
+
+
 }
 
 - (void)disableAllSublinicButtons {
@@ -1667,7 +1740,8 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 1;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+        [self clinicTestButtonVerification:thisEquivalentSegmentIndex];
+    //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalSubclinicTestIncorrectView];
@@ -1682,7 +1756,8 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 2;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+    [self clinicTestButtonVerification:thisEquivalentSegmentIndex];
+    //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalSubclinicTestIncorrectView];
@@ -1697,7 +1772,8 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 3;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+    [self clinicTestButtonVerification:thisEquivalentSegmentIndex];
+    //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalSubclinicTestIncorrectView];
@@ -1711,7 +1787,8 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 4;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+    [self clinicTestButtonVerification:thisEquivalentSegmentIndex];
+    //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalSubclinicTestCorrectView];
@@ -1724,13 +1801,70 @@
     
     // Store rating for dynamic survey item
     int thisEquivalentSegmentIndex = 5;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
+[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] selectedDynamicSurveyItemWithSegmentIndex:thisEquivalentSegmentIndex];
     
     DynamicSurveyViewController_Pad *currentDelegate = delegate;
     //    [currentDelegate showModalSubclinicTestCorrectView];
     [currentDelegate overlayNextPressed];
 }
 
+- (void)clinicTestButtonVerification:(int)segmentIndex {
+    
+    //   need an arrary of values setup when this is initialized
+    //   providerTest.provider4Text = [allPhysicians objectAtIndex:provider4Index];
+    // access as:
+    // NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+    // NSString *str1 = providerTest.provider1Text;
+    BOOL matched = false;
+    NSString *selectedClinic  = NULL;
+    NSMutableArray* myClinicTestStringArray = [DynamicContent getClinicTestStrings];
+    selectedClinic  = [myClinicTestStringArray objectAtIndex:segmentIndex];
+    NSLog(@"selected provider was%@",selectedClinic);
+    
+    //get value stored by receptionist and store to correctPhysicianNameAlone
+    
+    NSString *thisClinicName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentClinicName];
+//    NSString *thisSubClinicName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSubClinicName];
+ //   NSString *thisSpecialtyClinicName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
+    
+    NSString *theCorrectClinic = 'none';
+   // NSString *default = @"Default";
+    
+   // if ([thisSpecialtyClinicName isNotEqualToString:default])  {
+  //     theCorrectClinic = thisSpecialtyClinicName;
+   // }
+  //  else if ([thisSubClinicName isNotEqualToString:default])  {
+   //     theCorrectClinic = thisSubClinicName;
+   // }
+   // else
+    theCorrectClinic = thisClinicName;
+        
+    NSLog(@"correct value should be %@",theCorrectClinic);
+    
+    // NSString *providerCorrectText = [NSString stringWithFormat:@"That's right, you are meeting with Dr. %@ today.  Press OK to continue.",thisPhysicianNameAlone];
+    //char *cStr = "Homebrew";
+    NSString *str4 = [NSString stringWithUTF8String:selectedClinic];
+    NSString *str5 = [NSString stringWithUTF8String:theCorrectClinic];
+    
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    
+    if ([str4 isEqualToString:str5]){
+        NSLog (@"str3 equals str4 - strings match - correct clinicselected");
+        //update value in db
+        
+        matched = true;
+        [rootViewController updateSurveyNumberForField:@"clinictest" withThisRatingNum: matched];
+    }
+    else {
+        NSLog (@"str3 does not equal str4- strings don't match - wrong clinic selected");
+        matched = FALSE;
+        [rootViewController  updateSurveyNumberForField:@"clinictest" withThisRatingNum: matched];
+    }
+    
+    [rootViewController updateSurveyTextForField:@"clinicselected" withThisText:[NSString stringWithFormat:@"%@",selectedClinic]];
+    
+    
+}
 
 - (void)helpfulSegmentedControlIndexChanged:(UISegmentedControl *)aControl {
     NSLog(@"helpfulSegmentedControlIndexChanged...");
