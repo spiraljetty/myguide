@@ -28,7 +28,7 @@
 @synthesize provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb;
 @synthesize delegate, surveyPageIndex, isSurveyPage;
 @synthesize provider1Text, provider2Text, provider3Text, provider4Text, subclinic1Text, subclinic2Text, subclinic3Text, subclinic4Text, goal1Text, goal2Text, goal3Text, goal4Text, goal5Text, helpfulLabel, helpfulText, extraNoLabel, extraNoText, extraYesLabel, extraYesText;
-@synthesize module1Button, module2Button, module3Button, module4Button, chooseModuleLabel, chooseModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text, enterGoalTextField, userEnteredGoalText;
+@synthesize module1Button, module2Button, module3Button, module4Button, chooseModuleLabel, chooseSkipModuleLabel, chooseModuleText, chooseSkipModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text, enterGoalTextField, userEnteredGoalText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -1070,6 +1070,7 @@
             case kChooseModule:
                 NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for choose module survey page with index=%d...", surveyPageIndex);
                 chooseModuleLabel.text = chooseModuleText;
+                chooseSkipModuleLabel.text = chooseSkipModuleText;
                 extraModule1Label.text = extraModule1Text;
                 extraModule2Label.text = extraModule2Text;
               

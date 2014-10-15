@@ -892,8 +892,10 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseModule.hidePreviousButton = YES;
         
         //chooseModule.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
-        chooseModule.chooseModuleText = @"Thank you for this information. \n• Select a TOPIC button to learn more while you wait. \n• Press the DOCTOR button on the bottom row to skip this section.";
+        chooseModule.chooseModuleText = @"Thank you for this information. \n• Select a TOPIC button to learn more while you wait.";
         chooseModule.chooseModuleLabel.text = chooseModule.chooseModuleText;
+        chooseModule.chooseSkipModuleText = @"• Press the DOCTOR icon below to skip this section.";
+        chooseModule.chooseSkipModuleLabel.text = chooseModule.chooseSkipModuleText;
         chooseModule.extraModule1Text = @"Learn more about TBI and the Brain?";
         chooseModule.extraModule2Text = @"Learn more about What's New at the VA Polytrauma System of Care?";
         chooseModule.extraModule1Label.text = chooseModule.extraModule1Text;

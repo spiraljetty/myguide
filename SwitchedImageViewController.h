@@ -171,7 +171,9 @@ typedef enum {
     IBOutlet UIButton *module3Button;  // for additional education modules
     IBOutlet UIButton *module4Button;
     IBOutlet UILabel *chooseModuleLabel;
+    IBOutlet UILabel *chooseSkipModuleLabel;
     IBOutlet NSString *chooseModuleText;
+    IBOutlet NSString *chooseSkipModuleText;
     IBOutlet UILabel *extraModule1Label;
     IBOutlet UILabel *extraModule2Label;
     IBOutlet NSString *extraModule1Text;
@@ -314,6 +316,8 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UIButton *module4Button;
 @property (nonatomic, retain) IBOutlet UILabel *chooseModuleLabel;
 @property (nonatomic, retain) IBOutlet NSString *chooseModuleText;
+@property (nonatomic, retain) IBOutlet UILabel *chooseSkipModuleLabel;
+@property (nonatomic, retain) IBOutlet NSString *chooseSkipModuleText;
 @property (nonatomic, retain) IBOutlet UILabel *extraModule1Label;
 @property (nonatomic, retain) IBOutlet UILabel *extraModule2Label;
 @property (nonatomic, retain) IBOutlet NSString *extraModule1Text;
