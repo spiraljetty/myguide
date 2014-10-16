@@ -589,14 +589,16 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseGoalPatient.surveyPageIndex = pageIndex;
         chooseGoalPatient.delegate = self;
         chooseGoalPatient.isSurveyPage = YES;
-        chooseGoalPatient.hideNextButton = YES;
+        //chooseGoalPatient.hideNextButton = YES;
+        // sandy 10-14-14 putting the next button back for multi choices
+        chooseGoalPatient.hideNextButton = NO;
         //sandy hiding previous button here to ensure a selection
         // original chooseGoalPatient.hidePreviousButton = NO;
         chooseGoalPatient.hidePreviousButton = YES;
         
         // sandy 7-14
          //   chooseGoalPatient.goalChooseText = @"To better understand your sense of comfort for today's visit, which of the following would you like help with today?";
-        chooseGoalPatient.goalChooseText = @"Which of the following would you like help with today?";
+        chooseGoalPatient.goalChooseText = @"Which of the following would you like help with today? Press NEXT when done.";
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
 //        DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
 //        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
@@ -892,7 +894,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseModule.hidePreviousButton = YES;
         
         //chooseModule.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
-        chooseModule.chooseModuleText = @"Thank you for this information. \n• Select a TOPIC button to learn more while you wait.";
+        chooseModule.chooseModuleText = @"Thank you for this information. Your provider will see you shortly.\n• Select a TOPIC button to learn more while you wait.";
         chooseModule.chooseModuleLabel.text = chooseModule.chooseModuleText;
         chooseModule.chooseSkipModuleText = @"• Press the DOCTOR icon below to skip this section.";
         chooseModule.chooseSkipModuleLabel.text = chooseModule.chooseSkipModuleText;

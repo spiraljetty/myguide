@@ -1565,7 +1565,8 @@
    NSLog(@"Attempting to store user typed goal to db: %@...",userEnteredGoalText);
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
     if (rootViewController != NULL)
-        [rootViewController updateSurveyTextForField:@"goaltyped" withThisText:[NSString stringWithFormat:@"%@",userEnteredGoalText]];
+        [rootViewController updateSurveyTextForField:@"typedGoal" withThisText:[NSString stringWithFormat:@"%@",userEnteredGoalText]];
+        //[rootViewController updateSurveyTextForField:@"goaltyped" withThisText:[NSString stringWithFormat:@"%@",userEnteredGoalText]];
     DynamicSurveyViewController_Pad *thisDelegate = (DynamicSurveyViewController_Pad *)delegate;
     [thisDelegate overlayNextPressed];
 }
@@ -1702,12 +1703,14 @@
     
    // NSString *providerCorrectText = [NSString stringWithFormat:@"That's right, you are meeting with Dr. %@ today.  Press OK to continue.",thisPhysicianNameAlone];
     //char *cStr = "Homebrew";
-    NSString *str3 = [NSString stringWithUTF8String:selectedPhysicianNameAlone];
-    NSString *str4 = [NSString stringWithUTF8String:correctPhysicianNameAlone];
+   // const char *str3 = [selectedPhysicianNameAlone UTF8String];
+   // const
+    // NSString *str3 = [NSString stringWithUTF8String:selectedPhysicianNameAlone];
+  //  NSString *str4 = [NSString stringWithUTF8String:correctPhysicianNameAlone];
 
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
     
-    if ([str3 isEqualToString:str4]){
+    if ([selectedPhysicianNameAlone isEqualToString:correctPhysicianNameAlone]){
         NSLog (@"str3 equals str4 - strings match - correct physician selected");
     //update value in db
         
@@ -1721,6 +1724,7 @@
     }
     
     [rootViewController updateSurveyTextForField:@"providernameselected" withThisText:[NSString stringWithFormat:@"%@",selectedPhysicianNameAlone]];
+    [myProviderStringArray removeAllObjects];
 
 
 }
@@ -1844,12 +1848,12 @@
     
     // NSString *providerCorrectText = [NSString stringWithFormat:@"That's right, you are meeting with Dr. %@ today.  Press OK to continue.",thisPhysicianNameAlone];
     //char *cStr = "Homebrew";
-    NSString *str4 = [NSString stringWithUTF8String:selectedClinic];
-    NSString *str5 = [NSString stringWithUTF8String:theCorrectClinic];
+   // NSString *str4 = [NSString stringWithUTF8String:selectedClinic];
+    //NSString *str5 = [NSString stringWithUTF8String:theCorrectClinic];
     
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
     
-    if ([str4 isEqualToString:str5]){
+    if ([selectedClinic isEqualToString:theCorrectClinic]){
         NSLog (@"str3 equals str4 - strings match - correct clinicselected");
         //update value in db
         
@@ -1863,7 +1867,7 @@
     }
     
     [rootViewController updateSurveyTextForField:@"clinicselected" withThisText:[NSString stringWithFormat:@"%@",selectedClinic]];
-    
+        [myClinicTestStringArray removeAllObjects];
     
 }
 

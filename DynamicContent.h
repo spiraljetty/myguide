@@ -40,9 +40,10 @@
 + (void)saveImage: (UIImage*)image filename:(NSString*)filename;
 + (UIImage*)loadImage: (NSString*)filename;
 
-+ (NSMutableArray*) getProviderStrings;   // stored values to be displayed to uses
-+ (NSMutableArray*) getTimeSegments;
-+ (NSMutableArray*) getClinicTestStrings; // stored values to be displayed to uses
++ (NSMutableArray*) getProviderStrings;   // stored provider string values to be displayed to uses
++ (NSMutableArray*) getTimeSegments;      // timestamps of segments of app as completed
++ (NSMutableArray*) getClinicTestStrings; // stored clinic string values to be displayed to user
++ (NSMutableArray*) getSelfGuideStatus;  // stores a string that indicates which ed modules were attempted and completed
 
 + (void) showAlertMsg:(NSString *)msg;
 + (void) speakText:(NSString*) text;

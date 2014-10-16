@@ -554,7 +554,7 @@ static RootViewController_Pad* mViewController = NULL;
     
     //databaseName = @"myguide_WR_db_d.sql";
     //sandy updated dbase name but the table is not being written properly
-    databaseName = @"myguide_WR_v3_db_d.sql";
+    databaseName = @"myguide_WR_v3_db_g.sql";
     //mainTable = @"sessiondata";
     //mainTable = @"sessiondatav3";
     mainTable = @"sessiondata";
@@ -589,30 +589,30 @@ static RootViewController_Pad* mViewController = NULL;
 	self.databasePath = [documentsDir stringByAppendingPathComponent:databaseName];
 	
     //---- this is one time only use data for building a new database table for the app
- //  int result = sqlite3_open([self.databasePath UTF8String], &db);
+//    int result = sqlite3_open([self.databasePath UTF8String], &db);
     
- //   if (SQLITE_OK == result) {
- //   }else {
- //      NSLog(@"db opening error");
-
- //  }
+//        if (SQLITE_OK == result) {
+ //       }
+//        else {
+//            NSLog(@"db opening error");
+//        }
     //create table here once for version2 of database
 //   2.0.0 format const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER, pilot NUMERIC, pretxcompleteper NUMERIC, selfquidecompleteper NUMERIC, posttxcompleteper NUMERIC, totalcompleteper NUMERIC, accesspoint TEXT, wanderON NUMERIC, appversion TEXT, pretxdur NUMERIC, selfguidedur NUMERIC, treatmentdur, posttxdur NUMERIC, totaldur NUMERIC, s15tech NUMERIC, s14recommend NUMERIC, s13know NUMERIC, s12prepared NUMERIC, s11metgoal NUMERIC, s8clinichelp NUMERIC, s7prohelp NUMERIC, s5looking NUMERIC, s4prepared NUMERIC, s3reason NUMERIC, s2goalchoice NUMERIC, todaysGoal TEXT, s1clinictest NUMERIC, s0protest NUMERIC, setprovider TEXT, setvisit TEXT, setspecialty TEXT, setclinic TEXT, ipadname TEXT, demo NUMERIC, respondenttype TEXT, month NUMERIC, year NUMERIC, startedsurvey NUMERIC, finishedsurvey NUMERIC, totalsurveyduration NUMERIC, q1 NUMERIC, q2 NUMERIC, q3 NUMERIC, q4 NUMERIC, q5 NUMERIC, q6 NUMERIC, q7 NUMERIC, q8 NUMERIC, q9 NUMERIC, q10 NUMERIC, q11 NUMERIC, q12 NUMERIC, q13 NUMERIC, q14 NUMERIC, q15 NUMERIC, q16 NUMERIC, q17 NUMERIC, q18 NUMERIC, q19 NUMERIC, q20 NUMERIC, q21 NUMERIC, q22 NUMERIC, q23 NUMERIC, q24 NUMERIC, q25 NUMERIC, q26 NUMERIC, q27 NUMERIC, q28 NUMERIC, q29 NUMERIC, q30 NUMERIC, voiceassist NUMERIC, fontsize NUMERIC)";
 
     
-  // new database structure for version 2.0.1  Sandy 10-12-14
-  //  const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER,pilot NUMERIC,accesspoint TEXT,wanderON NUMERIC,appversion TEXT,ipadname TEXT,demo NUMERIC, month NUMERIC,currentdatetime NUMERIC,startedsurvey NUMERIC,finishedsurvey NUMERIC, pretxdur NUMERIC,selfguidedur NUMERIC,treatmentdur NUMERIC,posttxdur NUMERIC,totaldur NUMERIC,pretxcompleteper NUMERIC,selfquidecompleteper NUMERIC,posttxcompleteper NUMERIC,totalcompleteper NUMERIC,setvisit TEXT,setclinic TEXT,setspecialty TEXT,setprovider TEXT,respondenttype TEXT,voiceassist NUMERIC,fontsize NUMERIC, protest NUMERIC,providernameselected TEXT,clinictest NUMERIC,clinicselected TEXT,goalchoices TEXT,todaysGoal TEXT,ps1reason NUMERIC,ps2prepared NUMERIC,ps3looking NUMERIC,ps4prohelp NUMERIC,ps5clinichelp NUMERIC,presurvey6 NUMERIC,presurvey7 NUMERIC,presurvey8 NUMERIC,presurvey9 NUMERIC,presurvey10 NUMERIC,q1 NUMERIC,q2 NUMERIC,q3 NUMERIC,q4 NUMERIC,q5 NUMERIC,q6 NUMERIC,q7 NUMERIC,q8 NUMERIC,q9 NUMERIC,q10 NUMERIC,q11 NUMERIC,q12 NUMERIC,q13 NUMERIC,q14 NUMERIC,q15 NUMERIC,q16 NUMERIC,q17 NUMERIC,q18 NUMERIC,q19 NUMERIC,q20 NUMERIC,q21 NUMERIC,q22 NUMERIC,q23 NUMERIC,q24 NUMERIC,q25 NUMERIC,q26 NUMERIC,q27 NUMERIC,q28 NUMERIC,q29 NUMERIC,q30 NUMERIC)";
+  // new database structure for version 2.0.1  Sandy 10-14-14
+//    const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER,pilot NUMERIC,accesspoint TEXT,wanderON NUMERIC,appversion TEXT,ipadname TEXT,demo NUMERIC, month NUMERIC,currentdatetime NUMERIC,startedsurvey NUMERIC,finishedsurvey NUMERIC, pretxdur NUMERIC,selfguidedur NUMERIC,treatmentdur NUMERIC,posttxdur NUMERIC,totaldur NUMERIC,pretxcompleteper NUMERIC,selfquidecompleteper NUMERIC,posttxcompleteper NUMERIC,totalcompleteper NUMERIC,setvisit TEXT,setclinic TEXT,setspecialty TEXT,setprovider TEXT,respondenttype TEXT,voiceassist NUMERIC,fontsize NUMERIC, protest NUMERIC,providernameselected TEXT,clinictest NUMERIC,clinicselected TEXT,goalchoices TEXT,typedGoal TEXT,ps1reason NUMERIC,ps2prepared NUMERIC,ps3looking NUMERIC,ps4prohelp NUMERIC,ps5clinichelp NUMERIC,presurvey6 NUMERIC,presurvey7 NUMERIC,presurvey8 NUMERIC,presurvey9 NUMERIC,presurvey10 NUMERIC,q1 NUMERIC,q2 NUMERIC,q3 NUMERIC,q4 NUMERIC,q5 NUMERIC,q6 NUMERIC,q7 NUMERIC,q8 NUMERIC,q9 NUMERIC,q10 NUMERIC,q11 NUMERIC,q12 NUMERIC,q13 NUMERIC,q14 NUMERIC,q15 NUMERIC,q16 NUMERIC,q17 NUMERIC,q18 NUMERIC,q19 NUMERIC,q20 NUMERIC,q21 NUMERIC,q22 NUMERIC,q23 NUMERIC,q24 NUMERIC,q25 NUMERIC,q26 NUMERIC,q27 NUMERIC,q28 NUMERIC,q29 NUMERIC,q30 NUMERIC,selfguideselected TEXT)";
     
-  // char * errInfo ;
-  //  result = sqlite3_exec(db, sessiondataTableQuery, nil, nil, &errInfo);
+//   char * errInfo ;
+//    result = sqlite3_exec(db, sessiondataTableQuery, nil, nil, &errInfo);
     
-  //  if (SQLITE_OK == result) {
-  //      NSLog(@"sessiondata Table Created :)");
-  //  }else {
-  //  NSString* err = [[NSString alloc]initWithUTF8String:errInfo];
-  //      NSLog(@"error in creating table %@", err);
-  //  }
-    //--------------- end of one time table building code
+//    if (SQLITE_OK == result) {
+//        NSLog(@"sessiondata Table Created :)");
+//    }else {
+//    NSString* err = [[NSString alloc]initWithUTF8String:errInfo];
+//        NSLog(@"error in creating table %@", err);
+//    }
+//    //--------------- end of one time table building code
     
 	// Check if the SQL database has already been saved to the users phone, if not then copy it over
 	BOOL success;
@@ -835,12 +835,18 @@ static RootViewController_Pad* mViewController = NULL;
     int posttxcompleteper = 0;
     int totalcompleteper = 0;
     
-    BOOL providertest = false;//[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] providertest];
+    BOOL protest = false;//[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] providertest];
     NSString *selectedname = @"none";
     BOOL clinictest = false;//[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] clinictest];
     NSString *selectedclinic = @"none";
     NSString *goalchoices = @"none";
-    NSString *todaysGoal = @"none";
+    NSString *typedGoal = @"none";
+    NSString *selfguideselected = @"none";
+    NSString* addToSelfGuideStatus  = @"-"; // initialize this array
+    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+    [mySelfGuideStatusArray removeAllObjects];
+    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
+    
     
     // Setup the SQL Statement and compile it for faster access 
     //sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,%d,'%@',%d,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@','%@','%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d,'%@',%d,%d,0,0,0,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,%d,%d)",[[NSNumber numberWithBool:inPilotPhase]intValue],0,0,accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,thisProviderName,thisVisitString,thisSpecialtyClinicName,thisClinicName,[[UIDevice currentDevice] name], currentUniqueID, [[NSNumber numberWithBool:inDemoMode]intValue], respondentType, [self getCurrentMonth], [self getCurrentDateTime], [[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
@@ -852,10 +858,10 @@ static RootViewController_Pad* mViewController = NULL;
     
     //------10-9-14 database
    //     sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,'%@',%d,'%@','%@',%d,%d,%d,-1,-1,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,-1,'%@',-1,'%@',-1,'%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:hasStartedSurvey]intValue],[[NSNumber numberWithBool:hasFinishedSurvey]intValue],pretxdur,selfguidedur,treatmentdur,posttxdur,totaldur,pretxcompleteper,selfcompleteper,posttxcompleteper,totalcompleteper,thisVisitString,thisClinicName,thisSpecialtyClinicName,thisProviderName,respondentType,[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize,[[NSNumber numberWithBool:providertest]intValue],selectedname,[[NSNumber numberWithBool:clinictest]intValue],selectedclinic,goalchoices,todaysGoal];
-    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:hasStartedSurvey]intValue],[[NSNumber numberWithBool:hasFinishedSurvey]intValue],pretxdur,selfguidedur,treatmentdur,posttxdur,totaldur,pretxcompleteper,selfcompleteper,posttxcompleteper,totalcompleteper,thisVisitString,thisClinicName,thisSpecialtyClinicName,thisProviderName,respondentType,[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize,providertest,selectedname,clinictest,selectedclinic,goalchoices,todaysGoal];
+    sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@')",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:hasStartedSurvey]intValue],[[NSNumber numberWithBool:hasFinishedSurvey]intValue],pretxdur,selfguidedur,treatmentdur,posttxdur,totaldur,pretxcompleteper,selfcompleteper,posttxcompleteper,totalcompleteper,thisVisitString,thisClinicName,thisSpecialtyClinicName,thisProviderName,respondentType,[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize,protest,selectedname,clinictest,selectedclinic,goalchoices,typedGoal,selfguideselected];
     NSLog(@"sqlStatement values %@",sqlStatementString);
     // new database structure for version 2.0.1  Sandy 10-12-14
-    //  const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER,pilot NUMERIC,accesspoint TEXT,wanderON NUMERIC,appversion TEXT,ipadname TEXT,demo NUMERIC, month NUMERIC,currentdatetime NUMERIC,startedsurvey NUMERIC,finishedsurvey NUMERIC, pretxdur NUMERIC,selfguidedur NUMERIC,treatmentdur NUMERIC,posttxdur NUMERIC,totaldur NUMERIC,pretxcompleteper NUMERIC,selfquidecompleteper NUMERIC,posttxcompleteper NUMERIC,totalcompleteper NUMERIC,setvisit TEXT,setclinic TEXT,setspecialty TEXT,setprovider TEXT,respondenttype TEXT,voiceassist NUMERIC,fontsize NUMERIC, protest NUMERIC,providernameselected TEXT,clinictest NUMERIC,clinicselected TEXT,goalchoices TEXT,todaysGoal TEXT, ps1reason NUMERIC,ps2prepared NUMERIC,ps3looking NUMERIC,ps4prohelp NUMERIC,ps5clinichelp NUMERIC, presurvey6 NUMERIC,presurvey7 NUMERIC,presurvey8 NUMERIC,presurvey9 NUMERIC,presurvey10 NUMERIC, q1 NUMERIC,q2 NUMERIC,q3 NUMERIC,q4 NUMERIC,q5 NUMERIC,q6 NUMERIC,q7 NUMERIC,q8 NUMERIC,q9 NUMERIC,q10 NUMERIC, q11 NUMERIC,q12 NUMERIC,q13 NUMERIC,q14 NUMERIC,q15 NUMERIC,q16 NUMERIC,q17 NUMERIC,q18 NUMERIC,q19 NUMERIC, q20 NUMERIC,q21 NUMERIC,q22 NUMERIC,q23 NUMERIC,q24 NUMERIC,q25 NUMERIC,q26 NUMERIC,q27 NUMERIC,q28 NUMERIC,q29 NUMERIC,q30 NUMERIC)";
+    //  const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER,pilot NUMERIC,accesspoint TEXT,wanderON NUMERIC,appversion TEXT,ipadname TEXT,demo NUMERIC, month NUMERIC,currentdatetime NUMERIC,startedsurvey NUMERIC,finishedsurvey NUMERIC, pretxdur NUMERIC,selfguidedur NUMERIC,treatmentdur NUMERIC,posttxdur NUMERIC,totaldur NUMERIC,pretxcompleteper NUMERIC,selfquidecompleteper NUMERIC,posttxcompleteper NUMERIC,totalcompleteper NUMERIC,setvisit TEXT,setclinic TEXT,setspecialty TEXT,setprovider TEXT,respondenttype TEXT,voiceassist NUMERIC,fontsize NUMERIC, protest NUMERIC,providernameselected TEXT,clinictest NUMERIC,clinicselected TEXT,goalchoices TEXT,todaysGoal TEXT, ps1reason NUMERIC,ps2prepared NUMERIC,ps3looking NUMERIC,ps4prohelp NUMERIC,ps5clinichelp NUMERIC, presurvey6 NUMERIC,presurvey7 NUMERIC,presurvey8 NUMERIC,presurvey9 NUMERIC,presurvey10 NUMERIC, q1 NUMERIC,q2 NUMERIC,q3 NUMERIC,q4 NUMERIC,q5 NUMERIC,q6 NUMERIC,q7 NUMERIC,q8 NUMERIC,q9 NUMERIC,q10 NUMERIC, q11 NUMERIC,q12 NUMERIC,q13 NUMERIC,q14 NUMERIC,q15 NUMERIC,q16 NUMERIC,q17 NUMERIC,q18 NUMERIC,q19 NUMERIC, q20 NUMERIC,q21 NUMERIC,q22 NUMERIC,q23 NUMERIC,q24 NUMERIC,q25 NUMERIC,q26 NUMERIC,q27 NUMERIC,q28 NUMERIC,q29 NUMERIC,q30 NUMERIC,selfguideselected TEXT)";
     
   
    // uniqueid INTEGER, pilot NUMERIC, posttxcompleteper NUMERIC, pretxcompleteper NUMERIC, accesspoint TEXT,
@@ -1161,9 +1167,9 @@ static RootViewController_Pad* mViewController = NULL;
     //[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize];
     
     
-    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,PILOT,ACCESSPT,WANDERON,APPVERSION,IPAD,DEMO,MONTH,TIMESTAMP,STARTEDSURVEY,FINISHEDSURVEY,PRETXDUR,SELFGUIDEDUR,TXDUR,POSTTXDUR,TOTALDUR,PRETXPERCENT,SELFGUIDEPERCENT,POSTTXPECENT,TOTALPERCENT,POSTTXDUR,SETVISIT,SETCLINIC,SETSPECIALTY,SETPROVIDER,RESPONDENTTYPE,VOICEASSIST,FONTSIZE,PROVTEST,PROVNAME,CLINICTEST,CLINIC,GOALCHOICES,TypedGoal,Presurvey_1,Presurvey_2,Presurvey_3,Presurvey_4,Presurvey_5,Presurvey_6,Presurvey_7,Presurvey_8,Presurvey_9,Presurvey_10,PostQ1,PostQ2,PostQ3,PostQ4,PostQ5,PostQ6,PostQ7,PostQ8,PostQ9,PostQ10,PostQ11,PostQ12,PostQ13,PostQ14,PostQ15,MiniPostQ1,MiniPostQ2,MiniPostQ3,MiniPostQ4,MiniPostQ5,MiniPostQ6,MiniPostQ7,MiniPostQ8,MiniPostQ9,MiniPostQ10,SEC3Q1,SEC3Q2,SEC3Q3,SEC3Q4,SEC3Q5", nil];
+    NSMutableArray *allSatisfactionPatients = [[NSMutableArray alloc] initWithObjects:@"UNIQUEID,PILOT,ACCESSPT,WANDERON,APPVERSION,IPAD,DEMO,MONTH,TIMESTAMP,STARTEDSURVEY,FINISHEDSURVEY,PRETXDUR,SELFGUIDEDUR,TXDUR,POSTTXDUR,TOTALDUR,PRETXPERCENT,SELFGUIDEPERCENT,POSTTXPECENT,TOTALPERCENT,SETVISIT,SETCLINIC,SETSPECIALTY,SETPROVIDER,RESPONDENTTYPE,VOICEASSIST,FONTSIZE,PROVTEST,PROVNAME,CLINICTEST,CLINIC,GOALCHOICES,TypedGoal,Presurvey_1,Presurvey_2,Presurvey_3,Presurvey_4,Presurvey_5,Presurvey_6,Presurvey_7,Presurvey_8,Presurvey_9,Presurvey_10,PostQ1,PostQ2,PostQ3,PostQ4,PostQ5,PostQ6,PostQ7,PostQ8,PostQ9,PostQ10,PostQ11,PostQ12,PostQ13,PostQ14,PostQ15,MiniPostQ1,MiniPostQ2,MiniPostQ3,MiniPostQ4,MiniPostQ5,MiniPostQ6,MiniPostQ7,MiniPostQ8,MiniPostQ9,MiniPostQ10,SEC3Q1,SEC3Q2,SEC3Q3,SEC3Q4,SEC3Q5,EDMODSELECTED", nil];
     
-    // sessiondatv3 format uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,strDateTime,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,todaysGoal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,voiceTmp,fontTmp,appversion,posttxdurTmp,pretxdurTmp,ipadnameTmp,setprovider
+    // sessiondatv3 format uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,strDateTime,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,typedGoal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,voiceTmp,fontTmp,appversion,posttxdurTmp,pretxdurTmp,ipadnameTmp,setprovider
 
     NSArray *rowArray;
 
@@ -1229,7 +1235,7 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *Tmp_selfguidedur;
     NSString *Tmp_treatmentdur;
     NSString *Tmp_posttxdur;// = [NSString stringWithFormat:@"%4.4f",0.0f];
-    NSString *Tmp_totaldur;
+    int Tmp_totaldur;
     int Tmp_pretxcompleteper;
     int Tmp_selfcompleteper;
     int Tmp_posttxcompleteper;
@@ -1246,8 +1252,8 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *Tmp_selectedname;
     int Tmp_clinictest; // clinic user selected
     NSString *Tmp_selectedclinic;
-    int Tmp_goalchoices;  // goal value selected
-    NSString *Tmp_todaysGoal;  // text typed on the keyboard
+    NSString *Tmp_goalchoices;  // goal value selected
+    NSString *Tmp_typedGoal;  // text typed on the keyboard
     int Tmp_ps1reason;      // "I understand the reason or reasons for today's visit"
     int Tmp_ps2prepared; // "I feel prepared for today's visit"
     int Tmp_ps3looking; // "I am looking forward to today's visit
@@ -1261,6 +1267,7 @@ static RootViewController_Pad* mViewController = NULL;
 
     int q30Tmp,q29Tmp,q28Tmp,q27Tmp,q26Tmp,q25Tmp,q24Tmp,q23Tmp,q21Tmp,q22Tmp,q20Tmp,q19Tmp,q18Tmp,q17Tmp = 0;
     int q1Tmp, q2Tmp, q3Tmp, q4Tmp, q5Tmp, q6Tmp, q7Tmp, q8Tmp, q9Tmp, q10Tmp, q11Tmp, q12Tmp, q13Tmp, q14Tmp, q15Tmp, q16Tmp = 0;
+    NSString *Tmp_selfguideselected;
 
   
     
@@ -1327,7 +1334,7 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *row_selfguidedur;
     NSString *row_treatmentdur;
     NSString *row_posttxdur;// = [NSString stringWithFormat:@"%4.4f",0.0f];
-    NSString *row_totaldur;
+    int row_totaldur;
     int row_pretxcompleteper;
     int row_selfcompleteper;
     int row_posttxcompleteper;
@@ -1344,8 +1351,8 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *row_selectedname;
     int row_clinictest; // clinic user selected
     NSString *row_selectedclinic;
-    int row_goalchoices;  // goal value selected
-    NSString *row_todaysGoal;  // text typed on the keyboard
+    NSString *row_goalchoices;  // goal value selected
+    NSString *row_typedGoal;  // text typed on the keyboard
     int row_ps1reason;      // "I understand the reason or reasons for today's visit"
     int row_ps2prepared; // "I feel prepared for today's visit"
     int row_ps3looking; // "I am looking forward to today's visit
@@ -1386,6 +1393,7 @@ static RootViewController_Pad* mViewController = NULL;
         int row_set3post3;
         int row_set3post4;
         int row_set3post5;
+        NSString *row_selfguideselected;
 
     };
     
@@ -1423,7 +1431,7 @@ static RootViewController_Pad* mViewController = NULL;
     oElements.row_clinictest = 29;
     oElements.row_selectedclinic = 30;
     oElements.row_goalchoices = 31;
-    oElements.row_todaysGoal = 32;
+    oElements.row_typedGoal = 32;
     oElements.row_ps1reason = 33;
     oElements.row_ps2prepared = 34;
     oElements.row_ps3looking = 35;
@@ -1464,6 +1472,7 @@ static RootViewController_Pad* mViewController = NULL;
     oElements.row_set3post3 = 70;
     oElements.row_set3post4 = 71;
     oElements.row_set3post5 = 72;
+    oElements.row_selfguideselected = 73;
 
     // Setup the SQL Statement and compile it for faster access
     //sqlStatementString = [NSString stringWithFormat:@"SELECT * FROM sessiondata"];
@@ -1477,7 +1486,7 @@ static RootViewController_Pad* mViewController = NULL;
                // currentColIndex = 0;
                Tmp_currentUniqueID = (int)sqlite3_column_int(compiledStatement, oElements.row_currentUniqueID);
                Tmp_pilot =  (int)sqlite3_column_int(compiledStatement, oElements.row_pilot);
-               Tmp_accesspoint = (char *)sqlite3_column_text(compiledStatement, oElements.row_accesspoint);
+               Tmp_accesspoint = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.row_accesspoint)];
                 if (Tmp_accesspoint == NULL)
                     Tmp_accesspoint = @"null";
                 Tmp_wanderON = (int)sqlite3_column_int(compiledStatement, oElements.row_wanderON);
@@ -1497,7 +1506,7 @@ static RootViewController_Pad* mViewController = NULL;
                 Tmp_selfguidedur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.row_selfguidedur)];
                 Tmp_treatmentdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.row_treatmentdur)];
                 Tmp_posttxdur = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement, oElements.row_posttxdur)];
-                Tmp_totaldur= (int)sqlite3_column_int(compiledStatement, oElements.row_totaldur);
+                Tmp_totaldur = (int)sqlite3_column_int(compiledStatement, oElements.row_totaldur);
                 
 
                 Tmp_pretxcompleteper = (int)sqlite3_column_int(compiledStatement, oElements.row_pretxcompleteper);
@@ -1508,18 +1517,23 @@ static RootViewController_Pad* mViewController = NULL;
                 Tmp_thisClinicName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_thisClinicName)];
                 Tmp_thisSpecialtyClinicName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_thisSpecialtyClinicName)];
                 Tmp_thisProviderName = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_thisProviderName)];
+                // sandy 10-15-14 split this if there are credentials
+                NSString* myString = Tmp_thisProviderName;
+                NSArray* myArray = [myString  componentsSeparatedByString:@","];
+                NSString* Tmp_thisProviderName = [myArray objectAtIndex:0];
+                
                 Tmp_respondentType = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_respondentType)];
                 Tmp_voiceassist = (int)sqlite3_column_int(compiledStatement, oElements.row_voiceassist);
                 Tmp_fontsize = (int)sqlite3_column_int(compiledStatement, oElements.row_fontsize);
 
                 // pre treatment questions
-                Tmp_providertest = [NSNumber numberWithInt: sqlite3_column_int(compiledStatement, oElements.row_providertest)]; // provider user selected
+                Tmp_providertest = (int)sqlite3_column_int(compiledStatement, oElements.row_providertest); // provider user selected
                 Tmp_selectedname = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_selectedname)];
                 
                 Tmp_clinictest = (int)sqlite3_column_int(compiledStatement, oElements.row_clinictest); // clinic user selected
                 Tmp_selectedclinic= [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_selectedclinic)];
-                Tmp_goalchoices = (int)sqlite3_column_int(compiledStatement, oElements.row_goalchoices);  // goal value selected
-                Tmp_todaysGoal = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_todaysGoal)];
+                Tmp_goalchoices = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_goalchoices)];  // goal value selected
+                Tmp_typedGoal = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_typedGoal)];
                 Tmp_ps1reason = (int)sqlite3_column_int(compiledStatement, oElements.row_ps1reason);     // "I understand the reason or reasons for today's visit"
                 Tmp_ps2prepared = (int)sqlite3_column_int(compiledStatement, oElements.row_ps2prepared);    // "I feel prepared for today's visit"
                 Tmp_ps3looking = (int)sqlite3_column_int(compiledStatement, oElements.row_ps3looking);       // "I am looking forward to today's visit
@@ -1563,7 +1577,7 @@ static RootViewController_Pad* mViewController = NULL;
                 q28Tmp = (int)sqlite3_column_int(compiledStatement, oElements.row_set3post1);
                 q29Tmp = (int)sqlite3_column_int(compiledStatement, oElements.row_set3post1);
                 q30Tmp = (int)sqlite3_column_int(compiledStatement, oElements.row_set3post1);
-
+                Tmp_selfguideselected = [NSString stringWithUTF8String:(char*)sqlite3_column_text(compiledStatement,oElements.row_selfguideselected)];
                 
                 
                 
@@ -1769,10 +1783,18 @@ static RootViewController_Pad* mViewController = NULL;
     
                 
                 
-                NSLog(@"logged values %d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@',%d,'%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d%@d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,Tmp_timestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_todaysGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp);
+               NSLog(@"logged values %d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@'",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,Tmp_timestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_typedGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,Tmp_selfguideselected);
                 
-                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@',%d,'%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,Tmp_timestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_todaysGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp], nil];
+                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@'",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,Tmp_timestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_typedGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,Tmp_selfguideselected], nil];
 
+  // 10-14-14 version of DB              sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@')",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:hasStartedSurvey]intValue],[[NSNumber numberWithBool:hasFinishedSurvey]intValue],pretxdur,selfguidedur,treatmentdur,posttxdur,totaldur,pretxcompleteper,selfcompleteper,posttxcompleteper,totalcompleteper,thisVisitString,thisClinicName,thisSpecialtyClinicName,thisProviderName,respondentType,[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize,providertest,selectedname,clinictest,selectedclinic,goalchoices,typedGoal,selfguideselected];
+   //             NSLog(@"sqlStatement values %@",sqlStatementString);
+                // new database structure for version 2.0.1  Sandy 10-12-14
+                //  const char* sessiondataTableQuery = "CREATE TABLE IF NOT EXISTS sessiondata ( uniqueid INTEGER,pilot NUMERIC,accesspoint TEXT,wanderON NUMERIC,appversion TEXT,ipadname TEXT,demo NUMERIC, month NUMERIC,currentdatetime NUMERIC,startedsurvey NUMERIC,finishedsurvey NUMERIC, pretxdur NUMERIC,selfguidedur NUMERIC,treatmentdur NUMERIC,posttxdur NUMERIC,totaldur NUMERIC,pretxcompleteper NUMERIC,selfquidecompleteper NUMERIC,posttxcompleteper NUMERIC,totalcompleteper NUMERIC,setvisit TEXT,setclinic TEXT,setspecialty TEXT,setprovider TEXT,respondenttype TEXT,voiceassist NUMERIC,fontsize NUMERIC, protest NUMERIC,providernameselected TEXT,clinictest NUMERIC,clinicselected TEXT,goalchoices TEXT,todaysGoal TEXT, ps1reason NUMERIC,ps2prepared NUMERIC,ps3looking NUMERIC,ps4prohelp NUMERIC,ps5clinichelp NUMERIC, presurvey6 NUMERIC,presurvey7 NUMERIC,presurvey8 NUMERIC,presurvey9 NUMERIC,presurvey10 NUMERIC, q1 NUMERIC,q2 NUMERIC,q3 NUMERIC,q4 NUMERIC,q5 NUMERIC,q6 NUMERIC,q7 NUMERIC,q8 NUMERIC,q9 NUMERIC,q10 NUMERIC, q11 NUMERIC,q12 NUMERIC,q13 NUMERIC,q14 NUMERIC,q15 NUMERIC,q16 NUMERIC,q17 NUMERIC,q18 NUMERIC,q19 NUMERIC, q20 NUMERIC,q21 NUMERIC,q22 NUMERIC,q23 NUMERIC,q24 NUMERIC,q25 NUMERIC,q26 NUMERIC,q27 NUMERIC,q28 NUMERIC,q29 NUMERIC,q30 NUMERIC)";
+                
+                
+                
+                
 
 //                NSLog(@"logged values %d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,voiceTmp,fontTmp,setprovider);
 //                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,%@,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%@",uniqueIDtmp,debugModeTmp,respondentTypeTmp,setvisit,setspeciality,setclinic,monthTmp,yearTmp,startedSatTmp,finishedSatTmp,surveydurTmp,s0providertestVal,s1clinictestVal,s2goalchoiceVal,s3reasonVal,s4preparedVal,s5lookingVal,s7prohelpVal,s8clinichelpVal,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,voiceTmp,fontTmp,setprovider], nil];
@@ -2824,7 +2846,7 @@ static RootViewController_Pad* mViewController = NULL;
     
     switch (currentDynamicSurveyPageIndex) {
         case 0:
-            fieldToUpdate = [NSString stringWithFormat:@"protest"];
+            //fieldToUpdate = [NSString stringWithFormat:@"protest"];
             //fieldToUpdate = [NSString stringWithFormat:@"s0protest"];
             break;
         case 1:

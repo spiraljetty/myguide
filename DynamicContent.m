@@ -24,6 +24,7 @@ static NSArray* mAllSurveyQuestions = NULL;
 static NSMutableArray* mProviderStrings = NULL;  // for provider test
 static NSMutableArray* mClinicTestStrings = NULL;  // for clinic test
 static NSMutableArray* mTimeSegments = NULL;  // for timers
+static NSMutableArray* mSelfGuideStatus = NULL;  // for ed mods attempted
 
 static NSString* mCurrentClinic = @"at";
 static NSString* mCurrentRespondent = @"patient";
@@ -937,5 +938,14 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     // NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     // [myTimeSegmentsArray addObject:@"ha"];
     return mTimeSegments;
+}
++ (NSMutableArray*) getSelfGuideStatus {
+    if (mSelfGuideStatus == NULL){
+        mSelfGuideStatus = [[NSMutableArray alloc] init];
+    }
+    // access as:
+    // NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
+    // [myTimeSegmentsArray addObject:@"ha"];
+    return mSelfGuideStatus;
 }
 @end

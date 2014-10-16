@@ -720,7 +720,7 @@ typedef enum {
 - (void)storeCurrentUXTimeForPreTreatment;
 - (void)storeCurrentUXTimeForSelfGuidedStop;
 - (void)storeCurrentUXTimeForTreatmentStop;
-- (void)storeCurrentUXTimeForPostTreatmentStop;
+- (void)storeCurrentUXTimeForPostSurveyStop;
 - (void)storeTotalTime;
 
 - (void)showModalUnlockSettingsView;

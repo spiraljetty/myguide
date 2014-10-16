@@ -1384,7 +1384,8 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.startButtonPressed() - starts timing the pretxdur");
     // sandy 10-12-14 writes startedsurvey to db when respondent type is set
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    int surveyStartedTimeStamp = [rootViewController getCurrentDateTime];
+    NSDate *date = [NSDate date];
+    int surveyStartedTimeStamp = [date timeIntervalSince1970];
     //     int endofpresurveyTimeStamp = [tbvc getCurrentDateTime];
     NSLog(@"WRViewController.startButtonPressed() - surveyStartedTimeStamp %d", surveyStartedTimeStamp);
     //store timestamp
@@ -1398,9 +1399,19 @@ static WRViewController* mViewController = NULL;
 - (void)storeCurrentUXTimeForPreTreatment {
     NSLog(@"Attempting to store pre-treatment time duration to db: %4.4f...",secondsDur);
     [tbvc updateSurveyTextForField:@"pretxdur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
+
+    //------- reset Timer
+    [self resetUXTimer];
+    [uxTimer release];
+    uxTimer = nil;
+    secondsDur = 0.0;
+    NSLog(@"WRViewController.resumeAppAfterTreatmentIntermission()",secondsDur);
+    uxTimer = [[NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES] retain];
+    [[NSRunLoop currentRunLoop] addTimer:uxTimer forMode:NSDefaultRunLoopMode];
     
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    int endofpresurveyTimeStamp = [rootViewController getCurrentDateTime];
+    NSDate *date = [NSDate date];
+    int endofpresurveyTimeStamp = [date timeIntervalSince1970];
      NSLog(@"WRViewController.storeCurrentUXTimeForPreTreatment() - End of PreTreatment %d", endofpresurveyTimeStamp);
     //NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
    // [myTimeSegmentsArray addObject:endofpresurveyTimeStamp];
@@ -1408,7 +1419,7 @@ static WRViewController* mViewController = NULL;
     NSNumber *digitAsNumber = [NSNumber numberWithInt:endofpresurveyTimeStamp];
     NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     [myTimeSegmentsArray addObject:digitAsNumber];
-//    [self resetUXTimer];
+   // [self resetUXTimer];
 }
 
 
@@ -1417,15 +1428,25 @@ static WRViewController* mViewController = NULL;
     NSLog(@"Stopped selfguided use duration is db: %4.4f...",secondsDur);
     [tbvc updateSurveyTextForField:@"selfguidedur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
     
+    //------- reset Timer
+    [self resetUXTimer];
+    [uxTimer release];
+    uxTimer = nil;
+    secondsDur = 0.0;
+    NSLog(@"WRViewController.resumeAppAfterTreatmentIntermission()",secondsDur);
+    uxTimer = [[NSTimer scheduledTimerWithTimeInterval:0.25 target:self selector:@selector(timerTick:) userInfo:nil repeats:YES] retain];
+    [[NSRunLoop currentRunLoop] addTimer:uxTimer forMode:NSDefaultRunLoopMode];
+    
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    int endofselfguideTimeStamp = [rootViewController getCurrentDateTime];
+    NSDate *date = [NSDate date];
+    int endofselfguideTimeStamp = [date timeIntervalSince1970];
     NSLog(@"WRViewController.storeCurrentUXTimeForSelfGuidedStop() - End of selfguided %d", endofselfguideTimeStamp);
    // NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     //[myTimeSegmentsArray addObject:endofselfguideTimeStamp];
     NSNumber *digitAsNumber = [NSNumber numberWithInt:endofselfguideTimeStamp];
     NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     [myTimeSegmentsArray addObject:digitAsNumber];
-//    [self resetUXTimer];
+    //[self resetUXTimer];
 }
 
 - (void)storeCurrentUXTimeForTreatmentStop {
@@ -1433,37 +1454,50 @@ static WRViewController* mViewController = NULL;
     [tbvc updateSurveyTextForField:@"treatmentdur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
    
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    int endoftreatmentTimeStamp = [rootViewController getCurrentDateTime];
+    NSDate *date = [NSDate date];
+    int endoftreatmentTimeStamp = [date timeIntervalSince1970];
     NSLog(@"WRViewController.storeCurrentUXTimeForTreatmentStop() - End of Treatment %d", endoftreatmentTimeStamp);
     //NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
    // [myTimeSegmentsArray addObject:endoftreatmentTimeStamp];
     NSNumber *digitAsNumber = [NSNumber numberWithInt:endoftreatmentTimeStamp];
     NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     [myTimeSegmentsArray addObject:digitAsNumber];
-    //    [self resetUXTimer];
+       // [self resetUXTimer];
 }
 - (void)storeCurrentUXTimeForPostSurveyStop {
     NSLog(@"Storing postsurvey to db: %4.4f...",secondsDur);
     [tbvc updateSurveyTextForField:@"posttxdur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
     
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    int endofpostsurveyTimeStamp = [rootViewController getCurrentDateTime];
+    
+    NSDate *date = [NSDate date];
+    int endofpostsurveyTimeStamp = [date timeIntervalSince1970];
     NSLog(@"WRViewController.storeCurrentUXTimeForPostSurveyStop() - End of PostSurvey %d", endofpostsurveyTimeStamp);
     //[myTimeSegmentsArray addObject:endofpostsurveyTimeStamp];
     NSNumber *digitAsNumber = [NSNumber numberWithInt:endofpostsurveyTimeStamp];
     NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     [myTimeSegmentsArray addObject:digitAsNumber];
-    //    [self resetUXTimer];
+      //  [self resetUXTimer];
 }
 
 - (void)storeTotalTime {
-    [tbvc updateSurveyTextForField:@"totaldur" withThisText:[NSString stringWithFormat:@"%4.4f",secondsDur]];
-    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    int endofAppTimeStamp = [rootViewController getCurrentDateTime];
+     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    NSDate *date = [NSDate date];
+    int endofAppTimeStamp = [date timeIntervalSince1970];
     NSLog(@"WRViewController.storeTotalTime() - End of AppUse or Reset %d", endofAppTimeStamp);
     NSNumber *digitAsNumber = [NSNumber numberWithInt:endofAppTimeStamp];
     NSMutableArray* myTimeSegmentsArray = [DynamicContent getTimeSegments];
     [myTimeSegmentsArray addObject:digitAsNumber];
+    //NSNumber* returnedtime =[[myTimeSegmentsArray objectAtIndex:0]intValue];
+    int starttime = [[myTimeSegmentsArray objectAtIndex:0]intValue];
+
+    int totaltime = endofAppTimeStamp - starttime;
+    NSLog(@"WRViewController.storeTotalTime() - End of AppUse or Reset %d - %d = %d", endofAppTimeStamp,starttime,totaltime);
+    [tbvc updateSurveyTextForField:@"totaldur" withThisText:[NSString stringWithFormat:@"%4.4d",totaltime]];
+    [myTimeSegmentsArray removeAllObjects];
+    
+    //get timestamp value at start of arrayTimeSegmentsArray
+    
     //    [self resetUXTimer];
 }
 - (void)resetUXTimer {
@@ -2792,8 +2826,27 @@ static WRViewController* mViewController = NULL;
 - (void)launchDynamicWhatsNewModule {
     NSLog(@"WRViewController.launchDynamicWhatsNewModule()");
     [self fadeDynamicWhatsNewModuleIn];
-    //sandy 10-14-14
+    //sandy 10-15-14
     //TBD add code to indicate that this module was started in the db
+    NSString* addToSelfGuideStatus  = @"WhatNewStart";
+    
+    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+    //    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
+    NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+    int count = [mySelfGuideStatusArray count];
+    for (int i = 0; i < count; i++)
+        NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+    NSString *appendedSelfGuideStatusString;
+    appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+    [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+    [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+    
+
+    
+    
 }
 
 - (void)fadeDynamicWhatsNewModuleIn {
@@ -4619,6 +4672,23 @@ static WRViewController* mViewController = NULL;
     [UIView commitAnimations];
     
     educationModuleInProgress = YES;
+    //sandy 10-15-14
+    //TBD add code to indicate that this module was started in the db
+    NSString* addToSelfGuideStatus  = @"TBIModStart";
+    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+    //[mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
+    NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+    int count = [mySelfGuideStatusArray count];
+    for (int i = 0; i < count; i++)
+        NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+    NSString *appendedSelfGuideStatusString;
+    appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+    [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+    [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+    
 }
 
 - (void)reshowEducationModule {
@@ -4660,6 +4730,9 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.showEducationModuleIntro()");
     if (!runningAppInDemoMode)
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu]; //rjl 6/29/14
+    //sandy 10-15-14
+    //TBD add code to indicate that this module was started in the db
+    // NSString* addToSelfGuideStatus  = "TBIModStart";
 
     [self hideMasterButtonOverlay];
     
@@ -5734,9 +5807,42 @@ static WRViewController* mViewController = NULL;
     } else if (physicianModuleCompleted && dynamicEdModuleCompleted && educationModuleCompleted ) {
         [self createBadgeOnMiniTBIButton];
         [self launchDynamicSurveyWithChooseModuleWhatsNew];
+        //sandy 10-15-14
+        //TBD add code to indicate that this module was started in the db
+        NSString* addToSelfGuideStatus  = @"TBIModDone";
+        
+        NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+        NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+        NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+        int count = [mySelfGuideStatusArray count];
+        for (int i = 0; i < count; i++)
+            NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+        NSString *appendedSelfGuideStatusString;
+        appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+        [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+        [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+        RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+        [rootViewController updateSurveyTextForField:@"selfguideslected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+        
     } else if (physicianModuleCompleted && dynamicEdModuleCompleted && whatsNewModuleCompleted ) {
 //        [self hideMasterButtonOverlay];
         [self createBadgeOnMiniWhatsNewButton];
+        //sandy 10-15-14
+        //TBD add code to indicate that this module was started in the db
+        NSString* addToSelfGuideStatus  = @"WhatsNewCompleted";
+        NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+        NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+        NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+        int count = [mySelfGuideStatusArray count];
+        for (int i = 0; i < count; i++)
+            NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+        NSString *appendedSelfGuideStatusString;
+        appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+        [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+        [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+        RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+        [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+        
         [self launchDynamicSurveyWithChooseModuleTBI];
     } else if (educationModuleCompleted && (satisfactionSurveyCompleted || satisfactionSurveyDeclined) && dynamicEdModuleCompleted && whatsNewModuleCompleted) {
         [self hideMasterButtonOverlay];
@@ -6246,7 +6352,7 @@ static WRViewController* mViewController = NULL;
 
 - (void)resumeAppAfterTreatmentIntermission {
     // sandy 10-8-14 grabbing the timer setting here  to calculate tx time
-    [self storeCurrentUXTimeForPostTreatmentStop];
+    [self storeCurrentUXTimeForTreatmentStop];
     [self resetUXTimer];
     [uxTimer release];
     uxTimer = nil;
@@ -6262,7 +6368,8 @@ static WRViewController* mViewController = NULL;
 
 - (void)showReturnTabletView {
     
-    [self storeCurrentUXTimeForPostSurvey];
+    [self storeCurrentUXTimeForPostSurveyStop];
+    [self storeTotalTime];
     
     NSString *returnTabletText;
     NSString *returnTabletSoundfile;
