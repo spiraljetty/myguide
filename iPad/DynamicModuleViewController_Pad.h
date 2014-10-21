@@ -193,6 +193,9 @@
 @property (nonatomic, retain) NSString *mainTable;
 @property (nonatomic, retain) NSString *csvpath;
 
++ (DynamicModuleViewController_Pad*) getViewController;
+
+- (void)setupClinicContent;
 - (id)initWithPropertyList:(NSString *)propertyListName;
 - (void)setupWithPropertyList:(NSString *)propertyListName;
 - (void)loadPages;

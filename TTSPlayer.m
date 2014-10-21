@@ -145,7 +145,10 @@
 }
 
 - (void)playItemsWithNames:(NSArray *)arrayOfSoundFileNames {
-    NSLog(@"TTSPlayer.playItemsWithNames()");
+    NSLog(@"TTSPlayer.playItemsWithNames() files: ");
+    for (NSString *soundFilename in arrayOfSoundFileNames) {
+        NSLog(@"   %@", soundFilename);
+    }
     
     if (speakItemsAloud) {
         
@@ -294,8 +297,7 @@
     
     self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:soundItemArray];
     [self.queuePlayer play];
-}
-
+  }
 }
 
 @end

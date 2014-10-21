@@ -112,6 +112,77 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     return self;
 }
 
+- (void)setupClinicContent{
+    NSString* clinicName = [DynamicContent getCurrentClinic];
+    ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+    moduleName = [clinicInfo getSubclinicName];
+    NSLog(@"DynamicModuleViewController.setupWithPropertyList() clinic: %@", clinicName);
+    
+    NSData* tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"pmnr_acu_ed_module_test2" withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
+    dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
+    dynModDictKeys = [[dynModDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+
+    moduleType = [dynModDict objectForKey:kModuleTypeKey];
+    createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
+    moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
+        
+    NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
+    start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
+    end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
+    start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
+    end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
+        
+    moduleTheme = [[dynModDict objectForKey:kModuleThemeKey] copy];
+    moduleColor = [[dynModDict objectForKey:kModuleColorKey] copy];
+    isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
+    showModuleHeader = [[dynModDict objectForKey:kShowModuleHeaderKey] boolValue];
+    recognizeUserSpeechWords = [dynModDict objectForKey:kModuleShouldRecognizeUserSpeechWordsKey];
+    superModule = [dynModDict objectForKey:kSuperModuleKey];
+    subModules = [dynModDict objectForKey:kSubModulesKey];
+    pages = [dynModDict objectForKey:kModulePagesKey];
+    NSMutableDictionary* samplePage = NULL;
+    
+    if ([pages count] > 0){
+        samplePage = [pages objectAtIndex:0];
+    }
+    if (clinicInfo == NULL){
+        NSString* msg = [NSString stringWithFormat:@"clinic not found for %@", clinicName];
+        NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", msg);
+        // choose default clinic
+        clinicInfo =  [DynamicContent getClinic:@"AT"];
+        // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:msg];
+    }
+    else{
+        NSMutableArray* clinicPages = [clinicInfo getClinicPages];
+        NSLog(@"found it!");
+        NSLog(@"DynamicModuleViewController.setupWithPropertyList() updating content for module %@", moduleName);
+        NSMutableArray* newPages = [[NSMutableArray alloc] init];
+        for (NSMutableDictionary *pageDict in clinicPages) {
+            NSString *pageTitle = [pageDict valueForKey:@"pageTitle"];
+            NSString *pageText = [pageDict valueForKey:@"pageText"];
+            NSString *pageImage = [pageDict valueForKey:@"pageImage"];
+            NSMutableDictionary *mutablePageDict = NULL;
+            if (samplePage != NULL)
+                mutablePageDict= [samplePage mutableCopy];
+            else
+                mutablePageDict= [pageDict mutableCopy];
+            [mutablePageDict setValue:pageTitle forKey:@"HeaderText"];
+            [mutablePageDict setValue:pageText forKey:@"Text"];
+            if ([pageImage length] > 0){
+                [mutablePageDict setValue:pageImage forKey:@"ImageFilename"];
+                [mutablePageDict setValue:@"1" forKey:@"ImagePage"];
+            }
+            else
+                [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
+            [newPages addObject:mutablePageDict];
+        }
+        if ([newPages count] > 0){
+            pages = newPages;
+        }
+    }
+}
+
+
 - (void)setupWithPropertyList:(NSString *)propertyListName {
     NSString* currentClinicName = [DynamicContent getCurrentClinic];
     NSLog(@"DynamicModuleViewController.setupWithPropertyList() clinic: %@, plist: %@", currentClinicName, propertyListName);
@@ -146,24 +217,24 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         return;
     }
     else
-    if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"] || [propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"] ||[propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
-        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
-        moduleName = [currentClinic getSubclinicName]; //[dynModDict objectForKey:kModuleNameKey];
-    }
-    else {
-        ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
-        moduleName = [currentClinic getClinicName]; //[dynModDict objectForKey:kModuleNameKey];
-    }
+        if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"] || [propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"] ||[propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
+            ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
+            moduleName = [currentClinic getSubclinicName]; //[dynModDict objectForKey:kModuleNameKey];
+        }
+        else {
+            ClinicInfo* currentClinic = [DynamicContent getClinic:currentClinicName];
+            moduleName = [currentClinic getClinicName]; //[dynModDict objectForKey:kModuleNameKey];
+        }
     moduleType = [dynModDict objectForKey:kModuleTypeKey];
     createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
     moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
-        
+    
     NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
     start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
     end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
     start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
     end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
-        
+    
     moduleTheme = [[dynModDict objectForKey:kModuleThemeKey] copy];
     moduleColor = [[dynModDict objectForKey:kModuleColorKey] copy];
     isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
@@ -180,25 +251,15 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     ClinicInfo* clinicInfo = NULL;
     if ([propertyListName isEqualToString:@"pmnr_education_module_test1"]){
         clinicInfo =  [DynamicContent getClinic:@"PMNR"];
-    }
-    else
-    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
+    } else if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
             clinicInfo =  [DynamicContent getClinic:@"PNS"];
-    }
-    else
-    if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
-                clinicInfo =  [DynamicContent getClinic:@"AT"];
-    }
-    else
-    if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"]){
+    } else if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
+            clinicInfo =  [DynamicContent getClinic:@"AT"];
+    } else if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"]){
             clinicInfo =  [DynamicContent getClinic:@"PAIN"];
-    }
-    else
-    if ([propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
+    } else if ([propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
             clinicInfo =  [DynamicContent getClinic:@"EMG"];
-    }
-    else
-    if ([propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"]){
+    } else if ([propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"]){
             clinicInfo =  [DynamicContent getClinic:@"ACU"];
     }
     if (clinicInfo == NULL){
@@ -232,8 +293,9 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
             [newPages addObject:mutablePageDict];
         }
-        if ([newPages count] > 0)
+        if ([newPages count] > 0){
             pages = newPages;
+        }
     }
 }
 
@@ -333,7 +395,6 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 - (void)loadModuleHeader {
     NSLog(@"DynamicModuleViewController_Pad.loadModuleHeader() Loading module header...");
     
-    
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     float leftAngle =  90 * M_PI  / 180;
@@ -349,7 +410,6 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     
 //    DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
 //    dynamicPageHeader.dynamicModuleName = currDelegate.moduleName;
-    
     dynamicModuleHeader.dynamicModuleName = moduleName;
     dynamicModuleHeader.dynamicModuleNameLabel.text = moduleName;
     
@@ -409,14 +469,6 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     self.playerView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.playerView];
     [self.view sendSubviewToBack:self.playerView];
-    
-    // Add a page view controller
-    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 800.0f)];
-    pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    pageControl.currentPage = 0;
-    pageControl.numberOfPages = [pages count];
-//    pageControl.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:pageControl];
     
     [self updateViewContents];
 }
@@ -599,7 +651,22 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     
 //}
 
+
 - (void) updateViewContents {
+    NSString* clinicName = [DynamicContent getCurrentClinic];
+    ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+    if (![moduleType isEqualToString:@"whats_new"]){
+        moduleName = [clinicInfo getSubclinicName];
+        if ([moduleName length] == 0)
+            moduleName = [clinicInfo getClinicName];
+    }
+    // Add a page view controller
+    pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, 800.0f)];
+    pageControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    pageControl.currentPage = 0;
+    pageControl.numberOfPages = [pages count];
+    //    pageControl.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:pageControl];
     [self loadPages];
     [self loadSoundFileNames];
     [self loadLabelObjects];

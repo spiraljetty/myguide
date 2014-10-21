@@ -17,6 +17,7 @@
 + (void) downloadAllData;
 
 + (id) getAllSurveyQuestions;
++ (NSArray*) getAllClinics;
 + (NSArray*) getAllClinicians;
 + (ClinicianInfo*) getClinician:(int)clinicianIndex;
 + (NSArray*) getAllGoals;
@@ -26,6 +27,7 @@
 + (NSArray*) getSubclinicPhysicians:(NSString*) subclinic;
 + (NSArray*) getSubclinicPhysicianNames:(NSString*) subclinic;
 
++ (NSMutableArray*) getClinicNames;
 + (NSString*) getCurrentClinic;
 + (NSString*) getCurrentRespondent;
 + (void) setCurrentClinic:(NSString*)clinic;

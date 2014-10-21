@@ -304,8 +304,8 @@ typedef enum {
     PhysicianDetailViewController *physicianDetailVC;
     NSArray *allClinicPhysiciansBioPLists;
     
-    NSMutableArray* getAllClinicPhysicians;
-    NSMutableArray* getAllClinicPhysiciansImages;
+//    NSMutableArray* getAllClinicPhysicians;
+   // NSMutableArray* getAllClinicPhysiciansImages;
     
     BOOL alarmSounding;
     BOOL revealSettingsButtonPressed;
@@ -726,5 +726,7 @@ typedef enum {
 - (void)showModalUnlockSettingsView;
 
 - (void)showDataSendFailedAlert;
+
+- (void)setClinic:(NSString*)clinicName;
 
 @end

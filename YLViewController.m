@@ -118,7 +118,7 @@ static YLViewController* mYLViewController = NULL;
     mYLViewController = self;
     [super viewDidLoad];
         AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
-	NSString *currentAppVersion = @"App Version: 9/23/14";//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
+	NSString *currentAppVersion = @"App Version: 10/20/14";//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
     [appVersionLabel setText:currentAppVersion];
     progressView.progressTintColor = [UIColor greenColor];
 //    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f 

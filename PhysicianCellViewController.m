@@ -39,23 +39,32 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 
 - (void)initNumberOfCellsForCurrentlySelectedRowWithIndex:(int)currentRowIndex {
     NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() currentRowIndex: %d", currentRowIndex);
+    NSArray* allClinics = [DynamicContent getAllClinics];
     if (currentRowIndex == 0)
         currentlySelectedClinicPhysicians = [DynamicContent getNewClinicianNames];
-    else
-    if (currentRowIndex == 1)
-        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pmnr"];
-    else
-    if (currentRowIndex == 2)
-        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"emg"];
-    else
-    if (currentRowIndex == 3)
-        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pns"];
-    else
-    if (currentRowIndex == 4)
-        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"acupuncture"];
-    else
-    if (currentRowIndex == 5)
-        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"at"];
+    else {
+        ClinicInfo *clinic = [allClinics objectAtIndex:currentRowIndex-1];
+        NSString* clinicName = [clinic getSubclinicNameShort];
+        if ([clinicName length] == 0)
+            clinicName = [clinic getClinicNameShort];
+        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:clinicName];
+    }
+        
+//    if (currentRowIndex == 1){
+//        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pmnr"];
+//    }
+//    else if (currentRowIndex == 2){
+//        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"emg"];
+//    }
+//    else
+//    if (currentRowIndex == 3)
+//        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pns"];
+//    else
+//    if (currentRowIndex == 4)
+//        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"acupuncture"];
+//    else
+//    if (currentRowIndex == 5)
+//        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"at"];
     
 //    currentlySelectedClinicPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] pmnrSubClinicPhysicians] objectAtIndex:currentRowIndex];
 

@@ -84,7 +84,7 @@ static WRViewController* mViewController = NULL;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+
         collectingPilotData = YES;
         
         // Custom initialization
@@ -310,31 +310,31 @@ static WRViewController* mViewController = NULL;
     
     //    firstVisitButton, returnVisitButton, readyAppButton, voiceAssistButton, fontsizeButton
 
-    clinicSegmentedControl = [[UISegmentedControl alloc] initWithItems:titleArray];
-    clinicSegmentedControl.frame = CGRectMake(35, 200, 650, 50);
-    clinicSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
-//    clinicSegmentedControl.selectedSegmentIndex = 1;
-    [clinicSegmentedControl addTarget:self action:@selector(clinicSegmentChanged:) forControlEvents:UIControlEventValueChanged];
-    [clinicSegmentedControl setCenter:CGPointMake(320.0f, 612.0f)];
-    clinicSegmentedControl.transform = rotateRight;
-    [clinicSegmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+//    clinicSegmentedControl = [[UISegmentedControl alloc] initWithItems:titleArray];
+//    clinicSegmentedControl.frame = CGRectMake(35, 200, 650, 50);
+//    clinicSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
+////    clinicSegmentedControl.selectedSegmentIndex = 1;
+//    [clinicSegmentedControl addTarget:self action:@selector(clinicSegmentChanged:) forControlEvents:UIControlEventValueChanged];
+//    [clinicSegmentedControl setCenter:CGPointMake(320.0f, 612.0f)];
+//    clinicSegmentedControl.transform = rotateRight;
+//    [clinicSegmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
     
     // DISABLING 'GENERIC CLINIC' AND 'PNS' UNTIL CONTENT IS READY
 //    [clinicSegmentedControl setEnabled:NO forSegmentAtIndex:0];
 //    [clinicSegmentedControl setEnabled:NO forSegmentAtIndex:2];
-    [self.view addSubview:clinicSegmentedControl];
+//    [self.view addSubview:clinicSegmentedControl];
     
-    specialtyClinicSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"General PM&R", @"Acupuncture", @"Pain", @"EMG", nil]];
-    specialtyClinicSegmentedControl.frame = CGRectMake(35, 200, 750, 50);
-    specialtyClinicSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
-//    specialtyClinicSegmentedControl.selectedSegmentIndex = 1;
-    [specialtyClinicSegmentedControl addTarget:self action:@selector(specialtyClinicSegmentChanged:) forControlEvents:UIControlEventValueChanged];
-    specialtyClinicSegmentedControl.alpha = 0.0;
-    [specialtyClinicSegmentedControl setCenter:CGPointMake(380.0f, 612.0f)];
-    specialtyClinicSegmentedControl.transform = rotateRight;
-    [specialtyClinicSegmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
-
-    [self.view addSubview:specialtyClinicSegmentedControl];
+//    specialtyClinicSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"General PM&R", @"Acupuncture", @"Pain", @"EMG", nil]];
+//    specialtyClinicSegmentedControl.frame = CGRectMake(35, 200, 750, 50);
+//    specialtyClinicSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
+////    specialtyClinicSegmentedControl.selectedSegmentIndex = 1;
+//    [specialtyClinicSegmentedControl addTarget:self action:@selector(specialtyClinicSegmentChanged:) forControlEvents:UIControlEventValueChanged];
+//    specialtyClinicSegmentedControl.alpha = 0.0;
+//    [specialtyClinicSegmentedControl setCenter:CGPointMake(380.0f, 612.0f)];
+//    specialtyClinicSegmentedControl.transform = rotateRight;
+//    [specialtyClinicSegmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+//
+//    [self.view addSubview:specialtyClinicSegmentedControl];
     
 //    initialSettingsLabel = [[KSLabel alloc] initWithFrame:f];
     initialSettingsLabel = [[KSLabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 100)];
@@ -347,32 +347,32 @@ static WRViewController* mViewController = NULL;
     initialSettingsLabel.transform = rotateRight;
     [self.view addSubview:initialSettingsLabel];
     
-    clinicSelectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 700, 250)];
-	clinicSelectionLabel.text = @"Please select the appropriate clinic and specialty:";
-	clinicSelectionLabel.textAlignment = UITextAlignmentCenter;
-	clinicSelectionLabel.textColor = [UIColor blackColor];
-	clinicSelectionLabel.backgroundColor = [UIColor clearColor];
-    clinicSelectionLabel.font = [UIFont fontWithName:@"Avenir" size:30];
-	clinicSelectionLabel.opaque = YES;
-	[clinicSelectionLabel setCenter:CGPointMake(270.0f, 650.0f)];
-    clinicSelectionLabel.transform = rotateRight;
+//    clinicSelectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 700, 250)];
+//	clinicSelectionLabel.text = @"Please select the appropriate clinic and specialty:";
+//	clinicSelectionLabel.textAlignment = UITextAlignmentCenter;
+//	clinicSelectionLabel.textColor = [UIColor blackColor];
+//	clinicSelectionLabel.backgroundColor = [UIColor clearColor];
+//    clinicSelectionLabel.font = [UIFont fontWithName:@"Avenir" size:30];
+//	clinicSelectionLabel.opaque = YES;
+//	[clinicSelectionLabel setCenter:CGPointMake(270.0f, 650.0f)];
+//    clinicSelectionLabel.transform = rotateRight;
+//    
+//    [self.view addSubview:clinicSelectionLabel];
     
-    [self.view addSubview:clinicSelectionLabel];
-    
-    clinicianLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 700, 250)];
-	clinicianLabel.text = @"Selected:";
-	clinicianLabel.textAlignment = UITextAlignmentCenter;
-	clinicianLabel.textColor = [UIColor blackColor];
-	clinicianLabel.backgroundColor = [UIColor clearColor];
-    clinicianLabel.font = [UIFont fontWithName:@"Avenir" size:25];
-    clinicianLabel.numberOfLines = 0;
-	clinicianLabel.opaque = YES;
-	[clinicianLabel setCenter:CGPointMake(650.0f, 419.0f)];
-    clinicianLabel.alpha = 0.0;
-    clinicianLabel.transform = rotateRight;
-    
-    [self.view addSubview:clinicianLabel];
-    [self.view sendSubviewToBack:clinicianLabel];
+//    clinicianLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 700, 250)];
+//	clinicianLabel.text = @"Selected:";
+//	clinicianLabel.textAlignment = UITextAlignmentCenter;
+//	clinicianLabel.textColor = [UIColor blackColor];
+//	clinicianLabel.backgroundColor = [UIColor clearColor];
+//    clinicianLabel.font = [UIFont fontWithName:@"Avenir" size:25];
+//    clinicianLabel.numberOfLines = 0;
+//	clinicianLabel.opaque = YES;
+//	[clinicianLabel setCenter:CGPointMake(650.0f, 419.0f)];
+//    clinicianLabel.alpha = 0.0;
+//    clinicianLabel.transform = rotateRight;
+//    
+//    [self.view addSubview:clinicianLabel];
+//    [self.view sendSubviewToBack:clinicianLabel];
     
     taperedWhiteLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tapered_fade_dividing_line-horiz-lrg.png"]];
     taperedWhiteLine.frame = CGRectMake(0, 0, 700, 50);
@@ -434,7 +434,7 @@ static WRViewController* mViewController = NULL;
 	visitSelectionLabel.backgroundColor = [UIColor clearColor];
     visitSelectionLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	visitSelectionLabel.opaque = YES;
-	[visitSelectionLabel setCenter:CGPointMake(430.0f, 755.0f)];
+	[visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
     visitSelectionLabel.transform = rotateRight;
     
     [self.view addSubview:visitSelectionLabel];
@@ -447,7 +447,7 @@ static WRViewController* mViewController = NULL;
 	[firstVisitButton setImage:[UIImage imageNamed:@"first_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[firstVisitButton setImage:[UIImage imageNamed:@"first_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	firstVisitButton.backgroundColor = [UIColor clearColor];
-	[firstVisitButton setCenter:CGPointMake(500.0f, 860.0f)];
+	[firstVisitButton setCenter:CGPointMake(400.0f, 860.0f)];
 	[firstVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	firstVisitButton.enabled = YES;
 	firstVisitButton.hidden = NO;
@@ -458,23 +458,23 @@ static WRViewController* mViewController = NULL;
     
     [self.view addSubview:firstVisitButton];
     
-    switchToSectionSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects: @"Skip to Splash", @"Skip to Pretest", @"Skip to Ed", @"Skip to Survey", @"Skip to Menu", nil]];
-    switchToSectionSegmentedControl.frame = CGRectMake(35, 200, 800, 50);
-    switchToSectionSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
-//    switchToSectionSegmentedControl.selectedSegmentIndex = 1;
-    [switchToSectionSegmentedControl addTarget:self action:@selector(skipToSegmentChanged:) forControlEvents:UIControlEventValueChanged];
-    [switchToSectionSegmentedControl setCenter:CGPointMake(675.0f, 612.0f)];
-    [switchToSectionSegmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
-    switchToSectionSegmentedControl.transform = rotateRight;
-    switchToSectionSegmentedControl.alpha = 0.0;
-    
-    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:0];
-    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:2];
-    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:3];
-    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:4];
-    
-    [self.view addSubview:switchToSectionSegmentedControl];
-    [self.view sendSubviewToBack:switchToSectionSegmentedControl];
+//    switchToSectionSegmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects: @"Skip to Splash", @"Skip to Pretest", @"Skip to Ed", @"Skip to Survey", @"Skip to Menu", nil]];
+//    switchToSectionSegmentedControl.frame = CGRectMake(35, 200, 800, 50);
+//    switchToSectionSegmentedControl.segmentedControlStyle = UISegmentedControlStyleBordered;
+////    switchToSectionSegmentedControl.selectedSegmentIndex = 1;
+//    [switchToSectionSegmentedControl addTarget:self action:@selector(skipToSegmentChanged:) forControlEvents:UIControlEventValueChanged];
+//    [switchToSectionSegmentedControl setCenter:CGPointMake(675.0f, 612.0f)];
+//    [switchToSectionSegmentedControl setSelectedSegmentIndex:UISegmentedControlNoSegment];
+//    switchToSectionSegmentedControl.transform = rotateRight;
+//    switchToSectionSegmentedControl.alpha = 0.0;
+//    
+//    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:0];
+//    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:2];
+//    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:3];
+//    [switchToSectionSegmentedControl setEnabled:NO forSegmentAtIndex:4];
+//    
+//    [self.view addSubview:switchToSectionSegmentedControl];
+//    [self.view sendSubviewToBack:switchToSectionSegmentedControl];
     
     //returnVisitButton - decide if patient's followup/return visit
 	returnVisitButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -484,7 +484,7 @@ static WRViewController* mViewController = NULL;
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	returnVisitButton.backgroundColor = [UIColor clearColor];
-	[returnVisitButton setCenter:CGPointMake(500.0f, 660.0f)];
+	[returnVisitButton setCenter:CGPointMake(400.0f, 660.0f)];
 	[returnVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	returnVisitButton.enabled = YES;
 	returnVisitButton.hidden = NO;
@@ -690,7 +690,7 @@ static WRViewController* mViewController = NULL;
 //                                     @"pmnr_teraoka"] mutableCopy];
     
     //rjl 8/16/14 dynamically add a new clinician
-    NSMutableArray *mutableAllClinicPhysicians = [self getAllClinicPhysicians];
+    NSMutableArray *mutableAllClinicPhysicians = [DynamicContent getNewClinicianNames];
 //    pmnrSubClinicPhysicians = [[NSArray alloc] initWithObjects:allClinicPhysicians,
     pmnrSubClinicPhysicians = [[NSArray alloc] initWithObjects:mutableAllClinicPhysicians,
                                [NSArray arrayWithObjects:@"Lawrence Huang, M.D.",
@@ -734,9 +734,9 @@ static WRViewController* mViewController = NULL;
     splitViewController.delegate = self;
 }
 
-- (NSMutableArray*) getAllClinicPhysicians { //rjl 8/16/14
-    return [DynamicContent getNewClinicianNames];
-}
+//- (NSMutableArray*) getAllClinicPhysicians { //rjl 8/16/14
+//    return [DynamicContent getNewClinicianNames];
+//}
 //    NSLog(@"WRViewController.getAllClinicPhysicians()");
 //    NSMutableArray *mutableAllClinicPhysicians = [[NSMutableArray alloc] init];//[allClinicPhysicians mutableCopy];
 //    NSArray * newClinicians = [DynamicContent getNewClinicianNames];
@@ -763,10 +763,10 @@ static WRViewController* mViewController = NULL;
 //    return mutableAllClinicPhysiciansThumbs;
 //}
 
-- (NSMutableArray*) getAllClinicPhysiciansImages { //rjl 8/16/14
+//- (NSMutableArray*) getAllClinicPhysiciansImages { //rjl 8/16/14
     //    NSLog(@"WRViewController.getAllClinicPhysiciansImages()");
-    return  [DynamicContent getNewClinicianImages];
-}
+//    return  [DynamicContent getNewClinicianImages];
+//}
 //    NSMutableArray *mutableAllClinicPhysiciansImages = [allClinicPhysiciansImages mutableCopy];
 //    NSMutableArray * newClinicianImages = [DynamicContent getNewClinicianImages];
 //    for (NSString *imageFilename in newClinicianImages){
@@ -863,7 +863,9 @@ static WRViewController* mViewController = NULL;
 
 - (void)setNewDetailVCForRow:(int)newRow {
     NSLog(@"WRViewController.setNewDetailForRow() newRow: %d", newRow);
-
+    newRow = newRow-1;
+    if (newRow < 0)
+        newRow = 0;
     NSArray *newVCs = [NSArray arrayWithObjects:[splitViewController.viewControllers objectAtIndex:0], [arrayDetailVCs objectAtIndex:newRow], nil];
     
     splitViewController.viewControllers = newVCs;
@@ -957,7 +959,7 @@ static WRViewController* mViewController = NULL;
         
         [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_PMNR_logo_splash_landscape.png"]];
         
-        [self fadeInSpecialtyClinicSegmentedControl];
+        //[self fadeInSpecialtyClinicSegmentedControl];
     } else {
         [DynamicContent setCurrentClinic:@"pns"];
         currentClinicName = @"PNS Clinic";
@@ -996,6 +998,59 @@ static WRViewController* mViewController = NULL;
     }
     [self setDynamicWhatsNewSoundFileDict];
 }
+
+- (void)setClinic:(NSString*)clinicName {
+    NSLog(@"WRViewController.setClinic() %@", clinicName);
+    if ([clinicName isEqualToString:@"All"] || [clinicName isEqualToString:@"Default"]){
+        NSArray* allClinics = [DynamicContent getClinicNames];
+        clinicName = [allClinics objectAtIndex:0];
+        NSLog(@"WRViewController.setClinic() Default clinic is: %@", clinicName);
+
+    }
+    ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+    if (clinicInfo == NULL){
+        NSLog(@"WRViewController.setClinic() ERROR! clinic info not found for: %@", clinicName);
+        return;
+    }
+    currentClinicName = clinicName; //@"AT Center";
+    //currentMainClinic = kATLab;
+    
+    //        [self fadeOutSpecialtyClinicSegmentedControl];
+    NSString* clinicNameShort = [clinicInfo getSubclinicNameShort];
+    if ([clinicNameShort length] == 0)
+        clinicNameShort = [clinicInfo getClinicNameShort];
+    [DynamicContent setCurrentClinic:clinicNameShort];
+    
+    [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_polytrauma_logo_splash_landscape.png"]];
+
+    
+    [self setDynamicEdClinicSpecFileForSpecialtyClinicName:currentSpecialtyClinicName];
+    
+    selectedSubclinic = YES;
+    NSLog(@"WRViewController.setClinic() currentClinicName: %@",currentClinicName);
+    
+    initialSettingsLabel.text = [NSString stringWithFormat:@"%@ App - Launch Settings",currentClinicName];
+    
+    mainClinicName = currentClinicName;
+    
+    [self updateMiniDemoSettings];
+    
+    selectedClinic = YES;
+    
+    if (selectedVisit && selectedSubclinic) {
+        nextSettingsButton.enabled = YES;
+    }
+    
+    
+    if (!whatsNewInitialized) {
+        [self initializeWhatsNewModule];
+    }
+    if (!dynamicSurveyInitialized) {
+        [self setUpDynamicSurveyForTheFirstTime];
+    }
+    [self setDynamicWhatsNewSoundFileDict];
+}
+
 
 - (void)fadeInSpecialtyClinicSegmentedControl {
 
@@ -1055,26 +1110,27 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)setDynamicEdClinicSpecFileForSpecialtyClinicName:(NSString *)thisSpecialtyClinicName {
-    NSLog(@"WRViewController.setDynamicEdClinicSpecFileForSpecialtyClinicName() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
+    //NSLog(@"WRViewController.setDynamicEdClinicSpecFileForSpecialtyClinicName() Selected Specialty Clinic: %@...",currentSpecialtyClinicName);
+    currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2"; // dummy value used for sound files
 
-    if ([thisSpecialtyClinicName isEqualToString:@"None"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
-    } else if ([thisSpecialtyClinicName hasPrefix:@"Acupuncture"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_acu_ed_module_test2";
-    } else if ([thisSpecialtyClinicName hasPrefix:@"Pain"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
-    } else if ([thisSpecialtyClinicName isEqualToString:@"PNS"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test3";
-    } else if ([thisSpecialtyClinicName isEqualToString:@"EMG"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_emg_ed_module_test2";
-    } else if ([thisSpecialtyClinicName isEqualToString:@"General PM&R"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
-    } else if ([thisSpecialtyClinicName isEqualToString:@"AT"]) {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test2";
-    } else {
-        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
-    }
-    NSLog(@"Set Dynamic Specialty Clinic Ed Module Specfilename to: %@...",currentDynamicSubClinicEdModuleSpecFilename);
+//    if ([thisSpecialtyClinicName isEqualToString:@"None"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
+//    } else if ([thisSpecialtyClinicName hasPrefix:@"Acupuncture"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_acu_ed_module_test2";
+//    } else if ([thisSpecialtyClinicName hasPrefix:@"Pain"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
+//    } else if ([thisSpecialtyClinicName isEqualToString:@"PNS"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test3";
+//    } else if ([thisSpecialtyClinicName isEqualToString:@"EMG"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_emg_ed_module_test2";
+//    } else if ([thisSpecialtyClinicName isEqualToString:@"General PM&R"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
+//    } else if ([thisSpecialtyClinicName isEqualToString:@"AT"]) {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pns_ed_module_test2";
+//    } else {
+//        currentDynamicSubClinicEdModuleSpecFilename = @"pmnr_pain_ed_module_test2";
+//    }
+//    NSLog(@"Set Dynamic Specialty Clinic Ed Module Specfilename to: %@...",currentDynamicSubClinicEdModuleSpecFilename);
 
     
     [self initializeDynamicSubClinicEducationModule];
@@ -1087,6 +1143,7 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)setDynamicEdClinicSpecFileForClinicName:(NSString *)thisClinicName {
+    NSLog(@"WRViewController.setDynamicEdClinicSpecFileForClinicName()");
     if ([thisClinicName isEqualToString:@"PM&R Clinic"]) {
         currentDynamicClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
         NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
@@ -1204,8 +1261,8 @@ static WRViewController* mViewController = NULL;
      *  Here is where we override the hardcoded values by calling covering functions to add dynamic content
      */
     
-    NSMutableArray* allPhysicians = [self getAllClinicPhysicians];
-    NSMutableArray* allPhysiciansImages = [self getAllClinicPhysiciansImages];
+    NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
+    NSMutableArray* allPhysiciansImages = [DynamicContent getNewClinicianImages];
     NSMutableArray* allPhysiciansSoundfiles = [self getAllClinicPhysiciansSoundFiles];
     
     for (NSString *thisPhysicianName in allPhysicians) // rjl 8/16/14
@@ -1228,14 +1285,14 @@ static WRViewController* mViewController = NULL;
 - (void)visitButtonPressed:(id)sender {
     
     if (sender == firstVisitButton) {
-		NSLog(@"firstVisitButton Pressed - setup for welcome for initial visit");
+		NSLog(@"WRViewcontroller.visitButtonPressed() First Visit");
         isFirstVisit = YES;
         firstVisitButton.selected = NO;
         returnVisitButton.selected = YES;
         firstVisitButton.alpha = 1.0;
         returnVisitButton.alpha = 0.5;
 	} else if (sender == returnVisitButton) {
-		NSLog(@"returnVisitButton Pressed - setup for welcome for return visit");
+		NSLog(@"WRViewcontroller.visitButtonPressed() Return Visit");
         isFirstVisit = NO;
         firstVisitButton.selected = YES;
         returnVisitButton.selected = NO;
@@ -1247,9 +1304,9 @@ static WRViewController* mViewController = NULL;
     
     selectedVisit = YES;
     
-    if (selectedClinic && selectedSubclinic) {
+    //if (selectedClinic && selectedSubclinic)
         nextSettingsButton.enabled = YES;
-    }
+    //}
 }
 
 - (void)slideVisitButtonsOut {
@@ -1351,7 +1408,8 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)readyButtonPressed:(id)sender {
-    NSLog(@"APP READY");
+    NSLog(@"WRViewController.readyButtonPressed() APP READY");
+    [self setClinic:currentSubClinicName];
     underUserControl = YES;
     
     // Have selected a clinician/physician at this point
@@ -1364,7 +1422,7 @@ static WRViewController* mViewController = NULL;
     
     [self initializePhysicianDetailView];
     [self initializeDynamicSurveyPages];
-//    [self initializeDynamicEducationModule];
+    //    [self initializeDynamicEducationModule];
     
 }
 
@@ -2372,7 +2430,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.initializeWhatsNewModule()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    
+    dynamicWhatsNewModule = [[DynamicModuleViewController_Pad alloc] init];
     [dynamicWhatsNewModule setupWithPropertyList:currentDynamicWhatsNewModuleSpecFilename];
     
     dynamicWhatsNewModule.view.alpha = 0.0;
@@ -2399,8 +2457,9 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.initializeDynamicSubClinicEducationModule()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    
-    [dynamicSubclinicEdModule setupWithPropertyList:currentDynamicSubClinicEdModuleSpecFilename];
+
+    //[dynamicSubclinicEdModule setupWithPropertyList:currentDynamicSubClinicEdModuleSpecFilename];
+    [dynamicSubclinicEdModule setupClinicContent];
     
     dynamicSubclinicEdModule.view.alpha = 0.0;
     dynamicSubclinicEdModule.view.transform = rotateRight;
@@ -2409,7 +2468,7 @@ static WRViewController* mViewController = NULL;
     
     
     
-    NSLog(@"Dynamic Subclinic Education Module Initialized with spec file: %@.plist",currentDynamicSubClinicEdModuleSpecFilename);
+//    NSLog(@"Dynamic Subclinic Education Module Initialized with spec file: %@.plist",currentDynamicSubClinicEdModuleSpecFilename);
 }
 
 - (void)initializeDynamicEducationModule {
@@ -2419,7 +2478,9 @@ static WRViewController* mViewController = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
 //    dynamicEdModule = [[DynamicModuleViewController_Pad alloc] initWithPropertyList:currentDynamicClinicEdModuleSpecFilename];
-    [dynamicEdModule setupWithPropertyList:currentDynamicClinicEdModuleSpecFilename];
+    dynamicEdModule = [DynamicModuleViewController_Pad alloc];
+    [dynamicEdModule setupClinicContent];
+//    [dynamicEdModule setupWithPropertyList:currentDynamicClinicEdModuleSpecFilename];
 //    dynamicEdModule.speakItemsAloud = YES;
     
     dynamicEdModule.view.alpha = 0.0;
@@ -2427,7 +2488,7 @@ static WRViewController* mViewController = NULL;
     [self.view addSubview:dynamicEdModule.view];
     [self.view sendSubviewToBack:dynamicEdModule.view];
     
-    NSLog(@"Dynamic Clinic Education Module Initialized with spec file: %@.plist",currentDynamicClinicEdModuleSpecFilename);
+//    NSLog(@"Dynamic Clinic Education Module Initialized with spec file: %@.plist",currentDynamicClinicEdModuleSpecFilename);
 }
 
 - (void)setDefaultDynamicSubClinicSoundFileDict {
@@ -2927,7 +2988,7 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)initializeReadyScreen {
-    NSLog(@"Initializing ready screen...");
+    NSLog(@"WRViewController.initializeReadyScreen() currentMainClinic: %d", currentMainClinic);
     
     
     NSString *welcomeBackText;
@@ -2953,12 +3014,12 @@ static WRViewController* mViewController = NULL;
     NSString *currentMainClinicText;
      NSString *currentSubClinicText;
     
-    switch (currentMainClinic) {
-        case kATLab:
-            currentMainClinicText = @"AT Center";
-            currentSubClinicText = @"";
-            break;
-        case kPMNRClinic:
+//    switch (currentMainClinic) {
+//        case kATLab:
+//            currentMainClinicText = @"AT Center";
+//            currentSubClinicText = @"";
+//            break;
+//        case kPMNRClinic:
 //            if ([currentSubClinicName isEqualToString:@"PM&R"]) {
 //                currentMainClinicText = @"";
 //                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic",currentSubClinicName];
@@ -2969,34 +3030,39 @@ static WRViewController* mViewController = NULL;
 //                currentMainClinicText = @"PM&R";
 //                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic",currentSubClinicName];
 //            }
-            currentMainClinicText = @"PM&R";
-            
-            if ([currentSpecialtyClinicName isEqualToString:@"None"]) {
-                currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
-            } else if ([currentSpecialtyClinicName isEqualToString:@"Acupuncture"]) {
-                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic", currentSpecialtyClinicName];
-            } else if ([currentSpecialtyClinicName isEqualToString:@"Pain"]) {
-                currentSubClinicText = [NSString stringWithFormat:@"Chronic %@ Clinic", currentSpecialtyClinicName];
-            } else if ([currentSpecialtyClinicName isEqualToString:@"PNS"]) {
-                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic", currentSpecialtyClinicName];
-            } else if ([currentSpecialtyClinicName isEqualToString:@"EMG"]) {
-                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic", currentSpecialtyClinicName];
-            } else {
-                currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
-            }
-            break;
-        case kPNSClinic:
-            currentMainClinicText = @"PNS";
-            currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
-            break;
-        case kNoMainClinic:
-            currentMainClinicText = @"";
-            break;
-        default:
-            currentMainClinicText = @"";
-            break;
-    }
-    
+//            currentMainClinicText = @"PM&R";
+            NSString* clinicName = [DynamicContent getCurrentClinic];
+            ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+            currentSubClinicText = [clinicInfo getSubclinicName];
+            if ([currentSubClinicText length] == 0)
+                currentSubClinicText = [clinicInfo getClinicName];
+//            if ([currentSpecialtyClinicName isEqualToString:@"None"]) {
+//                currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
+//            } else if ([currentSpecialtyClinicName isEqualToString:@"Acupuncture"]) {
+//                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic", currentSpecialtyClinicName];
+//            } else if ([currentSpecialtyClinicName isEqualToString:@"Pain"]) {
+//                currentSubClinicText = [NSString stringWithFormat:@"Chronic %@ Clinic", currentSpecialtyClinicName];
+//            } else if ([currentSpecialtyClinicName isEqualToString:@"PNS"]) {
+//                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic", currentSpecialtyClinicName];
+//            } else if ([currentSpecialtyClinicName isEqualToString:@"EMG"]) {
+//                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic", currentSpecialtyClinicName];
+//            } else {
+//                currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
+//            }
+//            break;
+//        case kPNSClinic:
+//            currentMainClinicText = @"PNS";
+//            currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
+//            break;
+//        case kNoMainClinic:
+//            currentMainClinicText = @"";
+//            currentSubClinicText = [NSString stringWithFormat:@"Clinic"];
+//            break;
+//        default:
+//            currentMainClinicText = @"";
+//            break;
+//    }
+    currentMainClinicText = @"";
     fullClinicString = [NSString stringWithFormat:@"%@ %@\n%@", welcomeBackText, currentMainClinicText, currentSubClinicText];
     readyScreen = [[DynamicStartAppView alloc] initWithFrame:self.view.frame institutionImageFileName:currentInstitutionImageFilename fullWelcomeClinicText:fullClinicString target:self selector:@selector(startButtonPressed:) showInstitutionImage:YES];
     readyScreen.alpha = 0.0;

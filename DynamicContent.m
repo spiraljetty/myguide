@@ -625,15 +625,34 @@ static NSString* mCurrentRespondent = @"patient";
         return NULL;
 }
 
-+ (ClinicInfo*) getClinic:(NSString*)clinicNameShort{
-    NSLog(@"DynamicContent.getClinic() clinicNameShort: %@", clinicNameShort);
-    NSString* clinicNameLowerCase = [clinicNameShort lowercaseString];
++ (NSMutableArray*) getClinicNames{
+    NSLog(@"DynamicContent.getClinicNames()");
+    NSArray* allClinics = [self getAllClinics];
+    NSMutableArray* clinicNames = [[NSMutableArray alloc] init];
+    for (ClinicInfo* clinic in allClinics){
+        NSString* clinicName = [clinic getSubclinicName];
+        if (clinicName == NULL || [clinicName length] == 0)
+             clinicName =[clinic getClinicName];
+        
+        if (clinicName != NULL && [clinicName length] > 0)
+            [clinicNames addObject:clinicName];
+    }
+    return clinicNames;
+}
+
++ (ClinicInfo*) getClinic:(NSString*)clinicName{
+    NSLog(@"DynamicContent.getClinic() clinicName: %@", clinicName);
+    NSString* clinicNameLowerCase = [clinicName lowercaseString];
     NSArray* allClinics = [self getAllClinics];
     for (ClinicInfo* clinic in allClinics){
-        if ([[clinic getSubclinicName] isEqualToString:clinicNameLowerCase] ||
+        if ([[clinic getSubclinicName] isEqualToString:clinicName] ||
+            [[clinic getSubclinicName] isEqualToString:clinicNameLowerCase] ||
+            [[clinic getSubclinicNameShort] isEqualToString:clinicName] ||
             [[clinic getSubclinicNameShort] isEqualToString:clinicNameLowerCase])
             return clinic;
-        if ([[clinic getClinicName] isEqualToString:clinicNameLowerCase] ||
+        if ([[clinic getClinicName] isEqualToString:clinicName] ||
+            [[clinic getClinicName] isEqualToString:clinicNameLowerCase] ||
+            [[clinic getClinicNameShort] isEqualToString:clinicName] ||
             [[clinic getClinicNameShort] isEqualToString:clinicNameLowerCase])
             return clinic;
         if ([clinicNameLowerCase hasPrefix:@"acu"] &&
@@ -717,10 +736,15 @@ static NSString* mCurrentRespondent = @"patient";
 }
 
 + (NSArray*) getSubclinicPhysicianNames:(NSString*) subclinic{
+    NSLog(@"DynamicContent.getSubclinicPhysicianNames() subclinic: %@", subclinic);
+
     NSMutableArray* subclinicPhysicians =[[NSMutableArray alloc] init];
     NSArray *allClinicians = [DynamicContent getAllClinicians];
     
     for (ClinicianInfo* clinician in allClinicians){
+        NSLog(@"DynamicContent.getSubclinicPhysicianNames() clinician:");
+        [clinician writeToLog];
+
         NSArray* subclinics = [[clinician getClinics] componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@","]];
         for (NSString* clinic in subclinics){
             if ([subclinic isEqualToString:clinic]){

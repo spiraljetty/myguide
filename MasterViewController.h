@@ -11,7 +11,7 @@ Abstract: A simple view controller that manages a table view
 
 @interface MasterViewController : UITableViewController {
     int currentlySelectedRow;
-    NSArray *subClinicNames;
+    NSMutableArray *subClinicNames;
 }
 
 @property (nonatomic, retain) NSArray *subClinicNames;

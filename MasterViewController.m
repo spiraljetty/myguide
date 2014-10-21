@@ -8,6 +8,7 @@ Abstract: A simple view controller that manages a table view
 #import "MasterViewController.h"
 #import "PhysicianCellViewController.h"
 #import "AppDelegate_Pad.h"
+#import "DynamicContent.h"
 
 @implementation MasterViewController {
     NSDictionary *_ipsums;
@@ -16,8 +17,8 @@ Abstract: A simple view controller that manages a table view
 
 @synthesize currentlySelectedRow, subClinicNames;
 
-- (instancetype)initWithStyle:(UITableViewStyle)style
-{
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    NSLog(@"MasterViewController.initWithStyle()");
     self = [super initWithStyle:style];
     if (self) {
         self.title = NSLocalizedString(@"Choose a Provider", @"");
@@ -25,26 +26,22 @@ Abstract: A simple view controller that manages a table view
             // On iPad only, don't clear the selection (we are displaying in a split view on iPad).
             self.clearsSelectionOnViewWillAppear = NO;
         }
+        subClinicNames = [[NSMutableArray alloc] init];
+        [subClinicNames addObject:@"All"];
         
-        subClinicNames = [@[@"All",
-                       @"PM&R",
-                       @"EMG",
-                       @"PNS",
-                       @"Acupuncture",
-                          @"AT Center"] mutableCopy];        
+        [subClinicNames addObjectsFromArray:[DynamicContent getClinicNames]];
+//        subClinicNames = [@[@"All", @"PM&R", @"EMG", @"Pain", @"PNS", @"Acupuncture", @"AT Center"] mutableCopy];  
         
     }
     return self;
 }
 
-- (void)configureDetailItemForRow:(NSUInteger)row
-{
+- (void)configureDetailItemForRow:(NSUInteger)row{
     NSString *item = subClinicNames[row];
 //    NSString *title = NSLocalizedString(item, @"All-PM&R-EMG-PNS-Acupuncture");
     
-    NSLog(@"Currently selected item: %@", item);
+    NSLog(@"MasterViewController.configureDetailItemForRow() row %d, selected item: %@", row, item);
 
-    currentlySelectedRow = row;
         
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setNewDetailVCForRow:currentlySelectedRow];
     
@@ -52,12 +49,12 @@ Abstract: A simple view controller that manages a table view
     
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
+    NSLog(@"MasterViewController.viewDidLoad()");
     [super viewDidLoad];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-        [self configureDetailItemForRow:0];
+      //  [self configureDetailItemForRow:0];
     }
 }
 
@@ -68,20 +65,21 @@ Abstract: A simple view controller that manages a table view
 }
 #endif
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"MasterViewController.numberOfSectionsInTableView() count: 1");
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    NSLog(@"MasterViewController.numberOfRowsInSection() section: %d", section);
     return [subClinicNames count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    
+    NSLog(@"MasterViewController.cellForRowAtIndexPath() indexPath.row: %d section: %d", indexPath.row, indexPath.row);
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
@@ -97,12 +95,15 @@ Abstract: A simple view controller that manages a table view
 }
 
 - (void)setSubClinicNameTo:(NSString *)currentlySelectedSubClinicName {
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setCurrentSubClinicName:currentlySelectedSubClinicName];
+    NSLog(@"MasterViewController.setSubClinicNameTo() name: %@", currentlySelectedSubClinicName);
+    WRViewController* viewController = [WRViewController getViewController];
+    [viewController setCurrentSubClinicName:currentlySelectedSubClinicName];
+    [viewController setCurrentSpecialtyClinicName:currentlySelectedSubClinicName];
+    //[viewController setClinic:currentlySelectedSubClinicName];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSLog(@"Row %d selected", indexPath.row);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"MasterViewController.didSelectRowAtIndexPath() Row %d selected", indexPath.row);
     currentlySelectedRow = indexPath.row;
     [self configureDetailItemForRow:indexPath.row];
     
