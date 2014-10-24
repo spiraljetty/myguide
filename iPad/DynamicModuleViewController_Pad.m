@@ -32,6 +32,7 @@
 #import "PopoverPlaygroundViewController.h"
 #import "ClinicInfo.h"
 #import "DynamicContent.h"
+#import "DynamicSpeech.h"
 
 NSString *kModuleNameKey = @"Name";
 NSString *kModuleTypeKey = @"Type";
@@ -113,8 +114,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 }
 
 - (void)setupClinicContent{
-    NSString* clinicName = [DynamicContent getCurrentClinic];
-    ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+    ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+    NSString* clinicName = [DynamicContent getCurrentClinicName];
     moduleName = [clinicInfo getSubclinicName];
     NSLog(@"DynamicModuleViewController.setupWithPropertyList() clinic: %@", clinicName);
     
@@ -184,7 +185,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 
 
 - (void)setupWithPropertyList:(NSString *)propertyListName {
-    NSString* currentClinicName = [DynamicContent getCurrentClinic];
+    NSString* currentClinicName = [DynamicContent getCurrentClinicName];
     NSLog(@"DynamicModuleViewController.setupWithPropertyList() clinic: %@, plist: %@", currentClinicName, propertyListName);
     NSData* tmp = NULL;
     if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
@@ -653,8 +654,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 
 
 - (void) updateViewContents {
-    NSString* clinicName = [DynamicContent getCurrentClinic];
-    ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+    //NSString* clinicName = [DynamicContent getCurrentClinic];
+    ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
     if (![moduleType isEqualToString:@"whats_new"]){
         moduleName = [clinicInfo getSubclinicName];
         if ([moduleName length] == 0)
@@ -853,60 +854,27 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     
     DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
     
-    [self playSoundForPage:firstPage];
+    if ([DynamicSpeech isEnabled]){
+        ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+        NSMutableDictionary *pageDict = [clinicInfo.getClinicPages objectAtIndex:0];
+        NSString *pageText = [pageDict valueForKey:@"pageText"];
+        [DynamicSpeech speakText:pageText];
+    }
+    else
+        [self playSoundForPage:firstPage];
     
     
 
 }
 
-//- (void)startingFirstMiniSurveyPage {
-//    
-//    NSLog(@"startingFirstPage of dynamic module...");
-//    
-//    //    DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
-//    
-//    //    if ([firstPage.showButtonsFor isEqualToString:@"previousnext"]) {
-//    //        [self showButtonOverlay:￼standardPageButtonOverlay];
-//    //    } else if ([firstPage.showButtonsFor isEqualToString:@"yesno"]) {
-//    //        [self showButtonOverlay:yesNoButtonOverlay];
-//    //    } else {
-//    //        [self showButtonOverlay:￼standardPageButtonOverlay];
-//    //    }
-//    
-////    if (showModuleHeader) {
-//        [self.view sendSubviewToBack:dynamicModuleHeader.view];
-//        [self fadeThisObjectOut:dynamicModuleHeader.view];
-////    }
-//    
-//    [self.view bringSubviewToFront:standardPageButtonOverlay.view];
-//    [self fadeThisObjectIn:standardPageButtonOverlay.view];
-//    
-//    [self switchToView:7 goingForward:NO];
-//    
-//    DynamicModulePageViewController *firstMiniSurveyPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:([newChildControllers count]-6)];
-//    
-//    [self playSoundForPage:firstMiniSurveyPage];
-//    
-//    
-//    
-//}
-//
-//- (void)startingFinalSurveyPage {
-//    
-//}
-
 - (void)playSoundForPage:(DynamicModulePageViewController *)currentPage {
-    
+    NSLog(@"DynamicModuleViewController.playSoundForPage()");
     if (speakItemsAloud) {
         NSMutableArray *soundNameArray = [[NSMutableArray alloc] initWithObjects: nil];
-        
         if (currentPage.showHeader) {
-            
             [soundNameArray addObject:currentPage.headerTTSFilenamePrefix];
         }
-        
         [soundNameArray addObject:currentPage.TTSFilenamePrefix];
-        
         [masterTTSPlayer playItemsWithNames:soundNameArray];
     }
 }
@@ -1148,7 +1116,15 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         vcIndex = newIndex;
         
         DynamicModulePageViewController *newPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
-        [self playSoundForPage:newPage];
+        
+        if ([DynamicSpeech isEnabled]){
+            ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+            NSMutableDictionary *pageDict = [clinicInfo.getClinicPages objectAtIndex:vcIndex];
+            NSString *pageText = [pageDict valueForKey:@"pageText"];
+            [DynamicSpeech speakText:pageText];
+        }
+        else
+            [self playSoundForPage:newPage];
         
         if (vcIndex == ([newChildControllers count] - 1)) {
             NSLog(@"LAST PAGE: %d", vcIndex);
@@ -1317,5 +1293,40 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     [super dealloc];
 }
 
+//- (void)startingFirstMiniSurveyPage {
+//
+//    NSLog(@"startingFirstPage of dynamic module...");
+//
+//    //    DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
+//
+//    //    if ([firstPage.showButtonsFor isEqualToString:@"previousnext"]) {
+//    //        [self showButtonOverlay:￼standardPageButtonOverlay];
+//    //    } else if ([firstPage.showButtonsFor isEqualToString:@"yesno"]) {
+//    //        [self showButtonOverlay:yesNoButtonOverlay];
+//    //    } else {
+//    //        [self showButtonOverlay:￼standardPageButtonOverlay];
+//    //    }
+//
+////    if (showModuleHeader) {
+//        [self.view sendSubviewToBack:dynamicModuleHeader.view];
+//        [self fadeThisObjectOut:dynamicModuleHeader.view];
+////    }
+//
+//    [self.view bringSubviewToFront:standardPageButtonOverlay.view];
+//    [self fadeThisObjectIn:standardPageButtonOverlay.view];
+//
+//    [self switchToView:7 goingForward:NO];
+//
+//    DynamicModulePageViewController *firstMiniSurveyPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:([newChildControllers count]-6)];
+//
+//    [self playSoundForPage:firstMiniSurveyPage];
+//
+//
+//
+//}
+//
+//- (void)startingFinalSurveyPage {
+//
+//}
 
 @end

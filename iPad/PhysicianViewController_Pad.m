@@ -26,6 +26,9 @@
 #import <sqlite3.h>
 
 #import "PhysicianSubDetailViewController.h"
+#import "DynamicContent.h"
+#import "DynamicSpeech.h"
+#import "ClinicianInfo.h"
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
 #define COOKBOOK_NEW_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.31176f alpha:1.0f]
@@ -148,13 +151,14 @@
 
 - (void)goForward {
     NSLog(@"PhysicianViewController.goForward()");
-
+    [DynamicSpeech stopSpeaking];
     [self regress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
 }
 
 - (void)goBackward {
     NSLog(@"PhysicianViewController.goBackward()");
+    [DynamicSpeech stopSpeaking];
     [self progress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] decrementProgressBar];
 }
@@ -280,10 +284,28 @@
 - (void)playSoundForPage:(PhysicianSubDetailViewController *)currentPage {
     if (speakItemsAloud) {
         NSString *headerForPage = currentPage.headerLabelText;
-        
-        NSLog(@"retriving Sounds For Page With Header: %@",headerForPage);
-        
-        [masterTTSPlayer playItemsWithNames:[self getSoundFilenamesForSection:headerForPage]];
+        ClinicianInfo* clinician = [DynamicContent getCurrentClinician];
+        NSLog(@"PhysicianViewController.playSoundForPage() retrieving Sounds For Page With Header: %@",headerForPage);
+        if ([DynamicSpeech isEnabled] && clinician){
+            NSString *pageText = NULL;
+            if ([headerForPage isEqualToString:@"Credentials"])
+                pageText = [clinician getCredentials];
+            else
+            if ([headerForPage hasPrefix:@"Education"])
+                pageText = [clinician getEdAndAffil];
+            else
+            if ([headerForPage hasPrefix:@"Personal"])
+                pageText = [clinician getPersonalInterests];
+            else
+            if ([headerForPage hasPrefix:@"Philosophy"])
+                pageText = [clinician getPhilosophy];
+            
+            if (pageText != NULL){
+                [DynamicSpeech speakText:pageText];
+            }
+        }
+        else
+            [masterTTSPlayer playItemsWithNames:[self getSoundFilenamesForSection:headerForPage]];
     }
 }
 
@@ -532,25 +554,35 @@
     if (speakItemsAloud) {
         
 //        NSString *thisPhysicianTextFiflename = [NSString stringWithFormat:@"%@_name",[allClinicPhysiciansSoundFiles objectAtIndex:physicianIndexNum]];
-        
-        NSLog(@"Today your care is being handled by...");
- 
-        NSString *physician_sound_file = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianSoundFile];
-        
-        PhysicianSubDetailViewController *firstPage = (PhysicianSubDetailViewController *)[newChildControllers objectAtIndex:vcIndex];
-        NSString *headerForFirstPage = firstPage.headerLabelText;
-        NSLog(@"retriving Sounds For First Page With Header: %@",headerForFirstPage);
-        
-        NSMutableArray *allStartingItems = [[NSMutableArray alloc] initWithObjects: nil];
-        [allStartingItems addObject:@"today_your_care_handled_by"];
-        [allStartingItems addObject:[NSString stringWithFormat:@"%@_name",physician_sound_file]];
-        [allStartingItems addObject:@"silence_half_second"];
-        for (NSString *thisFilename in [self getSoundFilenamesForSection:headerForFirstPage]) {
-            [allStartingItems addObject:thisFilename];
+        ClinicianInfo* clinician = [DynamicContent getCurrentClinician];
+
+        if ([DynamicSpeech isEnabled] && clinician){
+            WRViewController* viewController = [WRViewController getViewController];
+            [viewController.mainTTSPlayer stopPlayer];
+            NSMutableArray* utterances = [[NSMutableArray alloc] init];
+            NSString* name = [NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]];
+            [utterances addObject:@"Today your care is being handled by"];
+            [utterances addObject:name];
+            [utterances addObject:[clinician getBackground]];
+            [DynamicSpeech speakList:utterances];
+            return;
         }
-
-        [masterTTSPlayer playItemsWithNames:allStartingItems];
-
+        else {
+            NSLog(@"Today your care is being handled by...");
+            NSString *physician_sound_file = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianSoundFile];
+            PhysicianSubDetailViewController *firstPage = (PhysicianSubDetailViewController *)[newChildControllers objectAtIndex:vcIndex];
+            NSString *headerForFirstPage = firstPage.headerLabelText;
+            NSLog(@"retrieving Sounds For First Page With Header: %@",headerForFirstPage);
+        
+            NSMutableArray *allStartingItems = [[NSMutableArray alloc] initWithObjects: nil];
+            [allStartingItems addObject:@"today_your_care_handled_by"];
+            [allStartingItems addObject:[NSString stringWithFormat:@"%@_name",physician_sound_file]];
+            [allStartingItems addObject:@"silence_half_second"];
+            for (NSString *thisFilename in [self getSoundFilenamesForSection:headerForFirstPage]) {
+                [allStartingItems addObject:thisFilename];
+            }
+            [masterTTSPlayer playItemsWithNames:allStartingItems];
+        }
     }
 }
 

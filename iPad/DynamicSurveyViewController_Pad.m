@@ -32,6 +32,7 @@
 #import "PopoverPlaygroundViewController.h"
 
 #import "DynamicContent.h"
+#import "DynamicSpeech.h"
 
 //NSString *kModuleNameKey = @"Name";
 //NSString *kModuleTypeKey = @"Type";
@@ -406,7 +407,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 }
 
 - (NSMutableArray *)createArrayOfAllSurveyPages {
-    NSString* selectedClinic = [DynamicContent getCurrentClinic];
+    NSString* selectedClinic = [DynamicContent getCurrentClinicName];
 //    NSString* selectedClinic = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
     NSLog(@"DynamicSurveyViewController.createArrayOfAllSurveyPages() selectedClinic %@", selectedClinic);
     NSMutableArray *surveyPageArray = [[NSMutableArray alloc] initWithObjects: nil];
@@ -449,7 +450,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         providerTest.hideNextButton = YES;
 // sandy updated 7_15
         //        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
-        providerTest.providerTestText = @"Please tap the treatment provider you will be seeing today.";
+        NSString* clinicianTestHeaderText =@"Please tap the treatment provider you will be seeing today.";
+        [DynamicContent setClinicianTestHeaderText:clinicianTestHeaderText];
+        providerTest.providerTestText = clinicianTestHeaderText;
         
         
         if (false){ //currentProviderIndex < [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] count]){
@@ -465,8 +468,10 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
             providerTest.provider4Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider4Index];
         } else {
             //rjl 8/16/14
+            NSMutableArray* allClinicianInfo = [DynamicContent getAllClinicians];
             NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
             NSMutableArray* allPhysiciansImages = [DynamicContent getNewClinicianImages];
+            NSMutableArray* clinicianTestNames = [[NSMutableArray alloc] init];
             
             // if index is greater than count of original (hardcoded) clinicians then use downloaded image filename
             providerTest.provider1ImageThumb = [allPhysiciansImages objectAtIndex:provider1Index];
@@ -479,6 +484,16 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
             providerTest.provider3Text = [allPhysicians objectAtIndex:provider3Index];
             providerTest.provider4Text = [allPhysicians objectAtIndex:provider4Index];
             
+            ClinicianInfo* clinician = [allClinicianInfo objectAtIndex:provider1Index];
+            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+            clinician = [allClinicianInfo objectAtIndex:provider2Index];
+            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+            clinician = [allClinicianInfo objectAtIndex:provider3Index];
+            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+            clinician = [allClinicianInfo objectAtIndex:provider4Index];
+            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+            [DynamicContent setClinicianTestNames:clinicianTestNames];
+
         }
         [providerTest.provider1TextButton setTitle:providerTest.provider1Text forState:UIControlStateNormal];
         [providerTest.provider2TextButton setTitle:providerTest.provider2Text forState:UIControlStateNormal];
@@ -491,13 +506,13 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         NSString *str2 = providerTest.provider2Text;
         NSString *str3 = providerTest.provider3Text;
         NSString *str4 = providerTest.provider4Text;
-        NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+        NSMutableArray* myProviderStringArray = [[NSMutableArray alloc] init];
         [myProviderStringArray addObject:str1];
         [myProviderStringArray addObject:str2];
         [myProviderStringArray addObject:str3];
         [myProviderStringArray addObject:str4];
-    
-        
+        [DynamicContent setProviderTestStrings:myProviderStringArray];
+
         providerTest.view.frame = backsplash.bounds;
         
         [surveyPageArray addObject:providerTest];
@@ -521,7 +536,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         subclinicTest.hideNextButton = YES;
  // sandy 7-14
         //        subclinicTest.subclinicTestText = @"Based on the information you have been given, please tap the clinic you will be seen in today.";
-        subclinicTest.subclinicTestText = @"Please tap the clinic you will be seen in today.";
+        NSString* headerText =@"Please tap the clinic you will be seen in today.";
+        [DynamicContent setClinicTestHeaderText:headerText];
+        subclinicTest.subclinicTestText = headerText;
         subclinicTest.subclinicTestLabel.text = subclinicTest.subclinicTestText;
         ClinicInfo* selectedClinicInfo = [DynamicContent getClinic:selectedClinic];
         NSString* selectedClinicName = [selectedClinicInfo getSubclinicName];
@@ -597,13 +614,20 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         NSString *clinic2 = subclinicTest.subclinic2Text;
         NSString *clinic3 = subclinicTest.subclinic3Text;
         NSString *clinic4 = subclinicTest.subclinic4Text;
-        NSMutableArray* myClinicTestStringArray = [DynamicContent getClinicTestStrings];
+        NSMutableArray* myClinicTestStringArray = [[NSMutableArray alloc] init];
         [myClinicTestStringArray addObject:clinic0];
         [myClinicTestStringArray addObject:clinic1];
         [myClinicTestStringArray addObject:clinic2];
         [myClinicTestStringArray addObject:clinic3];
         [myClinicTestStringArray addObject:clinic4];
+        [DynamicContent setClinicTestStrings:myClinicTestStringArray];
         
+        NSMutableArray* clinicTestNames = [[NSMutableArray alloc] init];
+        [clinicTestNames addObject:clinic1];
+        [clinicTestNames addObject:clinic2];
+        [clinicTestNames addObject:clinic3];
+        [clinicTestNames addObject:clinic4];
+        [DynamicContent setClinicTestNames:clinicTestNames];// used for speech synthesis
         
         
         [surveyPageArray addObject:subclinicTest];
@@ -631,11 +655,13 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         
         // sandy 7-14
          //   chooseGoalPatient.goalChooseText = @"To better understand your sense of comfort for today's visit, which of the following would you like help with today?";
-        chooseGoalPatient.goalChooseText = @"Which of the following would you like help with today? Press NEXT when done.";
+        NSString* goalsHeader = @"Which of the following would you like help with today? Press NEXT when done.";
+        [DynamicContent setGoalsHeaderText:goalsHeader];
+        chooseGoalPatient.goalChooseText = goalsHeader;
         chooseGoalPatient.goalChooseLabel.text = chooseGoalPatient.goalChooseText;
 //        DynamicModuleViewController_Pad *currDelegate = (DynamicModuleViewController_Pad *)delegate;
 //        GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
-        GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinic]];
+        GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinicName]];
         if (goalInfo != NULL){
             chooseGoalPatient.goal1Text = @"";
             chooseGoalPatient.goal2Text = @"";
@@ -783,6 +809,27 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         [chooseGoalPatient.goal10TextButton setTitle:chooseGoalPatient.goal10Text forState:UIControlStateNormal];
         
         [surveyPageArray addObject:chooseGoalPatient];
+        
+        NSMutableArray* myGoalStringArray = [[NSMutableArray alloc] init];
+        [myGoalStringArray addObject:chooseGoalPatient.goal1Text];
+        [myGoalStringArray addObject:chooseGoalPatient.goal2Text];
+        [myGoalStringArray addObject:chooseGoalPatient.goal3Text];
+        if ([chooseGoalPatient.goal4Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal4Text];
+        if ([chooseGoalPatient.goal5Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal5Text];
+        if ([chooseGoalPatient.goal6Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal6Text];
+        if ([chooseGoalPatient.goal7Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal7Text];
+        if ([chooseGoalPatient.goal8Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal8Text];
+        if ([chooseGoalPatient.goal9Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal9Text];
+        if ([chooseGoalPatient.goal10Text length] > 0)
+            [myGoalStringArray addObject:chooseGoalPatient.goal10Text];
+        
+        [DynamicContent setGoalStrings:myGoalStringArray];
         
         pageIndex++;
         NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() using minisurveypage2 survey_new_Painscale_template");
@@ -1397,7 +1444,6 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 
 - (void)startOnSurveyPageWithIndex:(int)pageIndex withFinishingIndex:(int)finishingPageIndex {
     
-    [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"silence_quarter_second", nil]];
     
     NSLog(@"DynamicSurveyViewController.startOnSurveyPageWithIndex() start and stop index! starting on survey page: %d and ending on survey page: %d...", pageIndex, finishingPageIndex);
     
@@ -1412,7 +1458,10 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:pageIndex];
     
     [self handleButtonOverlayForPageIndex:pageIndex];
-    [self playSoundForSurveyPage:thisSurveyPage];
+    if (![DynamicSpeech isEnabled]){
+        [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"silence_quarter_second", nil]];
+        [self playSoundForSurveyPage:thisSurveyPage];
+    }
     
 }
 
@@ -1491,68 +1540,84 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         int provider1Index;
         
         NSMutableArray *soundNameArray = [[NSMutableArray alloc] initWithObjects: nil];
-        
+        NSMutableArray* utterances = NULL;
         switch (currentSurveyPage.currentSurveyPageType) {
             case kChooseGoal:
-                [soundNameArray addObject:[NSString stringWithFormat:@"%@dynamicSurveyPage%d_%@",@"~",vcIndex,[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType]]];
-                
+                if ([DynamicSpeech isEnabled]){
+                    utterances = [DynamicContent getGoalStrings];
+                    [DynamicSpeech speakList:utterances];
+                    return;
+                }
+                else {[soundNameArray addObject:[NSString stringWithFormat:@"%@dynamicSurveyPage%d_%@",@"~",vcIndex,[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] tbvc] respondentType]]];
+                }
                 break;
             case kProviderTest:
-                [soundNameArray addObject:[NSString stringWithFormat:@"~dynamicSurveyPage%d",vcIndex]];
+                if ([DynamicSpeech isEnabled]){
+                    utterances = [DynamicContent getClinicianTestNames];
+                    [DynamicSpeech speakList:utterances];
+                    return;
+                }
+                else {
+                    [soundNameArray addObject:[NSString stringWithFormat:@"~dynamicSurveyPage%d",vcIndex]];
                 
-                provider1Index = currentProviderIndex - 1;
-                if (provider1Index < 0) {
-                    provider1Index = numAttendingPhysicians - 1;
-                }
-                int provider2Index = currentProviderIndex;
-                int provider3Index = provider1Index - 1;
-                if (provider3Index < 0) {
-                    provider3Index = numAttendingPhysicians - 1;
-                }
-                int provider4Index = provider3Index - 1;
-                if (provider4Index < 0) {
-                    provider4Index = numAttendingPhysicians - 1;
-                }
-                int physicianCount = [allPhysicianSoundfiles count];
-                NSMutableArray *physicianButtonIndexes = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:provider1Index],[NSNumber numberWithInt:provider2Index],[NSNumber numberWithInt:provider3Index],[NSNumber numberWithInt:provider4Index], nil];
-                for (NSNumber *thisPhysicianIndex in physicianButtonIndexes) {
-                    int currentPhysicianIdx = [thisPhysicianIndex intValue];
-                    if (currentPhysicianIdx < physicianCount){
-                        NSString *thisPhysicianTextFilename = [NSString stringWithFormat:@"%@_name",[allPhysicianSoundfiles objectAtIndex:currentPhysicianIdx]];
-                        [soundNameArray addObject:thisPhysicianTextFilename];
+                    provider1Index = currentProviderIndex - 1;
+                    if (provider1Index < 0) {
+                        provider1Index = numAttendingPhysicians - 1;
+                    }
+                    int provider2Index = currentProviderIndex;
+                    int provider3Index = provider1Index - 1;
+                    if (provider3Index < 0) {
+                        provider3Index = numAttendingPhysicians - 1;
+                    }
+                    int provider4Index = provider3Index - 1;
+                    if (provider4Index < 0) {
+                        provider4Index = numAttendingPhysicians - 1;
+                    }
+                    int physicianCount = [allPhysicianSoundfiles count];
+                    NSMutableArray *physicianButtonIndexes = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:provider1Index],[NSNumber numberWithInt:provider2Index],[NSNumber numberWithInt:provider3Index],[NSNumber numberWithInt:provider4Index], nil];
+                    for (NSNumber *thisPhysicianIndex in physicianButtonIndexes) {
+                        int currentPhysicianIdx = [thisPhysicianIndex intValue];
+                        if (currentPhysicianIdx < physicianCount){
+                            NSString *thisPhysicianTextFilename = [NSString stringWithFormat:@"%@_name",[allPhysicianSoundfiles objectAtIndex:currentPhysicianIdx]];
+                            [soundNameArray addObject:thisPhysicianTextFilename];
+                        }
                     }
                 }
-                
                 break;
             case kSubclinicTest:
-                [soundNameArray addObject:[NSString stringWithFormat:@"~dynamicSurveyPage%d",vcIndex]];
-                
-                
-                if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"General PM&R"]) {
-                    [soundNameArray addObject:@"specialty_clinic_pain"];
-                    [soundNameArray addObject:@"specialty_clinic_pns"];
-                    [soundNameArray addObject:@"specialty_clinic_emg"];
-                    [soundNameArray addObject:@"pmnr_main_clinic"];
-                } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"Acupuncture"]) {
-                    [soundNameArray addObject:@"specialty_clinic_pain"];
-                    [soundNameArray addObject:@"specialty_clinic_pns"];
-                    [soundNameArray addObject:@"specialty_clinic_emg"];
-                    [soundNameArray addObject:@"specialty_clinic_acupuncture"];
-                } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"Pain"]) {
-                    [soundNameArray addObject:@"specialty_clinic_acupuncture"];
-                    [soundNameArray addObject:@"specialty_clinic_pns"];
-                    [soundNameArray addObject:@"specialty_clinic_emg"];
-                    [soundNameArray addObject:@"specialty_clinic_pain"];
-                } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"PNS"]) {
-                    [soundNameArray addObject:@"specialty_clinic_pain"];
-                    [soundNameArray addObject:@"specialty_clinic_acupuncture"];
-                    [soundNameArray addObject:@"specialty_clinic_emg"];
-                    [soundNameArray addObject:@"specialty_clinic_pns"];
-                } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"EMG"]) {
-                    [soundNameArray addObject:@"specialty_clinic_pain"];
-                    [soundNameArray addObject:@"specialty_clinic_pns"];
-                    [soundNameArray addObject:@"specialty_clinic_acupuncture"];
-                    [soundNameArray addObject:@"specialty_clinic_emg"];
+                if ([DynamicSpeech isEnabled]){
+                    utterances = [DynamicContent getClinicTestNames];
+                    [DynamicSpeech speakList:utterances];
+                    return;
+                }
+                else {
+                    [soundNameArray addObject:[NSString stringWithFormat:@"~dynamicSurveyPage%d",vcIndex]];
+                    if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"General PM&R"]) {
+                        [soundNameArray addObject:@"specialty_clinic_pain"];
+                        [soundNameArray addObject:@"specialty_clinic_pns"];
+                        [soundNameArray addObject:@"specialty_clinic_emg"];
+                        [soundNameArray addObject:@"pmnr_main_clinic"];
+                    } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"Acupuncture"]) {
+                        [soundNameArray addObject:@"specialty_clinic_pain"];
+                        [soundNameArray addObject:@"specialty_clinic_pns"];
+                        [soundNameArray addObject:@"specialty_clinic_emg"];
+                        [soundNameArray addObject:@"specialty_clinic_acupuncture"];
+                    } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"Pain"]) {
+                        [soundNameArray addObject:@"specialty_clinic_acupuncture"];
+                        [soundNameArray addObject:@"specialty_clinic_pns"];
+                        [soundNameArray addObject:@"specialty_clinic_emg"];
+                        [soundNameArray addObject:@"specialty_clinic_pain"];
+                    } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"PNS"]) {
+                        [soundNameArray addObject:@"specialty_clinic_pain"];
+                        [soundNameArray addObject:@"specialty_clinic_acupuncture"];
+                        [soundNameArray addObject:@"specialty_clinic_emg"];
+                        [soundNameArray addObject:@"specialty_clinic_pns"];
+                    } else if ([[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName] isEqualToString:@"EMG"]) {
+                        [soundNameArray addObject:@"specialty_clinic_pain"];
+                        [soundNameArray addObject:@"specialty_clinic_pns"];
+                        [soundNameArray addObject:@"specialty_clinic_acupuncture"];
+                        [soundNameArray addObject:@"specialty_clinic_emg"];
+                    }
                 }
                 break;
             default:
@@ -1882,7 +1947,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 // Go forward
 - (void)progress:(id)sender
 {
-    
+    [DynamicSpeech stopSpeaking];
     if (playingMovie) {
         [self stopMoviePlayback];
     }
@@ -1907,7 +1972,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 // Go backwards
 - (void)regress:(id)sender
 {
-    
+    [DynamicSpeech stopSpeaking];
     if (playingMovie) {
         [self stopMoviePlayback];
     }

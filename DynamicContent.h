@@ -17,9 +17,10 @@
 + (void) downloadAllData;
 
 + (id) getAllSurveyQuestions;
-+ (NSArray*) getAllClinics;
 + (NSArray*) getAllClinicians;
++ (NSArray*) getAllClinics;
 + (ClinicianInfo*) getClinician:(int)clinicianIndex;
++ (ClinicianInfo*) getCurrentClinician;
 + (NSArray*) getAllGoals;
 + (GoalInfo*) getGoalsForClinic:(NSString*) clinic;
 + (NSMutableArray*) getNewClinicianImages;
@@ -28,9 +29,11 @@
 + (NSArray*) getSubclinicPhysicianNames:(NSString*) subclinic;
 
 + (NSMutableArray*) getClinicNames;
-+ (NSString*) getCurrentClinic;
++ (ClinicInfo*) getCurrentClinic;
++ (NSString*) getCurrentClinicName;
 + (NSString*) getCurrentRespondent;
 + (void) setCurrentClinic:(NSString*)clinic;
++ (void) setCurrentClinician:(ClinicianInfo*)clinician;
 + (void) setCurrentRespondent:(NSString*) respondent;
 
 + (ClinicInfo*) getClinic:(NSString*)clinicNameShort;
@@ -42,12 +45,29 @@
 + (void)saveImage: (UIImage*)image filename:(NSString*)filename;
 + (UIImage*)loadImage: (NSString*)filename;
 
-+ (NSMutableArray*) getProviderStrings;   // stored provider string values to be displayed to uses
-+ (NSMutableArray*) getTimeSegments;      // timestamps of segments of app as completed
++ (void) setProviderTestStrings:(NSArray*)providerStrings;
++ (void) setGoalStrings:(NSArray*)goalStrings;
++ (void) setClinicTestStrings:(NSArray*)providerStrings;
++ (NSMutableArray*) getProviderTestStrings;   // stored provider string values to be displayed to uses
 + (NSMutableArray*) getClinicTestStrings; // stored clinic string values to be displayed to user
++ (NSMutableArray*) getGoalStrings; // stored goal string values to be displayed to user
++ (NSMutableArray*) getTimeSegments;      // timestamps of segments of app as completed
 + (NSMutableArray*) getSelfGuideStatus;  // stores a string that indicates which ed modules were attempted and completed
 
++ (void) setClinicTestHeaderText:(NSString*) headerText;
++ (void) setClinicianTestHeaderText:(NSString*) headerText;
++ (void) setGoalsHeaderText:(NSString*) headerText;
+
++ (NSString*) getClinicTestHeaderText;
++ (NSString*) getClinicianTestHeaderText;
++ (NSString*) getGoalsHeaderText;
+
++ (void) setClinicianTestNames:(NSArray*)clinicianNames;
++ (void) setClinicTestNames:(NSArray*)clinicianNames;
+
++ (NSMutableArray*) getClinicianTestNames;
++ (NSMutableArray*) getClinicTestNames;
+
 + (void) showAlertMsg:(NSString *)msg;
-+ (void) speakText:(NSString*) text;
 
 @end

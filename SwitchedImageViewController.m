@@ -12,6 +12,7 @@
 #import "DynamicSurveyViewController_Pad.h"
 #import "SLGlowingTextField.h"
 #import "DynamicContent.h"
+#import "DynamicSpeech.h"
 #import "DynamicModuleViewController_Pad.h"
 #import "WRViewController.h"
 
@@ -904,7 +905,7 @@
                 // sandy 7-20 removed the word doctor and replaced it with provider
 //                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
                     NSString* selectedClinic = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
-                GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinic]];
+                GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinicName]];
                 if (goalInfo != NULL){
                     goal1Text = @"";
                     goal2Text = @"";
@@ -1543,7 +1544,7 @@
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] newChildControllers] objectAtIndex:[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] dynamicSurveyModule] vcIndex]];
     
     userEnteredGoalText = [enterGoalTextField.text copy];
-    [DynamicContent speakText:userEnteredGoalText];
+    [DynamicSpeech speakText:userEnteredGoalText];
 
     [thisSurveyPage.goal9TextButton setTitle:userEnteredGoalText forState:UIControlStateNormal];
     [thisSurveyPage.goal9TextButton setTitle:userEnteredGoalText forState:UIControlStateHighlighted];
@@ -1688,7 +1689,7 @@
     // NSString *str1 = providerTest.provider1Text;
     BOOL matched = false;
     NSString *selectedProviderFullName  = NULL;
-    NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
+    NSMutableArray* myProviderStringArray = [DynamicContent getProviderTestStrings];
     selectedProviderFullName  = [myProviderStringArray objectAtIndex:segmentIndex-1];
     //get value selected by user and store to selectedPhysicianNameAlone
     NSMutableArray *selectedPhysicianNameTokens = [[NSMutableArray alloc] initWithArray:[selectedProviderFullName componentsSeparatedByString:@","] copyItems:YES];

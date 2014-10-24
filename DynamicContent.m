@@ -21,13 +21,22 @@ static NSArray* mAllClinics = NULL;
 static NSArray* mAllClinicians = NULL;
 static NSArray* mAllSurveyQuestions = NULL;
 
-static NSMutableArray* mProviderStrings = NULL;  // for provider test
+static NSMutableArray* mProviderTestStrings = NULL;  // for provider test
 static NSMutableArray* mClinicTestStrings = NULL;  // for clinic test
+static NSMutableArray* mGoalStrings = NULL;  // for clinic test
 static NSMutableArray* mTimeSegments = NULL;  // for timers
 static NSMutableArray* mSelfGuideStatus = NULL;  // for ed mods attempted
 
-static NSString* mCurrentClinic = @"at";
+static NSMutableArray* mClinicianTestNames = NULL;  // contains no credentials
+static NSMutableArray* mClinicTestNames = NULL;  // contains no credentials
+
+static NSString* mCurrentClinicName = @"at";
+static ClinicianInfo* mCurrentClinician = NULL;
 static NSString* mCurrentRespondent = @"patient";
+
+static NSString* mClinicTestHeaderText = NULL;
+static NSString* mClinicianTestHeaderText = NULL;
+static NSString* mGoalsHeaderText = NULL;
 
 
 @implementation DynamicContent
@@ -60,8 +69,16 @@ static NSString* mCurrentRespondent = @"patient";
     return mAllGoals;
 }
 
-+ (NSString*) getCurrentClinic{
-    return mCurrentClinic;
++ (NSString*) getCurrentClinicName{
+    return mCurrentClinicName;
+}
+
++ (ClinicInfo*) getCurrentClinic{
+    return [DynamicContent getClinic:mCurrentClinicName];
+}
+
++ (ClinicianInfo*) getCurrentClinician{
+    return mCurrentClinician;
 }
 
 + (NSString*) getCurrentRespondent{
@@ -69,11 +86,27 @@ static NSString* mCurrentRespondent = @"patient";
 }
 
 + (void) setCurrentClinic:(NSString*) clinic{
-    mCurrentClinic = clinic;
+    mCurrentClinicName = clinic;
+}
+
++ (void) setCurrentClinician:(ClinicianInfo*) clinician{
+    mCurrentClinician = clinician;
 }
 
 + (void) setCurrentRespondent:(NSString*) respondent{
     mCurrentRespondent = respondent;
+}
+
++ (void) setClinicTestHeaderText:(NSString*) headerText{
+    mClinicTestHeaderText = headerText;
+}
+
++ (void) setClinicianTestHeaderText:(NSString*) headerText{
+    mClinicianTestHeaderText = headerText;
+}
+
++ (void) setGoalsHeaderText:(NSString*) headerText{
+    mGoalsHeaderText = headerText;
 }
 
 + (void) downloadAllData {
@@ -668,7 +701,7 @@ static NSString* mCurrentRespondent = @"patient";
 + (QuestionList*) getSurveyForCurrentClinicAndRespondent {
     NSArray* questions = [self getAllSurveyQuestions];
     for (QuestionList* info in questions){
-            if ([mCurrentClinic isEqualToString:[info getClinic]] &&
+            if ([mCurrentClinicName isEqualToString:[info getClinic]] &&
                 [mCurrentRespondent isEqualToString:[info getRespondentType]]) {
             return info;
         }
@@ -840,19 +873,19 @@ static NSString* mCurrentRespondent = @"patient";
     return allLinedStrings;
 }
 
-- (void) readFileLineByLine:(NSString*) filename { // rjl 8/16/14
-    // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
-    const char *filenameChars = [filename UTF8String];
-    FILE *file = fopen(filenameChars, "r");
-    // check for NULL
-    while(!feof(file))
-    {
-        NSString *line = readLineAsNSString(file);
-        NSLog(line);
-        // do stuff with line; line is autoreleased, so you should NOT release it (unless you also retain it beforehand)
-    }
-    fclose(file);
-}
+//- (void) readFileLineByLine:(NSString*) filename { // rjl 8/16/14
+//    // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
+//    const char *filenameChars = [filename UTF8String];
+//    FILE *file = fopen(filenameChars, "r");
+//    // check for NULL
+//    while(!feof(file))
+//    {
+//        NSString *line = readLineAsNSString(file);
+//       // NSLog(line);
+//        // do stuff with line; line is autoreleased, so you should NOT release it (unless you also retain it beforehand)
+//    }
+//    fclose(file);
+//}
 
 NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 {   // from: http://stackoverflow.com/questions/1044334/objective-c-reading-a-file-line-by-line
@@ -924,34 +957,94 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
         [viewController performAppReset];
 }
 
-+ (void) speakText:(NSString*) text {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
-        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
-        [utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
-        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en"];
-        [synthesizer speakUtterance:utterance];
-    });
+
+
++ (NSMutableArray*) getProviderTestStrings {
+    return mProviderTestStrings;
 }
 
-+ (NSMutableArray*) getProviderStrings {
-    if (mProviderStrings == NULL){
-        mProviderStrings = [[NSMutableArray alloc] init];
-    }
-    // access as:
-    // NSMutableArray* myProviderStringArray = [DynamicContent getProviderStrings];
-    // [myProviderStringArray addObject:@"ha"];
-    return mProviderStrings;
++ (void) setProviderTestStrings:(NSArray*)providerTestStrings {
+    if (mProviderTestStrings == NULL)
+        mProviderTestStrings = [[NSMutableArray alloc] init];
+    [mProviderTestStrings addObjectsFromArray:providerTestStrings];
 }
 
 + (NSMutableArray*) getClinicTestStrings {
-    if (mClinicTestStrings == NULL){
-        mClinicTestStrings = [[NSMutableArray alloc] init];
-    }
-    // access as:
-    // NSMutableArray* myClinicTestStringArray = [DynamicContent getClinicTestStrings];
-    // [myClinicTestStringArray addObject:@"ha"];
     return mClinicTestStrings;
+}
+
++ (void) setClinicTestStrings:(NSArray*)clinicTestStrings {
+    if (mClinicTestStrings == NULL)
+        mClinicTestStrings = [[NSMutableArray alloc] init];
+    [mClinicTestStrings addObjectsFromArray:clinicTestStrings];
+}
+
+
+
++ (NSMutableArray*) getClinicianTestNames {
+    // used for speech synthesis
+    if (mClinicianTestNames == NULL){
+        mClinicianTestNames = [[NSMutableArray alloc] init];
+    }
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    if (mClinicianTestHeaderText != NULL)
+        [result addObject: mClinicianTestHeaderText];
+    [result addObjectsFromArray:mClinicianTestNames];
+    return result;
+}
+
++ (void) setClinicianTestNames:(NSArray*)clinicianTestNames {
+    // used for speech synthesis
+    if (mClinicianTestNames == NULL)
+        mClinicianTestNames = [[NSMutableArray alloc] init];
+    [mClinicianTestNames addObjectsFromArray:clinicianTestNames];
+}
+
++ (NSMutableArray*) getClinicTestNames {
+    if (mClinicTestNames == NULL){
+        mClinicTestNames = [[NSMutableArray alloc] init];
+    }
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    if (mClinicTestHeaderText != NULL)
+        [result addObject: mClinicTestHeaderText];
+    [result addObjectsFromArray:mClinicTestNames];
+    return result;
+}
+
++ (void) setClinicTestNames:(NSArray*)clinicTestNames {
+    // used for speech synthesis
+    if (mClinicTestNames == NULL)
+        mClinicTestNames = [[NSMutableArray alloc] init];
+    [mClinicTestNames addObjectsFromArray:clinicTestNames];
+}
+
++ (NSMutableArray*) getGoalStrings {
+    if (mGoalStrings == NULL){
+        mGoalStrings = [[NSMutableArray alloc] init];
+    }
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    if (mGoalsHeaderText != NULL)
+        [result addObject: mGoalsHeaderText];
+    [result addObjectsFromArray:mGoalStrings];
+    return result;
+}
+
++ (void) setGoalStrings:(NSArray*)goalStrings {
+    if (mGoalStrings == NULL)
+        mGoalStrings = [[NSMutableArray alloc] init];
+    [mGoalStrings addObjectsFromArray:goalStrings];
+}
+
++ (NSString*) getClinicTestHeaderText{
+    return mClinicTestHeaderText;
+}
+
++ (NSString*) getClinicianTestHeaderText{
+    return mClinicianTestHeaderText;
+}
+
++ (NSString*) getGoalsHeaderText{
+    return mGoalsHeaderText;
 }
 
 + (NSMutableArray*) getTimeSegments {

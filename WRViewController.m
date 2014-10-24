@@ -25,6 +25,7 @@
 #import "GoalInfo.h"
 #import "QuestionList.h"
 #import "DynamicContent.h"
+#import "DynamicSpeech.h"
 
 
 #define COOKBOOK_PURPLE_COLOR	[UIColor colorWithRed:0.20392f green:0.19607f blue:0.61176f alpha:1.0f]
@@ -228,7 +229,7 @@ static WRViewController* mViewController = NULL;
     mainTTSPlayer = [[TTSPlayer alloc] init];
     mainTTSPlayer.currentlyPlayingVoiceSpeed = fastspeed;
     mainTTSPlayer.currentlyPlayingVoiceType = usenglishfemale;
-    [mainTTSPlayer fadeToDesiredVolume:0.5];
+    [mainTTSPlayer fadeToDesiredVolume:[DynamicSpeech defaultVolume]]; // rjl 10/22/14 set default volume
     settingsVC.soundViewController.volumeNumber.text = @"0.50";
     
 //    self.view.rootViewController = tbvc;
@@ -1592,8 +1593,10 @@ static WRViewController* mViewController = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     int index = attendingPhysicianIndex;
     ClinicianInfo *clinician = [DynamicContent getClinician:index];//[self getCurrentClinician];
-    if (clinician)
+    if (clinician){
         physicianModule.currentPhysicianDetails = [clinician writeToDictionary];
+        [DynamicContent setCurrentClinician:clinician];
+    }
     
     physicianModule.currentPhysicianDetailSectionNames = [[physicianModule.currentPhysicianDetails allKeys] sortedArrayUsingSelector:@selector(compare:)];
     physicianModule.view.alpha = 0.0;
@@ -2648,6 +2651,10 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)launchDynamicSurveyWithProviderHelpful {
+    if ([DynamicSpeech isEnabled]){
+        QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+        [DynamicSpeech speakText:[questionInfo getClinicianInfoRatingQuestion]];
+    }
     int currentSurveyPageIndex = 7;
     [dynamicSurveyModule startOnSurveyPageWithIndex:currentSurveyPageIndex withFinishingIndex:currentSurveyPageIndex];
     [self fadeDynamicSurveyIn];
@@ -3031,8 +3038,8 @@ static WRViewController* mViewController = NULL;
 //                currentSubClinicText = [NSString stringWithFormat:@"%@ Clinic",currentSubClinicName];
 //            }
 //            currentMainClinicText = @"PM&R";
-            NSString* clinicName = [DynamicContent getCurrentClinic];
-            ClinicInfo* clinicInfo = [DynamicContent getClinic:clinicName];
+           // NSString* clinicName = [DynamicContent getCurrentClinic];
+            ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
             currentSubClinicText = [clinicInfo getSubclinicName];
             if ([currentSubClinicText length] == 0)
                 currentSubClinicText = [clinicInfo getClinicName];
