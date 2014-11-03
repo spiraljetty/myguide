@@ -27,6 +27,9 @@
 + (NSMutableArray*) getNewClinicianNames;
 + (NSArray*) getSubclinicPhysicians:(NSString*) subclinic;
 + (NSArray*) getSubclinicPhysicianNames:(NSString*) subclinic;
++ (NSArray*) getAllWhatsNewInfo;
++ (NSString*) getWhatsNewModuleName;
++ (NSString*) getAppVersion;
 
 + (NSMutableArray*) getClinicNames;
 + (ClinicInfo*) getCurrentClinic;

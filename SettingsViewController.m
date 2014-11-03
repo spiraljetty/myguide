@@ -219,35 +219,35 @@
     [self.view addSubview:label];
 }
 
-- (void)createDownloadTab {
-    UIImage *downloadImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"gears_settings_image_w_tab2" ofType:@"png"]];
-    if (downloadImage == nil)
-        NSLog(@"Failed to load image for control view");
-    
-    downloadImageView = [[UIImageView alloc] initWithImage:downloadImage];
-    downloadImageView.hidden = YES;
-    CGRect downloadImageViewFrame = downloadImageView.frame;
-    //    gearImageViewFrame.origin.x = floorf((frame.size.width/2.0f) - (gearImageViewFrame.size.width/2.0f)) - 350.0f;
-    //    gearImageViewFrame.origin.y = floorf((gBarHeight/2.0f) - (gearImageViewFrame.size.height/2.0f)) - 27.0f;
-    downloadImageViewFrame.origin.x = 340.0f;
-    //    gearImageViewFrame.origin.y = -43.0f;
-    downloadImageViewFrame.origin.y = 17.0f;
-    [downloadImageView setFrame:downloadImageViewFrame];
-    
-    [self.view addSubview:downloadImageView];
-    
-    downloadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(440.0f,
-                                                                0.0f,
-                                                                100.0f,
-                                                                100.0f)] autorelease];
-    downloadLabel.text = @"Download";
-    //        label.text
-    downloadLabel.numberOfLines = 0;
-    downloadLabel.textColor = [UIColor whiteColor];
-    downloadLabel.backgroundColor = [UIColor clearColor];
-    downloadLabel.font = [UIFont fontWithName:@"Avenir" size:20];
-    [self.view addSubview:downloadLabel];
-}
+//- (void)createDownloadTab {
+//    UIImage *downloadImage = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"gears_settings_image_w_tab2" ofType:@"png"]];
+//    if (downloadImage == nil)
+//        NSLog(@"Failed to load image for control view");
+//    
+//    downloadImageView = [[UIImageView alloc] initWithImage:downloadImage];
+//    downloadImageView.hidden = YES;
+//    CGRect downloadImageViewFrame = downloadImageView.frame;
+//    //    gearImageViewFrame.origin.x = floorf((frame.size.width/2.0f) - (gearImageViewFrame.size.width/2.0f)) - 350.0f;
+//    //    gearImageViewFrame.origin.y = floorf((gBarHeight/2.0f) - (gearImageViewFrame.size.height/2.0f)) - 27.0f;
+//    downloadImageViewFrame.origin.x = 340.0f;
+//    //    gearImageViewFrame.origin.y = -43.0f;
+//    downloadImageViewFrame.origin.y = 17.0f;
+//    [downloadImageView setFrame:downloadImageViewFrame];
+//    
+//    [self.view addSubview:downloadImageView];
+//    
+//    downloadLabel = [[[UILabel alloc] initWithFrame:CGRectMake(440.0f,
+//                                                                0.0f,
+//                                                                100.0f,
+//                                                                100.0f)] autorelease];
+//    downloadLabel.text = @"Download";
+//    //        label.text
+//    downloadLabel.numberOfLines = 0;
+//    downloadLabel.textColor = [UIColor whiteColor];
+//    downloadLabel.backgroundColor = [UIColor clearColor];
+//    downloadLabel.font = [UIFont fontWithName:@"Avenir" size:20];
+//    [self.view addSubview:downloadLabel];
+//}
 
 - (void)createInvisibleHideShowButton {
 //    CGFloat invisibleButtonExtraWidth = 60.0f;
@@ -268,24 +268,24 @@
     [self.view addSubview:invisibleShowHideButton];
 }
 
-- (void)createInvisibleDownloadButton {
-    //    CGFloat invisibleButtonExtraWidth = 60.0f;
-    buttonOpen = FALSE;
-
-    invisibleDownloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    invisibleDownloadButton.frame = CGRectMake(340, 10, 3.5*kInvisibleButtonExtraWidth, 1.5*kInvisibleButtonExtraWidth);
-    //    invisibleShowHideButton.showsTouchWhenHighlighted = YES;
-    invisibleDownloadButton.backgroundColor = [UIColor clearColor];
-    //    invisibleShowHideButton.alpha = 0.5;
-    //        [invisibleShowHideButton setCenter:CGPointMake(500.0f, 660.0f)];
-    [invisibleDownloadButton addTarget:self action:@selector(downloadButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-    invisibleDownloadButton.enabled = YES;
-    invisibleDownloadButton.hidden = YES;
-    invisibleDownloadButton.selected = NO;
-    [invisibleDownloadButton retain];
-    
-    [self.view addSubview:invisibleDownloadButton];
-}
+//- (void)createInvisibleDownloadButton {
+//    //    CGFloat invisibleButtonExtraWidth = 60.0f;
+//    buttonOpen = FALSE;
+//
+//    invisibleDownloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    invisibleDownloadButton.frame = CGRectMake(340, 10, 3.5*kInvisibleButtonExtraWidth, 1.5*kInvisibleButtonExtraWidth);
+//    //    invisibleShowHideButton.showsTouchWhenHighlighted = YES;
+//    invisibleDownloadButton.backgroundColor = [UIColor clearColor];
+//    //    invisibleShowHideButton.alpha = 0.5;
+//    //        [invisibleShowHideButton setCenter:CGPointMake(500.0f, 660.0f)];
+//    [invisibleDownloadButton addTarget:self action:@selector(downloadButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+//    invisibleDownloadButton.enabled = YES;
+//    invisibleDownloadButton.hidden = YES;
+//    invisibleDownloadButton.selected = NO;
+//    [invisibleDownloadButton retain];
+//    
+//    [self.view addSubview:invisibleDownloadButton];
+//}
 
 - (void)createNetworkMenu {
     

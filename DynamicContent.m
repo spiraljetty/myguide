@@ -11,15 +11,19 @@
 #import "ClinicianInfo.h"
 #import "GoalInfo.h"
 #import "ClinicInfo.h"
+#import "WhatsNewInfo.h"
 #import "YLViewController.h"
 #import "MainLoaderViewController.h"
 
 #import <AVFoundation/AVFoundation.h>
 
+static NSString* mAppVersion = @"App Version: 11/3/14";
+
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
 static NSArray* mAllClinicians = NULL;
 static NSArray* mAllSurveyQuestions = NULL;
+static NSArray* mAllWhatsNew = NULL;
 
 static NSMutableArray* mProviderTestStrings = NULL;  // for provider test
 static NSMutableArray* mClinicTestStrings = NULL;  // for clinic test
@@ -40,6 +44,10 @@ static NSString* mGoalsHeaderText = NULL;
 
 
 @implementation DynamicContent
+
++ (NSString*) getAppVersion{
+    return mAppVersion;
+}
 
 + (NSArray*) getAllClinicians {
     if (mAllClinicians == NULL){
@@ -67,6 +75,14 @@ static NSString* mGoalsHeaderText = NULL;
         mAllGoals = [self readGoalInfo];
     }
     return mAllGoals;
+}
+
+
++ (NSArray*) getAllWhatsNewInfo {
+    if (mAllWhatsNew == NULL){
+        mAllWhatsNew = [DynamicContent readWhatsNewInfoTest];
+    }
+    return mAllWhatsNew;
 }
 
 + (NSString*) getCurrentClinicName{
@@ -145,6 +161,16 @@ static NSString* mGoalsHeaderText = NULL;
         }
         [DynamicContent downloadQuestionInfo];
         
+        //whatsNew
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.downloadDataStatus.text = @"Downloading What's New Pages";
+            });
+        }
+        [DynamicContent downloadWhatsNewInfo];
+        
+        
+        // show "download complete" message
         if (viewController != NULL){
             dispatch_async(dispatch_get_main_queue(), ^{
                 [viewController downloadDataRequestDone];
@@ -217,6 +243,21 @@ static NSString* mGoalsHeaderText = NULL;
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadQuestionInfo() %@", errorMsg];
+        NSLog(logMsg);
+        [DynamicContent showAlertMsg:errorMsg];
+    }
+}
+
++ (void) downloadWhatsNewInfo { // rjl 8/16/14
+    int count = 0;
+    NSString* filePath = [DynamicContent downloadFile:@"whatsNew.txt" isImage:false];
+    if (filePath){
+        mAllWhatsNew = [DynamicContent readWhatsNewInfo:true];
+        count = [mAllWhatsNew count];
+    }
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadWhatsNewInfo() %@", errorMsg];
         NSLog(logMsg);
         [DynamicContent showAlertMsg:errorMsg];
     }
@@ -475,6 +516,132 @@ static NSString* mGoalsHeaderText = NULL;
 //    [self showAlertMsg:msg];
     return allClinics;
     //    [pool release];
+}
+
++ (NSArray*) readWhatsNewInfo:(BOOL) isDownload{
+    NSLog(@"DynamicContent.readWhatsNewInfo() isDownload: %d", isDownload);
+    NSMutableArray*  allPages = [[NSMutableArray alloc] init];
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/whatsNew.txt", documentsDirectory];
+    
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* whatsNewLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        if (whatsNewLine.length > 0){
+            NSLog(@"DynamicContent.readWhatsNewInfo() whatsNew.txt line: %@", whatsNewLine);
+            // parse row containing goal details
+            if([whatsNewLine hasPrefix:@"//"]){
+                NSLog(@"DynamicContent.readWhatsNewInfo() comment: %@", whatsNewLine);
+            }
+            else {
+                if ([whatsNewLine hasSuffix:@";"]){
+                    int index = [whatsNewLine length] -1;
+                    whatsNewLine = [whatsNewLine substringToIndex: index];
+                }
+                NSArray* whatsNewRow = [whatsNewLine componentsSeparatedByCharactersInSet:
+                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                NSString* clinic = [whatsNewRow objectAtIndex:0];
+                NSString* header = [whatsNewRow objectAtIndex:1];
+                NSString* body =   [whatsNewRow objectAtIndex:2];
+                NSString* image =  [whatsNewRow objectAtIndex:3];
+                
+                WhatsNewInfo* whatsNewPage = [[WhatsNewInfo alloc] init];
+                [whatsNewPage setClinic:clinic];
+                [whatsNewPage setHeader:header];
+                [whatsNewPage setBody:body];
+                [whatsNewPage setImage:image];
+                [allPages addObject:whatsNewPage];
+            }
+        }
+     }
+    NSLog(@"Loaded (%d) whatsNew pages", [allPages count]);
+    for (WhatsNewInfo* info in allPages){
+        [info writeToLog];
+    }
+    return allPages;
+}
+
++ (NSArray*) readWhatsNewInfoTest {
+    NSLog(@"DynamicContent.readWhatsNewInfoTest() ");
+    NSMutableArray*  allPages = [[NSMutableArray alloc] init];
+    
+    // page 1
+    NSString* clinic = @"PNS";
+    NSString* header = @"A note from Odette Harris, MD, MPH";
+    NSString* body = @"Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC). The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care.";
+    NSString* image = @"psc_whatsnew_odette_harris.png";
+    WhatsNewInfo* whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 2
+    header = @"A note ...(cont.)";
+    body = @"Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission. This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program.";
+    image = @"psc_logo_withwords.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 3
+    header = @"Strategic Planning Update";
+    body = @"In an effort to incorporate all stakeholder feedback gathered during a 9-month strategic planning process, Polytrauma System of Care (PSC) leadership is moving forward with a planned expansion of the Assistive Technology Center to include a Center for Innovation and Technology (CIT).  The expanded organizational structure will provide a design, learning, and development pathway for new health care technologies while maintaining the current service delivery of assistive technologies within the PSC.";
+    image = @"psc_whatsnew_2013q4_page1.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 4
+    header = @"Strategic Planning Update..(cont.)";
+    body = @"The new Center signals a commitment to thoughtful creativity, collaborative entrepreneurialism, new project development and incubation, and continuous performance improvement in patient care. Jonathan Sills, PhD, Program Director of Assistive Technology and the main force behind the 2013-2015 strategic plan that included the conceptualization of the Center for Innovation and Technology (CIT) within the Polytrauma System of Care, will oversee the new center.";
+    image = @"at_icon.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 5
+    header = @"Setting the pace with Tech Projects!";
+    body = @"Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction.";
+    image = @"psc_whatsnew_2013q4_section2_1.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 6
+    header = @"Setting the pace...(cont.)";
+    body = @"In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established.";
+    image = @"psc_whatsnew_2013q4_section2_1.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    NSLog(@"Loaded (%d) whatsNew pages", [allPages count]);
+    for (WhatsNewInfo* info in allPages){
+        [info writeToLog];
+    }
+    return allPages;
+}
+
++ (NSString*) getWhatsNewModuleName{
+    return @"What's New at the Polytrauma System of Care";
 }
 
 + (NSArray*) readGoalInfo {

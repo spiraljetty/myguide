@@ -21,7 +21,7 @@ static AVSpeechSynthesizer *mSynthesizer = NULL;
  */
 
 static float mSpeechRate = 0.20; //0.12
-static float mPitchMultiplier = 1.75; //1.5;
+static float mPitchMultiplier = 1.0; //1.5;
 static NSString* mLanguage = @"en";
 
 
@@ -40,21 +40,25 @@ static NSString* mLanguage = @"en";
 
 
 + (void) stopSpeaking {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSLog(@"DynamicSpeech.stopSpeaking()");
-        // from: http://stackoverflow.com/questions/19672814/an-issue-with-avspeechsynthesizer-any-workarounds
-        [mSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-        AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@""];
-        [mSynthesizer speakUtterance:utterance];
-        [mSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
-        mSynthesizer = NULL;
-    });
-
-
+    if ([DynamicSpeech isEnabled] && [mSynthesizer isSpeaking]){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"DynamicSpeech.stopSpeaking()");
+            // from: http://stackoverflow.com/questions/19672814/an-issue-with-avspeechsynthesizer-any-workarounds
+            [mSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+            AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:@""];
+            [mSynthesizer speakUtterance:utterance];
+            [mSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+            mSynthesizer = NULL;
+        });
+    }
 }
 
 + (void) speakList:(NSArray*)utterances {
     NSLog(@"DynamicSpeech.speakList()");
+//    NSArray* voices = [AVSpeechSynthesisVoice speechVoices];
+//    for (AVSpeechSynthesisVoice* v in voices) {
+//        NSLog([v language]);
+//    }
     dispatch_async(dispatch_get_main_queue(), ^{
         if (mSynthesizer == NULL)
             mSynthesizer = [[AVSpeechSynthesizer alloc]init];
@@ -80,5 +84,24 @@ static NSString* mLanguage = @"en";
     [self speakList:utterances];
 }
 
++ (float) getSpeed {
+    return mSpeechRate;
+}
+
++ (float) getPitch {
+    return mPitchMultiplier;
+}
+
++ (void) setSpeed:(float) speed{
+    NSLog(@"DynamicSpeech.setSpeed() %f", speed);
+    mSpeechRate = speed;
+}
+
+
++ (void) setPitch:(float) pitch{
+    NSLog(@"DynamicSpeech.setPitch() %f", pitch);
+    if (0.5f <= pitch && pitch <= 2.0f)
+        mPitchMultiplier = pitch;
+}
 
 @end

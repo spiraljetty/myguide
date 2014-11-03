@@ -14,6 +14,8 @@
 #import "TTSPlayer.h"
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "DynamicContent.h"
+#import "DynamicSpeech.h"
 
 @interface YLViewController ()
 @property (nonatomic, SAFE_ARC_PROP_RETAIN) NSTimer*    progressTimer;
@@ -25,7 +27,7 @@
 @synthesize progressValueLabel, progressBarIncrements, voiceSpeedSegmentedControl, voiceTypeSegmentedControl, updateSelectSoundsSwitch, updateSoundsLabel;
 @synthesize progressTimer, networkImage, linkImage, networkStatus, loadingFileName, loadingLabel, loadSpinner, linkStatus, wanderSetting;
 @synthesize currentScrollView;
-@synthesize labelLocationInformation, volumeControlStepper, headphoneImage, soundStatus, volumeNumber, previousVolumeStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton, downloadDataButton, downloadDataSpinner, downloadDataStatus;
+@synthesize labelLocationInformation, volumeControlStepper, pitchControlStepper, speedControlStepper, headphoneImage, soundStatus, volumeNumber, pitchNumber, speedNumber, previousVolumeStepperValue, previousPitchStepperValue, previousSpeedStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton, downloadDataButton, downloadDataSpinner, downloadDataStatus;
 @synthesize mapView;
 
 static YLViewController* mYLViewController = NULL;
@@ -118,7 +120,7 @@ static YLViewController* mYLViewController = NULL;
     mYLViewController = self;
     [super viewDidLoad];
         AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
-	NSString *currentAppVersion = @"App Version: 10/20/14";//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
+	NSString *currentAppVersion = [DynamicContent getAppVersion];//appDelegate.loaderViewController.currentWRViewController.appVersion ; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
     [appVersionLabel setText:currentAppVersion];
     progressView.progressTintColor = [UIColor greenColor];
 //    self.progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.3f 
@@ -140,7 +142,14 @@ static YLViewController* mYLViewController = NULL;
     volumeControlStepper.value = 5;
     previousVolumeStepperValue = 5;
     
-    
+    pitchControlStepper.maximumValue = 60;
+    pitchControlStepper.value = 20;
+    previousPitchStepperValue = 20;
+
+    speedControlStepper.maximumValue = 60;
+    speedControlStepper.value = 30;
+    previousSpeedStepperValue = 30;
+
 //    NSLog(@"Setting home coordinates...");
 //    homeCoords = CLLocationCoordinate2DMake(37.450275, -122.162034);
 //    [self zoomToCoords:homeCoords];
@@ -372,10 +381,52 @@ static YLViewController* mYLViewController = NULL;
 
 }
 
+- (IBAction)pitchControlStepperChanged:(id)sender {
+    UIStepper *thisControl = (UIStepper *)sender;
+    float newValue = pitchControlStepper.value;
+    float previousValue = previousPitchStepperValue;
+    NSLog(@"YLViewController.pitchControlStepperChanged() value: %1.2f oldValue: %1.2f", newValue, previousValue);
+    if (newValue > previousValue) {
+        previousPitchStepperValue = newValue;
+        newValue = [DynamicSpeech getPitch]  + 0.05f;
+        [DynamicSpeech setPitch:newValue];
+    } else if (newValue < previousValue) {
+        previousPitchStepperValue = newValue;
+        newValue = [DynamicSpeech getPitch]  - 0.05f;
+        [DynamicSpeech setPitch:newValue];
+    } else {
+        NSLog(@"No change in pitch");
+    }
+    [[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] soundViewController] pitchNumber] setText:[NSString stringWithFormat:@"%1.2f",newValue]];
+}
+
+- (IBAction)speedControlStepperChanged:(id)sender {
+    UIStepper *thisControl = (UIStepper *)sender;
+    float newValue = speedControlStepper.value;
+    float previousValue = previousSpeedStepperValue;
+    if (newValue > previousValue) {
+        previousSpeedStepperValue = newValue;
+        newValue = [DynamicSpeech getSpeed]  + 0.05f;
+        [DynamicSpeech setSpeed:newValue];
+    } else if (newValue < previousValue) {
+        previousSpeedStepperValue = newValue;
+        newValue = [DynamicSpeech getSpeed]  - 0.05f;
+        [DynamicSpeech setSpeed:newValue];
+    } else {
+        NSLog(@"No change in speed");
+    }
+    [[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] soundViewController] speedNumber] setText:[NSString stringWithFormat:@"%1.2f",newValue]];
+}
+
 - (IBAction)voiceTypeButtonTapped:(id)sender {
     [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] TTSVoiceTypeSegmentedControlChanged:sender];
-    
 }
+
+- (IBAction)testSpeechButtonTapped:(id)sender {
+    NSLog(@"YLViewController.testSpeechButtonTapped()");
+    [DynamicSpeech speakText:@"How does this sound?"];
+}
+
 - (IBAction)voiceSpeedButtonTapped:(id)sender {
     [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] TTSVoiceSpeedSegmentedControlChanged:sender];
 }

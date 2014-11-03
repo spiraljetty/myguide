@@ -35,11 +35,17 @@
     IBOutlet UISegmentedControl *voiceTypeSegmentedControl;
     IBOutlet UISegmentedControl *voiceSpeedSegmentedControl;
     IBOutlet UIStepper *volumeControlStepper;
+    IBOutlet UIStepper *pitchControlStepper;
+    IBOutlet UIStepper *speedControlStepper;
     int previousVolumeStepperValue;
+    int previousPitchStepperValue;
+    int previousSpeedStepperValue;
     
     IBOutlet UIImageView *headphoneImage;
     IBOutlet UILabel *soundStatus;
     IBOutlet UILabel *volumeNumber;
+    IBOutlet UILabel *pitchNumber;
+    IBOutlet UILabel *speedNumber;
     
     IBOutlet UISwitch *allowSpeakerSwitch;
     
@@ -91,11 +97,17 @@
 @property (nonatomic, retain) UISegmentedControl *voiceTypeSegmentedControl;
 @property (nonatomic, retain) UISegmentedControl *voiceSpeedSegmentedControl;
 @property (nonatomic, retain) IBOutlet UIStepper *volumeControlStepper;
+@property (nonatomic, retain) IBOutlet UIStepper *pitchControlStepper;
+@property (nonatomic, retain) IBOutlet UIStepper *speedControlStepper;
 @property int previousVolumeStepperValue;
+@property int previousSpeedStepperValue;
+@property int previousPitchStepperValue;
 
 @property (nonatomic, retain) IBOutlet UIImageView *headphoneImage;
 @property (nonatomic, retain) IBOutlet UILabel *soundStatus;
 @property (nonatomic, retain) IBOutlet UILabel *volumeNumber;
+@property (nonatomic, retain) IBOutlet UILabel *pitchNumber;
+@property (nonatomic, retain) IBOutlet UILabel *speedNumber;
 
 @property (nonatomic, retain) IBOutlet UILabel *uploadDataStatus;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *uploadDataSpinner;
@@ -133,6 +145,8 @@
 - (void)updateLinkDisplayWithLinkType:(NetworkStatus)thisNetworkStatus;
 
 - (IBAction)volumeControlStepperChanged:(id)sender;
+- (IBAction)pitchControlStepperChanged:(id)sender;
+- (IBAction)speedControlStepperChanged:(id)sender;
 - (IBAction)wanderGuardSwitchFlipped:(id)sender;
 
 - (IBAction)uploadDataToCloudButtonPressed:(id)sender;

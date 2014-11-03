@@ -231,6 +231,8 @@ static WRViewController* mViewController = NULL;
     mainTTSPlayer.currentlyPlayingVoiceType = usenglishfemale;
     [mainTTSPlayer fadeToDesiredVolume:[DynamicSpeech defaultVolume]]; // rjl 10/22/14 set default volume
     settingsVC.soundViewController.volumeNumber.text = @"0.50";
+    settingsVC.soundViewController.pitchNumber.text = @"1.50";
+    settingsVC.soundViewController.speedNumber.text = @"0.50";
     
 //    self.view.rootViewController = tbvc;
     tbvc.view.alpha = 0.0;
@@ -2433,8 +2435,9 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.initializeWhatsNewModule()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    dynamicWhatsNewModule = [[DynamicModuleViewController_Pad alloc] init];
-    [dynamicWhatsNewModule setupWithPropertyList:currentDynamicWhatsNewModuleSpecFilename];
+    //dynamicWhatsNewModule = [[DynamicModuleViewController_Pad alloc] init];
+//    [dynamicWhatsNewModule setupWithPropertyList:currentDynamicWhatsNewModuleSpecFilename];
+    [dynamicWhatsNewModule setupWhatsNewContent];
     
     dynamicWhatsNewModule.view.alpha = 0.0;
     dynamicWhatsNewModule.view.transform = rotateRight;
@@ -4751,7 +4754,7 @@ static WRViewController* mViewController = NULL;
     NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
     //[mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
     NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
-    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+    NSLog(@"WRViewController.setUpEducationModuleForFirstTime() existing SelfGuideSting%@",existingSelfGuideString);
     int count = [mySelfGuideStatusArray count];
     for (int i = 0; i < count; i++)
         NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);

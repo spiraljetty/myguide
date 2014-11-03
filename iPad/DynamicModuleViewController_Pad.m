@@ -33,6 +33,7 @@
 #import "ClinicInfo.h"
 #import "DynamicContent.h"
 #import "DynamicSpeech.h"
+#import "WhatsNewInfo.h"
 
 NSString *kModuleNameKey = @"Name";
 NSString *kModuleTypeKey = @"Type";
@@ -117,7 +118,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
     NSString* clinicName = [DynamicContent getCurrentClinicName];
     moduleName = [clinicInfo getSubclinicName];
-    NSLog(@"DynamicModuleViewController.setupWithPropertyList() clinic: %@", clinicName);
+    NSLog(@"DynamicModuleViewController.setupClinicContent() clinic: %@", clinicName);
     
     NSData* tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"pmnr_acu_ed_module_test2" withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
     dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
@@ -148,7 +149,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     }
     if (clinicInfo == NULL){
         NSString* msg = [NSString stringWithFormat:@"clinic not found for %@", clinicName];
-        NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", msg);
+        NSLog(@"DynamicModuleViewController.setupClinicContent() %@", msg);
         // choose default clinic
         clinicInfo =  [DynamicContent getClinic:@"AT"];
         // [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] showAlertMsg:msg];
@@ -156,7 +157,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     else{
         NSMutableArray* clinicPages = [clinicInfo getClinicPages];
         NSLog(@"found it!");
-        NSLog(@"DynamicModuleViewController.setupWithPropertyList() updating content for module %@", moduleName);
+        NSLog(@"DynamicModuleViewController.setupClinicContent() updating content for module %@", moduleName);
         NSMutableArray* newPages = [[NSMutableArray alloc] init];
         for (NSMutableDictionary *pageDict in clinicPages) {
             NSString *pageTitle = [pageDict valueForKey:@"pageTitle"];
@@ -183,6 +184,69 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     }
 }
 
+
+- (void)setupWhatsNewContent{
+    ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+    NSString* clinicName = [DynamicContent getCurrentClinicName];
+    moduleName = [DynamicContent getWhatsNewModuleName];//[clinicInfo getSubclinicName];
+    NSLog(@"DynamicModuleViewController.setupWhatsNewContent() clinic: %@", clinicName);
+    
+    NSData* tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"psc_whats_new_module_test2" withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
+    dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
+    dynModDictKeys = [[dynModDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    
+    moduleType = [dynModDict objectForKey:kModuleTypeKey];
+    createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
+    moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
+    
+    NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
+    start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
+    end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
+    start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
+    end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
+    
+    moduleTheme = [[dynModDict objectForKey:kModuleThemeKey] copy];
+    moduleColor = [[dynModDict objectForKey:kModuleColorKey] copy];
+    isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
+    showModuleHeader = [[dynModDict objectForKey:kShowModuleHeaderKey] boolValue];
+    recognizeUserSpeechWords = [dynModDict objectForKey:kModuleShouldRecognizeUserSpeechWordsKey];
+    superModule = [dynModDict objectForKey:kSuperModuleKey];
+    subModules = [dynModDict objectForKey:kSubModulesKey];
+    pages = [dynModDict objectForKey:kModulePagesKey];
+    NSMutableDictionary* samplePage = NULL;
+    
+    if ([pages count] > 0){
+        samplePage = [pages objectAtIndex:0];
+    }
+
+    NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
+    NSLog(@"found it!");
+    NSLog(@"DynamicModuleViewController.setupWhatsNewContent() updating content for module %@", moduleName);
+    NSMutableArray* newPages = [[NSMutableArray alloc] init];
+    for (WhatsNewInfo *page in whatsNewPages) {
+        NSString* header = [page getHeader];
+        NSString* body =  [page getBody];
+        NSString* image = [page getImage];
+        NSMutableDictionary* pageDict = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *mutablePageDict = NULL;
+        if (samplePage != NULL)
+            mutablePageDict= [samplePage mutableCopy];
+        else
+            mutablePageDict= [pageDict mutableCopy];
+        [mutablePageDict setObject:header forKey:@"HeaderText"];
+        [mutablePageDict setObject:body forKey:@"Text"];
+        if ([image length] > 0){
+            [mutablePageDict setValue:image forKey:@"ImageFilename"];
+            [mutablePageDict setValue:@"1" forKey:@"ImagePage"];
+        }
+        else
+            [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
+        [newPages addObject:mutablePageDict];
+    }
+    if ([newPages count] > 0){
+        pages = newPages;
+    }
+}
 
 - (void)setupWithPropertyList:(NSString *)propertyListName {
     NSString* currentClinicName = [DynamicContent getCurrentClinicName];
@@ -822,11 +886,13 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 
 - (void)goForward {
     NSLog(@"DynamicModuleViewController.goForward() dynamicSubclinicModule...");
+    [DynamicSpeech stopSpeaking];
     [self overlayNextPressed];
 }
 
 - (void)goBackward {
     NSLog(@"DynamicModuleViewController.goBackward() dynamicSubclinicModule...");
+    [DynamicSpeech stopSpeaking];
     [self overlayPreviousPressed];
 }
 
@@ -855,10 +921,18 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
     
     if ([DynamicSpeech isEnabled]){
-        ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
-        NSMutableDictionary *pageDict = [clinicInfo.getClinicPages objectAtIndex:0];
-        NSString *pageText = [pageDict valueForKey:@"pageText"];
-        [DynamicSpeech speakText:pageText];
+        if (inWhatsNewMode){
+            NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
+            WhatsNewInfo* page = [whatsNewPages objectAtIndex:0];
+            NSString *pageText = [page getBody];
+            [DynamicSpeech speakText:pageText];
+        }
+        else {
+            ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+            NSMutableDictionary *pageDict = [clinicInfo.getClinicPages objectAtIndex:0];
+            NSString *pageText = [pageDict valueForKey:@"pageText"];
+            [DynamicSpeech speakText:pageText];
+        }
     }
     else
         [self playSoundForPage:firstPage];
@@ -1118,16 +1192,29 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         DynamicModulePageViewController *newPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
         
         if ([DynamicSpeech isEnabled]){
-            ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
-            NSMutableDictionary *pageDict = [clinicInfo.getClinicPages objectAtIndex:vcIndex];
-            NSString *pageText = [pageDict valueForKey:@"pageText"];
-            [DynamicSpeech speakText:pageText];
+            if (inWhatsNewMode) {
+                NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
+                if (vcIndex < [whatsNewPages count]){
+                    WhatsNewInfo* page = [whatsNewPages objectAtIndex:vcIndex];
+                    NSString* pageText = [page getBody];
+                    [DynamicSpeech speakText:pageText];
+                }
+
+            } else {
+                ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+                NSArray* clinicPages = [clinicInfo getClinicPages];
+                if (vcIndex < [clinicPages count]){
+                    NSMutableDictionary *pageDict = [clinicPages objectAtIndex:vcIndex];
+                    NSString *pageText = [pageDict valueForKey:@"pageText"];
+                    [DynamicSpeech speakText:pageText];
+                }
+            }
         }
         else
             [self playSoundForPage:newPage];
         
         if (vcIndex == ([newChildControllers count] - 1)) {
-            NSLog(@"LAST PAGE: %d", vcIndex);
+            NSLog(@"DynamicModuleViewController.switchToView() LAST PAGE: %d", vcIndex);
             finishingLastItem = YES;
             if (!inSubclinicMode) {
                 //            [self.view bringSubviewToFront:yesNoButtonOverlay.view];

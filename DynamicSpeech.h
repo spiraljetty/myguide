@@ -17,4 +17,9 @@
 + (void) setIsEnabled:(bool)value;
 + (void) stopSpeaking;
 
++ (float) getSpeed;
++ (float) getPitch;
++ (void)  setSpeed:(float) speed;
++ (void)  setPitch:(float) pitch;
+
 @end

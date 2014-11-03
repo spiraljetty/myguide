@@ -196,6 +196,7 @@
 + (DynamicModuleViewController_Pad*) getViewController;
 
 - (void)setupClinicContent;
+- (void)setupWhatsNewContent;
 - (id)initWithPropertyList:(NSString *)propertyListName;
 - (void)setupWithPropertyList:(NSString *)propertyListName;
 - (void)loadPages;
