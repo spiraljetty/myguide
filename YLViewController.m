@@ -27,7 +27,7 @@
 @synthesize progressValueLabel, progressBarIncrements, voiceSpeedSegmentedControl, voiceTypeSegmentedControl, updateSelectSoundsSwitch, updateSoundsLabel;
 @synthesize progressTimer, networkImage, linkImage, networkStatus, loadingFileName, loadingLabel, loadSpinner, linkStatus, wanderSetting;
 @synthesize currentScrollView;
-@synthesize labelLocationInformation, volumeControlStepper, pitchControlStepper, speedControlStepper, headphoneImage, soundStatus, volumeNumber, pitchNumber, speedNumber, previousVolumeStepperValue, previousPitchStepperValue, previousSpeedStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton, downloadDataButton, downloadDataSpinner, downloadDataStatus;
+@synthesize labelLocationInformation, volumeControlStepper, pitchControlStepper, speedControlStepper, languageControlStepper, headphoneImage, soundStatus, volumeNumber, pitchNumber, speedNumber, languageText, previousVolumeStepperValue, previousPitchStepperValue, previousSpeedStepperValue, previousLanguageStepperValue, wifiSSIDName, wanderGuardSwitch, uploadDataStatus, uploadDataSpinner, uploadDataButton, downloadDataButton, downloadDataSpinner, downloadDataStatus;
 @synthesize mapView;
 
 static YLViewController* mYLViewController = NULL;
@@ -149,6 +149,10 @@ static YLViewController* mYLViewController = NULL;
     speedControlStepper.maximumValue = 60;
     speedControlStepper.value = 30;
     previousSpeedStepperValue = 30;
+    
+    languageControlStepper.maximumValue = 60;
+    languageControlStepper.value = 30;
+    previousLanguageStepperValue = 30;
 
 //    NSLog(@"Setting home coordinates...");
 //    homeCoords = CLLocationCoordinate2DMake(37.450275, -122.162034);
@@ -416,6 +420,25 @@ static YLViewController* mYLViewController = NULL;
         NSLog(@"No change in speed");
     }
     [[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] soundViewController] speedNumber] setText:[NSString stringWithFormat:@"%1.2f",newValue]];
+}
+
+- (IBAction)languageControlStepperChanged:(id)sender {
+    UIStepper *thisControl = (UIStepper *)sender;
+    float newValue = languageControlStepper.value;
+    float previousValue = previousLanguageStepperValue;
+    NSLog(@"YLViewController.languageControlStepperChanged() value: %1.2f oldValue: %1.2f", newValue, previousValue);
+    if (newValue > previousValue) {
+        previousLanguageStepperValue = previousLanguageStepperValue +1;
+        newValue = [DynamicSpeech getLanguageIndex]  + 1.0f;
+        [DynamicSpeech setLanguageIndex:newValue];
+    } else if (newValue < previousValue) {
+        previousLanguageStepperValue = previousLanguageStepperValue -1;
+        newValue = [DynamicSpeech getLanguageIndex]  - 1.0f;
+        [DynamicSpeech setLanguageIndex:newValue];
+    } else {
+        NSLog(@"No change in language");
+    }
+    [[[[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] soundViewController] languageText] setText:[DynamicSpeech getLanguage]];
 }
 
 - (IBAction)voiceTypeButtonTapped:(id)sender {

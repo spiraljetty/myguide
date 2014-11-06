@@ -6,6 +6,7 @@
     NSString* mClinicNameShort;
     NSString* mSubclinicName;
     NSString* mSubclinicNameShort;
+    NSString* mClinicImage;
     NSMutableArray* mClinicPages;
 }
 
@@ -14,6 +15,7 @@
 - (void) setClinicNameShort:  (NSString*) clinicNameShort;
 - (void) setSubclinicName:  (NSString*) subclinicName;
 - (void) setSubclinicNameShort:  (NSString*) subclinicNameShort;
+- (void) setClinicImage:  (NSString*) clinicIcon;
 - (void) addPage: (NSMutableDictionary*) page;
 
 // getters
@@ -22,7 +24,7 @@
 - (NSString*) getClinicNameShort;
 - (NSString*) getSubclinicName;
 - (NSString*) getSubclinicNameShort;
-- (NSString*) getClinicImageFilename;
+- (NSString*) getClinicImage;
 - (NSString*) getPageImageFilename:(int) pageNumber;
 - (NSMutableArray*) getClinicPages;
 

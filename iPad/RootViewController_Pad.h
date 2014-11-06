@@ -170,7 +170,7 @@
 
 + (RootViewController_Pad*) getViewController;
 
--(void)sayFirstItem;
+-(void)sayFirstSatisfactionSurveyItem;
 
 - (void)checkAndLoadLocalDatabase;
 - (void)writeLocalDbToCSVFile;

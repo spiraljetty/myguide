@@ -1620,7 +1620,38 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
                     }
                 }
                 break;
+            case kChooseModule:
+                if ([DynamicSpeech isEnabled]){
+                    [DynamicSpeech sayChooseModule];
+                    return;
+                }
+                break;
+            case kHelpfulPainScale:
+                if ([DynamicSpeech isEnabled]){
+                    NSMutableArray* utterances = [[NSMutableArray alloc] init];
+                    NSString* prompt = [currentSurveyPage helpfulText];
+                    if (prompt != NULL && [prompt length] > 0)
+                        [utterances addObject:prompt];
+                    if ([utterances count] > 0)
+                        [DynamicSpeech speakList:utterances];
+                    return;
+                }
             default:
+                if ([DynamicSpeech isEnabled]){
+                    NSMutableArray* utterances = [[NSMutableArray alloc] init];
+                    NSString* prompt = [currentSurveyPage currentPromptString];
+                    NSString* surveyQuestion = [currentSurveyPage currentSatisfactionString];
+                    if (prompt != NULL && [prompt length] > 0){
+                        [utterances addObject:prompt];
+                        if (surveyQuestion != NULL && [surveyQuestion length] > 0)
+                            [utterances addObject:@"_PAUSE_"];
+                    }
+                    if (surveyQuestion != NULL && [surveyQuestion length] > 0)
+                        [utterances addObject:surveyQuestion];
+                    if ([utterances count] > 0)
+                        [DynamicSpeech speakList:utterances];
+                    return;
+                }
                 if (vcIndex == 11) {
                     if ([todaysGoal isEqualToString:@"None of the Above"]) {
                         [soundNameArray addObject:[NSString stringWithFormat:@"~feedback_none_selected"]];
@@ -1872,7 +1903,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         vcIndex = newIndex;
         
         [self handleButtonOverlayForPageIndex:vcIndex];
-        [self playSoundForSurveyPage:[newChildControllers objectAtIndex:vcIndex]];
+        WRViewController* viewController = [WRViewController getViewController];
+        //if (!viewController.completedProviderSession)
+            [self playSoundForSurveyPage:[newChildControllers objectAtIndex:vcIndex]];
         
         if (vcIndex == currentFinishingIndex) {
             NSLog(@"DynamicSurveyViewController_Pad.switchToView() LAST PAGE");

@@ -17,6 +17,7 @@
 #import "SwitchedImageViewController.h"
 #import "DynamicContent.h"
 #import "QuestionList.h"
+#import "DynamicSpeech.h"
 
 #import <UIKit/UIKit.h>
 #import <sqlite3.h>
@@ -2017,14 +2018,44 @@ static RootViewController_Pad* mViewController = NULL;
     
     BOOL shouldCurrentlyPlayMidwaySound = NO;
     
-    shouldCurrentlyPlayMidwaySound = [self isCurrentSatisfactionItemMidwayWithIndex:thisPageIndex];
+    //shouldCurrentlyPlayMidwaySound = [self isCurrentSatisfactionItemMidwayWithIndex:thisPageIndex];
     
     NSString *currentQuestionKey = [NSString stringWithFormat:@"%@_q_%d",respondentType,thisPageIndex];
     
     NSString *midwayItemPath;
 //    NSString *midwayItemSound;
 //    AVPlayerItem *midwayItemToPlay;
- 
+    if ([DynamicSpeech isEnabled]){
+        
+        QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+        NSString* question = NULL;
+        if (matchingSurvey != NULL){
+            NSString* prompt = NULL;//[matchingSurvey getHeader2];
+            NSArray* questionList2 =[matchingSurvey getQuestionSet2];
+            int questionList2Count = [questionList2 count];
+            if (thisPageIndex < questionList2Count)
+                question = [questionList2 objectAtIndex:thisPageIndex];
+            else {
+                int index = thisPageIndex - questionList2Count;
+                if (index == 0)
+                    prompt = [matchingSurvey getHeader3];
+                NSArray* questionList3 =[matchingSurvey getQuestionSet3];
+                int questionList3Count = [questionList3 count];
+                if (index < questionList3Count)
+                    question = [questionList3 objectAtIndex:index];
+            }
+            NSMutableArray* utterances = [[NSMutableArray alloc] init];
+            if (prompt != NULL && [prompt length] > 0){
+                [utterances addObject:prompt];
+                if (question != NULL && [question length] > 0)
+                    [utterances addObject:@"_PAUSE_"];
+            }
+            if (question != NULL && [question length] > 0)
+                [utterances addObject:question];
+            [DynamicSpeech speakList:utterances];
+            return;
+        }
+    }
     
     //sandy 7-16 this is played during the satisfaction survey
     if (shouldCurrentlyPlayMidwaySound) {
@@ -2074,11 +2105,12 @@ static RootViewController_Pad* mViewController = NULL;
     NSLog(@"retriving Sounds For Question: %@",currentQuestionKey);
    // sandy 7-20 disabling first Prompt
     //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:midwayItemPath,@"silence_half_second",currentQuestionKey, nil]];
-        [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:currentQuestionKey, nil]];
+    [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:currentQuestionKey, nil]];
 //[masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:currentQuestionKey, nil]];
 }
 
 - (void) showNextSurveyPage {
+    [DynamicSpeech stopSpeaking];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
     QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     finishingLastItem = NO;
@@ -2119,7 +2151,7 @@ static RootViewController_Pad* mViewController = NULL;
         vcIndex = newIndex;
         
         // rjl
-        int soundIndex = vcIndex;
+        //int soundIndex = vcIndex;
 //        if (soundIndex ==24)
 //            soundIndex = 23;
 //        else
@@ -3075,9 +3107,9 @@ static RootViewController_Pad* mViewController = NULL;
 }
 
 - (void)turnVoiceOn:(id)sender {
-    NSLog(@"Turned voice ON");
+    NSLog(@"RootViewController.turnVoiceOn() Turned voice ON");
     speakItemsAloud = YES;
-    
+    [DynamicSpeech setIsSpeechEnabled:true];
 //    [self sayOK];
     
     [self showReplayButton];
@@ -3085,8 +3117,10 @@ static RootViewController_Pad* mViewController = NULL;
 }
 
 - (void)turnVoiceOff:(id)sender {
-    NSLog(@"Turned voice OFF");
+    NSLog(@"RootViewController.turnVoiceOff() Turned voice OFF");
     speakItemsAloud = NO;
+    [DynamicSpeech setIsSpeechEnabled:false];
+
     
 //    [self sayOK];
     
@@ -3504,6 +3538,27 @@ static RootViewController_Pad* mViewController = NULL;
     }
 }
 
+- (void) sayFirstSatisfactionSurveyItem{
+    [DynamicSpeech stopSpeaking];
+    QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+    
+    if (matchingSurvey != NULL){
+        NSString* prompt = [matchingSurvey getHeader2];
+        NSArray* questionList =[matchingSurvey getQuestionSet2];
+        NSString* question1 = [questionList objectAtIndex:0];
+        NSMutableArray* utterances = [[NSMutableArray alloc] init];
+        if (prompt != NULL && [prompt length] > 0){
+            [utterances addObject:prompt];
+            if (question1 != NULL && [question1 length] > 0)
+                [utterances addObject:@"_PAUSE_"];
+        }
+        if (question1 != NULL && [question1 length] > 0)
+            [utterances addObject:question1];
+        [DynamicSpeech speakList:utterances];
+    }
+
+}
+
 - (void)sayFirstItem {
     if ([respondentType isEqualToString:@"patient"]) {
         totalSurveyItems = 8;//rjl 7/15/14 20;
@@ -3515,7 +3570,7 @@ static RootViewController_Pad* mViewController = NULL;
         totalSurveyItems = 13; // sandy 7-17 original was 28
         surveyItemsRemaining = 13;
     }
-    NSLog(@"RootViewController.sayFirstItem() totalSurveyItems %d", totalSurveyItems);
+    NSLog(@"RootViewController.sayFirstSatisfactionSurveyItem() totalSurveyItems %d", totalSurveyItems);
 
     NSString *preFirstItemPath;
     NSString *firstItemPath;
@@ -3558,7 +3613,7 @@ static RootViewController_Pad* mViewController = NULL;
 }
 
 - (void)sayOK {
-    if (speakItemsAloud) {
+    if (false){ //speakItemsAloud) {
         
         [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"okay_new", nil]];
         
@@ -3594,7 +3649,21 @@ static RootViewController_Pad* mViewController = NULL;
 
 - (void)saySurveyIntro {
     if (speakItemsAloud) {
-        
+        if ([DynamicSpeech isEnabled]){
+            NSMutableArray* utterances = [[NSMutableArray alloc] init];
+            NSString* surveyName = NULL;
+            if ([respondentType isEqualToString:@"patient"]) {
+                surveyName = @"Patient Satisfaction Survey";
+            } else if ([respondentType isEqualToString:@"family"]) {
+                surveyName = @"Family Satisfaction Survey";
+            } else {
+                surveyName = @"Caregiver Satisfaction Survey";
+            }
+            [utterances addObject:surveyName];
+            [utterances addObjectsFromArray:[DynamicContent getPrivacyPolicy]];
+            [DynamicSpeech speakList:utterances];
+            return;
+        }
         NSString *respondentSurveyPath;
         
         if ([respondentType isEqualToString:@"patient"]) {
@@ -3610,7 +3679,8 @@ static RootViewController_Pad* mViewController = NULL;
         
         // sandy 3 string privacy policy
         [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:respondentSurveyPath,@"~privacy_policy", nil]];
-        
+    }
+}
 //    NSString *surveyintro_sound_a = [[NSBundle mainBundle]
 //                                   pathForResource:respondentSurveyPath ofType:@"mp3"];
 //    AVPlayerItem *surveyintro_item_a = [AVPlayerItem playerItemWithURL:[NSURL fileURLWithPath:surveyintro_sound_a]];
@@ -3622,8 +3692,8 @@ static RootViewController_Pad* mViewController = NULL;
 //    self.queuePlayer = nil;
 //    self.queuePlayer = [AVQueuePlayer queuePlayerWithItems:[NSArray arrayWithObjects:surveyintro_item_a,surveyintro_item_b,nil]];
 //    //
-    }
-}
+    //}
+//}
 
 - (void)saySurveyAgreement {
     if (speakItemsAloud) {

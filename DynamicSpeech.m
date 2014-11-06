@@ -7,11 +7,13 @@
 //
 #import "WRViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import "DynamicSpeech.h"
+#import "DynamicContent.h"
 
 @implementation DynamicSpeech
 
-static bool  mIsEnabled = true;
+
+static bool mIsSpeechEnabled = true;
+
 static float mDefaultVolume = 0.1;
 static AVSpeechSynthesizer *mSynthesizer = NULL;
 /*
@@ -22,7 +24,8 @@ static AVSpeechSynthesizer *mSynthesizer = NULL;
 
 static float mSpeechRate = 0.20; //0.12
 static float mPitchMultiplier = 1.0; //1.5;
-static NSString* mLanguage = @"en";
+static NSString* mLanguage = @"en-US";
+static float mLanguageIndex = 1.0;
 
 
 
@@ -31,11 +34,15 @@ static NSString* mLanguage = @"en";
 }
 
 + (bool) isEnabled {
-    return mIsEnabled;
+    return true; // must always return true now that we are only using dynamic speech
 }
 
-+ (void) setIsEnabled:(bool)value {
-    mIsEnabled = value;
++ (bool) isSpeechEnabled {
+    return mIsSpeechEnabled;
+}
+
++ (void) setIsSpeechEnabled:(bool) value {
+     mIsSpeechEnabled = value;
 }
 
 
@@ -55,6 +62,8 @@ static NSString* mLanguage = @"en";
 
 + (void) speakList:(NSArray*)utterances {
     NSLog(@"DynamicSpeech.speakList()");
+    if (!mIsSpeechEnabled)
+        return;
 //    NSArray* voices = [AVSpeechSynthesisVoice speechVoices];
 //    for (AVSpeechSynthesisVoice* v in voices) {
 //        NSLog([v language]);
@@ -64,14 +73,28 @@ static NSString* mLanguage = @"en";
             mSynthesizer = [[AVSpeechSynthesizer alloc]init];
         for (NSString *phrase in utterances) {
             NSLog(@"DynamicSpeech.speakList() utterance: %@", phrase);
-            AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:phrase];
-            //            [utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
-            [utterance setRate:mSpeechRate];//0.12f];//setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
-            [utterance setPitchMultiplier:mPitchMultiplier];
-            //[utterance setPostUtteranceDelay:20];
-            //[utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
-            utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:mLanguage];
-            [mSynthesizer speakUtterance:utterance];
+//            if ([phrase isEqualToString:@"_PAUSE_"]){
+//                NSLog(@"DynamicSpeech.speakList() pre pause");
+//                [NSThread sleepForTimeInterval:2];
+//                NSLog(@"DynamicSpeech.speakList() post pause");
+//
+//            }
+//            else {
+            bool isPause = false;
+                if ([phrase isEqualToString:@"_PAUSE_"]){
+                    phrase = @"   ";
+                    isPause = true;
+                }
+                AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:phrase];
+                //            [utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
+                [utterance setRate:mSpeechRate];//0.12f];//setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
+                [utterance setPitchMultiplier:mPitchMultiplier];
+                if (isPause)
+                    [utterance setPostUtteranceDelay:.5];
+                //[utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
+                utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:[DynamicSpeech getLanguage]];
+                [mSynthesizer speakUtterance:utterance];
+//            }
         }
         NSLog(@"DynamicSpeech.speakList() EXIT");
     });
@@ -88,13 +111,58 @@ static NSString* mLanguage = @"en";
     return mSpeechRate;
 }
 
+
 + (float) getPitch {
     return mPitchMultiplier;
+}
+
+
++ (NSString*) getLanguage {
+    return mLanguage;
+}
+
++ (float) getLanguageIndex {
+    return mLanguageIndex;
 }
 
 + (void) setSpeed:(float) speed{
     NSLog(@"DynamicSpeech.setSpeed() %f", speed);
     mSpeechRate = speed;
+}
+
++ (void) setVoiceTypeFemale{
+    [DynamicSpeech setLanguage:@"en-US"];
+}
+
++ (void) setVoiceTypeMale{
+    [DynamicSpeech setLanguage:@"en-GB"];
+}
+
++ (void) setLanguage:(NSString*) language{
+    NSLog(@"DynamicSpeech.setLanguage() %@", language);
+    mLanguage = language;
+}
+
++ (void) setLanguageIndex:(float) languageIndex{
+    NSLog(@"DynamicSpeech.setLanguageIndex() %f", languageIndex);
+    //[DynamicSpeech setLanguage:@"en-GB"];
+    if (0.0 <= languageIndex && languageIndex <= 7.0f){
+        mLanguageIndex = languageIndex;
+        if (mLanguageIndex == 1.0)
+            [DynamicSpeech setLanguage:@"en-US"];
+        else if (mLanguageIndex == 2.0)
+            [DynamicSpeech setLanguage:@"en-GB"];
+        else if (mLanguageIndex == 3.0)
+            [DynamicSpeech setLanguage:@"en-AU"];
+        else if (mLanguageIndex == 4.0)
+            [DynamicSpeech setLanguage:@"en-NZ"];
+        else if (mLanguageIndex == 5.0)
+            [DynamicSpeech setLanguage:@"en-ZA"];
+        else if (mLanguageIndex == 6.0)
+            [DynamicSpeech setLanguage:@"es-MX"];
+        else if (mLanguageIndex == 7.0)
+                [DynamicSpeech setLanguage:@"es-ES"];
+    }
 }
 
 
@@ -103,5 +171,54 @@ static NSString* mLanguage = @"en";
     if (0.5f <= pitch && pitch <= 2.0f)
         mPitchMultiplier = pitch;
 }
+
++ (void) sayWelcomeToApp{
+    NSMutableArray* welcomeStrings = [[NSMutableArray alloc] init];
+    ClinicInfo* clinic = [DynamicContent getCurrentClinic];
+    if (clinic == NULL)
+        return;
+    NSString* clinicName = [clinic getSubclinicName];
+    if (clinicName == NULL || [clinicName length] == 0)
+        clinicName = [clinic getClinicName];
+   // NSString* welcomeToClinic = [NSString stringWithFormat:@"Welcome to the VA Palo Alto Healthcare System %@", clinicName];
+    [welcomeStrings addObject:@"Welcome to the VA Palo Alto Healthcare System"];
+    [welcomeStrings addObject:clinicName];
+    [welcomeStrings addObject:@"_PAUSE_"];
+    [welcomeStrings addObjectsFromArray:[DynamicContent getPrivacyPolicy]];
+    [welcomeStrings addObject:@"_PAUSE_"];
+    [welcomeStrings addObject:@"Would you like me to read the questions out loud?"];
+    
+    [DynamicSpeech speakList:welcomeStrings];
+}
+
++ (void) sayPrivacyPolicy{
+    NSMutableArray* lines = [[NSMutableArray alloc] init];
+    [lines addObjectsFromArray:[DynamicContent getPrivacyPolicy]];
+    [DynamicSpeech speakList:lines];
+}
+
++ (void) sayRespondentTypes{
+    NSMutableArray* phrases = [[NSMutableArray alloc] init];
+    [phrases addObject:@"Are you a patient, a family member or a caregiver?"];
+    [DynamicSpeech speakList:phrases];
+}
+
++ (void) sayChooseModule{
+    NSMutableArray* phrases = [[NSMutableArray alloc] init];
+    [phrases addObject:@"Thank you for this information. Your provider will see you shortly."];
+    //[phrases addObject:@"_PAUSE_"];
+    [phrases addObject:@"Select a Topic button to learn more while you wait."];
+    //[phrases addObject:@"_PAUSE_"];
+    [phrases addObject:@"Press the Doctor icon below to skip this section."];
+    [DynamicSpeech speakList:phrases];
+}
+
++ (void) sayReturnTablet {
+    NSMutableArray* phrases = [[NSMutableArray alloc] init];
+    [phrases addObject:@"Thank you for your feedback. Please return this iPad tablet to the receptionist"];
+    mIsSpeechEnabled = true;
+    [DynamicSpeech speakList:phrases];
+}
+
 
 @end

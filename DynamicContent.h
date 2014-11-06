@@ -70,6 +70,7 @@
 
 + (NSMutableArray*) getClinicianTestNames;
 + (NSMutableArray*) getClinicTestNames;
++ (NSMutableArray*) getPrivacyPolicy;
 
 + (void) showAlertMsg:(NSString *)msg;
 

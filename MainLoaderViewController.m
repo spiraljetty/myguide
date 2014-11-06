@@ -9,6 +9,8 @@
 #import "MainLoaderViewController.h"
 #import "YLViewController.h"
 #import "AppDelegate_Pad.h"
+#import "DynamicSpeech.h"
+
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface MainLoaderViewController ()
@@ -299,6 +301,7 @@ static MainLoaderViewController* mViewController = NULL;
 }
 
 - (void)modalYesPressedInSender:(UIViewController *)senderVC {
+    [DynamicSpeech stopSpeaking];
     [self hideModalConfirmReady];
     [self readyForAppointmentButtonPressed:self];
 }

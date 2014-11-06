@@ -36,6 +36,10 @@
     mSubclinicNameShort = clinicNameShort;
 }
 
+-(void) setClinicImage:(NSString *)imageFilename{
+    mClinicImage = imageFilename;
+}
+
 
 //-(void) setClinicPages:(NSString *)clinicPages{
 //    mClinicPages = clinicPages;
@@ -68,9 +72,9 @@
     return mClinicPages;
 }
 
--(NSString*) getClinicImageFilename {
-    NSString* imageFilename = [NSString stringWithFormat:@"%@.png", mClinicNameShort];
-    return imageFilename;
+-(NSString*) getClinicImage {
+   // NSString* imageFilename = [NSString stringWithFormat:@"%@.png", mClinicNameShort];
+    return mClinicImage;
 }
 
 -(NSString*) getPageImageFilename:(int) pageNumber {

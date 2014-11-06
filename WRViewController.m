@@ -233,6 +233,7 @@ static WRViewController* mViewController = NULL;
     settingsVC.soundViewController.volumeNumber.text = @"0.50";
     settingsVC.soundViewController.pitchNumber.text = @"1.50";
     settingsVC.soundViewController.speedNumber.text = @"0.50";
+    settingsVC.soundViewController.languageText.text = @"en-US";
     
 //    self.view.rootViewController = tbvc;
     tbvc.view.alpha = 0.0;
@@ -1023,8 +1024,11 @@ static WRViewController* mViewController = NULL;
     if ([clinicNameShort length] == 0)
         clinicNameShort = [clinicInfo getClinicNameShort];
     [DynamicContent setCurrentClinic:clinicNameShort];
-    
-    [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_polytrauma_logo_splash_landscape.png"]];
+    NSString* clinicImage = [clinicInfo getClinicImage];
+    if (clinicImage != NULL && [clinicImage length] > 0)
+        [splashImageViewBb setImage:[DynamicContent loadImage:clinicImage]];
+    else
+        [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_polytrauma_logo_splash_landscape.png"]];
 
     
     [self setDynamicEdClinicSpecFileForSpecialtyClinicName:currentSpecialtyClinicName];
@@ -2654,10 +2658,10 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)launchDynamicSurveyWithProviderHelpful {
-    if ([DynamicSpeech isEnabled]){
-        QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
-        [DynamicSpeech speakText:[questionInfo getClinicianInfoRatingQuestion]];
-    }
+  //  if ([DynamicSpeech isEnabled]){
+  //      QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+  //      [DynamicSpeech speakText:[questionInfo getClinicianInfoRatingQuestion]];
+  //  }
     int currentSurveyPageIndex = 7;
     [dynamicSurveyModule startOnSurveyPageWithIndex:currentSurveyPageIndex withFinishingIndex:currentSurveyPageIndex];
     [self fadeDynamicSurveyIn];
@@ -2895,6 +2899,7 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)launchDynamicWhatsNewModule {
+    [DynamicSpeech stopSpeaking];
     NSLog(@"WRViewController.launchDynamicWhatsNewModule()");
     [self fadeDynamicWhatsNewModuleIn];
     //sandy 10-15-14
@@ -3125,7 +3130,8 @@ static WRViewController* mViewController = NULL;
         [tbvc setRespondentToPatient:self];
         
     } else {
-        [tbvc sayWelcomeToApp];
+//        [tbvc sayWelcomeToApp];
+        [DynamicSpeech sayWelcomeToApp];
         [self animateTabBarOnAndStatusBackIn];
     }
 }
@@ -4594,6 +4600,7 @@ static WRViewController* mViewController = NULL;
 //        [UIView commitAnimations];
         
         [self resumeAppAfterTreatmentIntermission];
+        [self launchDynamicSurveyWithPreSatisfactionTransition];
         NSLog(@"Todays goal: %@", dynamicSurveyModule.todaysGoal);
         
     } else if (checkingForAdditionalInfo) {
@@ -5175,7 +5182,8 @@ static WRViewController* mViewController = NULL;
 	}
 	[UIView commitAnimations];
     
-    [tbvc sayRespondentTypes];
+    //[tbvc sayRespondentTypes];
+    [DynamicSpeech sayRespondentTypes];
 }
 
 - (void)slideRespondentsOut {
@@ -5490,7 +5498,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.beginSatisfactionSurvey()");
     
     // sandy 10_8_14 I think this should be added here or else just write new value to posttxdurstart
-            [self resumeAppAfterTreatmentIntermission];
+     [self resumeAppAfterTreatmentIntermission];
     // or this
     //    [self storeCurrentUXTimeForPostTreatmentStart];
     nextSettingsButton.alpha = 0.0; //rjl 9/8/14
@@ -5546,7 +5554,7 @@ static WRViewController* mViewController = NULL;
 	[UIView commitAnimations];
     
     if (!satisfactionSurveyInProgress) {
-        [tbvc sayFirstItem];
+        [tbvc sayFirstSatisfactionSurveyItem];
     }
     
     satisfactionSurveyInProgress = YES;
@@ -6439,7 +6447,7 @@ static WRViewController* mViewController = NULL;
     [[NSRunLoop currentRunLoop] addTimer:uxTimer forMode:NSDefaultRunLoopMode];
     
 //    [currentModalVC dismissModalViewControllerAnimated:YES];
-    [self launchDynamicSurveyWithPreSatisfactionTransition];
+//    [self launchDynamicSurveyWithPreSatisfactionTransition];
 }
 
 - (void)showReturnTabletView {
@@ -6470,8 +6478,11 @@ static WRViewController* mViewController = NULL;
     returnTabletView.view.transform = rotateRight;
     [self presentModalViewController:returnTabletView animated:YES];
     [returnTabletView release];
-    
-    [mainTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:returnTabletSoundfile, nil]];
+    if ([DynamicSpeech isEnabled]){
+        [DynamicSpeech sayReturnTablet];
+    }
+    else
+        [mainTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:returnTabletSoundfile, nil]];
     completedFinalSurvey = true; //rjl 7/16/14
     //TBD sandy 10-12-14
     // update database value

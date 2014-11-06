@@ -17,7 +17,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/3/14";
+static NSString* mAppVersion = @"App Version: 11/5/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -410,6 +410,7 @@ static NSString* mGoalsHeaderText = NULL;
                 NSString* clinicNameShort = [clinicProperties objectAtIndex:2];
                 NSString* subclinicName   = [clinicProperties objectAtIndex:3];
                 NSString* subclinicNameShort = [clinicProperties objectAtIndex:4];
+                NSString* clinicImage = [clinicProperties objectAtIndex:10];
                 ClinicInfo* currentClinic = NULL;
                 if (allClinics != NULL){
                     for (ClinicInfo* clinic in allClinics){
@@ -457,10 +458,10 @@ static NSString* mGoalsHeaderText = NULL;
                     [clinicInfo setClinicNameShort: [clinicNameShort copy]];
                     [clinicInfo setSubclinicName:[subclinicName copy]];
                     [clinicInfo setSubclinicNameShort: [subclinicNameShort copy]];
+                    [clinicInfo setClinicImage: [clinicImage copy]];
                     [allClinics addObject:clinicInfo];
                     currentClinic = clinicInfo;
                 }
-                
                 
                 
                 NSMutableDictionary* page = [[NSMutableDictionary alloc] init];
@@ -483,8 +484,12 @@ static NSString* mGoalsHeaderText = NULL;
                                 [allImages addObject:value];
                             break;
                         case 9: [page setObject:value forKey:@"status"]; break;
-                        case 10: [page setObject:value forKey:@"clinicIcon"]; break;
-                            
+                        case 10: [page setObject:value forKey:@"clinicIcon"];
+                            if ([value length] > 0){
+                                if (![allImages containsObject:value])
+                                    [allImages addObject:value];
+                            }
+                            break;
                     } // end switch
                 }
                 [currentClinic addPage:page];
@@ -1232,4 +1237,15 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     // [myTimeSegmentsArray addObject:@"ha"];
     return mSelfGuideStatus;
 }
+
++(NSMutableArray*) getPrivacyPolicy {
+   NSMutableArray* lines = [[NSMutableArray alloc] init];
+    [lines addObject:@"Your participation in this survey is anonymous."];
+    [lines addObject:@"_PAUSE_"];
+    [lines addObject:@"Your responses will not be given to your treatment provider or any other clinic staff."];
+    [lines addObject:@"_PAUSE_"];
+    [lines addObject:@"Your responses will not influence the services you receive at this clinic."];
+    return lines;
+}
+
 @end

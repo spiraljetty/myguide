@@ -14,6 +14,7 @@
 #import "YLProgressBar.h"
 #import "AppDelegate_Pad.h"
 #import "TTSPlayer.h"
+#import "Dynamicspeech.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 
@@ -332,12 +333,11 @@
     if (thisControl.selectedSegmentIndex == 0) {
         currentlySelectedVoiceType = usenglishmale;
         NSLog(@"Voice Type Set to: %@...",@"usenglishmale");
-    } else if (thisControl.selectedSegmentIndex == 2) {
-        currentlySelectedVoiceType = usenglishfemale;
-        NSLog(@"Voice Type Set to: %@...",@"usenglishfemale");
+        [DynamicSpeech setVoiceTypeMale];
     } else {
         currentlySelectedVoiceType = usenglishfemale;
         NSLog(@"Voice Type Set to: %@...",@"usenglishfemale");
+        [DynamicSpeech setVoiceTypeFemale];
     }
     
     [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] mainTTSPlayer] setCurrentlyPlayingVoiceType:currentlySelectedVoiceType];

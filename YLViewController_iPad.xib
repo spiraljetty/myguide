@@ -48,7 +48,7 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 <subviews>
                     <view contentMode="scaleToFill" id="2" customClass="YLBackgroundView">
-                        <rect key="frame" x="-32" y="-12" width="768" height="1024"/>
+                        <rect key="frame" x="-6" y="-53" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <progressView opaque="NO" alpha="0.0" contentMode="scaleToFill" id="4" customClass="YLProgressBar">
@@ -444,7 +444,7 @@
                                 </connections>
                             </stepper>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="j93-co-u3H">
-                                <rect key="frame" x="530" y="228" width="85" height="30"/>
+                                <rect key="frame" x="541" y="232" width="85" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Test Speech">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
