@@ -17,7 +17,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/5/14";
+static NSString* mAppVersion = @"App Version: 11/7/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -41,6 +41,7 @@ static NSString* mCurrentRespondent = @"patient";
 static NSString* mClinicTestHeaderText = NULL;
 static NSString* mClinicianTestHeaderText = NULL;
 static NSString* mGoalsHeaderText = NULL;
+static SwitchedImageViewController* mEdModulePickerVC;
 
 
 @implementation DynamicContent
@@ -1247,5 +1248,49 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     [lines addObject:@"Your responses will not influence the services you receive at this clinic."];
     return lines;
 }
+
++ (void) showEdModule:(NSString*) moduleName{
+    NSLog(@"DynamicContent.showEdModule() %@", moduleName);
+    WRViewController* viewController = [WRViewController getViewController];
+    if ([moduleName hasPrefix:@"What's New"]){
+        [viewController launchDynamicWhatsNewModule];
+    } else if ([moduleName hasPrefix:@"Learn about"]){
+        [viewController launchTbiEdModule];
+    }
+}
+
++ (SwitchedImageViewController*) getEdModulePicker {
+    return mEdModulePickerVC;
+}
+
++ (void) setEdModulePicker:(SwitchedImageViewController*) edModulePicker{
+    mEdModulePickerVC = edModulePicker;
+}
+
++ (void) fadeEdModulePickerIn{
+    [UIView beginAnimations:nil context:nil];
+	{
+		[UIView	setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        
+        [DynamicContent getEdModulePicker].view.alpha = 1.0;
+		
+	}
+	[UIView commitAnimations];
+}
+
++ (void) fadeEdModulePickerOut{
+    [UIView beginAnimations:nil context:nil];
+	{
+		[UIView	setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        
+        [DynamicContent getEdModulePicker].view.alpha = 0.0;
+		
+	}
+	[UIView commitAnimations];
+}
+
+
 
 @end

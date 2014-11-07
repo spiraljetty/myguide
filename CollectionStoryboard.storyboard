@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="dmE-Kn-TpH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="dmE-Kn-TpH">
     <dependencies>
         <deployment defaultVersion="1792" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Physician Cell View Controller - Collection View-->
+        <!--Physician Cell View Controller-->
         <scene sceneID="Vy6-Ll-qpW">
             <objects>
                 <collectionViewController storyboardIdentifier="0" autoresizesArchivedViewToFullSize="NO" id="dmE-Kn-TpH" customClass="PhysicianCellViewController" sceneMemberID="viewController">
@@ -51,7 +51,7 @@
                             <outlet property="delegate" destination="dmE-Kn-TpH" id="pKl-zO-lPR"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Collection View" id="Qqd-gG-ZaX"/>
+                    <navigationItem key="navigationItem" id="Qqd-gG-ZaX"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <size key="freeformSize" width="476" height="320"/>

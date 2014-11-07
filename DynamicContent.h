@@ -11,6 +11,7 @@
 #import "ClinicianInfo.h"
 #import "ClinicInfo.h"
 #import "GoalInfo.h"
+#import "SwitchedImageViewController.h"
 
 @interface DynamicContent : NSObject
 
@@ -73,5 +74,11 @@
 + (NSMutableArray*) getPrivacyPolicy;
 
 + (void) showAlertMsg:(NSString *)msg;
++ (void) showEdModule:(NSString*) moduleName;
+
++ (SwitchedImageViewController*) getEdModulePicker;
++ (void) setEdModulePicker:(SwitchedImageViewController*) edModulePicker;
++ (void) fadeEdModulePickerIn;
++ (void) fadeEdModulePickerOut;
 
 @end

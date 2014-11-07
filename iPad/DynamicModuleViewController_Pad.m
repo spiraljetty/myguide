@@ -1228,8 +1228,10 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicSubclinicEdModuleOut];
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicEdModuleOut];
                 
+                
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] whatsNewCompleted];
-                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnWhatsNewButton];
+                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:2];
+//                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnWhatsNewButton];
                 [self hideButtonOverlay:standardPageButtonOverlay];
                 //            standardPageButtonOverlay.view.alpha = 0.0;
                 //            standardPageButtonOverlay.nextPageButton.enabled = NO;

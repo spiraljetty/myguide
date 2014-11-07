@@ -662,6 +662,7 @@ typedef enum {
 
 - (void)launchDynamicClinicEducationModule;
 - (void)launchDynamicWhatsNewModule;
+- (void)launchTbiEdModule;
 
 - (void)launchDynamicSubclinicEducationModule;
 - (void)finishFadeDynamicWhatsNewModuleOut:(NSTimer*)theTimer;
@@ -728,5 +729,7 @@ typedef enum {
 - (void)showDataSendFailedAlert;
 
 - (void)setClinic:(NSString*)clinicName;
+
+- (void)createBadgeOnEdModule:(int)index;
 
 @end

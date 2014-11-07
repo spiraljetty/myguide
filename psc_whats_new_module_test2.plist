@@ -593,6 +593,8 @@ The rollout is part of VAi2, the national VHA&apos;s Innovation Initiative that 
 			<string>previousnext</string>
 			<key>Text</key>
 			<string>A new collaborative working relationship has been developed by VAPAHCS Assistive Technology (AT) Center Director, Jonathan Sills, Ph.D., Polytrauma Transitional Rehabilitation Program (PTRP) Neuropsychologist Maya Yutsis, Ph.D., PTRP Psychologist, Carey Pawlowski, Ph.D., and Rich Levinson, founder of BrainAid.Com. The collaboration expands use of the PEAT technology platform for brain injured PTRP patients.</string>
+			<key>New item</key>
+			<string></string>
 			<key>TTSFilenamePrefix</key>
 			<string>psc_whats_new_page18</string>
 			<key>ContainsTerminology</key>

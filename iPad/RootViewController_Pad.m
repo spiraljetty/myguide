@@ -3119,8 +3119,8 @@ static RootViewController_Pad* mViewController = NULL;
 - (void)turnVoiceOff:(id)sender {
     NSLog(@"RootViewController.turnVoiceOff() Turned voice OFF");
     speakItemsAloud = NO;
+    [DynamicSpeech stopSpeaking];
     [DynamicSpeech setIsSpeechEnabled:false];
-
     
 //    [self sayOK];
     

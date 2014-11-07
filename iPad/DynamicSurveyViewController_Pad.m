@@ -416,107 +416,10 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     
     if (addPrePostSurveyItems) {
         
-        UIStoryboard *providerTestStoryboard = [UIStoryboard storyboardWithName:@"survey_provider_test_template" bundle:[NSBundle mainBundle]];
-        
-        SwitchedImageViewController *providerTest = [providerTestStoryboard instantiateViewControllerWithIdentifier:@"0"];
-        [providerTest retain];
-        
-        providerTest.currentSurveyPageType = kProviderTest;
-        providerTest.surveyPageIndex = pageIndex;
-        providerTest.delegate = self;
-        providerTest.isSurveyPage = YES;
-        providerTest.hidePreviousButton = YES;
- //sandy hide the next button here and then show it again after the selection
-        providerTest.hideNextButton = YES;
-        
-        int currentProviderIndex = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
-        int numAttendingPhysicians = [[DynamicContent getNewClinicianNames] count];
-        //int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians] count];
-        int provider1Index = currentProviderIndex - 1;
-        if (provider1Index < 0) {
-            provider1Index = numAttendingPhysicians - 1;
-        }
-        int provider2Index = currentProviderIndex;
-        int provider3Index = provider1Index - 1;
-        if (provider3Index < 0) {
-            provider3Index = numAttendingPhysicians - 1;
-        }
-        int provider4Index = provider3Index - 1;
-        if (provider4Index < 0) {
-            provider4Index = numAttendingPhysicians - 1;
-        }
- 
-        //sandy hide the next button here and then show it again after the selection
-        providerTest.hideNextButton = YES;
-// sandy updated 7_15
-        //        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
-        NSString* clinicianTestHeaderText =@"Please tap the treatment provider you will be seeing today.";
-        [DynamicContent setClinicianTestHeaderText:clinicianTestHeaderText];
-        providerTest.providerTestText = clinicianTestHeaderText;
-        
-        
-        if (false){ //currentProviderIndex < [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] count]){
-            // if index is less than count of original (hardcoded) clinicians then use hardcoded thumb filename
-            providerTest.provider1ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider1Index];
-            providerTest.provider2ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider2Index];
-            providerTest.provider3ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider3Index];
-            providerTest.provider4ImageThumb = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs] objectAtIndex:provider4Index];
-        
-            providerTest.provider1Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider1Index];
-            providerTest.provider2Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider2Index];
-            providerTest.provider3Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider3Index];
-            providerTest.provider4Text = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians] objectAtIndex:provider4Index];
-        } else {
-            //rjl 8/16/14
-            NSMutableArray* allClinicianInfo = [DynamicContent getAllClinicians];
-            NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
-            NSMutableArray* allPhysiciansImages = [DynamicContent getNewClinicianImages];
-            NSMutableArray* clinicianTestNames = [[NSMutableArray alloc] init];
-            
-            // if index is greater than count of original (hardcoded) clinicians then use downloaded image filename
-            providerTest.provider1ImageThumb = [allPhysiciansImages objectAtIndex:provider1Index];
-            providerTest.provider2ImageThumb = [allPhysiciansImages objectAtIndex:provider2Index];
-            providerTest.provider3ImageThumb = [allPhysiciansImages objectAtIndex:provider3Index];
-            providerTest.provider4ImageThumb = [allPhysiciansImages objectAtIndex:provider4Index];
-            
-            providerTest.provider1Text = [allPhysicians objectAtIndex:provider1Index];
-            providerTest.provider2Text = [allPhysicians objectAtIndex:provider2Index];
-            providerTest.provider3Text = [allPhysicians objectAtIndex:provider3Index];
-            providerTest.provider4Text = [allPhysicians objectAtIndex:provider4Index];
-            
-            ClinicianInfo* clinician = [allClinicianInfo objectAtIndex:provider1Index];
-            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
-            clinician = [allClinicianInfo objectAtIndex:provider2Index];
-            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
-            clinician = [allClinicianInfo objectAtIndex:provider3Index];
-            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
-            clinician = [allClinicianInfo objectAtIndex:provider4Index];
-            [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
-            [DynamicContent setClinicianTestNames:clinicianTestNames];
-
-        }
-        [providerTest.provider1TextButton setTitle:providerTest.provider1Text forState:UIControlStateNormal];
-        [providerTest.provider2TextButton setTitle:providerTest.provider2Text forState:UIControlStateNormal];
-        [providerTest.provider3TextButton setTitle:providerTest.provider3Text forState:UIControlStateNormal];
-        [providerTest.provider4TextButton setTitle:providerTest.provider4Text forState:UIControlStateNormal];
-        
-        
-        //created an arrary of these to use later for tests
-        NSString *str1 = providerTest.provider1Text;
-        NSString *str2 = providerTest.provider2Text;
-        NSString *str3 = providerTest.provider3Text;
-        NSString *str4 = providerTest.provider4Text;
-        NSMutableArray* myProviderStringArray = [[NSMutableArray alloc] init];
-        [myProviderStringArray addObject:str1];
-        [myProviderStringArray addObject:str2];
-        [myProviderStringArray addObject:str3];
-        [myProviderStringArray addObject:str4];
-        [DynamicContent setProviderTestStrings:myProviderStringArray];
-
-        providerTest.view.frame = backsplash.bounds;
-        
+        // provider test
+        SwitchedImageViewController *providerTest = [self createProviderTestPicker:pageIndex];
+        //providerTest.view.frame = backsplash.bounds;
         [surveyPageArray addObject:providerTest];
-        
         pageIndex++;
         
         
@@ -961,9 +864,13 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         
         pageIndex++;
         
-        UIStoryboard *chooseModuleStoryboard = [UIStoryboard storyboardWithName:@"survey_module_choice_template" bundle:[NSBundle mainBundle]];
+        // extra ed modules
+        SwitchedImageViewController *chooseModule = [self createEdModulePicker:pageIndex];
         
-        SwitchedImageViewController *chooseModule = [chooseModuleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        /*
+         UIStoryboard *chooseModuleStoryboard = [UIStoryboard storyboardWithName:@"survey_module_choice_template" bundle:[NSBundle mainBundle]];
+
+         SwitchedImageViewController *chooseModule = [chooseModuleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [chooseModule retain];
         
         chooseModule.currentSurveyPageType = kChooseModule;
@@ -973,8 +880,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseModule.hideNextButton = YES;
         chooseModule.hidePreviousButton = YES;
         
-        //chooseModule.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
-        chooseModule.chooseModuleText = @"Thank you for this information. Your provider will see you shortly.\n• Select a TOPIC button to learn more while you wait.";
+        chooseModule.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
         chooseModule.chooseModuleLabel.text = chooseModule.chooseModuleText;
         chooseModule.chooseSkipModuleText = @"• Press the DOCTOR icon below to skip this section.";
         chooseModule.chooseSkipModuleLabel.text = chooseModule.chooseSkipModuleText;
@@ -984,6 +890,8 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         chooseModule.extraModule2Label.text = chooseModule.extraModule2Text;
         
         //        chooseGoal.view.frame = backsplash.bounds;
+         */
+        
         [surveyPageArray addObject:chooseModule];
         
         pageIndex++;
@@ -1559,7 +1467,42 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
                 }
                 else {
                     [soundNameArray addObject:[NSString stringWithFormat:@"~dynamicSurveyPage%d",vcIndex]];
-                
+                    
+                    provider1Index = currentProviderIndex - 1;
+                    if (provider1Index < 0) {
+                        provider1Index = numAttendingPhysicians - 1;
+                    }
+                    int provider2Index = currentProviderIndex;
+                    int provider3Index = provider1Index - 1;
+                    if (provider3Index < 0) {
+                        provider3Index = numAttendingPhysicians - 1;
+                    }
+                    int provider4Index = provider3Index - 1;
+                    if (provider4Index < 0) {
+                        provider4Index = numAttendingPhysicians - 1;
+                    }
+                    int physicianCount = [allPhysicianSoundfiles count];
+                    NSMutableArray *physicianButtonIndexes = [[NSMutableArray alloc] initWithObjects:[NSNumber numberWithInt:provider1Index],[NSNumber numberWithInt:provider2Index],[NSNumber numberWithInt:provider3Index],[NSNumber numberWithInt:provider4Index], nil];
+                    for (NSNumber *thisPhysicianIndex in physicianButtonIndexes) {
+                        int currentPhysicianIdx = [thisPhysicianIndex intValue];
+                        if (currentPhysicianIdx < physicianCount){
+                            NSString *thisPhysicianTextFilename = [NSString stringWithFormat:@"%@_name",[allPhysicianSoundfiles objectAtIndex:currentPhysicianIdx]];
+                            [soundNameArray addObject:thisPhysicianTextFilename];
+                        }
+                    }
+                }
+                break;
+            case kEdModulePicker:
+                if ([DynamicSpeech isEnabled]){
+                    utterances = [[NSMutableArray alloc] init];
+                    [utterances addObject:@"Thank you for this information. Your provider will see you shortly."];
+                    [utterances addObject:@"Press the doctor icon below at the bottom to skip this section."];
+                    [DynamicSpeech speakList:utterances];
+                    return;
+                }
+                else {
+                    [soundNameArray addObject:[NSString stringWithFormat:@"~dynamicSurveyPage%d",vcIndex]];
+                    
                     provider1Index = currentProviderIndex - 1;
                     if (provider1Index < 0) {
                         provider1Index = numAttendingPhysicians - 1;
@@ -1903,7 +1846,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         vcIndex = newIndex;
         
         [self handleButtonOverlayForPageIndex:vcIndex];
-        WRViewController* viewController = [WRViewController getViewController];
+        //WRViewController* viewController = [WRViewController getViewController];
         //if (!viewController.completedProviderSession)
             [self playSoundForSurveyPage:[newChildControllers objectAtIndex:vcIndex]];
         
@@ -1932,6 +1875,174 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         }
         
     }
+}
+
+- (SwitchedImageViewController*) createProviderTestPicker:(int)pageIndex {
+    UIStoryboard *providerTestStoryboard = [UIStoryboard storyboardWithName:@"survey_provider_test_template" bundle:[NSBundle mainBundle]];
+    
+    SwitchedImageViewController *providerTest = [providerTestStoryboard instantiateViewControllerWithIdentifier:@"0"];
+    [providerTest retain];
+    
+    providerTest.currentSurveyPageType = kProviderTest;
+    providerTest.surveyPageIndex = pageIndex;
+    providerTest.delegate = self;
+    providerTest.isSurveyPage = YES;
+    providerTest.hidePreviousButton = YES;
+    //sandy hide the next button here and then show it again after the selection
+    providerTest.hideNextButton = YES;
+    WRViewController* viewController = [WRViewController getViewController];
+    int currentProviderIndex = [viewController attendingPhysicianIndex]; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] attendingPhysicianIndex];
+    int numAttendingPhysicians = [[DynamicContent getNewClinicianNames] count];
+    //int numAttendingPhysicians = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians] count];
+    int provider1Index = currentProviderIndex - 1;
+    if (provider1Index < 0) {
+        provider1Index = numAttendingPhysicians - 1;
+    }
+    int provider2Index = currentProviderIndex;
+    int provider3Index = provider1Index - 1;
+    if (provider3Index < 0) {
+        provider3Index = numAttendingPhysicians - 1;
+    }
+    int provider4Index = provider3Index - 1;
+    if (provider4Index < 0) {
+        provider4Index = numAttendingPhysicians - 1;
+    }
+    
+    //sandy hide the next button here and then show it again after the selection
+    providerTest.hideNextButton = YES;
+    // sandy updated 7_15
+    //        providerTest.providerTestText = @"Based on the information you have been given, please tap the healthcare provider you will be seeing today.";
+    NSString* clinicianTestHeaderText =@"Please tap the treatment provider you will be seeing today.";
+    [DynamicContent setClinicianTestHeaderText:clinicianTestHeaderText];
+    providerTest.providerTestText = clinicianTestHeaderText;
+    
+    
+    
+    //rjl 8/16/14
+    NSArray* allClinicianInfo = [DynamicContent getAllClinicians];
+    NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
+    NSMutableArray* allPhysiciansImages = [DynamicContent getNewClinicianImages];
+    NSMutableArray* clinicianTestNames = [[NSMutableArray alloc] init];
+    
+    // if index is greater than count of original (hardcoded) clinicians then use downloaded image filename
+    providerTest.provider1ImageThumb = [allPhysiciansImages objectAtIndex:provider1Index];
+    providerTest.provider2ImageThumb = [allPhysiciansImages objectAtIndex:provider2Index];
+    providerTest.provider3ImageThumb = [allPhysiciansImages objectAtIndex:provider3Index];
+    providerTest.provider4ImageThumb = [allPhysiciansImages objectAtIndex:provider4Index];
+    
+    providerTest.provider1Text = [allPhysicians objectAtIndex:provider1Index];
+    providerTest.provider2Text = [allPhysicians objectAtIndex:provider2Index];
+    providerTest.provider3Text = [allPhysicians objectAtIndex:provider3Index];
+    providerTest.provider4Text = [allPhysicians objectAtIndex:provider4Index];
+    
+    ClinicianInfo* clinician = [allClinicianInfo objectAtIndex:provider1Index];
+    [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+    clinician = [allClinicianInfo objectAtIndex:provider2Index];
+    [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+    clinician = [allClinicianInfo objectAtIndex:provider3Index];
+    [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+    clinician = [allClinicianInfo objectAtIndex:provider4Index];
+    [clinicianTestNames addObject:[NSString stringWithFormat:@"%@ %@",[clinician getFirstName], [clinician getLastName]]];
+    [DynamicContent setClinicianTestNames:clinicianTestNames];
+    
+    
+    [providerTest.provider1TextButton setTitle:providerTest.provider1Text forState:UIControlStateNormal];
+    [providerTest.provider2TextButton setTitle:providerTest.provider2Text forState:UIControlStateNormal];
+    [providerTest.provider3TextButton setTitle:providerTest.provider3Text forState:UIControlStateNormal];
+    [providerTest.provider4TextButton setTitle:providerTest.provider4Text forState:UIControlStateNormal];
+    
+    
+    //created an arrary of these to use later for tests
+    NSString *str1 = providerTest.provider1Text;
+    NSString *str2 = providerTest.provider2Text;
+    NSString *str3 = providerTest.provider3Text;
+    NSString *str4 = providerTest.provider4Text;
+    NSMutableArray* myProviderStringArray = [[NSMutableArray alloc] init];
+    [myProviderStringArray addObject:str1];
+    [myProviderStringArray addObject:str2];
+    [myProviderStringArray addObject:str3];
+    [myProviderStringArray addObject:str4];
+    [DynamicContent setProviderTestStrings:myProviderStringArray];
+    
+    return providerTest;
+}
+
+- (SwitchedImageViewController*) createEdModulePicker:(int)pageIndex {
+    SwitchedImageViewController *edModulePicker = NULL;
+    bool newVersion = true;
+    if (!newVersion){
+        UIStoryboard *chooseModuleStoryboard = [UIStoryboard storyboardWithName:@"survey_module_choice_template" bundle:[NSBundle mainBundle]];
+        
+        edModulePicker = [chooseModuleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        [edModulePicker retain];
+        
+        edModulePicker.currentSurveyPageType = kChooseModule;
+        edModulePicker.surveyPageIndex = pageIndex;
+        edModulePicker.delegate = self;
+        edModulePicker.isSurveyPage = YES;
+        edModulePicker.hideNextButton = YES;
+        edModulePicker.hidePreviousButton = YES;
+        
+        edModulePicker.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
+        edModulePicker.chooseModuleLabel.text = edModulePicker.chooseModuleText;
+        edModulePicker.chooseSkipModuleText = @"• Press the DOCTOR icon below to skip this section.";
+        edModulePicker.chooseSkipModuleLabel.text = edModulePicker.chooseSkipModuleText;
+        edModulePicker.extraModule1Text = @"Learn more about TBI and the Brain?";
+        edModulePicker.extraModule2Text = @"Learn more about What's New at the VA Polytrauma System of Care?";
+        edModulePicker.extraModule1Label.text = edModulePicker.extraModule1Text;
+        edModulePicker.extraModule2Label.text = edModulePicker.extraModule2Text;
+    }
+    else {
+        
+        UIStoryboard *edModulePickerStoryboard = [UIStoryboard storyboardWithName:@"ed_module_picker_template" bundle:[NSBundle mainBundle]];
+        
+        edModulePicker = [edModulePickerStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        [edModulePicker retain];
+        
+        edModulePicker.currentSurveyPageType = kEdModulePicker;
+        edModulePicker.surveyPageIndex = pageIndex;
+        edModulePicker.delegate = self;
+        edModulePicker.isSurveyPage = YES;
+        edModulePicker.hidePreviousButton = YES;
+        //sandy hide the next button here and then show it again after the selection
+        edModulePicker.hideNextButton = YES;
+        
+        edModulePicker.hideNextButton = YES;
+        edModulePicker.providerTestText = @"Thank you for this information. Your provider will see you shortly.\nSelect a topic button to learn more while you wait.\n\nPress the doctor icon on bottom row to skip this section.";
+        
+        
+        
+        //rjl 8/16/14
+//        NSArray* allClinicianInfo = [DynamicContent getAllClinicians];
+//        NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
+        //NSMutableArray* allPhysiciansImages = [DynamicContent getNewClinicianImages];
+        
+        // if index is greater than count of original (hardcoded) clinicians then use downloaded image filename
+        edModulePicker.provider1ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider2ImageThumb = @"psc_logo.png";
+        
+        edModulePicker.provider1Text = @"Learn about Traumatic Brain Injury";
+        edModulePicker.provider2Text = @"What's New at the Polytrauma System of Care";
+        edModulePicker.provider3Text = @"";
+        edModulePicker.provider4Text = @"";
+        edModulePicker.provider5Text = @"";
+        
+        //edModulePicker.provider3Text        edModulePicker.provider4Text = @"";
+        
+
+        
+        
+        
+//        [edModulePicker.provider1TextButton setTitle:@"abc" forState:UIControlStateNormal];
+//        [edModulePicker.provider2TextButton setTitle:@"def" forState:UIControlStateNormal];
+//        [edModulePicker.provider4TextButton setTitle:@"tbi" forState:UIControlStateNormal];
+        [DynamicContent setEdModulePicker:edModulePicker];
+
+        
+        
+    }
+    
+    return edModulePicker;
 }
 
 - (void)handleSurveyFinished:(NSTimer*)theTimer {

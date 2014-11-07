@@ -24,11 +24,14 @@
 @synthesize stronglyDisagreeButton, disagreeButton, agreeButton, stronglyAgreeButton, neutralButton, doesNotApplyButton;
 @synthesize satisfactionRating;
 
-@synthesize currentSurveyPageType, newDisagreeButton, newAgreeButton, newAgreeDisagreeLabel, newAgreeDisagreeText, newNoButton, newYesButton, newYesNoLabel, newYesNoText, provider1ImageButton, provider1TextButton, provider2ImageButton, provider2TextButton, provider3ImageButton, provider3TextButton, provider4ImageButton, provider4TextButton, provider5ImageButton, provider5TextButton, providerTestLabel, providerTestText, subclinic1TextButton, subclinic2TextButton, subclinic3TextButton, subclinic4TextButton, subclinic5TextButton, subclinicTestLabel, subclinicTestText, helpfulRating, goal1TextButton, goal2TextButton, goal3TextButton, goal4TextButton, goal5TextButton, goalChooseLabel, goalChooseText, goalRating, goalRateLabel, goalRateText, okButton, currentSatisfactionString;
+@synthesize currentSurveyPageType, newDisagreeButton, newAgreeButton, newAgreeDisagreeLabel, newAgreeDisagreeText, newNoButton, newYesButton, newYesNoLabel, newYesNoText, provider1ImageButton, provider1TextButton, provider2ImageButton, provider2TextButton, provider3ImageButton, provider3TextButton, provider4ImageButton, provider4TextButton, provider5ImageButton, provider5TextButton, providerTestLabel, providerTestText,
+    edModule1Button, edModule2Button, edModule3Button, edModule4Button,
+    subclinic1TextButton, subclinic2TextButton, subclinic3TextButton, subclinic4TextButton,
+    subclinic5TextButton, subclinicTestLabel, subclinicTestText, helpfulRating, goal1TextButton, goal2TextButton, goal3TextButton, goal4TextButton, goal5TextButton, goalChooseLabel, goalChooseText, goalRating, goalRateLabel, goalRateText, okButton, currentSatisfactionString;
 @synthesize goal10Text, goal10TextButton, goal9Text,goal9TextButton,goal8Text,goal8TextButton,goal7Text,goal7TextButton,goal6Text,goal6TextButton,goalsSelected;
-@synthesize provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb;
+@synthesize provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb, provider5ImageThumb;
 @synthesize delegate, surveyPageIndex, isSurveyPage;
-@synthesize provider1Text, provider2Text, provider3Text, provider4Text, subclinic1Text, subclinic2Text, subclinic3Text, subclinic4Text, goal1Text, goal2Text, goal3Text, goal4Text, goal5Text, helpfulLabel, helpfulText, extraNoLabel, extraNoText, extraYesLabel, extraYesText;
+@synthesize provider1Text, provider2Text, provider3Text, provider4Text, provider5Text, subclinic1Text, subclinic2Text, subclinic3Text, subclinic4Text, goal1Text, goal2Text, goal3Text, goal4Text, goal5Text, helpfulLabel, helpfulText, extraNoLabel, extraNoText, extraYesLabel, extraYesText;
 @synthesize module1Button, module2Button, module3Button, module4Button, chooseModuleLabel, chooseSkipModuleLabel, chooseModuleText, chooseSkipModuleText, extraModule1Label, extraModule1Text, extraModule2Label, extraModule2Text, enterGoalTextField, userEnteredGoalText;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -781,28 +784,28 @@
                 NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for provider-test survey page with index=%d...", surveyPageIndex);
                 //    // Provider Test iVars
                 //    provider1ImageThumb, provider2ImageThumb, provider3ImageThumb, provider4ImageThumb
-//                NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
-//                NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
-//                int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
-//                if (currentPhysicianIndex < [allClinicPhysicians count]){
-//                    // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
-//                    NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
-//                    NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
-//                    NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
-//                    cell.image.image = [UIImage imageNamed:imageToLoad];
-//                }
-//                else {
-//                    // if index is for new (not hardcoded) clinician then get thumb image from documents directory
-//                    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//                    NSString  *documentsDirectory = [paths objectAtIndex:0];
-//                    ClinicianInfo *currentClinician =
-//                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
-//                     getClinician:currentPhysicianIndex];
-//                    if (currentClinician){
-//                        NSString *filename = [currentClinician getImageFilename];
-//                        cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
-//                    }
-//                }
+                //                NSArray *allClinicPhysicians = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysicians]; // original (hardcoded) list of clinicians
+                //                NSMutableArray *allPhysicianNames = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getAllClinicPhysicians];
+                //                int currentPhysicianIndex = [allPhysicianNames indexOfObject:thisCellText];
+                //                if (currentPhysicianIndex < [allClinicPhysicians count]){
+                //                    // if index is for original hardcoded clinician then get thumb image from plist in hidden folder
+                //                    NSArray *allPhysicianThumbs = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] allClinicPhysiciansThumbs];
+                //                    NSString *imageToLoad = [NSString stringWithFormat:@"%@",[allPhysicianThumbs objectAtIndex:currentPhysicianIndex]];
+                //                    NSLog(@"PhysicianCellViewController.cellForItemAtIndexPath() imageToLoad: %@", imageToLoad);
+                //                    cell.image.image = [UIImage imageNamed:imageToLoad];
+                //                }
+                //                else {
+                //                    // if index is for new (not hardcoded) clinician then get thumb image from documents directory
+                //                    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                //                    NSString  *documentsDirectory = [paths objectAtIndex:0];
+                //                    ClinicianInfo *currentClinician =
+                //                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController]
+                //                     getClinician:currentPhysicianIndex];
+                //                    if (currentClinician){
+                //                        NSString *filename = [currentClinician getImageFilename];
+                //                        cell.image.image = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] loadImage:filename];
+                //                    }
+                //                }
                 
                 // get provider 1 image and text
                 UIImage* image = [UIImage imageNamed:provider1ImageThumb];
@@ -835,6 +838,7 @@
                 provider4ImageButton.adjustsImageWhenHighlighted;
                 
                 provider5ImageButton.adjustsImageWhenHighlighted;
+
                 
                 //                provider1Text, provider2Text, provider3Text, provider4Text,
                 
@@ -847,6 +851,102 @@
                 [provider2TextButton setTitle:provider2Text forState:UIControlStateNormal];
                 [provider3TextButton setTitle:provider3Text forState:UIControlStateNormal];
                 [provider4TextButton setTitle:provider4Text forState:UIControlStateNormal];
+                
+                //    IBOutlet UIButton *provider1TextButton;
+                //    IBOutlet UIButton *provider2ImageButton;
+                //    IBOutlet UIButton *provider2TextButton;
+                //    IBOutlet UIButton *provider3ImageButton;
+                //    IBOutlet UIButton *provider3TextButton;
+                //    IBOutlet UIButton *provider4ImageButton;
+                //    IBOutlet UIButton *provider4TextButton;
+                //    IBOutlet UILabel *providerTestLabel;
+                
+                providerTestLabel.text = providerTestText;
+                
+                //    IBOutlet NSString *providerTestText;
+                break;
+            case kEdModulePicker:
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for provider-test survey page with index=%d...", surveyPageIndex);
+                
+                // get provider 1 image and text
+                UIImage* edModImage = [UIImage imageNamed:provider1ImageThumb];
+                if (!edModImage)
+                    edModImage = [DynamicContent loadImage:provider1ImageThumb];
+                [provider1ImageButton setImage:edModImage forState:UIControlStateNormal];
+                [provider1ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+                provider1ImageButton.clipsToBounds = YES;
+                provider1ImageButton.adjustsImageWhenHighlighted;
+                
+                //get provider 2 image and text
+                edModImage = [UIImage imageNamed:provider2ImageThumb];
+                if (!edModImage)
+                    edModImage = [DynamicContent loadImage:provider2ImageThumb];
+                [provider2ImageButton setImage:edModImage forState:UIControlStateNormal];
+                provider2ImageButton.adjustsImageWhenHighlighted;
+                
+                // get provider 3 image and text
+                edModImage = [UIImage imageNamed:provider3ImageThumb];
+                if (!edModImage)
+                    edModImage = [DynamicContent loadImage:provider3ImageThumb];
+                [provider3ImageButton setImage:edModImage forState:UIControlStateNormal];
+                provider3ImageButton.adjustsImageWhenHighlighted;
+                
+                // get provider 4 image and text
+                edModImage = [UIImage imageNamed:provider4ImageThumb];
+                if (!edModImage)
+                    edModImage = [DynamicContent loadImage:provider4ImageThumb];
+                [provider4ImageButton setImage:edModImage forState:UIControlStateNormal];
+                provider4ImageButton.adjustsImageWhenHighlighted;
+                
+                // get provider 5 image and text
+                image = [UIImage imageNamed:provider5ImageThumb];
+                if (!image)
+                    image = [DynamicContent loadImage:provider5ImageThumb];
+                [provider5ImageButton setImage:image forState:UIControlStateNormal];
+                provider5ImageButton.adjustsImageWhenHighlighted;
+                
+                //                provider1Text, provider2Text, provider3Text, provider4Text,
+                
+                //                provider1TextButton.titleLabel.text = provider1Text;
+                //                provider2TextButton.titleLabel.text = provider2Text;
+                //                provider3TextButton.titleLabel.text = provider3Text;
+                //                provider4TextButton.titleLabel.text = provider4Text;
+
+                if ([provider1Text length] > 0)
+                    [provider1TextButton setTitle:provider1Text forState:UIControlStateNormal];
+                else {
+                    provider1TextButton.hidden = YES;
+                    provider1ImageButton.hidden = YES;
+                }
+                
+                if ([provider2Text length] > 0)
+                    [provider2TextButton setTitle:provider2Text forState:UIControlStateNormal];
+                else {
+                    provider2TextButton.hidden = YES;
+                    provider2ImageButton.hidden = YES;
+                }
+                
+                if ([provider3Text length] > 0)
+                    [provider3TextButton setTitle:provider3Text forState:UIControlStateNormal];
+                else {
+                    provider3TextButton.hidden = YES;
+                    provider3ImageButton.hidden = YES;
+                }
+                
+                if ([provider4Text length] > 0)
+                    [provider4TextButton setTitle:provider4Text forState:UIControlStateNormal];
+                else{
+                    provider4TextButton.hidden = YES;
+                    provider4ImageButton.hidden = YES;
+                }
+                
+                if ([provider5Text length] > 0)
+                    [provider5TextButton setTitle:provider5Text forState:UIControlStateNormal];
+                else{
+                    provider5TextButton.hidden = YES;
+                    provider5ImageButton.hidden = YES;
+                }
+
                 
                 //    IBOutlet UIButton *provider1TextButton;
                 //    IBOutlet UIButton *provider2ImageButton;
@@ -1591,6 +1691,11 @@
 
 - (void)provider1ButtonPressed:(id)sender {
     NSLog(@"provider1ButtonPressed...");
+    if ([self currentSurveyPageType] == kEdModulePicker){
+        NSString *choice = [self provider1Text];
+        [DynamicContent showEdModule:choice];
+        return;
+    }
 //    [self disableAllProviderButtons];
     
     // Store rating for dynamic survey item
@@ -1607,6 +1712,11 @@
 
 - (void)provider2ButtonPressed:(id)sender {
     NSLog(@"provider2ButtonPressed...");
+    if ([self currentSurveyPageType] == kEdModulePicker){
+        NSString *choice = [self provider2Text];
+        [DynamicContent showEdModule:choice];
+        return;
+    }
 //    [self disableAllProviderButtons];
     
     // Store rating for dynamic survey item
@@ -1624,6 +1734,11 @@
 
 - (void)provider3ButtonPressed:(id)sender {
     NSLog(@"provider3ButtonPressed...");
+    if ([self currentSurveyPageType] == kEdModulePicker){
+        NSString *choice = [self provider3Text];
+        [DynamicContent showEdModule:choice];
+        return;
+    }
 //    [self disableAllProviderButtons];
     
     
@@ -1645,6 +1760,11 @@
 
 - (void)provider4ButtonPressed:(id)sender {
     NSLog(@"provider4ButtonPressed...");
+    if ([self currentSurveyPageType] == kEdModulePicker){
+        NSString *choice = [self provider4Text];
+        [DynamicContent showEdModule:choice];
+        return;
+    }
 //    [self disableAllProviderButtons];
     
     // Store rating for dynamic survey item
@@ -1662,8 +1782,13 @@
 
 - (void)provider5ButtonPressed:(id)sender {
     NSLog(@"provider5ButtonPressed (don't know)...");
-//    [self disableAllProviderButtons];
     NSString* dontknow = @"dont know";
+    if ([self currentSurveyPageType] == kEdModulePicker){
+        NSString *choice = dontknow;
+        [DynamicContent showEdModule:choice];
+        return;
+    }
+//    [self disableAllProviderButtons];
     // Store rating for dynamic survey item
    // int thisEquivalentSegmentIndex = 5;
     BOOL matched = FALSE;

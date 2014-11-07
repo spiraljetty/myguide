@@ -18,6 +18,7 @@ typedef enum {
     kChooseGoal,
     kRateGoalPainScale,
     kProviderTest,
+    kEdModulePicker,
     kSubclinicTest,
     kHelpfulPainScale,
     kOk,
@@ -94,6 +95,7 @@ typedef enum {
     IBOutlet NSString *provider2Text;
     IBOutlet NSString *provider3Text;
     IBOutlet NSString *provider4Text;
+    IBOutlet NSString *provider5Text;
     IBOutlet NSString *provider1ImageThumb;
     IBOutlet UIButton *provider1ImageButton;
     IBOutlet UIButton *provider1TextButton;
@@ -109,9 +111,15 @@ typedef enum {
     
     IBOutlet UIButton *provider5ImageButton;
     IBOutlet UIButton *provider5TextButton;
-    
+    IBOutlet NSString *provider5ImageThumb;
+
     IBOutlet UILabel *providerTestLabel;
     IBOutlet NSString *providerTestText;
+    
+    IBOutlet UIButton *edModule1Button;
+    IBOutlet UIButton *edModule2Button;
+    IBOutlet UIButton *edModule3Button;
+    IBOutlet UIButton *edModule4Button;
     
     // Subclinic Test iVars
     IBOutlet NSString *subclinic1Text;
@@ -239,10 +247,12 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet NSString *provider2Text;
 @property (nonatomic, retain) IBOutlet NSString *provider3Text;
 @property (nonatomic, retain) IBOutlet NSString *provider4Text;
+@property (nonatomic, retain) IBOutlet NSString *provider5Text;
 @property (nonatomic, retain) IBOutlet NSString *provider1ImageThumb;
 @property (nonatomic, retain) IBOutlet NSString *provider2ImageThumb;
 @property (nonatomic, retain) IBOutlet NSString *provider3ImageThumb;
 @property (nonatomic, retain) IBOutlet NSString *provider4ImageThumb;
+@property (nonatomic, retain) IBOutlet NSString *provider5ImageThumb;
 @property (nonatomic, retain) IBOutlet UIButton *provider1ImageButton;
 @property (nonatomic, retain) IBOutlet UIButton *provider1TextButton;
 @property (nonatomic, retain) IBOutlet UIButton *provider2ImageButton;
@@ -257,6 +267,13 @@ typedef enum {
 
 @property (nonatomic, retain) IBOutlet UILabel *providerTestLabel;
 @property (nonatomic, retain) IBOutlet NSString *providerTestText;
+
+@property (nonatomic, retain) IBOutlet UIButton *edModule1Button;
+@property (nonatomic, retain) IBOutlet UIButton *edModule2Button;
+@property (nonatomic, retain) IBOutlet UIButton *edModule3Button;
+@property (nonatomic, retain) IBOutlet UIButton *edModule4Button;
+@property (nonatomic, retain) IBOutlet UIButton *edModule5Button;
+
 
 // Subclinic Test iVars
 @property (nonatomic, retain) IBOutlet NSString *subclinic1Text;

@@ -1025,8 +1025,12 @@ static WRViewController* mViewController = NULL;
         clinicNameShort = [clinicInfo getClinicNameShort];
     [DynamicContent setCurrentClinic:clinicNameShort];
     NSString* clinicImage = [clinicInfo getClinicImage];
-    if (clinicImage != NULL && [clinicImage length] > 0)
-        [splashImageViewBb setImage:[DynamicContent loadImage:clinicImage]];
+    if (clinicImage != NULL && [clinicImage length] > 0){
+        if (![clinicImage hasPrefix:@"nophotoyet."])
+            [splashImageViewBb setImage:[DynamicContent loadImage:clinicImage]];
+        else
+            [splashImageViewBb setImage:NULL];
+    }
     else
         [splashImageViewBb setImage:[UIImage imageNamed:@"vapahcs_new_polytrauma_logo_splash_landscape.png"]];
 
@@ -2010,6 +2014,7 @@ static WRViewController* mViewController = NULL;
                 thisDynamicSurveyPageText = [NSString stringWithFormat:@"%@ %@ %@",thisSurveyPage.newYesNoText,thisSurveyPage.extraYesText,thisSurveyPage.extraNoText];
                 break;
             case kProviderTest:
+            case kEdModulePicker:
                 thisDynamicSurveyPageText = [NSString stringWithFormat:@"%@",thisSurveyPage.providerTestText];
                 break;
             case kSubclinicTest:
@@ -4124,6 +4129,31 @@ static WRViewController* mViewController = NULL;
     }
 }
 
+- (void)createBadgeOnEdModule:(int)index {
+        float verticalPosition = 395.0f;
+        if (index > 1){
+            float offset = (index -1) * 85.0f;
+            verticalPosition += offset;
+        }
+//        if (index == 2)
+//            verticalPosition = 480.0f;
+        
+        completedBadgeImageViewWhatsNewModule = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green_check.png"]];
+        completedBadgeImageViewWhatsNewModule.frame = CGRectMake(0, 0, 57, 58);
+//        completedBadgeImageViewWhatsNewModule.transform = rotateRight;
+        [completedBadgeImageViewWhatsNewModule setCenter:CGPointMake(730.0f, verticalPosition)];
+        completedBadgeImageViewWhatsNewModule.alpha = 1.0;
+        [[DynamicContent getEdModulePicker].view addSubview:completedBadgeImageViewWhatsNewModule];
+        //[self.view addSubview:completedBadgeImageViewWhatsNewModule];
+        
+        //        finalBadgeCreated = YES;
+        
+        //    } else if (satisfactionSurveyInProgress) {
+        //        badgeLabel.text = [NSString stringWithFormat:@"%d",tbvc.surveyItemsRemaining];
+    
+}
+
+
 - (void)createBadgeOnWhatsNewButton {
     if (whatsNewModuleCompleted) {
         newsButton.enabled = NO;
@@ -4138,7 +4168,7 @@ static WRViewController* mViewController = NULL;
         completedBadgeImageViewWhatsNewModule.transform = rotateRight;
         [completedBadgeImageViewWhatsNewModule setCenter:CGPointMake(409.0f, 165.0f)];
         completedBadgeImageViewWhatsNewModule.alpha = 0.0;
-        
+
         [self.view addSubview:completedBadgeImageViewWhatsNewModule];
         
         //        finalBadgeCreated = YES;
@@ -5009,7 +5039,6 @@ static WRViewController* mViewController = NULL;
 
 - (void)edModuleFinished {
     NSLog(@"WRViewController.edModuleFinished()");
-
 //    if (cameFromMainMenu) {
 //        [tbvc sayEducationModuleCompletion];
         
@@ -5054,7 +5083,7 @@ static WRViewController* mViewController = NULL;
         
         endOfSplashTimer = [[NSTimer timerWithTimeInterval:10.0 target:self selector:@selector(returnToMenuInFiveSeconds:) userInfo:nil repeats:NO] retain];
         [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
-        
+        [self createBadgeOnEdModule:1];
 //    } else {
 //        // Didn't come from main menu, so still on track to auto-load satisfaction survey
 //        [self launchSatisfactionSurvey];
@@ -5068,15 +5097,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.menuButtonPressed()");
     if (sender == tbiEdButton) {
 //        [self hideMasterButtonOverlay];
-        if (!runningAppInDemoMode)
-            [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu]; //rjl 6/29/14
-
-        if (educationModuleInProgress) {
-            [self reshowEducationModule];
-        } else {
-            [self setUpEducationModuleForFirstTime]; 
-            [self showEducationModuleIntro];
-        }
+        [self launchTbiEdModule];
         
     } else if (sender == satisfactionButton) {
         
@@ -5099,6 +5120,19 @@ static WRViewController* mViewController = NULL;
 //        [self showComingSoonAlert];
         [self fadeDynamicEducationModuleIn];
     }
+}
+
+- (void) launchTbiEdModule {
+    [DynamicContent fadeEdModulePickerOut];
+    if (!runningAppInDemoMode)
+        [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu];
+    if (educationModuleInProgress) {
+        [self reshowEducationModule];
+    } else {
+        [self setUpEducationModuleForFirstTime];
+        [self showEducationModuleIntro];
+    }
+
 }
 
 - (void)showAdminKeypad {
@@ -5726,12 +5760,15 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)returnToMenu {
-    
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu];
+
     [mainTTSPlayer stopPlayer];
     
     [self handleReturnToMenuTransitions];
     
     needToReturnToMainMenu = NO;
+    
+    [DynamicContent fadeEdModulePickerIn];
     
     BOOL needToDoFadeIn = usingFullMenu;
     
@@ -6461,7 +6498,7 @@ static WRViewController* mViewController = NULL;
     [self hideMasterButtonOverlay];
     
 //    if (satisfactionSurveyCompleted) {
-        returnTabletText = @"Thank you for your feedback. Please return this iPad tablet to the receptionist.";
+        returnTabletText = @"Thank you for your feedback.\nPlease return this iPad tablet to the receptionist.";
         returnTabletSoundfile = @"~thank_you_please_return_ipad-survey_completed";
 //    } else {
 //        returnTabletText = @"Thank you for taking the time to learn more about your visit today.  Please return your iPad tablet to the receptionist.";
@@ -7014,6 +7051,31 @@ static WRViewController* mViewController = NULL;
     NSString *pathForLog = [documentsDirectory stringByAppendingPathComponent:@"wr_log.txt"];
     
     freopen([pathForLog cStringUsingEncoding:NSASCIIStringEncoding],"a+",stderr);
+}
+
+- (void)fadeEdModulePickerOut {
+    NSLog(@"WRViewController.fadeEdModulePickerOut()");
+    
+    [UIView beginAnimations:nil context:nil];
+	{
+		[UIView	setAnimationDuration:0.3];
+		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        
+        physicianDetailVC.view.alpha = 0.0;
+        physicianModule.view.alpha = 0.0;
+        
+        nextPhysicianDetailButton.alpha = 0.0;
+        previousPhysicianDetailButton.alpha = 0.0;
+        
+        //        surveyResourceBack.alpha = 1.0;
+        //        voiceAssistButton.alpha = 1.0;
+        //        fontsizeButton.alpha = 1.0;
+        
+	}
+	[UIView commitAnimations];
+    
+    endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadePhysicianDetailOut:) userInfo:nil repeats:NO] retain];
+    [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
 }
 
 @end
