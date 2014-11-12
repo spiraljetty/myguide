@@ -171,6 +171,12 @@ typedef enum {
     DynamicModuleViewController_Pad *dynamicWhatsNewModule;
     NSString *currentDynamicWhatsNewModuleSpecFilename;
     
+    DynamicModuleViewController_Pad *dynamicEdModule1;
+    DynamicModuleViewController_Pad *dynamicEdModule2;
+    DynamicModuleViewController_Pad *dynamicEdModule3;
+    DynamicModuleViewController_Pad *dynamicEdModule4;
+    DynamicModuleViewController_Pad *dynamicEdModule5;
+
     DynamicSurveyViewController_Pad *dynamicSurveyModule;
     
     ModalMeViewController *modalViewController;
@@ -243,6 +249,11 @@ typedef enum {
     
     BOOL mainMenuInitialized;
     BOOL whatsNewInitialized;
+    BOOL edModule1Initialized;
+    BOOL edModule2Initialized;
+    BOOL edModule3Initialized;
+    BOOL edModule4Initialized;
+    BOOL edModule5Initialized;
     BOOL dynamicSurveyInitialized;
     
     BOOL educationModuleCompleted;
@@ -506,6 +517,12 @@ typedef enum {
 
 @property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicWhatsNewModule;
 @property (nonatomic, retain) NSString *currentDynamicWhatsNewModuleSpecFilename;
+
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule1;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule2;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule3;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule4;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule5;
 
 @property (nonatomic, retain) NSString *currentDynamicClinicEdModuleSpecFilename;
 

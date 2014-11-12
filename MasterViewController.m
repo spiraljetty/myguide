@@ -27,7 +27,7 @@ Abstract: A simple view controller that manages a table view
             self.clearsSelectionOnViewWillAppear = NO;
         }
         subClinicNames = [[NSMutableArray alloc] init];
-        [subClinicNames addObject:@"All"];
+     //   [subClinicNames addObject:@"All"];
         
         [subClinicNames addObjectsFromArray:[DynamicContent getClinicNames]];
 //        subClinicNames = [@[@"All", @"PM&R", @"EMG", @"Pain", @"PNS", @"Acupuncture", @"AT Center"] mutableCopy];  

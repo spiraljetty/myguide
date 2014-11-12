@@ -60,7 +60,7 @@
 @synthesize taperedWhiteLine, demoSwitch, demoModeLabel, clinicSelectionLabel, clinicPickerView, currentClinicName, currentSubClinicName, currentSpecialtyClinicName;
 @synthesize educationModuleCompleted, educationModuleInProgress, satisfactionSurveyCompleted, satisfactionSurveyDeclined, satisfactionSurveyInProgress, cameFromMainMenu, mainMenuInitialized, whatsNewInitialized, dynamicSurveyInitialized, dynamicEdModuleCompleted, whatsNewModuleCompleted, completedProviderSession, completedFinalSurvey, startedsurvey, finishedsurvey,completedProviderAndSubclinicSurvey, usingFullMenu;
 @synthesize initialSettingsLabel, clinicSegmentedControl, specialtyClinicSegmentedControl, switchToSectionSegmentedControl, nextSettingsButton, edModule, physicianModule, dynamicEdModule, dynamicSubclinicEdModule, currentDynamicSubClinicEdModuleSpecFilename, nextEdItemButton, previousEdItemButton, nextPhysicianDetailButton, previousPhysicianDetailButton;
-@synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, currentDynamicWhatsNewModuleSpecFilename;
+@synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, dynamicEdModule1, dynamicEdModule2, dynamicEdModule3, dynamicEdModule4, dynamicEdModule5, currentDynamicWhatsNewModuleSpecFilename;
 @synthesize agreeButton, disagreeButton, badgeImageView, badgeLabel, completedBadgeImageView, completedBadgeImageViewEdModule, completedBadgeImageViewDynEdModule, completedBadgeImageViewWhatsNewModule, edModuleCompleteLabel, edModuleIntroLabel, playMovieIcon;
 @synthesize odetteButton, calvinButton, lauraButton, clinicianLabel, doctorButton, pscButton, appointmentButton;
 @synthesize masterViewController, arrayDetailVCs, allClinicPhysicians, pmnrSubClinicPhysicians, splitViewController, allClinicPhysiciansThumbs, allClinicPhysiciansImages, allClinicPhysiciansBioPLists, attendingPhysicianSoundFile, allClinicPhysiciansSoundFiles;
@@ -275,6 +275,36 @@ static WRViewController* mViewController = NULL;
     dynamicWhatsNewModule.inSubclinicMode = NO;
     dynamicWhatsNewModule.inWhatsNewMode = YES;
     currentDynamicWhatsNewModuleSpecFilename = @"psc_whats_new_module_test2";
+    
+    dynamicEdModule1 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule1.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule1.speakItemsAloud = YES;
+    dynamicEdModule1.inSubclinicMode = NO;
+    dynamicEdModule1.inWhatsNewMode = YES;
+    
+    dynamicEdModule2 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule2.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule2.speakItemsAloud = YES;
+    dynamicEdModule2.inSubclinicMode = NO;
+    dynamicEdModule2.inWhatsNewMode = YES;
+    
+    dynamicEdModule3 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule3.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule3.speakItemsAloud = YES;
+    dynamicEdModule3.inSubclinicMode = NO;
+    dynamicEdModule3.inWhatsNewMode = YES;
+    
+    dynamicEdModule4 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule4.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule4.speakItemsAloud = YES;
+    dynamicEdModule4.inSubclinicMode = NO;
+    dynamicEdModule4.inWhatsNewMode = YES;
+    
+    dynamicEdModule5 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule5.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule5.speakItemsAloud = YES;
+    dynamicEdModule5.inSubclinicMode = NO;
+    dynamicEdModule5.inWhatsNewMode = YES;
     
     dynamicSurveyModule = [[DynamicSurveyViewController_Pad alloc] init];
     dynamicSurveyModule.masterTTSPlayer = mainTTSPlayer;
@@ -710,7 +740,7 @@ static WRViewController* mViewController = NULL;
                                 @"Oanh Mandal, M.D.",
                                 @"Jeff Teraoka, M.D.",
                                 @"Molly Ann Timmerman, D.O.",nil],
-                               [NSArray arrayWithObjects:@"Jeff Teraoka, M.D.", nil],
+                               [NSArray arrayWithObjects:@"Jeff Teraoka2, M.D.", nil],
                                [NSArray arrayWithObjects:@"Debbie Pitsch, MPT, GCS, ATP",
                                 @"Karen Parecki, MS, OTR/L, CBIS, ATP",
                                 @"Eve Klein, MA, CCC-SLP",nil],nil];
@@ -867,7 +897,7 @@ static WRViewController* mViewController = NULL;
 
 - (void)setNewDetailVCForRow:(int)newRow {
     NSLog(@"WRViewController.setNewDetailForRow() newRow: %d", newRow);
-    newRow = newRow-1;
+    //newRow = newRow-1;
     if (newRow < 0)
         newRow = 0;
     NSArray *newVCs = [NSArray arrayWithObjects:[splitViewController.viewControllers objectAtIndex:0], [arrayDetailVCs objectAtIndex:newRow], nil];
@@ -1055,6 +1085,11 @@ static WRViewController* mViewController = NULL;
     
     if (!whatsNewInitialized) {
         [self initializeWhatsNewModule];
+        [self initializeEdModule1];
+        [self initializeEdModule2];
+        [self initializeEdModule3];
+        [self initializeEdModule4];
+        [self initializeEdModule5];
     }
     if (!dynamicSurveyInitialized) {
         [self setUpDynamicSurveyForTheFirstTime];
@@ -2458,6 +2493,73 @@ static WRViewController* mViewController = NULL;
     whatsNewInitialized = YES;
 }
 
+- (void)initializeEdModule1 {
+    NSLog(@"WRViewController.initializeEdModule1()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule1 setupWhatsNewContent];
+    
+    dynamicEdModule1.view.alpha = 0.0;
+    dynamicEdModule1.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule1.view];
+    [self.view sendSubviewToBack:dynamicEdModule1.view];
+    
+    edModule1Initialized = YES;
+}
+
+- (void)initializeEdModule2 {
+    NSLog(@"WRViewController.initializeEdModule2()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule2 setupWhatsNewContent];
+    dynamicEdModule2.view.alpha = 0.0;
+    dynamicEdModule2.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule2.view];
+    [self.view sendSubviewToBack:dynamicEdModule2.view];
+    edModule2Initialized = YES;
+}
+
+- (void)initializeEdModule3 {
+    NSLog(@"WRViewController.initializeEdModule3()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule3 setupWhatsNewContent];
+    dynamicEdModule3.view.alpha = 0.0;
+    dynamicEdModule3.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule3.view];
+    [self.view sendSubviewToBack:dynamicEdModule3.view];
+    edModule3Initialized = YES;
+}
+
+- (void)initializeEdModule4 {
+    NSLog(@"WRViewController.initializeEdModule4()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule4 setupWhatsNewContent];
+    
+    dynamicEdModule4.view.alpha = 0.0;
+    dynamicEdModule4.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule4.view];
+    [self.view sendSubviewToBack:dynamicEdModule4.view];
+    
+    edModule4Initialized = YES;
+}
+
+- (void)initializeEdModule5 {
+    NSLog(@"WRViewController.initializeEdModule5()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule5 setupWhatsNewContent];
+    
+    dynamicEdModule5.view.alpha = 0.0;
+    dynamicEdModule5.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule5.view];
+    [self.view sendSubviewToBack:dynamicEdModule5.view];
+    
+    edModule5Initialized = YES;
+}
+
+
 - (void)setDynamicWhatsNewSoundFileDict {
     if (dynamicWhatsNewModule.ttsSoundFileDict) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -2924,10 +3026,6 @@ static WRViewController* mViewController = NULL;
     [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
     [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
-    
-
-    
-    
 }
 
 - (void)fadeDynamicWhatsNewModuleIn {

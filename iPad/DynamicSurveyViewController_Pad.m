@@ -33,6 +33,7 @@
 
 #import "DynamicContent.h"
 #import "DynamicSpeech.h"
+#import "EdModuleInfo.h"
 
 //NSString *kModuleNameKey = @"Name";
 //NSString *kModuleTypeKey = @"Type";
@@ -1496,7 +1497,8 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
                 if ([DynamicSpeech isEnabled]){
                     utterances = [[NSMutableArray alloc] init];
                     [utterances addObject:@"Thank you for this information. Your provider will see you shortly."];
-                    [utterances addObject:@"Press the doctor icon below at the bottom to skip this section."];
+                    [utterances addObject:@"Select a topic button to learn more while you wait."];
+                    [utterances addObject:@"Press the doctor icon at the bottom to skip this section."];
                     [DynamicSpeech speakList:utterances];
                     return;
                 }
@@ -2008,7 +2010,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         edModulePicker.hideNextButton = YES;
         
         edModulePicker.hideNextButton = YES;
-        edModulePicker.providerTestText = @"Thank you for this information. Your provider will see you shortly.\nSelect a topic button to learn more while you wait.\n\nPress the doctor icon on bottom row to skip this section.";
+        edModulePicker.providerTestText = @"Thank you for this information. Your provider will see you shortly.\nSelect a topic button to learn more while you wait.\n\nPress the doctor icon at the bottom to skip this section.";
         
         
         
@@ -2023,8 +2025,23 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         
         edModulePicker.provider1Text = @"Learn about Traumatic Brain Injury";
         edModulePicker.provider2Text = @"What's New at the Polytrauma System of Care";
-        edModulePicker.provider3Text = @"";
-        edModulePicker.provider4Text = @"";
+        ClinicInfo* currentClinic = [DynamicContent getCurrentClinic];
+        NSArray* edModules = [DynamicContent getAllEdModules];
+        NSString* currentClinicName = [currentClinic getClinicNameShort];
+        if ([currentClinicName isEqualToString:@"at"]){
+            EdModuleInfo* module0 = [edModules objectAtIndex:0];
+            EdModuleInfo* module1 = [edModules objectAtIndex:1];
+            NSString* moduleName0 = [module0 getModuleName];
+            NSString* moduleName1 = [module1 getModuleName];
+            edModulePicker.provider3Text = moduleName0;
+            edModulePicker.provider4Text = moduleName1;
+            edModulePicker.provider3ImageThumb = [module0 getModuleImage];
+            edModulePicker.provider4ImageThumb = [module1 getModuleImage];
+        }
+        else {
+            edModulePicker.provider3Text = @"";
+            edModulePicker.provider4Text = @"";
+        }
         edModulePicker.provider5Text = @"";
         
         //edModulePicker.provider3Text        edModulePicker.provider4Text = @"";

@@ -40,16 +40,16 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 - (void)initNumberOfCellsForCurrentlySelectedRowWithIndex:(int)currentRowIndex {
     NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() currentRowIndex: %d", currentRowIndex);
     NSArray* allClinics = [DynamicContent getAllClinics];
-    if (currentRowIndex == 0)
-        currentlySelectedClinicPhysicians = [DynamicContent getNewClinicianNames];
-    else {
-        ClinicInfo *clinic = [allClinics objectAtIndex:currentRowIndex-1];
+//    if (currentRowIndex == 0)
+//        currentlySelectedClinicPhysicians = [DynamicContent getNewClinicianNames];
+//    else {
+        ClinicInfo *clinic = [allClinics objectAtIndex:currentRowIndex];
         NSString* clinicName = [clinic getSubclinicNameShort];
         if ([clinicName length] == 0)
             clinicName = [clinic getClinicNameShort];
         currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:clinicName];
-    }
-        
+//    }
+    
 //    if (currentRowIndex == 1){
 //        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:@"pmnr"];
 //    }

@@ -14,16 +14,18 @@
 #import "WhatsNewInfo.h"
 #import "YLViewController.h"
 #import "MainLoaderViewController.h"
-
+#import "EdModuleInfo.h"
+#import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/7/14";
+static NSString* mAppVersion = @"App Version: 11/5/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
 static NSArray* mAllClinicians = NULL;
 static NSArray* mAllSurveyQuestions = NULL;
 static NSArray* mAllWhatsNew = NULL;
+static NSArray* mAllEdModules = NULL;
 
 static NSMutableArray* mProviderTestStrings = NULL;  // for provider test
 static NSMutableArray* mClinicTestStrings = NULL;  // for clinic test
@@ -84,6 +86,13 @@ static SwitchedImageViewController* mEdModulePickerVC;
         mAllWhatsNew = [DynamicContent readWhatsNewInfoTest];
     }
     return mAllWhatsNew;
+}
+
++ (NSArray*) getAllEdModules {
+    if (mAllEdModules == NULL){
+        mAllEdModules = [DynamicContent readEdModules:false];
+    }
+    return mAllEdModules;
 }
 
 + (NSString*) getCurrentClinicName{
@@ -162,13 +171,13 @@ static SwitchedImageViewController* mEdModulePickerVC;
         }
         [DynamicContent downloadQuestionInfo];
         
-        //whatsNew
+        //ed modules
         if (viewController != NULL){
             dispatch_async(dispatch_get_main_queue(), ^{
-                viewController.downloadDataStatus.text = @"Downloading What's New Pages";
+                viewController.downloadDataStatus.text = @"Downloading Ed Modules";
             });
         }
-        [DynamicContent downloadWhatsNewInfo];
+        [DynamicContent downloadEdModules];
         
         
         // show "download complete" message
@@ -195,13 +204,14 @@ static SwitchedImageViewController* mEdModulePickerVC;
 
 + (int) downloadClinicianInfo { // rjl 8/16/14
     int count = 0;
-    NSString* filePath = [DynamicContent downloadFile:@"clinicians.txt" isImage:false];
+    NSString* filename = @"clinicians.txt";
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
     if (filePath){
         mAllClinicians = [DynamicContent readClinicianInfo:true];
         count = [mAllClinicians count];
     }
     else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadClinicianInfo() %@", errorMsg];
         NSLog(logMsg);
         [self showAlertMsg:errorMsg];
@@ -211,13 +221,14 @@ static SwitchedImageViewController* mEdModulePickerVC;
 
 + (int) downloadClinicInfo { // rjl 8/16/14
     int count = 0;
-    NSString* filePath = [DynamicContent downloadFile:@"clinics.txt" isImage:false];
+    NSString* filename = @"clinics.txt";
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
     if (filePath){
         mAllClinics = [DynamicContent readClinicInfo:true];
         count = [mAllClinics count];
     }
     else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadClinicInfo() %@", errorMsg];
         NSLog(logMsg);
         [DynamicContent showAlertMsg:errorMsg];
@@ -226,11 +237,12 @@ static SwitchedImageViewController* mEdModulePickerVC;
 }
 
 + (void) downloadGoalInfo { // rjl 8/16/14
-    NSString* filePath = [DynamicContent downloadFile:@"goals.txt" isImage:false];
+    NSString* filename = @"goals.txt";
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
     if (filePath)
         mAllGoals = [DynamicContent readGoalInfo];
     else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadGoalInfo() %@", errorMsg];
         NSLog(logMsg);
         [DynamicContent showAlertMsg:errorMsg];
@@ -238,29 +250,32 @@ static SwitchedImageViewController* mEdModulePickerVC;
 }
 
 + (void) downloadQuestionInfo { // rjl 8/16/14
-    NSString* filePath = [DynamicContent downloadFile:@"survey_questions.txt" isImage:false];
+    NSString* filename = @"survey_questions.txt";
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
     if (filePath)
         mAllSurveyQuestions = [DynamicContent readQuestionInfo];
     else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadQuestionInfo() %@", errorMsg];
         NSLog(logMsg);
         [DynamicContent showAlertMsg:errorMsg];
     }
 }
 
-+ (void) downloadWhatsNewInfo { // rjl 8/16/14
++ (void) downloadEdModules { // rjl 8/16/14
     int count = 0;
-    NSString* filePath = [DynamicContent downloadFile:@"whatsNew.txt" isImage:false];
+    NSString* filename = @"edmodules.txt";
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
     if (filePath){
         mAllWhatsNew = [DynamicContent readWhatsNewInfo:true];
         count = [mAllWhatsNew count];
     }
     else{
-        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filePath];
-        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadWhatsNewInfo() %@", errorMsg];
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
+        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadEdModules() %@", errorMsg];
         NSLog(logMsg);
-        [DynamicContent showAlertMsg:errorMsg];
+        if (filePath != NULL)
+            [DynamicContent showAlertMsg:errorMsg];
     }
 }
 
@@ -521,6 +536,123 @@ static SwitchedImageViewController* mEdModulePickerVC;
     }
 //    [self showAlertMsg:msg];
     return allClinics;
+    //    [pool release];
+}
+
++ (NSArray*) readEdModules:(BOOL) isDownload{
+    NSLog(@"DynamicContent.readEdModules() isDownload: %d", isDownload);
+    
+    YLViewController* viewController = [YLViewController getViewController];
+    
+    //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/edmodules.txt", documentsDirectory];
+    NSMutableArray *allModules = [[NSMutableArray alloc] init];
+    NSMutableArray* allImages =  [[NSMutableArray alloc] init];
+    
+    //    ClinicInfo * clinicInfo = NULL;
+    NSArray * lines = [self readFile:filePath];
+    int index = 0;
+    int total = [lines count];
+    for (NSString *line in lines) {
+        index++;
+        if (isDownload && viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSString* msg = [NSString stringWithFormat:@"Downloading ed module %d/%d", index, total];
+                viewController.downloadDataStatus.text = msg;
+            });
+        }
+        NSString* moduleLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        
+        if (moduleLine.length > 0){
+            NSLog(@"DynamicContent.readEdModules() edmodules.txt line: %@", line);
+            // parse row containing clinic details
+            if([moduleLine hasPrefix:@"//"]){
+                NSLog(@"DynamicContent.readEdModules() comment: %@", moduleLine);
+            }
+            else {
+                
+                // read clinic page as triple <sub title, content, imagename>
+                NSArray* edModuleProperties = [line componentsSeparatedByCharactersInSet:
+                                             [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                
+                //find the clinic container for all of the pages from that clinic
+                NSString* moduleName  = [edModuleProperties objectAtIndex:1];
+                NSString* moduleImage = [edModuleProperties objectAtIndex:2];
+                EdModuleInfo* currentModule = NULL;
+                if (allModules != NULL){
+                    for (EdModuleInfo* edModule in allModules){
+                        NSString* nameToMatch = [edModule getModuleName];
+                        if ([nameToMatch isEqualToString:moduleName]){
+                            currentModule = edModule;
+                            break;
+                        }
+                    }
+                }
+                //                    int currentClinicIndex = [allClinics indexOfObject:clinicName];
+                if (currentModule == NULL){
+                    EdModuleInfo* edModuleInfo = [[EdModuleInfo alloc]init];
+                    [edModuleInfo setModuleName:[moduleName copy]];
+                    [edModuleInfo setModuleImage: [moduleImage copy]];
+                    [allModules addObject:edModuleInfo];
+                    currentModule = edModuleInfo;
+                }
+                
+                NSLog(@"DynamicContent.readEdModules() module name: %@", moduleName);
+                EdModulePage* newPage = [[EdModulePage alloc] init];
+                int moduleNameIndex = 1;
+                int moduleImageIndex= 2;
+                int pageNumberIndex = 3;
+                int pageHeaderIndex = 4;
+                int pageBodyIndex   = 5;
+                int pageImageIndex  = 6;
+                int pageClinicsIndex =7;
+                [newPage setModuleName: edModuleProperties[moduleNameIndex]];
+                [newPage setModuleImage: edModuleProperties[moduleImageIndex]];
+                [newPage setPageNumber:edModuleProperties[pageNumberIndex]];
+                [newPage setHeader: edModuleProperties[pageHeaderIndex]];
+                [newPage setBody:edModuleProperties[pageBodyIndex]];
+                [newPage setImage:edModuleProperties[pageImageIndex]];
+                [newPage setClinics:edModuleProperties[pageClinicsIndex]];
+//                NSString* clinicsText = edModuleProperties[pageClinicsIndex];
+//                NSArray* clinicList = [clinicsText componentsSeparatedByCharactersInSet:
+//                                                                         [NSCharacterSet characterSetWithCharactersInString:@","]];
+
+                [currentModule addPage:newPage];
+            } // end if module line does not have prefix "//"
+        } // end if line length > 0
+    }// end for line in lines
+    
+    NSString* msg = [NSString stringWithFormat:@"Loaded %d modules", [allModules count]];
+    NSLog(msg);
+    
+    // download the image file for each clinician
+    for (EdModuleInfo* edModule in allModules){
+        [edModule sortPages];
+        EdModuleInfo* page0 = [[edModule getPages] objectAtIndex:0];
+        [edModule setModuleName: [page0 getModuleName]];
+        [edModule setModuleImage: [page0 getModuleImage]];
+        [edModule setClinics: [page0 getClinics]];
+        [edModule writeToLog];
+    }
+    if (isDownload){
+        int index = 0;
+        int total = [allImages count];
+        for (NSString* imageFilename in allImages){
+            index++;
+            if (viewController != NULL){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSString* msg = [NSString stringWithFormat:@"Downloading ed module image %d/%d", index, total];
+                    viewController.downloadDataStatus.text = msg;
+                });
+            }
+            [self downloadFile:imageFilename isImage:true];
+        }
+    }
+    //    [self showAlertMsg:msg];
+    
+    return allModules;
     //    [pool release];
 }
 
@@ -971,10 +1103,11 @@ static SwitchedImageViewController* mEdModulePickerVC;
     NSString* downloadDir = nil;
     bool developerEnabled = true;
     if (developerEnabled){
-        if (isImageFile)
-            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
-        else
-            downloadDir = @"http://www.brainaid.com/wrtestdev/";
+//        if (isImageFile)
+//            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
+//        else
+//        downloadDir = @"http://www.brainaid.com/wrtestdev/";
+        downloadDir = @"http://www.brainaid.com/waitingroom/dir/files/uploads/";
     } else {
         if (isImageFile)
             downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
@@ -1255,6 +1388,10 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     if ([moduleName hasPrefix:@"What's New"]){
         [viewController launchDynamicWhatsNewModule];
     } else if ([moduleName hasPrefix:@"Learn about"]){
+        [viewController launchTbiEdModule];
+    } else if ([moduleName hasPrefix:@"Back to School"]){
+        [viewController launchTbiEdModule];
+    } else if ([moduleName hasSuffix:@"Recreation"]){
         [viewController launchTbiEdModule];
     }
 }

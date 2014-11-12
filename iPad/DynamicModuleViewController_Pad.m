@@ -220,6 +220,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     }
 
     NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
+    NSArray* allEdModules = [DynamicContent getAllEdModules];
+
     NSLog(@"found it!");
     NSLog(@"DynamicModuleViewController.setupWhatsNewContent() updating content for module %@", moduleName);
     NSMutableArray* newPages = [[NSMutableArray alloc] init];
