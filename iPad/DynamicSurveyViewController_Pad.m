@@ -1970,6 +1970,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 }
 
 - (SwitchedImageViewController*) createEdModulePicker:(int)pageIndex {
+    NSLog(@"DynamicSurveyViewController.createEdModulePicker() pageIndex: %d", pageIndex);
     SwitchedImageViewController *edModulePicker = NULL;
     bool newVersion = true;
     if (!newVersion){
@@ -2028,9 +2029,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         ClinicInfo* currentClinic = [DynamicContent getCurrentClinic];
         NSArray* edModules = [DynamicContent getAllEdModules];
         NSString* currentClinicName = [currentClinic getClinicNameShort];
-        if ([currentClinicName isEqualToString:@"at"]){
-            EdModuleInfo* module0 = [edModules objectAtIndex:0];
-            EdModuleInfo* module1 = [edModules objectAtIndex:1];
+        if ([currentClinicName isEqualToString:@"at"] && [edModules count] > 1){
+            EdModuleInfo* module0 = [DynamicContent safeObjectAtIndex:edModules index:0]; //[edModules objectAtIndex:0];
+            EdModuleInfo* module1 = [DynamicContent safeObjectAtIndex:edModules index:1];//[edModules objectAtIndex:1];
             NSString* moduleName0 = [module0 getModuleName];
             NSString* moduleName1 = [module1 getModuleName];
             edModulePicker.provider3Text = moduleName0;

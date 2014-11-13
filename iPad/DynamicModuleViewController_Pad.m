@@ -34,6 +34,8 @@
 #import "DynamicContent.h"
 #import "DynamicSpeech.h"
 #import "WhatsNewInfo.h"
+#import "EdModuleInfo.h"
+#import "EdModulePage.h"
 
 NSString *kModuleNameKey = @"Name";
 NSString *kModuleTypeKey = @"Type";
@@ -218,11 +220,11 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     if ([pages count] > 0){
         samplePage = [pages objectAtIndex:0];
     }
-
+    
     NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
-    NSArray* allEdModules = [DynamicContent getAllEdModules];
-
-    NSLog(@"found it!");
+    //NSArray* allEdModules = [DynamicContent getAllEdModules];
+    
+    //NSLog(@"found it!");
     NSLog(@"DynamicModuleViewController.setupWhatsNewContent() updating content for module %@", moduleName);
     NSMutableArray* newPages = [[NSMutableArray alloc] init];
     for (WhatsNewInfo *page in whatsNewPages) {
@@ -244,6 +246,81 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         else
             [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
         [newPages addObject:mutablePageDict];
+    }
+    if ([newPages count] > 0){
+        pages = newPages;
+    }
+}
+
+- (void)setupEdModule:(int)moduleIndex{
+    ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+    NSString* clinicName = [DynamicContent getCurrentClinicName];
+    NSLog(@"DynamicModuleViewController.setupEdModule() moduleIndex: %d", moduleIndex);
+    
+    NSData* tmp = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"psc_whats_new_module_test2" withExtension:@"plist"] options:NSDataReadingMappedIfSafe error:nil];
+    dynModDict = [NSPropertyListSerialization propertyListWithData:tmp options:NSPropertyListImmutable format:nil error:nil];
+    dynModDictKeys = [[dynModDict allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    
+    moduleType = [dynModDict objectForKey:kModuleTypeKey];
+    createModuleDynamically = [[dynModDict objectForKey:kCreateModuleDynamicallyKey] boolValue];
+    moduleImageName = [dynModDict objectForKey:kModuleImageNameKey];
+    
+    NSDictionary *tempModuleTransitionsDict = [dynModDict objectForKey:kModuleTransitionsKey];
+    start_transition_type = [tempModuleTransitionsDict objectForKey:@"start_transition_type"];
+    end_transition_type = [tempModuleTransitionsDict objectForKey:@"end_transition_type"];
+    start_transition_origin = [tempModuleTransitionsDict objectForKey:@"start_transition_origin"];
+    end_transition_origin = [tempModuleTransitionsDict objectForKey:@"end_transition_origin"];
+    
+    moduleTheme = [[dynModDict objectForKey:kModuleThemeKey] copy];
+    moduleColor = [[dynModDict objectForKey:kModuleColorKey] copy];
+    isModuleMandatory = [[dynModDict objectForKey:kMandatoryModuleKey] boolValue];
+    showModuleHeader = [[dynModDict objectForKey:kShowModuleHeaderKey] boolValue];
+    recognizeUserSpeechWords = [dynModDict objectForKey:kModuleShouldRecognizeUserSpeechWordsKey];
+    superModule = [dynModDict objectForKey:kSuperModuleKey];
+    subModules = [dynModDict objectForKey:kSubModulesKey];
+    pages = [dynModDict objectForKey:kModulePagesKey];
+    NSMutableDictionary* samplePage = NULL;
+    
+    if ([pages count] > 0){
+        samplePage = [pages objectAtIndex:0];
+    }
+    
+    //NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
+    NSArray* allEdModules = [DynamicContent getAllEdModules];
+    if (moduleIndex >= [allEdModules count]){
+        NSLog(@"DynamicModuleViewController.setupEdModule() moduleIndex %d exceeds module count %d", moduleIndex, [allEdModules count]);
+        return;
+    }
+    EdModuleInfo* edModule = [allEdModules objectAtIndex:moduleIndex];
+    moduleName = [edModule getModuleName];//[clinicInfo getSubclinicName];
+    NSArray* modulePages = [edModule getPages];
+
+    //NSLog(@"found it!");
+    NSLog(@"DynamicModuleViewController.setupEdModule() updating content for module %@", moduleName);
+    NSMutableArray* newPages = [[NSMutableArray alloc] init];
+    int i = 0;
+    for (EdModulePage *page in modulePages) {
+        if (i > 0) {
+            NSString* header = [page getHeader];
+            NSString* body =  [page getBody];
+            NSString* image = [page getImage];
+            NSMutableDictionary* pageDict = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *mutablePageDict = NULL;
+            if (samplePage != NULL)
+                mutablePageDict= [samplePage mutableCopy];
+            else
+                mutablePageDict= [pageDict mutableCopy];
+            [mutablePageDict setObject:header forKey:@"HeaderText"];
+            [mutablePageDict setObject:body forKey:@"Text"];
+            if ([image length] > 0){
+                [mutablePageDict setValue:image forKey:@"ImageFilename"];
+                [mutablePageDict setValue:@"1" forKey:@"ImagePage"];
+            }
+            else
+                [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
+        [newPages addObject:mutablePageDict];
+        }
+        i++;
     }
     if ([newPages count] > 0){
         pages = newPages;
@@ -1155,6 +1232,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         //        [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] launchEducationModule];
         if (inWhatsNewMode) {
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicWhatsNewModuleOut];
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModule1Out];
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModule2Out];
         }
         
         if (!inSubclinicMode) {
@@ -1195,6 +1274,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         
         if ([DynamicSpeech isEnabled]){
             if (inWhatsNewMode) {
+                //edModuleInfo
                 NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
                 if (vcIndex < [whatsNewPages count]){
                     WhatsNewInfo* page = [whatsNewPages objectAtIndex:vcIndex];
@@ -1203,6 +1283,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 }
 
             } else {
+                // Clinic Info Module
                 ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
                 NSArray* clinicPages = [clinicInfo getClinicPages];
                 if (vcIndex < [clinicPages count]){
@@ -1230,9 +1311,19 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicSubclinicEdModuleOut];
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicEdModuleOut];
                 
-                
+                //NSString* name = [self moduleName];
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] whatsNewCompleted];
-                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:2];
+                if ([moduleName hasPrefix:@"Back to School"]){
+                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:3];
+                }
+                else
+                if ([moduleName hasSuffix:@"Recreation"]){
+                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:4];
+                }
+                else {
+                    
+                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:2];
+                }
 //                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnWhatsNewButton];
                 [self hideButtonOverlay:standardPageButtonOverlay];
                 //            standardPageButtonOverlay.view.alpha = 0.0;

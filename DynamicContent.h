@@ -83,4 +83,6 @@
 + (void) fadeEdModulePickerIn;
 + (void) fadeEdModulePickerOut;
 
++ (id) safeObjectAtIndex:(NSArray*) array index:(int)objectIndex;
+
 @end

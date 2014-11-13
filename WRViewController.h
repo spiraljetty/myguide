@@ -674,12 +674,16 @@ typedef enum {
 - (void)finishFadePhysicianDetailOut:(NSTimer*)theTimer;
 
 - (void)fadeDynamicEdModuleOut;
+- (void)fadeEdModule1Out;
+- (void)fadeEdModule2Out;
 
 - (void)finishFadeDynamicEdModuleOut:(NSTimer*)theTimer;
 
 - (void)launchDynamicClinicEducationModule;
 - (void)launchDynamicWhatsNewModule;
 - (void)launchTbiEdModule;
+- (void)launchEdModule1;
+- (void)launchEdModule2;
 
 - (void)launchDynamicSubclinicEducationModule;
 - (void)finishFadeDynamicWhatsNewModuleOut:(NSTimer*)theTimer;

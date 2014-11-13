@@ -457,6 +457,8 @@
 		5FA753C119B8565100C930D3 /* ClinicInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA753C019B8565100C930D3 /* ClinicInfo.m */; };
 		5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FA9981E19BE396F000C68E3 /* download_from_cloud.png */; };
 		5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9982119BE655F000C68E3 /* GoalInfo.m */; };
+		5FB0D05D19F8C9BB00AEE09B /* DynamicSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0D05C19F8C9BB00AEE09B /* DynamicSpeech.m */; };
+		5FB0D0601A075AC600AEE09B /* WhatsNewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0D05F1A075AC600AEE09B /* WhatsNewInfo.m */; };
 		5FD2817119C91EE20012E07E /* at_ed_module_test1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */; };
 		5FD2817619D123FE0012E07E /* psc_whats_new_module_2012.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */; };
 		5FD2817919D12D000012E07E /* psc_whatsnew_2013q4_page1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817819D12D000012E07E /* psc_whatsnew_2013q4_page1.png */; };
@@ -477,6 +479,9 @@
 		5FD2819919D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2819819D169C00012E07E /* psc_whatsnew_2013q4_section3_1a.png */; };
 		5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */; };
 		5FDBFA9119C4D4D8002D97C6 /* DynamicContent.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */; };
+		5FEACC8A1A0C644100B45680 /* ed_module_picker_template.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FEACC891A0C644100B45680 /* ed_module_picker_template.storyboard */; };
+		5FEACC8D1A13156800B45680 /* EdModuleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FEACC8C1A13156800B45680 /* EdModuleInfo.m */; };
+		5FEACC901A131A5A00B45680 /* EdModulePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FEACC8F1A131A5A00B45680 /* EdModulePage.m */; };
 		5FFBC95619A024D700260832 /* ClinicianInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FFBC95519A024D700260832 /* ClinicianInfo.m */; };
 		B5D5188511757B1B00D5CDD0 /* MainView_Phone.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5D5188211757B1B00D5CDD0 /* MainView_Phone.xib */; };
 		B5D5188611757B1B00D5CDD0 /* RootViewController_Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = B5D5188411757B1B00D5CDD0 /* RootViewController_Phone.m */; };
@@ -1027,6 +1032,10 @@
 		5FA9981E19BE396F000C68E3 /* download_from_cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = download_from_cloud.png; sourceTree = "<group>"; };
 		5FA9982019BE655F000C68E3 /* GoalInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoalInfo.h; sourceTree = "<group>"; };
 		5FA9982119BE655F000C68E3 /* GoalInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoalInfo.m; sourceTree = "<group>"; };
+		5FB0D05B19F8C9BB00AEE09B /* DynamicSpeech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicSpeech.h; sourceTree = "<group>"; };
+		5FB0D05C19F8C9BB00AEE09B /* DynamicSpeech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicSpeech.m; sourceTree = "<group>"; };
+		5FB0D05E1A075AC600AEE09B /* WhatsNewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewInfo.h; sourceTree = "<group>"; };
+		5FB0D05F1A075AC600AEE09B /* WhatsNewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsNewInfo.m; sourceTree = "<group>"; };
 		5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = at_ed_module_test1.plist; sourceTree = "<group>"; };
 		5FD2817219CF83570012E07E /* myguide_WR_v3_db_a.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = myguide_WR_v3_db_a.sql; sourceTree = "<group>"; };
 		5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = psc_whats_new_module_2012.plist; sourceTree = "<group>"; };
@@ -1050,6 +1059,11 @@
 		5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionList.m; sourceTree = "<group>"; };
 		5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicContent.h; sourceTree = "<group>"; };
 		5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicContent.m; sourceTree = "<group>"; };
+		5FEACC891A0C644100B45680 /* ed_module_picker_template.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ed_module_picker_template.storyboard; sourceTree = "<group>"; };
+		5FEACC8B1A13156800B45680 /* EdModuleInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EdModuleInfo.h; sourceTree = "<group>"; };
+		5FEACC8C1A13156800B45680 /* EdModuleInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EdModuleInfo.m; sourceTree = "<group>"; };
+		5FEACC8E1A131A5A00B45680 /* EdModulePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EdModulePage.h; sourceTree = "<group>"; };
+		5FEACC8F1A131A5A00B45680 /* EdModulePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EdModulePage.m; sourceTree = "<group>"; };
 		5FFBC95419A024D700260832 /* ClinicianInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinicianInfo.h; sourceTree = "<group>"; };
 		5FFBC95519A024D700260832 /* ClinicianInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinicianInfo.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -1148,6 +1162,12 @@
 		29B97317FDCFA39411CA2CEA /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				5FEACC8E1A131A5A00B45680 /* EdModulePage.h */,
+				5FEACC8F1A131A5A00B45680 /* EdModulePage.m */,
+				5FB0D05E1A075AC600AEE09B /* WhatsNewInfo.h */,
+				5FB0D05F1A075AC600AEE09B /* WhatsNewInfo.m */,
+				5FB0D05B19F8C9BB00AEE09B /* DynamicSpeech.h */,
+				5FB0D05C19F8C9BB00AEE09B /* DynamicSpeech.m */,
 				5FDBFA8F19C4D4D8002D97C6 /* DynamicContent.h */,
 				5FDBFA9019C4D4D8002D97C6 /* DynamicContent.m */,
 				5FDBFA8D19C2AC6B002D97C6 /* QuestionList.m */,
@@ -1157,6 +1177,8 @@
 				5FA9982019BE655F000C68E3 /* GoalInfo.h */,
 				5FA9982119BE655F000C68E3 /* GoalInfo.m */,
 				5FA753BF19B8565100C930D3 /* ClinicInfo.h */,
+				5FEACC8B1A13156800B45680 /* EdModuleInfo.h */,
+				5FEACC8C1A13156800B45680 /* EdModuleInfo.m */,
 				5FA753C019B8565100C930D3 /* ClinicInfo.m */,
 				1D3623240D0F684500981E51 /* AppDelegate_Pad.h */,
 				1D3623250D0F684500981E51 /* AppDelegate_Pad.mm */,
@@ -1824,6 +1846,7 @@
 				3D70C0B716CD6D9D00A94AD6 /* survey_helpful_template.storyboard */,
 				3DA8F6B916CC5C5100111C8E /* survey_recommend_template.storyboard */,
 				3DA8F6BA16CC5C5100111C8E /* survey_provider_test_template.storyboard */,
+				5FEACC891A0C644100B45680 /* ed_module_picker_template.storyboard */,
 				3D48FEDF16D2E7E100AF2EF3 /* survey_module_choice_template.storyboard */,
 				5F65A5DA19EDF2A500625905 /* survey_module_choice_templateoriginal */,
 				5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */,
@@ -2359,6 +2382,7 @@
 				5FD2818419D12D690012E07E /* psc_whatsnew_2013q4_section9_1.png in Resources */,
 				3D221DA116B9DCE8000C29F9 /* demoButton5@2x.png in Resources */,
 				3DD40ADB16BAD05C0078B1A2 /* pmnr_mandal_bio.plist in Resources */,
+				5FEACC8A1A0C644100B45680 /* ed_module_picker_template.storyboard in Resources */,
 				3DD87EEE16BAF9B9002B4C1D /* pmnr_chao_bio.plist in Resources */,
 				3DD87EF016BAFB27002B4C1D /* pmnr_karandikar_bio.plist in Resources */,
 				3DD87EF216BAFBC7002B4C1D /* pmnr_kingery_bio.plist in Resources */,
@@ -2501,6 +2525,7 @@
 				3DE505CE16634FA400121D8B /* NSData+Base64Additions.m in Sources */,
 				3DE505CF16634FA400121D8B /* NSStream+SKPSMTPExtensions.m in Sources */,
 				3DE505D016634FA400121D8B /* SKPSMTPMessage.m in Sources */,
+				5FB0D0601A075AC600AEE09B /* WhatsNewInfo.m in Sources */,
 				3D5112BD1664B4FF00609EBD /* PopoverContentViewController.m in Sources */,
 				3D5112BF1664B4FF00609EBD /* PopoverPlaygroundViewController.m in Sources */,
 				3D5112E11664CA4E00609EBD /* DemoViewController.m in Sources */,
@@ -2515,6 +2540,7 @@
 				3D29627C1676376C00C99C1D /* mztools.c in Sources */,
 				3D29627D1676376C00C99C1D /* unzip.c in Sources */,
 				3D29627E1676376C00C99C1D /* zip.c in Sources */,
+				5FEACC901A131A5A00B45680 /* EdModulePage.m in Sources */,
 				3D29627F1676376C00C99C1D /* PSFileManager.m in Sources */,
 				3D2962801676376C00C99C1D /* RVRotationView.m in Sources */,
 				3D2962811676376C00C99C1D /* RVRotationViewDelegate.m in Sources */,
@@ -2543,11 +2569,13 @@
 				3D07BF9116B0314400EECE5E /* YLProgressBar.m in Sources */,
 				5FA753C119B8565100C930D3 /* ClinicInfo.m in Sources */,
 				5FDBFA8E19C2AC6B002D97C6 /* QuestionList.m in Sources */,
+				5FB0D05D19F8C9BB00AEE09B /* DynamicSpeech.m in Sources */,
 				3D07BF9216B0314400EECE5E /* YLViewController.m in Sources */,
 				3D3EB51616B0D5DE00997C12 /* Constants.m in Sources */,
 				3D3EB51916B0D5F000997C12 /* ArcTabViewController.m in Sources */,
 				3D3EB51E16B0D62A00997C12 /* KYArcTab.m in Sources */,
 				3D3EB51F16B0D62A00997C12 /* KYArcTabViewController.m in Sources */,
+				5FEACC8D1A13156800B45680 /* EdModuleInfo.m in Sources */,
 				5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */,
 				3DD40AD916BA56330078B1A2 /* TTSPlayer.m in Sources */,
 				3DD40ADE16BADBBD0078B1A2 /* PronunciationFixer.m in Sources */,

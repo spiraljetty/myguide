@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="UTF-8" />
+<title>404 Not Found | BrainAid</title>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+	<link rel="stylesheet" href="http://brainaid.com/wp-content/themes/brainaid/img/proximanova.css">
+    <link rel="stylesheet" href="http://brainaid.com/wp-content/themes/brainaid/style.css">
+	<link rel="profile" href="http://gmpg.org/xfn/11" />
+	<link rel="pingback" href="http://brainaid.com/xmlrpc.php" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+		  //equal height #content and #sidebar
+		  var highestCol = Math.max($('#content').outerHeight(true),$('#sidebar').outerHeight(true));
+		  $('.eqh').height(highestCol);
+		});
+	</script>
+	
+	
+<!-- SEO Ultimate (http://www.seodesignsolutions.com/wordpress-seo/) -->
+<!-- /SEO Ultimate -->
+
+<link rel='stylesheet' id='bbp-default-css'  href='http://brainaid.com/wp-content/plugins/bbpress/templates/default/css/bbpress.css?ver=2.5.3-5249' type='text/css' media='screen' />
+<link rel='stylesheet' id='contact-form-7-css'  href='http://brainaid.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=3.6' type='text/css' media='all' />
+<link rel='stylesheet' id='social-widget-css'  href='http://brainaid.com/wp-content/plugins/social-media-widget/social_widget.css?ver=3.6.1' type='text/css' media='all' />
+<link rel='stylesheet' id='math-captcha-front-css'  href='http://brainaid.com/wp-content/plugins/wp-math-captcha/css/front.css?ver=3.6.1' type='text/css' media='all' />
+<script type='text/javascript' src='http://brainaid.com/wp-includes/js/swfobject.js?ver=2.2-20120417'></script>
+<script type='text/javascript' src='http://brainaid.com/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+<script type='text/javascript' src='http://brainaid.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.2.1'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://brainaid.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://brainaid.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 3.6.1" />
+<link rel="stylesheet" href="http://brainaid.com/wp-content/plugins/stream-video-player/responsive.css?ver=" type="text/css" media="all" /><style type="text/css">.broken_link, a.broken_link {
+	text-decoration: line-through;
+}</style>
+  </head>
+  
+	<body class="error404">
+
+	
+	<div id="wrap">
+    <div id="header">
+      <a href="http://brainaid.com" id="logo">BrainAid</a>
+<div id="tagline">Cognitive Aids for<br />Independent Living</div>
+	  <ul id="nav">
+	  	<li id="menu-item-1497" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1497"><a href="http://brainaid.com/">Home</a><li class="menu_slash">/</li></li>
+<li id="menu-item-2665" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2665"><a href="http://brainaid.com/product_v213/">Product</a><li class="menu_slash">/</li></li>
+<li id="menu-item-1499" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1499"><a href="http://brainaid.com/company/">Company</a><li class="menu_slash">/</li></li>
+<li id="menu-item-1945" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1945"><a href="http://www.brainaid.com/forums">Forums</a><li class="menu_slash">/</li></li>
+<li id="menu-item-2673" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2673"><a href="http://brainaid.com/support/">Support</a><li class="menu_slash">/</li></li>
+<li id="menu-item-2666" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2666"><a href="http://brainaid.com/contact/">Contact Us</a><li class="menu_slash">/</li></li>
+        <!--<li><a id="buy-android" href="">Buy Now On Android</a></li>-->
+	
+	  </ul>
+	  
+    </div>
+	<div id="content" class="eqh">
+	
+			<h2>Oops!</h2>
+			<p>You appear to have found this page by accident.</p>
+			<p>Here is a link to our new site http://www.brainaid.com </p>			
+	</div>		
+
+        <div id="sidebar" class="eqh">
+	
+	<div id="text-2" class="widget widget_text">			<div class="textwidget"><a href="http://brainaid.com/buy-peat/"><img src="http://brainaid.com/wp-content/uploads/button-buy-now-green.png" /></a></div>
+		</div><div id="social-widget-2" class="widget Social_Widget"><h2 class="widgettitle">Follow Us!</h2><div class="socialmedia-buttons smw_left"><a href="https://www.facebook.com/pages/PEAT-by-BrainAid/50486319799" rel="nofollow" target="_blank"><img width="32" height="32" src="http://brainaid.com/wp-content/plugins/social-media-widget/images/default/32/facebook.png" 
+				alt="Follow Us on Facebook" 
+				title="Follow Us on Facebook" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="https://twitter.com/#!/PEATbyBrainaid" rel="nofollow" target="_blank"><img width="32" height="32" src="http://brainaid.com/wp-content/plugins/social-media-widget/images/default/32/twitter.png" 
+				alt="Follow Us on Twitter" 
+				title="Follow Us on Twitter" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://www.linkedin.com/company/2517715?trk=tyah" rel="nofollow" target="_blank"><img width="32" height="32" src="http://brainaid.com/wp-content/plugins/social-media-widget/images/default/32/linkedin.png" 
+				alt="Follow Us on LinkedIn" 
+				title="Follow Us on LinkedIn" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="http://pinterest.com/peatbybrainaid/" rel="nofollow" target="_blank"><img width="32" height="32" src="http://brainaid.com/wp-content/uploads/pinterest-icon.jpg" 
+				alt="Follow Us on pinterest" 
+				title="Follow Us on pinterest" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a><a href="mailto:info@brainaid.com" rel="nofollow" target="_blank"><img width="32" height="32" src="http://brainaid.com/wp-content/plugins/social-media-widget/images/default/32/email.png" 
+				alt="Follow Us on E-mail" 
+				title="Follow Us on E-mail" style="opacity: 0.8; -moz-opacity: 0.8;" class="fade" /></a></div></div><div id="text-3" class="widget widget_text"><h2 class="widgettitle">Press</h2>			<div class="textwidget"><a href="http://brainaid.com/company/press-2/"><img src="http://brainaid.com/wp-content/uploads/news-button.png" /></a>
+<br>
+PEAT and Aging 2.0 on PBS Newshour March 20, 2014! Nice shot of the Brainaid website @peatbybrainaid @aging20 #A2PBS NewsHour 
+<br>
+
+<a title="PBS news story about Aging2.0 March 2014" href="http://www.pbs.org/newshour/bb/innovating-technology-for-elders/" >PBS News Hour -March 2014PBS NewsHour “Innovating Technology for Elders: New generation of tech innovations aims to help elders stay healthy and connected - March 20, 2014”</a>
+<br>
+<a href="http://www.pbs.org/newshour/updates/design-alzheimers/">Companion article - "Designing a better way to cope with Alzheimer's" March 20, 2014</a>
+
+<br>
+<a href="http://www.fastcolabs.com/3024366/a-former-mars-rover-scientist-says-the-boomer-generation-could-be-independent-forever"><img scr="http://brainaid.com/wp-content/uploads/fastcompanyroverscientist.jpg"/> Check out this FastCompany Article about PEAT™! "Scientist Says The Boomer Generation Could Be Independent For A Long, Long Time How wearable sensors and artificial intelligence could help some people live more normal lives. By Jennifer Elias Jan 3, 2014 </a>
+</br>
+<br>
+<a href="http://www.techenhancedlife.com/articles/empowering-seniors-through-communication-technology"><img scr="http://brainaid.com/wp-content/uploads/techenhansedlife.jpg"/>Tech Enhanced Life Blog: Empowering Seniors through Communication Technology by: Francine Toder. December 10, 2013</a>
+</br>
+<br>
+<a href="http://venturebeat.com/2013/11/26/we-all-get-old-this-startup-program-wants-to-make-life-better-for-seniors-and-someday-you/">Check us out in VentureBeat! 11-26-13</a>
+</br>
+<br>
+<a href="http://www.aging2.com/generator/portfolio/"><img scr="http://brainaid.com/wp-content/uploads/aging20generator.png/">PEAT included in Aging 2.0 Generator First Cohort! Nov. 11, 2013</a>
+</br>
+<br>
+<a href="http://brainaid.com/wp-content/uploads/TBIMatters_BrainAidRL_101613.pdf#page=1">Rich Levinson presented on Oct. 16 at TBI Matters 5:30-8pm at Services for Brain Injury.  Click here for more info</a>
+</br>
+<br>
+<a href="http://autism-roundtable-es2005.eventbrite.com/?rank=1#">
+PEAT was exhibited at the SAP Roundtable on Autism and Special Needs on Tuesday April 23, 5:30pm in Palo Alto. Register and find out more by clicking here.</a>
+</br>
+<a href="http://www.edrevsf.org"><img src="http://brainaid.com/wp-content/uploads/edrev2013.jpg" />ACS Exhibits PEAT™ at EdRev 2013 Saturday April 13, 2013 at AT&T Park  -Low cost registration for Teachers, Free for Students - Learn all about new educational tech.
+</a>
+<br>
+<a href="http://www.cvent.com/d/PuUNsH6pmUynZEtDMyTxaA/djmx/P1/1Q?"><img src="http://brainaid.com/wp-content/uploads/scvbic.jpg" />
+ ACS announces the new PEAT Free 30 day trial at the 3rd annual Santa Clara Valley Brain Injury Conference on  February 28, 2013. We'd also like to congratulate John Hatten on receiving the "Overcoming Adversity" Award! </a><br>
+</div>
+		</div>
+	  
+    </div>
+
+
+
+
+   
+<div style="clear:both;"></div>
+    <div id="foot">
+      <p class="helvetica">&copy; 2014. Attention Control Systems, Inc.</p>
+    </div>
+  </div>
+
+  <div id="su-footer-links" style="text-align: center;"></div><script type='text/javascript' src='http://brainaid.com/wp-content/plugins/wp-super-faq/wp_super_faq.js?ver=3.6.1'></script>
+<script type='text/javascript' src='http://brainaid.com/wp-content/plugins/bbpress/templates/default/js/editor.js?ver=2.5.3-5249'></script>
+<script type='text/javascript' src='http://brainaid.com/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js?ver=3.46.0-2013.11.21'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var _wpcf7 = {"loaderUrl":"http:\/\/brainaid.com\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif","sending":"Sending ..."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://brainaid.com/wp-content/plugins/contact-form-7/includes/js/scripts.js?ver=3.6'></script>
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<!-- Nivo Slider -->
+<script type="text/javascript">
+
+(function(a){var b=function(b,c){var d=a.extend({},a.fn.nivoSlider.defaults,c);var e={currentSlide:0,currentImage:"",totalSlides:0,running:false,paused:false,stop:false};var f=a(b);f.data("nivo:vars",e);f.css("position","relative");f.addClass("nivoSlider");var g=f.children();g.each(function(){var b=a(this);var c="";if(!b.is("img")){if(b.is("a")){b.addClass("nivo-imageLink");c=b}b=b.find("img:first")}var d=b.width();if(d==0)d=b.attr("width");var g=b.height();if(g==0)g=b.attr("height");if(d>f.width()){f.width(d)}if(g>f.height()){f.height(g)}if(c!=""){c.css("display","none")}b.css("display","none");e.totalSlides++});if(d.randomStart){d.startSlide=Math.floor(Math.random()*e.totalSlides)}if(d.startSlide>0){if(d.startSlide>=e.totalSlides)d.startSlide=e.totalSlides-1;e.currentSlide=d.startSlide}if(a(g[e.currentSlide]).is("img")){e.currentImage=a(g[e.currentSlide])}else{e.currentImage=a(g[e.currentSlide]).find("img:first")}if(a(g[e.currentSlide]).is("a")){a(g[e.currentSlide]).css("display","block")}f.css("background",'url("'+e.currentImage.attr("src")+'") no-repeat');f.append(a('<div class="nivo-caption"><p></p></div>').css({display:"none",opacity:d.captionOpacity}));a(".nivo-caption",f).css("opacity",0);var h=function(b){var c=a(".nivo-caption",f);if(e.currentImage.attr("title")!=""&&e.currentImage.attr("title")!=undefined){var d=e.currentImage.attr("title");if(d.substr(0,1)=="#")d=a(d).html();if(c.css("opacity")!=0){c.find("p").stop().fadeTo(b.animSpeed,0,function(){a(this).html(d);a(this).stop().fadeTo(b.animSpeed,1)})}else{c.find("p").html(d)}c.stop().fadeTo(b.animSpeed,b.captionOpacity)}else{c.stop().fadeTo(b.animSpeed,0)}};h(d);var i=0;if(!d.manualAdvance&&g.length>1){i=setInterval(function(){o(f,g,d,false)},d.pauseTime)}if(d.directionNav){f.append('<div class="nivo-directionNav"><a class="nivo-prevNav">'+d.prevText+'</a><a class="nivo-nextNav">'+d.nextText+"</a></div>");if(d.directionNavHide){a(".nivo-directionNav",f).hide();f.hover(function(){a(".nivo-directionNav",f).show()},function(){a(".nivo-directionNav",f).hide()})}a("a.nivo-prevNav",f).live("click",function(){if(e.running)return false;clearInterval(i);i="";e.currentSlide-=2;o(f,g,d,"prev")});a("a.nivo-nextNav",f).live("click",function(){if(e.running)return false;clearInterval(i);i="";o(f,g,d,"next")})}if(d.controlNav){var j=a('<div class="nivo-controlNav"></div>');f.append(j);for(var k=0;k<g.length;k++){if(d.controlNavThumbs){var l=g.eq(k);if(!l.is("img")){l=l.find("img:first")}if(d.controlNavThumbsFromRel){j.append('<a class="nivo-control" rel="'+k+'"><img src="'+l.attr("rel")+'" alt="" /></a>')}else{j.append('<a class="nivo-control" rel="'+k+'"><img src="'+l.attr("src").replace(d.controlNavThumbsSearch,d.controlNavThumbsReplace)+'" alt="" /></a>')}}else{j.append('<a class="nivo-control" rel="'+k+'">'+(k+1)+"</a>")}}a(".nivo-controlNav a:eq("+e.currentSlide+")",f).addClass("active");a(".nivo-controlNav a",f).live("click",function(){if(e.running)return false;if(a(this).hasClass("active"))return false;clearInterval(i);i="";f.css("background",'url("'+e.currentImage.attr("src")+'") no-repeat');e.currentSlide=a(this).attr("rel")-1;o(f,g,d,"control")})}if(d.keyboardNav){a(window).keypress(function(a){if(a.keyCode=="37"){if(e.running)return false;clearInterval(i);i="";e.currentSlide-=2;o(f,g,d,"prev")}if(a.keyCode=="39"){if(e.running)return false;clearInterval(i);i="";o(f,g,d,"next")}})}if(d.pauseOnHover){f.hover(function(){e.paused=true;clearInterval(i);i=""},function(){e.paused=false;if(i==""&&!d.manualAdvance){i=setInterval(function(){o(f,g,d,false)},d.pauseTime)}})}f.bind("nivo:animFinished",function(){e.running=false;a(g).each(function(){if(a(this).is("a")){a(this).css("display","none")}});if(a(g[e.currentSlide]).is("a")){a(g[e.currentSlide]).css("display","block")}if(i==""&&!e.paused&&!d.manualAdvance){i=setInterval(function(){o(f,g,d,false)},d.pauseTime)}d.afterChange.call(this)});var m=function(b,c,d){for(var e=0;e<c.slices;e++){var f=Math.round(b.width()/c.slices);if(e==c.slices-1){b.append(a('<div class="nivo-slice"></div>').css({left:f*e+"px",width:b.width()-f*e+"px",height:"0px",opacity:"0",background:'url("'+d.currentImage.attr("src")+'") no-repeat -'+(f+e*f-f)+"px 0%"}))}else{b.append(a('<div class="nivo-slice"></div>').css({left:f*e+"px",width:f+"px",height:"0px",opacity:"0",background:'url("'+d.currentImage.attr("src")+'") no-repeat -'+(f+e*f-f)+"px 0%"}))}}};var n=function(b,c,d){var e=Math.round(b.width()/c.boxCols);var f=Math.round(b.height()/c.boxRows);for(var g=0;g<c.boxRows;g++){for(var h=0;h<c.boxCols;h++){if(h==c.boxCols-1){b.append(a('<div class="nivo-box"></div>').css({opacity:0,left:e*h+"px",top:f*g+"px",width:b.width()-e*h+"px",height:f+"px",background:'url("'+d.currentImage.attr("src")+'") no-repeat -'+(e+h*e-e)+"px -"+(f+g*f-f)+"px"}))}else{b.append(a('<div class="nivo-box"></div>').css({opacity:0,left:e*h+"px",top:f*g+"px",width:e+"px",height:f+"px",background:'url("'+d.currentImage.attr("src")+'") no-repeat -'+(e+h*e-e)+"px -"+(f+g*f-f)+"px"}))}}}};var o=function(b,c,d,e){var f=b.data("nivo:vars");if(f&&f.currentSlide==f.totalSlides-1){d.lastSlide.call(this)}if((!f||f.stop)&&!e)return false;d.beforeChange.call(this);if(!e){b.css("background",'url("'+f.currentImage.attr("src")+'") no-repeat')}else{if(e=="prev"){b.css("background",'url("'+f.currentImage.attr("src")+'") no-repeat')}if(e=="next"){b.css("background",'url("'+f.currentImage.attr("src")+'") no-repeat')}}f.currentSlide++;if(f.currentSlide==f.totalSlides){f.currentSlide=0;d.slideshowEnd.call(this)}if(f.currentSlide<0)f.currentSlide=f.totalSlides-1;if(a(c[f.currentSlide]).is("img")){f.currentImage=a(c[f.currentSlide])}else{f.currentImage=a(c[f.currentSlide]).find("img:first")}if(d.controlNav){a(".nivo-controlNav a",b).removeClass("active");a(".nivo-controlNav a:eq("+f.currentSlide+")",b).addClass("active")}h(d);a(".nivo-slice",b).remove();a(".nivo-box",b).remove();var g=d.effect;if(d.effect=="random"){var i=new Array("sliceDownRight","sliceDownLeft","sliceUpRight","sliceUpLeft","sliceUpDown","sliceUpDownLeft","fold","fade","boxRandom","boxRain","boxRainReverse","boxRainGrow","boxRainGrowReverse");g=i[Math.floor(Math.random()*(i.length+1))];if(g==undefined)g="fade"}if(d.effect.indexOf(",")!=-1){var i=d.effect.split(",");g=i[Math.floor(Math.random()*i.length)];if(g==undefined)g="fade"}if(f.currentImage.attr("data-transition")){g=f.currentImage.attr("data-transition")}f.running=true;if(g=="sliceDown"||g=="sliceDownRight"||g=="sliceDownLeft"){m(b,d,f);var j=0;var k=0;var l=a(".nivo-slice",b);if(g=="sliceDownLeft")l=a(".nivo-slice",b)._reverse();l.each(function(){var c=a(this);c.css({top:"0px"});if(k==d.slices-1){setTimeout(function(){c.animate({height:"100%",opacity:"1.0"},d.animSpeed,"",function(){b.trigger("nivo:animFinished")})},100+j)}else{setTimeout(function(){c.animate({height:"100%",opacity:"1.0"},d.animSpeed)},100+j)}j+=50;k++})}else if(g=="sliceUp"||g=="sliceUpRight"||g=="sliceUpLeft"){m(b,d,f);var j=0;var k=0;var l=a(".nivo-slice",b);if(g=="sliceUpLeft")l=a(".nivo-slice",b)._reverse();l.each(function(){var c=a(this);c.css({bottom:"0px"});if(k==d.slices-1){setTimeout(function(){c.animate({height:"100%",opacity:"1.0"},d.animSpeed,"",function(){b.trigger("nivo:animFinished")})},100+j)}else{setTimeout(function(){c.animate({height:"100%",opacity:"1.0"},d.animSpeed)},100+j)}j+=50;k++})}else if(g=="sliceUpDown"||g=="sliceUpDownRight"||g=="sliceUpDownLeft"){m(b,d,f);var j=0;var k=0;var o=0;var l=a(".nivo-slice",b);if(g=="sliceUpDownLeft")l=a(".nivo-slice",b)._reverse();l.each(function(){var c=a(this);if(k==0){c.css("top","0px");k++}else{c.css("bottom","0px");k=0}if(o==d.slices-1){setTimeout(function(){c.animate({height:"100%",opacity:"1.0"},d.animSpeed,"",function(){b.trigger("nivo:animFinished")})},100+j)}else{setTimeout(function(){c.animate({height:"100%",opacity:"1.0"},d.animSpeed)},100+j)}j+=50;o++})}else if(g=="fold"){m(b,d,f);var j=0;var k=0;a(".nivo-slice",b).each(function(){var c=a(this);var e=c.width();c.css({top:"0px",height:"100%",width:"0px"});if(k==d.slices-1){setTimeout(function(){c.animate({width:e,opacity:"1.0"},d.animSpeed,"",function(){b.trigger("nivo:animFinished")})},100+j)}else{setTimeout(function(){c.animate({width:e,opacity:"1.0"},d.animSpeed)},100+j)}j+=50;k++})}else if(g=="fade"){m(b,d,f);var q=a(".nivo-slice:first",b);q.css({height:"100%",width:b.width()+"px"});q.animate({opacity:"1.0"},d.animSpeed*2,"",function(){b.trigger("nivo:animFinished")})}else if(g=="slideInRight"){m(b,d,f);var q=a(".nivo-slice:first",b);q.css({height:"100%",width:"0px",opacity:"1"});q.animate({width:b.width()+"px"},d.animSpeed*2,"",function(){b.trigger("nivo:animFinished")})}else if(g=="slideInLeft"){m(b,d,f);var q=a(".nivo-slice:first",b);q.css({height:"100%",width:"0px",opacity:"1",left:"",right:"0px"});q.animate({width:b.width()+"px"},d.animSpeed*2,"",function(){q.css({left:"0px",right:""});b.trigger("nivo:animFinished")})}else if(g=="boxRandom"){n(b,d,f);var r=d.boxCols*d.boxRows;var k=0;var j=0;var s=p(a(".nivo-box",b));s.each(function(){var c=a(this);if(k==r-1){setTimeout(function(){c.animate({opacity:"1"},d.animSpeed,"",function(){b.trigger("nivo:animFinished")})},100+j)}else{setTimeout(function(){c.animate({opacity:"1"},d.animSpeed)},100+j)}j+=20;k++})}else if(g=="boxRain"||g=="boxRainReverse"||g=="boxRainGrow"||g=="boxRainGrowReverse"){n(b,d,f);var r=d.boxCols*d.boxRows;var k=0;var j=0;var t=0;var u=0;var v=new Array;v[t]=new Array;var s=a(".nivo-box",b);if(g=="boxRainReverse"||g=="boxRainGrowReverse"){s=a(".nivo-box",b)._reverse()}s.each(function(){v[t][u]=a(this);u++;if(u==d.boxCols){t++;u=0;v[t]=new Array}});for(var w=0;w<d.boxCols*2;w++){var x=w;for(var y=0;y<d.boxRows;y++){if(x>=0&&x<d.boxCols){(function(c,e,f,h,i){var j=a(v[c][e]);var k=j.width();var l=j.height();if(g=="boxRainGrow"||g=="boxRainGrowReverse"){j.width(0).height(0)}if(h==i-1){setTimeout(function(){j.animate({opacity:"1",width:k,height:l},d.animSpeed/1.3,"",function(){b.trigger("nivo:animFinished")})},100+f)}else{setTimeout(function(){j.animate({opacity:"1",width:k,height:l},d.animSpeed/1.3)},100+f)}})(y,x,j,k,r);k++}x--}j+=100}}};var p=function(a){for(var b,c,d=a.length;d;b=parseInt(Math.random()*d),c=a[--d],a[d]=a[b],a[b]=c);return a};var q=function(a){if(this.console&&typeof console.log!="undefined")console.log(a)};this.stop=function(){if(!a(b).data("nivo:vars").stop){a(b).data("nivo:vars").stop=true;q("Stop Slider")}};this.start=function(){if(a(b).data("nivo:vars").stop){a(b).data("nivo:vars").stop=false;q("Start Slider")}};d.afterLoad.call(this);return this};a.fn.nivoSlider=function(c){return this.each(function(d,e){var f=a(this);if(f.data("nivoslider"))return f.data("nivoslider");var g=new b(this,c);f.data("nivoslider",g)})};a.fn.nivoSlider.defaults={effect:"random",slices:15,boxCols:8,boxRows:4,animSpeed:500,pauseTime:3e3,startSlide:0,directionNav:true,directionNavHide:true,controlNav:true,controlNavThumbs:false,controlNavThumbsFromRel:false,controlNavThumbsSearch:".jpg",controlNavThumbsReplace:"_thumb.jpg",keyboardNav:true,pauseOnHover:true,manualAdvance:false,captionOpacity:.8,prevText:"Prev",nextText:"Next",randomStart:false,beforeChange:function(){},afterChange:function(){},slideshowEnd:function(){},lastSlide:function(){},afterLoad:function(){}};a.fn._reverse=[].reverse})(jQuery)
+</script>
+<script type="text/javascript">
+$('#slider').nivoSlider({
+        effect: 'fade', // Specify sets like: 'fold,fade,sliceDown'
+        animSpeed: 500, // Slide transition speed
+        pauseTime: 7000, // How long each slide will show
+        directionNav: false, // Next & Prev navigation
+        directionNavHide: true, // Only show on hover
+        controlNav: false, // 1,2,3... navigation
+        pauseOnHover: true, // Stop animation while hovering
+    });
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22415505-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </body>
+</html>   

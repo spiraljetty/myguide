@@ -197,6 +197,7 @@
 
 - (void)setupClinicContent;
 - (void)setupWhatsNewContent;
+- (void)setupEdModule:(int)moduleIndex;
 - (id)initWithPropertyList:(NSString *)propertyListName;
 - (void)setupWithPropertyList:(NSString *)propertyListName;
 - (void)loadPages;

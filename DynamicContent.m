@@ -18,7 +18,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/5/14";
+static NSString* mAppVersion = @"App Version: 11/12/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -100,6 +100,7 @@ static SwitchedImageViewController* mEdModulePickerVC;
 }
 
 + (ClinicInfo*) getCurrentClinic{
+    NSLog(@"DynamicContent.getCurrentClinic()");
     return [DynamicContent getClinic:mCurrentClinicName];
 }
 
@@ -267,7 +268,7 @@ static SwitchedImageViewController* mEdModulePickerVC;
     NSString* filename = @"edmodules.txt";
     NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
     if (filePath){
-        mAllWhatsNew = [DynamicContent readWhatsNewInfo:true];
+        mAllWhatsNew = [DynamicContent readEdModules:true];
         count = [mAllWhatsNew count];
     }
     else{
@@ -608,13 +609,16 @@ static SwitchedImageViewController* mEdModulePickerVC;
                 int pageBodyIndex   = 5;
                 int pageImageIndex  = 6;
                 int pageClinicsIndex =7;
+                NSString* imageName = edModuleProperties[pageImageIndex];
                 [newPage setModuleName: edModuleProperties[moduleNameIndex]];
                 [newPage setModuleImage: edModuleProperties[moduleImageIndex]];
                 [newPage setPageNumber:edModuleProperties[pageNumberIndex]];
                 [newPage setHeader: edModuleProperties[pageHeaderIndex]];
                 [newPage setBody:edModuleProperties[pageBodyIndex]];
-                [newPage setImage:edModuleProperties[pageImageIndex]];
+                [newPage setImage:imageName];
                 [newPage setClinics:edModuleProperties[pageClinicsIndex]];
+                if (imageName != NULL && [imageName length] > 0)
+                    [allImages addObject:imageName];
 //                NSString* clinicsText = edModuleProperties[pageClinicsIndex];
 //                NSArray* clinicList = [clinicsText componentsSeparatedByCharactersInSet:
 //                                                                         [NSCharacterSet characterSetWithCharactersInString:@","]];
@@ -656,49 +660,49 @@ static SwitchedImageViewController* mEdModulePickerVC;
     //    [pool release];
 }
 
-+ (NSArray*) readWhatsNewInfo:(BOOL) isDownload{
-    NSLog(@"DynamicContent.readWhatsNewInfo() isDownload: %d", isDownload);
-    NSMutableArray*  allPages = [[NSMutableArray alloc] init];
-    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString  *documentsDirectory = [paths objectAtIndex:0];
-    NSString  *filePath = [NSString stringWithFormat:@"%@/whatsNew.txt", documentsDirectory];
-    
-    NSArray * lines = [self readFile:filePath];
-    for (NSString *line in lines) {
-        NSString* whatsNewLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (whatsNewLine.length > 0){
-            NSLog(@"DynamicContent.readWhatsNewInfo() whatsNew.txt line: %@", whatsNewLine);
-            // parse row containing goal details
-            if([whatsNewLine hasPrefix:@"//"]){
-                NSLog(@"DynamicContent.readWhatsNewInfo() comment: %@", whatsNewLine);
-            }
-            else {
-                if ([whatsNewLine hasSuffix:@";"]){
-                    int index = [whatsNewLine length] -1;
-                    whatsNewLine = [whatsNewLine substringToIndex: index];
-                }
-                NSArray* whatsNewRow = [whatsNewLine componentsSeparatedByCharactersInSet:
-                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                NSString* clinic = [whatsNewRow objectAtIndex:0];
-                NSString* header = [whatsNewRow objectAtIndex:1];
-                NSString* body =   [whatsNewRow objectAtIndex:2];
-                NSString* image =  [whatsNewRow objectAtIndex:3];
-                
-                WhatsNewInfo* whatsNewPage = [[WhatsNewInfo alloc] init];
-                [whatsNewPage setClinic:clinic];
-                [whatsNewPage setHeader:header];
-                [whatsNewPage setBody:body];
-                [whatsNewPage setImage:image];
-                [allPages addObject:whatsNewPage];
-            }
-        }
-     }
-    NSLog(@"Loaded (%d) whatsNew pages", [allPages count]);
-    for (WhatsNewInfo* info in allPages){
-        [info writeToLog];
-    }
-    return allPages;
-}
+//+ (NSArray*) readWhatsNewInfo:(BOOL) isDownload{
+//    NSLog(@"DynamicContent.readWhatsNewInfo() isDownload: %d", isDownload);
+//    NSMutableArray*  allPages = [[NSMutableArray alloc] init];
+//    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString  *documentsDirectory = [paths objectAtIndex:0];
+//    NSString  *filePath = [NSString stringWithFormat:@"%@/whatsNew.txt", documentsDirectory];
+//    
+//    NSArray * lines = [self readFile:filePath];
+//    for (NSString *line in lines) {
+//        NSString* whatsNewLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+//        if (whatsNewLine.length > 0){
+//            NSLog(@"DynamicContent.readWhatsNewInfo() whatsNew.txt line: %@", whatsNewLine);
+//            // parse row containing goal details
+//            if([whatsNewLine hasPrefix:@"//"]){
+//                NSLog(@"DynamicContent.readWhatsNewInfo() comment: %@", whatsNewLine);
+//            }
+//            else {
+//                if ([whatsNewLine hasSuffix:@";"]){
+//                    int index = [whatsNewLine length] -1;
+//                    whatsNewLine = [whatsNewLine substringToIndex: index];
+//                }
+//                NSArray* whatsNewRow = [whatsNewLine componentsSeparatedByCharactersInSet:
+//                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
+//                NSString* clinic = [whatsNewRow objectAtIndex:0];
+//                NSString* header = [whatsNewRow objectAtIndex:1];
+//                NSString* body =   [whatsNewRow objectAtIndex:2];
+//                NSString* image =  [whatsNewRow objectAtIndex:3];
+//                
+//                WhatsNewInfo* whatsNewPage = [[WhatsNewInfo alloc] init];
+//                [whatsNewPage setClinic:clinic];
+//                [whatsNewPage setHeader:header];
+//                [whatsNewPage setBody:body];
+//                [whatsNewPage setImage:image];
+//                [allPages addObject:whatsNewPage];
+//            }
+//        }
+//     }
+//    NSLog(@"Loaded (%d) whatsNew pages", [allPages count]);
+//    for (WhatsNewInfo* info in allPages){
+//        [info writeToLog];
+//    }
+//    return allPages;
+//}
 
 + (NSArray*) readWhatsNewInfoTest {
     NSLog(@"DynamicContent.readWhatsNewInfoTest() ");
@@ -1232,6 +1236,9 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString* path = [documentsDirectory stringByAppendingPathComponent: filename];
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    bool fileExists = [fileManager fileExistsAtPath:path];
+    NSLog(@"WRViewController.loadImage file path %@ exists %d", path, fileExists);
     UIImage* image = [UIImage imageWithContentsOfFile:path];
     //    [self sendAction:path];
     return image;
@@ -1390,9 +1397,9 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     } else if ([moduleName hasPrefix:@"Learn about"]){
         [viewController launchTbiEdModule];
     } else if ([moduleName hasPrefix:@"Back to School"]){
-        [viewController launchTbiEdModule];
+        [viewController launchEdModule1];
     } else if ([moduleName hasSuffix:@"Recreation"]){
-        [viewController launchTbiEdModule];
+        [viewController launchEdModule2];
     }
 }
 
@@ -1426,6 +1433,14 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 		
 	}
 	[UIView commitAnimations];
+}
+
+//+(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+
++ (id) safeObjectAtIndex:(NSArray*) array index:(int)objectIndex{
+    if ([array count] > objectIndex)
+        return [array objectAtIndex:objectIndex];
+    else return NULL;
 }
 
 
