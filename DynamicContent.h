@@ -12,6 +12,7 @@
 #import "ClinicInfo.h"
 #import "GoalInfo.h"
 #import "SwitchedImageViewController.h"
+#import "EdModuleInfo.h"
 
 @interface DynamicContent : NSObject
 
@@ -30,6 +31,7 @@
 + (NSArray*) getSubclinicPhysicianNames:(NSString*) subclinic;
 + (NSArray*) getAllWhatsNewInfo;
 + (NSArray*) getAllEdModules;
++ (NSArray*) getEdModulesForCurrentClinic;
 
 + (NSString*) getWhatsNewModuleName;
 + (NSString*) getAppVersion;
@@ -38,6 +40,10 @@
 + (ClinicInfo*) getCurrentClinic;
 + (NSString*) getCurrentClinicName;
 + (NSString*) getCurrentRespondent;
+
++ (int) getPreTreatmentPageCount;
++ (int) getPostTreatmentPageCount;
+
 + (void) setCurrentClinic:(NSString*)clinic;
 + (void) setCurrentClinician:(ClinicianInfo*)clinician;
 + (void) setCurrentRespondent:(NSString*) respondent;
@@ -82,6 +88,8 @@
 + (void) setEdModulePicker:(SwitchedImageViewController*) edModulePicker;
 + (void) fadeEdModulePickerIn;
 + (void) fadeEdModulePickerOut;
+
++ (EdModuleInfo*) getEdModuleAtIndex:(int) moduleIndex;
 
 + (id) safeObjectAtIndex:(NSArray*) array index:(int)objectIndex;
 

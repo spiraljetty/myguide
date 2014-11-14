@@ -85,7 +85,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 @synthesize respondentType;
 @synthesize databasePath, mainTable, csvpath, movViewController, playingMovie, animationPath, rotationViewController;
 
-@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode;
+@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode, inEdModule1, inEdModule2, inEdModule3, inEdModule4, inEdModule5;
 
 @synthesize dynModDict, dynModDictKeys;
 @synthesize moduleName, moduleType, createModuleDynamically, moduleImageName;
@@ -1000,6 +1000,30 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
     
     if ([DynamicSpeech isEnabled]){
+        if (inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5){
+            int index = 0;
+            if (inEdModule2)
+                index = 1;
+            else if (inEdModule3)
+                index = 2;
+            else if (inEdModule4)
+                index = 3;
+            else if (inEdModule5)
+                index = 4;
+            
+            EdModuleInfo* moduleInfo = [DynamicContent getEdModuleAtIndex:index];
+            if (moduleInfo){
+                NSArray* modulePages = [moduleInfo getPages];
+                int pageIndex = 1; // skip page 0 because its a header
+                if (pageIndex < [pages count]){
+                    EdModulePage* page = [modulePages objectAtIndex:pageIndex];
+                    NSString *pageText = [page getBody];
+                    [DynamicSpeech speakText:pageText];
+                }
+            }
+
+        }
+        else
         if (inWhatsNewMode){
             NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
             WhatsNewInfo* page = [whatsNewPages objectAtIndex:0];
@@ -1232,8 +1256,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         //        [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] launchEducationModule];
         if (inWhatsNewMode) {
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicWhatsNewModuleOut];
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModule1Out];
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModule2Out];
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModuleOut:1];
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModuleOut:2];
         }
         
         if (!inSubclinicMode) {
@@ -1273,6 +1297,29 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         DynamicModulePageViewController *newPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
         
         if ([DynamicSpeech isEnabled]){
+            if (inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5){
+                int index = 0;
+                if (inEdModule2)
+                    index = 1;
+                else if (inEdModule3)
+                    index = 2;
+                else if (inEdModule4)
+                    index = 3;
+                else if (inEdModule5)
+                    index = 4;
+                
+                EdModuleInfo* moduleInfo = [DynamicContent getEdModuleAtIndex:index];
+                if (moduleInfo){
+                    NSArray* modulePages = [moduleInfo getPages];
+                    int pageIndex = vcIndex + 1; // skip page 0 because its a header
+                    if (pageIndex < [modulePages count]){
+                        EdModulePage* page = [modulePages objectAtIndex:pageIndex];
+                        NSString *pageText = [page getBody];
+                        [DynamicSpeech speakText:pageText];
+                    }
+                }
+            }
+            else
             if (inWhatsNewMode) {
                 //edModuleInfo
                 NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];

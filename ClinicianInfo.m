@@ -205,6 +205,28 @@
     return rootObj;
 }
 
+- (int) getPageCount {
+    int count = 0;
+    NSString *credentials = [self getCredentials];
+    NSString *edAndAffil = [self getEdAndAffil];
+    NSString *background = [self getBackground];
+    NSString *philosophy = [self getPhilosophy];
+    NSString *personalInterests = [self getPersonalInterests];
+
+    
+    if (credentials && [credentials length] > 0)
+        count++;
+    if (edAndAffil  && [edAndAffil length] > 0)
+        count++;
+    if (background  && [background length] > 0)
+        count++;
+    if (philosophy  && [philosophy length] > 0)
+        count++;
+    if (personalInterests  && [personalInterests length] > 0)
+        count++;
+    return count;
+}
+
 -(Boolean) writeToDB {
     NSLog(@"[Clinician: %@, %@, %@, %@, %@, %@", mClinicianId, mClinics, mFirstName, mLastName, mSalutation, mDegrees);
     NSLog(@"   Credentials: %@", mCredentials);

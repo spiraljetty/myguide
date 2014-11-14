@@ -12,21 +12,21 @@
 @interface EdModuleInfo : NSObject {
     NSString* mModuleName;
     NSString* mModuleImage;
-    NSMutableArray* mClinics;
+    NSString* mClinics;
     NSMutableArray* mPages;
 }
 
 // setters
 - (void) setModuleName:  (NSString*) moduleName;
 - (void) setModuleImage:  (NSString*) moduleImage;
-- (void) setClinics:  (NSMutableArray*) clinics;
+- (void) setClinics:  (NSString*) clinics;
 - (void) addPage: (EdModulePage*) page;
 
 // getters
 
 - (NSString*) getModuleName;
 - (NSString*) getModuleImage;
-- (NSMutableArray*) getClinics;
+- (NSString*) getClinics;
 - (NSMutableArray*) getPages;
 
 

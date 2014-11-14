@@ -18,7 +18,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/12/14";
+static NSString* mAppVersion = @"App Version: 11/13/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -86,6 +86,14 @@ static SwitchedImageViewController* mEdModulePickerVC;
         mAllWhatsNew = [DynamicContent readWhatsNewInfoTest];
     }
     return mAllWhatsNew;
+}
+
++ (EdModuleInfo*) getEdModuleAtIndex:(int) moduleIndex{
+    NSArray* allModules =[DynamicContent getAllEdModules];
+    if (allModules && moduleIndex < [allModules count])
+        return [allModules objectAtIndex:moduleIndex];
+    else
+        return NULL;
 }
 
 + (NSArray*) getAllEdModules {
@@ -615,8 +623,8 @@ static SwitchedImageViewController* mEdModulePickerVC;
                 [newPage setPageNumber:edModuleProperties[pageNumberIndex]];
                 [newPage setHeader: edModuleProperties[pageHeaderIndex]];
                 [newPage setBody:edModuleProperties[pageBodyIndex]];
-                [newPage setImage:imageName];
                 [newPage setClinics:edModuleProperties[pageClinicsIndex]];
+                [newPage setImage:imageName];
                 if (imageName != NULL && [imageName length] > 0)
                     [allImages addObject:imageName];
 //                NSString* clinicsText = edModuleProperties[pageClinicsIndex];
@@ -631,7 +639,7 @@ static SwitchedImageViewController* mEdModulePickerVC;
     NSString* msg = [NSString stringWithFormat:@"Loaded %d modules", [allModules count]];
     NSLog(msg);
     
-    // download the image file for each clinician
+    // download the image file for each ed module page
     for (EdModuleInfo* edModule in allModules){
         [edModule sortPages];
         EdModuleInfo* page0 = [[edModule getPages] objectAtIndex:0];
@@ -708,6 +716,85 @@ static SwitchedImageViewController* mEdModulePickerVC;
     NSLog(@"DynamicContent.readWhatsNewInfoTest() ");
     NSMutableArray*  allPages = [[NSMutableArray alloc] init];
     
+    // page 1
+    NSString* clinic = @"PNS";
+    NSString* header = @"A note from Odette Harris, MD, MPH";
+    NSString* body = @"Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC). The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care.";
+    NSString* image = @"psc_whatsnew_odette_harris.png";
+    WhatsNewInfo* whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 2
+    header = @"A note ...(cont.)";
+    body = @"Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission. This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program.";
+    image = @"psc_logo_withwords.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 3
+    header = @"Strategic Planning Update";
+    body = @"In an effort to incorporate all stakeholder feedback gathered during a 9-month strategic planning process, Polytrauma System of Care (PSC) leadership is moving forward with a planned expansion of the Assistive Technology Center to include a Center for Innovation and Technology (CIT).  The expanded organizational structure will provide a design, learning, and development pathway for new health care technologies while maintaining the current service delivery of assistive technologies within the PSC.";
+    image = @"psc_whatsnew_2013q4_page1.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 4
+    header = @"Strategic Planning Update..(cont.)";
+    body = @"The new Center signals a commitment to thoughtful creativity, collaborative entrepreneurialism, new project development and incubation, and continuous performance improvement in patient care. Jonathan Sills, PhD, Program Director of Assistive Technology and the main force behind the 2013-2015 strategic plan that included the conceptualization of the Center for Innovation and Technology (CIT) within the Polytrauma System of Care, will oversee the new center.";
+    image = @"at_icon.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 5
+    header = @"Setting the pace with Tech Projects!";
+    body = @"Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction.";
+    image = @"psc_whatsnew_2013q4_section2_1.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    //page 6
+    header = @"Setting the pace...(cont.)";
+    body = @"In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established.";
+    image = @"psc_whatsnew_2013q4_section2_1.png";
+    whatsNewPage = [[WhatsNewInfo alloc] init];
+    [whatsNewPage setClinic:clinic];
+    [whatsNewPage setHeader:header];
+    [whatsNewPage setBody:body];
+    [whatsNewPage setImage:image];
+    [allPages addObject:whatsNewPage];
+    
+    NSLog(@"Loaded (%d) whatsNew pages", [allPages count]);
+    for (WhatsNewInfo* info in allPages){
+        [info writeToLog];
+    }
+    return allPages;
+}
+
+
++ (EdModuleInfo*) createWhatsNewEdModule {
+    NSLog(@"DynamicContent.createWhatsNewEdModule() ");
+    NSMutableArray*  allPages = [[NSMutableArray alloc] init];
+    EdModulePage* page;
     // page 1
     NSString* clinic = @"PNS";
     NSString* header = @"A note from Odette Harris, MD, MPH";
@@ -1098,6 +1185,26 @@ static SwitchedImageViewController* mEdModulePickerVC;
     return subclinicPhysicians;
 }
 
++ (NSArray*) getEdModulesForCurrentClinic{
+    ClinicInfo* currentClinic = [DynamicContent getCurrentClinic];
+    NSMutableArray* clinicModules =[[NSMutableArray alloc] init];
+    NSArray *allEdModules = [DynamicContent getAllEdModules];
+    
+    for (EdModuleInfo* edModule in allEdModules){
+        NSArray* clinics = [[edModule getClinics] componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@","]];
+        for (NSString* clinic in clinics){
+            if ([[currentClinic getSubclinicNameShort] isEqualToString:clinic] ||
+                [[currentClinic getClinicNameShort] isEqualToString:clinic] ||
+                [[currentClinic getSubclinicName] isEqualToString:clinic] ||
+                [[currentClinic getClinicName] isEqualToString:clinic]){
+                
+                [clinicModules addObject:edModule];
+            }
+        }
+    }
+    return clinicModules;
+}
+
 // utilities
 
 
@@ -1390,17 +1497,29 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 }
 
 + (void) showEdModule:(NSString*) moduleName{
-    NSLog(@"DynamicContent.showEdModule() %@", moduleName);
+    int moduleIndex = [DynamicContent getEdModuleIndex:moduleName];
+    NSLog(@"DynamicContent.showEdModule() module %@, index: %d", moduleName, moduleIndex);
+    
     WRViewController* viewController = [WRViewController getViewController];
     if ([moduleName hasPrefix:@"What's New"]){
         [viewController launchDynamicWhatsNewModule];
     } else if ([moduleName hasPrefix:@"Learn about"]){
         [viewController launchTbiEdModule];
-    } else if ([moduleName hasPrefix:@"Back to School"]){
-        [viewController launchEdModule1];
-    } else if ([moduleName hasSuffix:@"Recreation"]){
-        [viewController launchEdModule2];
+    } else if (moduleIndex > 0)
+        [viewController launchEdModule:moduleIndex];
+}
+
++ (int) getEdModuleIndex:(NSString*) moduleName{
+    // returns module index (1-based)
+    NSArray* edModules = [DynamicContent getAllEdModules];
+    int i = 1;
+    for (EdModuleInfo* edModule in edModules){
+        if ([[edModule getModuleName] isEqualToString:moduleName])
+            return i;
+        else
+            i++;
     }
+    return -1;
 }
 
 + (SwitchedImageViewController*) getEdModulePicker {
@@ -1441,6 +1560,44 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     if ([array count] > objectIndex)
         return [array objectAtIndex:objectIndex];
     else return NULL;
+}
+
++ (int) currentClinicPageCount {
+    ClinicInfo* clinicInfo = [DynamicContent getCurrentClinic];
+    NSArray* clinicPages = [clinicInfo getClinicPages];
+    return [clinicPages count];
+}
+
++ (int) currentClinicianPageCount {
+    ClinicianInfo* clinicianInfo = [DynamicContent getCurrentClinician];
+    return[clinicianInfo getPageCount];
+}
+
++ (int) currentClinicAndRespondentPreTreatmentQuestionPageCount {
+    QuestionList* questionList = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+    int questionSet1count = [[questionList getQuestionSet1] count];
+    int totalCount = questionSet1count + 2; // add two for the 2 questions about quality of clinic info and quality of provider info
+    NSLog(@"DynamicContent.currentClinicAndRespondentPreTreatmentQuestionPageCount() pre question count: %d", totalCount);
+    return totalCount;
+}
+
++ (int) getPostTreatmentPageCount {
+    QuestionList* questionList = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+    int questionSet2count = [[questionList getQuestionSet2] count];
+    int questionSet3count = [[questionList getQuestionSet3] count];
+    int totalCount = questionSet2count + questionSet3count + 1; // add one for the intro slide
+    NSLog(@"DynamicContent.currentClinicAndRespondentPostTreatmentQuestionPageCount() post question count: %d", totalCount);
+    return totalCount;
+}
+
++ (int) getPreTreatmentPageCount {
+    int clinicPageCount = [DynamicContent currentClinicPageCount];
+    int clinicianPageCount = [DynamicContent currentClinicianPageCount];
+    int preTreatmentQuestionPageCount = [DynamicContent currentClinicAndRespondentPreTreatmentQuestionPageCount];
+    int totalCount = clinicPageCount + clinicianPageCount + preTreatmentQuestionPageCount;
+    totalCount += 4; //add 4 pages for: clinic test, provider test, goal picker, post survey info (thank you)
+    NSLog(@"DynamicContent.getTotalPreTreatmentPageCount() total pre page count: %d", totalCount);
+    return totalCount;
 }
 
 

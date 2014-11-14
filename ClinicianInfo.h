@@ -59,6 +59,7 @@
 - (NSString*) getImageThumbFilename;
 - (NSString*) getDisplayName;
 - (NSString*) getDbName;
+- (int) getPageCount;
 
 // writers
 

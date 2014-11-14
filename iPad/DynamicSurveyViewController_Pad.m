@@ -85,7 +85,7 @@
 @synthesize respondentType;
 @synthesize databasePath, mainTable, csvpath, movViewController, playingMovie, animationPath, rotationViewController;
 
-@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode;
+@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode, inEdModule1, inEdModule2, inEdModule3, inEdModule4, inEdModule5;
 
 @synthesize dynModDict, dynModDictKeys;
 @synthesize moduleName, moduleType, createModuleDynamically, moduleImageName;
@@ -1972,31 +1972,31 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 - (SwitchedImageViewController*) createEdModulePicker:(int)pageIndex {
     NSLog(@"DynamicSurveyViewController.createEdModulePicker() pageIndex: %d", pageIndex);
     SwitchedImageViewController *edModulePicker = NULL;
-    bool newVersion = true;
-    if (!newVersion){
-        UIStoryboard *chooseModuleStoryboard = [UIStoryboard storyboardWithName:@"survey_module_choice_template" bundle:[NSBundle mainBundle]];
-        
-        edModulePicker = [chooseModuleStoryboard instantiateViewControllerWithIdentifier:@"0"];
-        [edModulePicker retain];
-        
-        edModulePicker.currentSurveyPageType = kChooseModule;
-        edModulePicker.surveyPageIndex = pageIndex;
-        edModulePicker.delegate = self;
-        edModulePicker.isSurveyPage = YES;
-        edModulePicker.hideNextButton = YES;
-        edModulePicker.hidePreviousButton = YES;
-        
-        edModulePicker.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
-        edModulePicker.chooseModuleLabel.text = edModulePicker.chooseModuleText;
-        edModulePicker.chooseSkipModuleText = @"• Press the DOCTOR icon below to skip this section.";
-        edModulePicker.chooseSkipModuleLabel.text = edModulePicker.chooseSkipModuleText;
-        edModulePicker.extraModule1Text = @"Learn more about TBI and the Brain?";
-        edModulePicker.extraModule2Text = @"Learn more about What's New at the VA Polytrauma System of Care?";
-        edModulePicker.extraModule1Label.text = edModulePicker.extraModule1Text;
-        edModulePicker.extraModule2Label.text = edModulePicker.extraModule2Text;
-    }
-    else {
-        
+//    bool newVersion = true;
+//    if (!newVersion){
+//        UIStoryboard *chooseModuleStoryboard = [UIStoryboard storyboardWithName:@"survey_module_choice_template" bundle:[NSBundle mainBundle]];
+//        
+//        edModulePicker = [chooseModuleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+//        [edModulePicker retain];
+//        
+//        edModulePicker.currentSurveyPageType = kChooseModule;
+//        edModulePicker.surveyPageIndex = pageIndex;
+//        edModulePicker.delegate = self;
+//        edModulePicker.isSurveyPage = YES;
+//        edModulePicker.hideNextButton = YES;
+//        edModulePicker.hidePreviousButton = YES;
+//        
+//        edModulePicker.chooseModuleText = @"Thank you for this information. As you wait a few more minutes for your appointment, would you like to:";
+//        edModulePicker.chooseModuleLabel.text = edModulePicker.chooseModuleText;
+//        edModulePicker.chooseSkipModuleText = @"• Press the DOCTOR icon below to skip this section.";
+//        edModulePicker.chooseSkipModuleLabel.text = edModulePicker.chooseSkipModuleText;
+//        edModulePicker.extraModule1Text = @"Learn more about TBI and the Brain?";
+//        edModulePicker.extraModule2Text = @"Learn more about What's New at the VA Polytrauma System of Care?";
+//        edModulePicker.extraModule1Label.text = edModulePicker.extraModule1Text;
+//        edModulePicker.extraModule2Label.text = edModulePicker.extraModule2Text;
+//    }
+//    else {
+    
         UIStoryboard *edModulePickerStoryboard = [UIStoryboard storyboardWithName:@"ed_module_picker_template" bundle:[NSBundle mainBundle]];
         
         edModulePicker = [edModulePickerStoryboard instantiateViewControllerWithIdentifier:@"0"];
@@ -2014,13 +2014,6 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         edModulePicker.providerTestText = @"Thank you for this information. Your provider will see you shortly.\nSelect a topic button to learn more while you wait.\n\nPress the doctor icon at the bottom to skip this section.";
         
         
-        
-        //rjl 8/16/14
-//        NSArray* allClinicianInfo = [DynamicContent getAllClinicians];
-//        NSMutableArray* allPhysicians = [DynamicContent getNewClinicianNames];
-        //NSMutableArray* allPhysiciansImages = [DynamicContent getNewClinicianImages];
-        
-        // if index is greater than count of original (hardcoded) clinicians then use downloaded image filename
         edModulePicker.provider1ImageThumb = @"psc_logo_withwords.png";
         edModulePicker.provider2ImageThumb = @"psc_logo.png";
         
@@ -2044,21 +2037,10 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
             edModulePicker.provider4Text = @"";
         }
         edModulePicker.provider5Text = @"";
-        
-        //edModulePicker.provider3Text        edModulePicker.provider4Text = @"";
-        
-
-        
-        
-        
-//        [edModulePicker.provider1TextButton setTitle:@"abc" forState:UIControlStateNormal];
-//        [edModulePicker.provider2TextButton setTitle:@"def" forState:UIControlStateNormal];
-//        [edModulePicker.provider4TextButton setTitle:@"tbi" forState:UIControlStateNormal];
+    
         [DynamicContent setEdModulePicker:edModulePicker];
-
         
-        
-    }
+//    }
     
     return edModulePicker;
 }

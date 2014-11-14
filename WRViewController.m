@@ -253,7 +253,7 @@ static WRViewController* mViewController = NULL;
     [self.view sendSubviewToBack:edModule.view];
 
     int numSlidesInTBISection = [edModule.newChildControllers count];
-    [self addToTotalSlides:numSlidesInTBISection];
+ //   [self addToTotalSlides:numSlidesInTBISection];
     
     physicianModule = [[PhysicianViewController_Pad alloc] init];
     physicianModule.masterTTSPlayer = mainTTSPlayer;
@@ -262,18 +262,33 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule.masterTTSPlayer = mainTTSPlayer;
     dynamicEdModule.inSubclinicMode = NO;
     dynamicEdModule.inWhatsNewMode = NO;
+    dynamicEdModule.inEdModule1 = NO;
+    dynamicEdModule.inEdModule2 = NO;
+    dynamicEdModule.inEdModule3 = NO;
+    dynamicEdModule.inEdModule4 = NO;
+    dynamicEdModule.inEdModule5 = NO;
     
     dynamicSubclinicEdModule = [[DynamicModuleViewController_Pad alloc] init];
     dynamicSubclinicEdModule.masterTTSPlayer = mainTTSPlayer;
     dynamicSubclinicEdModule.speakItemsAloud = YES;
     dynamicSubclinicEdModule.inSubclinicMode = YES;
     dynamicSubclinicEdModule.inWhatsNewMode = NO;
+    dynamicSubclinicEdModule.inEdModule1 = NO;
+    dynamicSubclinicEdModule.inEdModule2 = NO;
+    dynamicSubclinicEdModule.inEdModule3 = NO;
+    dynamicSubclinicEdModule.inEdModule4 = NO;
+    dynamicSubclinicEdModule.inEdModule5 = NO;
     
     dynamicWhatsNewModule = [[DynamicModuleViewController_Pad alloc] init];
     dynamicWhatsNewModule.masterTTSPlayer = mainTTSPlayer;
     dynamicWhatsNewModule.speakItemsAloud = YES;
     dynamicWhatsNewModule.inSubclinicMode = NO;
     dynamicWhatsNewModule.inWhatsNewMode = YES;
+    dynamicWhatsNewModule.inEdModule1 = NO;
+    dynamicWhatsNewModule.inEdModule2 = NO;
+    dynamicWhatsNewModule.inEdModule3 = NO;
+    dynamicWhatsNewModule.inEdModule4 = NO;
+    dynamicWhatsNewModule.inEdModule5 = NO;
     currentDynamicWhatsNewModuleSpecFilename = @"psc_whats_new_module_test2";
     
     dynamicEdModule1 = [[DynamicModuleViewController_Pad alloc] init];
@@ -281,36 +296,66 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule1.speakItemsAloud = YES;
     dynamicEdModule1.inSubclinicMode = NO;
     dynamicEdModule1.inWhatsNewMode = YES;
+    dynamicEdModule1.inEdModule1 = YES;
+    dynamicEdModule1.inEdModule2 = NO;
+    dynamicEdModule1.inEdModule3 = NO;
+    dynamicEdModule1.inEdModule4 = NO;
+    dynamicEdModule1.inEdModule5 = NO;
     
     dynamicEdModule2 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule2.masterTTSPlayer = mainTTSPlayer;
     dynamicEdModule2.speakItemsAloud = YES;
     dynamicEdModule2.inSubclinicMode = NO;
     dynamicEdModule2.inWhatsNewMode = YES;
+    dynamicEdModule2.inEdModule1 = NO;
+    dynamicEdModule2.inEdModule2 = YES;
+    dynamicEdModule2.inEdModule3 = NO;
+    dynamicEdModule2.inEdModule4 = NO;
+    dynamicEdModule2.inEdModule5 = NO;
     
     dynamicEdModule3 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule3.masterTTSPlayer = mainTTSPlayer;
     dynamicEdModule3.speakItemsAloud = YES;
     dynamicEdModule3.inSubclinicMode = NO;
     dynamicEdModule3.inWhatsNewMode = YES;
+    dynamicEdModule3.inEdModule1 = NO;
+    dynamicEdModule3.inEdModule2 = NO;
+    dynamicEdModule3.inEdModule3 = YES;
+    dynamicEdModule3.inEdModule4 = NO;
+    dynamicEdModule3.inEdModule5 = NO;
     
     dynamicEdModule4 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule4.masterTTSPlayer = mainTTSPlayer;
     dynamicEdModule4.speakItemsAloud = YES;
     dynamicEdModule4.inSubclinicMode = NO;
     dynamicEdModule4.inWhatsNewMode = YES;
+    dynamicEdModule4.inEdModule1 = NO;
+    dynamicEdModule4.inEdModule2 = NO;
+    dynamicEdModule4.inEdModule3 = NO;
+    dynamicEdModule4.inEdModule4 = YES;
+    dynamicEdModule4.inEdModule5 = NO;
     
     dynamicEdModule5 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule5.masterTTSPlayer = mainTTSPlayer;
     dynamicEdModule5.speakItemsAloud = YES;
     dynamicEdModule5.inSubclinicMode = NO;
     dynamicEdModule5.inWhatsNewMode = YES;
+    dynamicEdModule5.inEdModule1 = NO;
+    dynamicEdModule5.inEdModule2 = NO;
+    dynamicEdModule5.inEdModule3 = NO;
+    dynamicEdModule5.inEdModule4 = NO;
+    dynamicEdModule5.inEdModule5 = YES;
     
     dynamicSurveyModule = [[DynamicSurveyViewController_Pad alloc] init];
     dynamicSurveyModule.masterTTSPlayer = mainTTSPlayer;
     dynamicSurveyModule.speakItemsAloud = YES;
     dynamicSurveyModule.inSubclinicMode = NO;
     dynamicSurveyModule.inWhatsNewMode = NO;
+    dynamicSurveyModule.inEdModule1 = NO;
+    dynamicSurveyModule.inEdModule2 = NO;
+    dynamicSurveyModule.inEdModule3 = NO;
+    dynamicSurveyModule.inEdModule4 = NO;
+    dynamicSurveyModule.inEdModule5 = NO;
     
     edModule.speakItemsAloud = YES;
     physicianModule.speakItemsAloud = YES;
@@ -889,8 +934,8 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)addToTotalSlides:(int)thisManySlides {
-    totalSlidesInThisSection += thisManySlides;
-    NSLog(@"Adding %d to total slides (new total = %d)...",thisManySlides,totalSlidesInThisSection);
+   // totalSlidesInThisSection += thisManySlides;
+   // NSLog(@"Adding %d to total slides (new total = %d)...",thisManySlides,totalSlidesInThisSection);
 }
 
 
@@ -1085,8 +1130,9 @@ static WRViewController* mViewController = NULL;
     
     if (!whatsNewInitialized) {
         [self initializeWhatsNewModule];
-        [self initializeEdModule1];
-        [self initializeEdModule2];
+        [self initializeEdModulesForCurrentClinic];
+//        [self initializeEdModule1];
+//        [self initializeEdModule2];
 //        [self initializeEdModule3];
 //        [self initializeEdModule4];
 //        [self initializeEdModule5];
@@ -1188,25 +1234,25 @@ static WRViewController* mViewController = NULL;
     
 }
 
-- (void)setDynamicEdClinicSpecFileForClinicName:(NSString *)thisClinicName {
-    NSLog(@"WRViewController.setDynamicEdClinicSpecFileForClinicName()");
-    if ([thisClinicName isEqualToString:@"PM&R Clinic"]) {
-        currentDynamicClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
-        NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
-    } else if ([thisClinicName isEqualToString:@"PNS Clinic"]) {
-        currentDynamicClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
-        NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
-    } else if ([thisClinicName isEqualToString:@"AT Center"]) {
-        currentDynamicClinicEdModuleSpecFilename = @"at_ed_module_test1";
-        NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
-    }
-    
-    [self initializeDynamicEducationModule];
-    [self setDefaultDynamicSoundFileDict];
-    
-    totalSlidesInThisSection = totalSlidesInThisSection - [dynamicEdModule.newChildControllers count];
-    NSLog(@"Removing %d slides due to unused dynamicEdModule (new total = %d)...",[dynamicEdModule.newChildControllers count],totalSlidesInThisSection);
-}
+//- (void)setDynamicEdClinicSpecFileForClinicName:(NSString *)thisClinicName {
+//    NSLog(@"WRViewController.setDynamicEdClinicSpecFileForClinicName()");
+//    if ([thisClinicName isEqualToString:@"PM&R Clinic"]) {
+//        currentDynamicClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
+//        NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
+//    } else if ([thisClinicName isEqualToString:@"PNS Clinic"]) {
+//        currentDynamicClinicEdModuleSpecFilename = @"pmnr_education_module_test1";
+//        NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
+//    } else if ([thisClinicName isEqualToString:@"AT Center"]) {
+//        currentDynamicClinicEdModuleSpecFilename = @"at_ed_module_test1";
+//        NSLog(@"Set Dynamic Clinic Ed Module Specfilename to: %@...",currentDynamicClinicEdModuleSpecFilename);
+//    }
+//    
+//    [self initializeDynamicEducationModule];
+//    [self setDefaultDynamicSoundFileDict];
+//    
+//    totalSlidesInThisSection = totalSlidesInThisSection - [dynamicEdModule.newChildControllers count];
+//    NSLog(@"Removing %d slides due to unused dynamicEdModule (new total = %d)...",[dynamicEdModule.newChildControllers count],totalSlidesInThisSection);
+//}
 
 - (void)demoSwitchFlipped:(id)sender {
     
@@ -2493,6 +2539,28 @@ static WRViewController* mViewController = NULL;
     whatsNewInitialized = YES;
 }
 
+- (void) initializeEdModulesForCurrentClinic{
+    NSArray* edModules = [DynamicContent getEdModulesForCurrentClinic];
+    /*
+       TODO: if (edModules contains TBI) module, then add that as last option.
+     */
+    
+    if (edModules){
+        int count = [edModules count];
+        NSLog(@" found %d modules", count);
+        if (count > 0)
+            [self initializeEdModule1];
+        if (count > 1)
+            [self initializeEdModule2];
+        if (count > 2)
+            [self initializeEdModule3];
+        if (count > 3)
+            [self initializeEdModule4];
+        if (count > 4)
+            [self initializeEdModule5];
+    }
+}
+
 - (void)initializeEdModule1 {
     NSLog(@"WRViewController.initializeEdModule1()");
     float angle =  270 * M_PI  / 180;
@@ -2523,7 +2591,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.initializeEdModule3()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    [dynamicEdModule3 setupWhatsNewContent];
+    [dynamicEdModule3 setupEdModule:2];
     dynamicEdModule3.view.alpha = 0.0;
     dynamicEdModule3.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule3.view];
@@ -2535,7 +2603,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.initializeEdModule4()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    [dynamicEdModule4 setupWhatsNewContent];
+    [dynamicEdModule4 setupEdModule:3];
     
     dynamicEdModule4.view.alpha = 0.0;
     dynamicEdModule4.view.transform = rotateRight;
@@ -2549,7 +2617,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.initializeEdModule5()");
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    [dynamicEdModule5 setupWhatsNewContent];
+    [dynamicEdModule5 setupEdModule:4];
     
     dynamicEdModule5.view.alpha = 0.0;
     dynamicEdModule5.view.transform = rotateRight;
@@ -3086,11 +3154,27 @@ static WRViewController* mViewController = NULL;
     
     NSLog(@"Finished fading out dynamic what's new module");
 }
+
 //
-- (void)launchEdModule1 {
+
+- (void)launchEdModule:(int)index {
+    NSLog(@"WRViewController.launchEdModule() index %d", index);
     [DynamicSpeech stopSpeaking];
-    NSLog(@"WRViewController.launchEdModule1()");
-    [self fadeEdModule1In];
+    EdModuleInfo* moduleInfo = NULL;
+    if (0 < index && index < 6){
+        moduleInfo = [DynamicContent getEdModuleAtIndex:index -1];
+        if (moduleInfo){
+            NSArray* pages = [moduleInfo getPages];
+            int count = [pages count] -1; // skip first page because its a header
+            if (count >= 0){
+                [self resetProgressBar];
+                //[self incrementProgressBar];
+                totalSlidesInThisSection = count;
+                NSLog(@"WRViewController.launchEdModule() index: %d page count: %d", index, count);
+            }
+        }
+    }
+    [self fadeEdModuleIn:index];
     //sandy 10-15-14
     //TBD add code to indicate that this module was started in the db
     NSString* addToSelfGuideStatus  = @"WhatNewStart";
@@ -3098,7 +3182,7 @@ static WRViewController* mViewController = NULL;
     NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
     //    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
     NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
-    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+    NSLog(@"WRViewController.launchEdModule() existing SelfGuideString%@",existingSelfGuideString);
     int count = [mySelfGuideStatusArray count];
     for (int i = 0; i < count; i++)
         NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
@@ -3110,146 +3194,251 @@ static WRViewController* mViewController = NULL;
     [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
 }
 
-- (void)fadeEdModule1In {
+- (DynamicModuleViewController_Pad*) getEdModuleViewController:(int)index{
+    DynamicModuleViewController_Pad* edModuleViewController = NULL;
+    if (index == 1)
+        edModuleViewController = dynamicEdModule1;
+    else if (index == 2)
+        edModuleViewController = dynamicEdModule2;
+    else if (index == 3)
+        edModuleViewController = dynamicEdModule3;
+    else if (index == 4)
+        edModuleViewController = dynamicEdModule4;
+    else if (index == 5)
+        edModuleViewController = dynamicEdModule4;
+    return edModuleViewController;
+}
+
+- (void)fadeEdModuleIn:(int)index {
     
-    NSLog(@"WRViewController.fadeEdModule1In() Fading in ed module1");
-    
+    NSLog(@"WRViewController.fadeEdModuleIn() Fading in ed module %d",index);
+    DynamicModuleViewController_Pad* edModuleViewController = [self getEdModuleViewController:index];
+    if (!edModuleViewController)
+        return;
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showCurrentButtonOverlay];
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicEdModule1];
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:edModuleViewController];
     
-    dynamicEdModule1.view.alpha = 0.0;
+    edModuleViewController.view.alpha = 0.0;
     
-    dynamicEdModule1.standardPageButtonOverlay.returnToMenuButton.enabled = NO;
-    dynamicEdModule1.standardPageButtonOverlay.returnToMenuButton.alpha = 0.0;
+    edModuleViewController.standardPageButtonOverlay.returnToMenuButton.enabled = NO;
+    edModuleViewController.standardPageButtonOverlay.returnToMenuButton.alpha = 0.0;
     
-    [self.view bringSubviewToFront:dynamicEdModule1.view];
+    [self.view bringSubviewToFront:edModuleViewController.view];
     
     [UIView beginAnimations:nil context:nil];
 	{
 		[UIView	setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
         
-        dynamicEdModule1.view.alpha = 1.0;
+        edModuleViewController.view.alpha = 1.0;
         
         
 	}
 	[UIView commitAnimations];
     
-    [dynamicEdModule1 startingFirstPage];
+    [edModuleViewController startingFirstPage];
     
     [self.view sendSubviewToBack:surveyResourceBack];
     
 }
 
-- (void)fadeEdModule1Out {
-    
+- (void)fadeEdModuleOut:(int)index {
+    DynamicModuleViewController_Pad* edModuleViewController = [self getEdModuleViewController:index];
+    if (!edModuleViewController)
+        return;
+
     [UIView beginAnimations:nil context:nil];
 	{
 		[UIView	setAnimationDuration:0.3];
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
         
-        dynamicEdModule1.view.alpha = 0.0;
+        edModuleViewController.view.alpha = 0.0;
         
         
 	}
 	[UIView commitAnimations];
     
-    endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadeEdModule1Out:) userInfo:nil repeats:NO] retain];
+    endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadeEdModuleOut:index:) userInfo:nil repeats:NO] retain];
     [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
 }
 
-- (void)finishFadeEdModule1Out:(NSTimer*)theTimer {
-    
-    [self.view sendSubviewToBack:dynamicEdModule1.view];
+- (void)finishFadeEdModuleOut:(NSTimer*)theTimer index:(int) moduleIndex{
+    DynamicModuleViewController_Pad* edModuleViewController = [self getEdModuleViewController:moduleIndex];
+    if (!edModuleViewController)
+        return;
+
+    [self.view sendSubviewToBack:edModuleViewController.view];
     
     [theTimer release];
 	theTimer = nil;
     
-    NSLog(@"Finished fading out ed module1");
+    NSLog(@"Finished fading out ed module %d", moduleIndex);
 }
 
-- (void)launchEdModule2 {
-    [DynamicSpeech stopSpeaking];
-    NSLog(@"WRViewController.launchEdModule2()");
-    [self fadeEdModule2In];
-    //sandy 10-15-14
-    //TBD add code to indicate that this module was started in the db
-    NSString* addToSelfGuideStatus  = @"WhatNewStart";
-    
-    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
-    //    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
-    NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
-    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
-    int count = [mySelfGuideStatusArray count];
-    for (int i = 0; i < count; i++)
-        NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
-    NSString *appendedSelfGuideStatusString;
-    appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
-    [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
-    [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
-    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
-}
-
-- (void)fadeEdModule2In {
-    
-    NSLog(@"WRViewController.fadeEdModule1In() Fading in ed module2");
-    
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showCurrentButtonOverlay];
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
-    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicEdModule2];
-    
-    dynamicEdModule2.view.alpha = 0.0;
-    
-    dynamicEdModule2.standardPageButtonOverlay.returnToMenuButton.enabled = NO;
-    dynamicEdModule2.standardPageButtonOverlay.returnToMenuButton.alpha = 0.0;
-    
-    [self.view bringSubviewToFront:dynamicEdModule2.view];
-    
-    [UIView beginAnimations:nil context:nil];
-	{
-		[UIView	setAnimationDuration:0.3];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        
-        dynamicEdModule2.view.alpha = 1.0;
-        
-        
-	}
-	[UIView commitAnimations];
-    
-    [dynamicEdModule2 startingFirstPage];
-    
-    [self.view sendSubviewToBack:surveyResourceBack];
-    
-}
-
-- (void)fadeEdModule2Out {
-    
-    [UIView beginAnimations:nil context:nil];
-	{
-		[UIView	setAnimationDuration:0.3];
-		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-        
-        dynamicEdModule2.view.alpha = 0.0;
-        
-        
-	}
-	[UIView commitAnimations];
-    
-    endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadeEdModule2Out:) userInfo:nil repeats:NO] retain];
-    [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
-}
-
-- (void)finishFadeEdModule2Out:(NSTimer*)theTimer {
-    
-    [self.view sendSubviewToBack:dynamicEdModule2.view];
-    
-    [theTimer release];
-	theTimer = nil;
-    
-    NSLog(@"Finished fading out ed module2");
-}
+//- (void)launchEdModule1 {
+//    [DynamicSpeech stopSpeaking];
+//    NSLog(@"WRViewController.launchEdModule1()");
+//    [self fadeEdModule1In];
+//    //sandy 10-15-14
+//    //TBD add code to indicate that this module was started in the db
+//    NSString* addToSelfGuideStatus  = @"WhatNewStart";
+//    
+//    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+//    //    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
+//    NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+//    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+//    int count = [mySelfGuideStatusArray count];
+//    for (int i = 0; i < count; i++)
+//        NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+//    NSString *appendedSelfGuideStatusString;
+//    appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+//    [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+//    [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+//    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+//    [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+//}
+//
+//- (void)fadeEdModule1In {
+//    
+//    NSLog(@"WRViewController.fadeEdModule1In() Fading in ed module1");
+//    
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showCurrentButtonOverlay];
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicEdModule1];
+//    
+//    dynamicEdModule1.view.alpha = 0.0;
+//    
+//    dynamicEdModule1.standardPageButtonOverlay.returnToMenuButton.enabled = NO;
+//    dynamicEdModule1.standardPageButtonOverlay.returnToMenuButton.alpha = 0.0;
+//    
+//    [self.view bringSubviewToFront:dynamicEdModule1.view];
+//    
+//    [UIView beginAnimations:nil context:nil];
+//	{
+//		[UIView	setAnimationDuration:0.3];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//        
+//        dynamicEdModule1.view.alpha = 1.0;
+//        
+//        
+//	}
+//	[UIView commitAnimations];
+//    
+//    [dynamicEdModule1 startingFirstPage];
+//    
+//    [self.view sendSubviewToBack:surveyResourceBack];
+//    
+//}
+//
+//- (void)fadeEdModule1Out {
+//    
+//    [UIView beginAnimations:nil context:nil];
+//	{
+//		[UIView	setAnimationDuration:0.3];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//        
+//        dynamicEdModule1.view.alpha = 0.0;
+//        
+//        
+//	}
+//	[UIView commitAnimations];
+//    
+//    endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadeEdModule1Out:) userInfo:nil repeats:NO] retain];
+//    [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
+//}
+//
+//- (void)finishFadeEdModule1Out:(NSTimer*)theTimer {
+//    
+//    [self.view sendSubviewToBack:dynamicEdModule1.view];
+//    
+//    [theTimer release];
+//	theTimer = nil;
+//    
+//    NSLog(@"Finished fading out ed module1");
+//}
+//
+//- (void)launchEdModule2 {
+//    [DynamicSpeech stopSpeaking];
+//    NSLog(@"WRViewController.launchEdModule2()");
+//    [self fadeEdModule2In];
+//    //sandy 10-15-14
+//    //TBD add code to indicate that this module was started in the db
+//    NSString* addToSelfGuideStatus  = @"WhatNewStart";
+//    
+//    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+//    //    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
+//    NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+//    NSLog(@"WRViewController.launchDynamicWhatsNewModule() existing SelfGuideSting%@",existingSelfGuideString);
+//    int count = [mySelfGuideStatusArray count];
+//    for (int i = 0; i < count; i++)
+//        NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+//    NSString *appendedSelfGuideStatusString;
+//    appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+//    [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+//    [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+//    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+//    [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+//}
+//
+//- (void)fadeEdModule2In {
+//    
+//    NSLog(@"WRViewController.fadeEdModule1In() Fading in ed module2");
+//    
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showCurrentButtonOverlay];
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
+//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:dynamicEdModule2];
+//    
+//    dynamicEdModule2.view.alpha = 0.0;
+//    
+//    dynamicEdModule2.standardPageButtonOverlay.returnToMenuButton.enabled = NO;
+//    dynamicEdModule2.standardPageButtonOverlay.returnToMenuButton.alpha = 0.0;
+//    
+//    [self.view bringSubviewToFront:dynamicEdModule2.view];
+//    
+//    [UIView beginAnimations:nil context:nil];
+//	{
+//		[UIView	setAnimationDuration:0.3];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//        
+//        dynamicEdModule2.view.alpha = 1.0;
+//        
+//        
+//	}
+//	[UIView commitAnimations];
+//    
+//    [dynamicEdModule2 startingFirstPage];
+//    
+//    [self.view sendSubviewToBack:surveyResourceBack];
+//    
+//}
+//
+//- (void)fadeEdModule2Out {
+//    
+//    [UIView beginAnimations:nil context:nil];
+//	{
+//		[UIView	setAnimationDuration:0.3];
+//		[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+//        
+//        dynamicEdModule2.view.alpha = 0.0;
+//        
+//        
+//	}
+//	[UIView commitAnimations];
+//    
+//    endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadeEdModule2Out:) userInfo:nil repeats:NO] retain];
+//    [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
+//}
+//
+//- (void)finishFadeEdModule2Out:(NSTimer*)theTimer {
+//    
+//    [self.view sendSubviewToBack:dynamicEdModule2.view];
+//    
+//    [theTimer release];
+//	theTimer = nil;
+//    
+//    NSLog(@"Finished fading out ed module2");
+//}
 
 
 //
@@ -4666,7 +4855,7 @@ static WRViewController* mViewController = NULL;
     } else {
         surveyCompleteLabel.text = @"Thank you for completing the satisfaction survey.\n\nIn five seconds, you will be returned to the main menu.";
     }
-    
+    totalSlidesInThisSection = [DynamicContent getPreTreatmentPageCount];
     [self slideRespondentsOut];
     [self updateMiniDemoSettings];
     
@@ -5789,6 +5978,9 @@ static WRViewController* mViewController = NULL;
     
     [self.view sendSubviewToBack:currentModalVC.view];
     
+    [self resetProgressBar];
+    totalSlidesInThisSection = [DynamicContent getPostTreatmentPageCount];
+
     [self showSatisfactionIntro];
 }
 
@@ -6026,14 +6218,18 @@ static WRViewController* mViewController = NULL;
 
 - (void)returnToMenu {
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu];
+    [DynamicSpeech stopSpeaking];
 
-    [mainTTSPlayer stopPlayer];
+    [self resetProgressBar];
+    totalSlidesInThisSection = 1;
+    [self incrementProgressBar];
     
+    [mainTTSPlayer stopPlayer];
     [self handleReturnToMenuTransitions];
     
     needToReturnToMainMenu = NO;
-    [self fadeEdModule1Out];
-    [self fadeEdModule2Out];
+    [self fadeEdModuleOut:1];
+    [self fadeEdModuleOut:2];
     [DynamicContent fadeEdModulePickerIn];
     
     BOOL needToDoFadeIn = usingFullMenu;

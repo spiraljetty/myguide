@@ -15,7 +15,7 @@
     if (self) {
         [self setModuleName:@""];
         mPages = [[NSMutableArray alloc]init];
-        mClinics = [[NSMutableArray alloc]init];
+        mClinics = [[NSString alloc]init];
     }
     return self;
 }
@@ -40,7 +40,7 @@
     [mPages addObject:newPage];
 }
 
--(void) setClinics:(NSMutableArray *)clinics{
+-(void) setClinics:(NSString *)clinics{
     mClinics = clinics;
 }
 
@@ -59,7 +59,7 @@
     return mPages;
 }
 
--(NSMutableArray*) getClinics {
+-(NSString*) getClinics {
     return mClinics;
 }
 

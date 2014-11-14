@@ -9,6 +9,7 @@
 #import "TTSPlayer.h"
 #import "AppDelegate_Pad.h"
 #import "YLViewController.h"
+#import "DynamicSpeech.h"
 
 @implementation TTSPlayer
 
@@ -145,6 +146,7 @@
 }
 
 - (void)playItemsWithNames:(NSArray *)arrayOfSoundFileNames {
+    [DynamicSpeech stopSpeaking];
     NSLog(@"TTSPlayer.playItemsWithNames() files: ");
     for (NSString *soundFilename in arrayOfSoundFileNames) {
         NSLog(@"   %@", soundFilename);

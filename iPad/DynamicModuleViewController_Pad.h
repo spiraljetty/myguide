@@ -115,6 +115,13 @@
     
     BOOL inSubclinicMode;
     BOOL inWhatsNewMode;
+
+    BOOL inEdModule1;
+    BOOL inEdModule2;
+    BOOL inEdModule3;
+    BOOL inEdModule4;
+    BOOL inEdModule5;
+
     
     DynamicButtonOverlayViewController *standardPageButtonOverlay;
     DynamicButtonOverlayViewController *yesNoButtonOverlay;
@@ -128,6 +135,12 @@
 
 @property BOOL inSubclinicMode;
 @property BOOL inWhatsNewMode;
+
+@property BOOL inEdModule1;
+@property BOOL inEdModule2;
+@property BOOL inEdModule3;
+@property BOOL inEdModule4;
+@property BOOL inEdModule5;
 
 @property (nonatomic, retain) TTSPlayer *masterTTSPlayer;
 
