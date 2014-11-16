@@ -286,12 +286,13 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     }
     
     //NSArray* whatsNewPages = [DynamicContent getAllWhatsNewInfo];
-    NSArray* allEdModules = [DynamicContent getAllEdModules];
-    if (moduleIndex >= [allEdModules count]){
-        NSLog(@"DynamicModuleViewController.setupEdModule() moduleIndex %d exceeds module count %d", moduleIndex, [allEdModules count]);
+//    NSArray* allEdModules = [DynamicContent getAllEdModules];
+    NSArray* clinicEdModules = [DynamicContent getEdModulesForCurrentClinic];
+    if (moduleIndex >= [clinicEdModules count]){
+        NSLog(@"DynamicModuleViewController.setupEdModule() moduleIndex %d exceeds module count %d", moduleIndex, [clinicEdModules count]);
         return;
     }
-    EdModuleInfo* edModule = [allEdModules objectAtIndex:moduleIndex];
+    EdModuleInfo* edModule = [clinicEdModules objectAtIndex:moduleIndex];
     moduleName = [edModule getModuleName];//[clinicInfo getSubclinicName];
     NSArray* modulePages = [edModule getPages];
 
@@ -393,19 +394,19 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         samplePage = [pages objectAtIndex:0];
     }
     ClinicInfo* clinicInfo = NULL;
-    if ([propertyListName isEqualToString:@"pmnr_education_module_test1"]){
-        clinicInfo =  [DynamicContent getClinic:@"PMNR"];
-    } else if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
-            clinicInfo =  [DynamicContent getClinic:@"PNS"];
-    } else if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
-            clinicInfo =  [DynamicContent getClinic:@"AT"];
-    } else if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"]){
-            clinicInfo =  [DynamicContent getClinic:@"PAIN"];
-    } else if ([propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
-            clinicInfo =  [DynamicContent getClinic:@"EMG"];
-    } else if ([propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"]){
-            clinicInfo =  [DynamicContent getClinic:@"ACU"];
-    }
+//    if ([propertyListName isEqualToString:@"pmnr_education_module_test1"]){
+//        clinicInfo =  [DynamicContent getClinic:@"PMNR"];
+//    } else if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test3"]){
+//            clinicInfo =  [DynamicContent getClinic:@"PNS"];
+//    } else if ([propertyListName isEqualToString:@"pmnr_pns_ed_module_test2"]){
+//            clinicInfo =  [DynamicContent getClinic:@"AT"];
+//    } else if ([propertyListName isEqualToString:@"pmnr_pain_ed_module_test2"]){
+//            clinicInfo =  [DynamicContent getClinic:@"PAIN"];
+//    } else if ([propertyListName isEqualToString:@"pmnr_emg_ed_module_test2"]){
+//            clinicInfo =  [DynamicContent getClinic:@"EMG"];
+//    } else if ([propertyListName isEqualToString:@"pmnr_acu_ed_module_test2"]){
+//            clinicInfo =  [DynamicContent getClinic:@"ACU"];
+//    }
     if (clinicInfo == NULL){
         NSString* msg = [NSString stringWithFormat:@"clinic not found for %@", propertyListName];
         NSLog(@"DynamicModuleViewController.setupWithPropertyList() %@", msg);
@@ -1010,8 +1011,10 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 index = 3;
             else if (inEdModule5)
                 index = 4;
-            
-            EdModuleInfo* moduleInfo = [DynamicContent getEdModuleAtIndex:index];
+            NSArray* clinicModules = [DynamicContent getEdModulesForCurrentClinic];
+            EdModuleInfo* moduleInfo = NULL;
+            if (clinicModules && index < [clinicModules count])
+                moduleInfo = [clinicModules objectAtIndex:index];
             if (moduleInfo){
                 NSArray* modulePages = [moduleInfo getPages];
                 int pageIndex = 1; // skip page 0 because its a header
@@ -1242,13 +1245,13 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 }
 
 // Transition to new view using custom segue
-- (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward
-{
-    if (vcIndex == ([newChildControllers count] - 1))
-        finishingLastItem = YES;
-    
-    if (finishingLastItem && !goesForward)
-    {
+- (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward{
+    @try {
+        if (vcIndex == ([newChildControllers count] - 1))
+            finishingLastItem = YES;
+        
+        if (finishingLastItem && !goesForward)
+        {
         // Back to menu
 //        DynamicModulePageViewController *newPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
 //        [self playSoundForPage:newPage];
@@ -1256,8 +1259,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         //        [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] launchEducationModule];
         if (inWhatsNewMode) {
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicWhatsNewModuleOut];
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModuleOut:1];
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModuleOut:2];
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeCurrentEdModuleOut];
+//            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeEdModuleOut:2];
         }
         
         if (!inSubclinicMode) {
@@ -1308,7 +1311,10 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 else if (inEdModule5)
                     index = 4;
                 
-                EdModuleInfo* moduleInfo = [DynamicContent getEdModuleAtIndex:index];
+                NSArray* clinicModules = [DynamicContent getEdModulesForCurrentClinic];
+                EdModuleInfo* moduleInfo = NULL;
+                if (clinicModules && index < [clinicModules count])
+                    moduleInfo = [clinicModules objectAtIndex:index];
                 if (moduleInfo){
                     NSArray* modulePages = [moduleInfo getPages];
                     int pageIndex = vcIndex + 1; // skip page 0 because its a header
@@ -1360,17 +1366,30 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 
                 //NSString* name = [self moduleName];
                 [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] whatsNewCompleted];
-                if ([moduleName hasPrefix:@"Back to School"]){
-                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:3];
+                NSArray* edModules = [DynamicContent getEdModulesForCurrentClinic];
+                int index = 0;
+                int matchingIndex = -1;
+                for (EdModuleInfo* edModule in edModules){
+                    if ([[edModule getModuleName] isEqualToString:moduleName])
+                        matchingIndex = index;
+                    else
+                        index++;
                 }
-                else
-                if ([moduleName hasSuffix:@"Recreation"]){
-                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:4];
+                if (0 <= matchingIndex && matchingIndex < 5){
+                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:matchingIndex];
+                    [DynamicContent setEdModuleComplete:matchingIndex];
                 }
-                else {
-                    
-                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:2];
-                }
+//                if ([moduleName hasPrefix:@"Back to School"]){
+//                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:3];
+//                }
+//                else
+//                if ([moduleName hasSuffix:@"Recreation"]){
+//                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:4];
+//                }
+//                else {
+//                    
+//                    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:2];
+//                }
 //                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnWhatsNewButton];
                 [self hideButtonOverlay:standardPageButtonOverlay];
                 //            standardPageButtonOverlay.view.alpha = 0.0;
@@ -1415,6 +1434,9 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         //        }
         
         
+        }
+    } @catch(NSException *exception){
+        NSLog(@"DynamicModuleViewController_Pad.switchToView() ERROR: %@",exception.reason);
     }
 }
 
@@ -1457,6 +1479,11 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     if (newIndex < 0) newIndex = newChildControllers.count - 1;
     //    if (newIndex < 0) newIndex = 3 - 1;
     [self switchToView:newIndex goingForward:YES];
+}
+
+- (void) setCurrentPage:(int)pageIndex{
+   // vcIndex = pageIndex;
+    //[self switchToView:pageIndex goingForward:NO];
 }
 
 - (void)stopMoviePlayback {

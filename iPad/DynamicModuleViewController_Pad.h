@@ -244,4 +244,6 @@
 - (void)goForward;
 - (void)goBackward;
 
+- (void) setCurrentPage:(int)pageIndex;
+
 @end

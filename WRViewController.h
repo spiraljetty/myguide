@@ -675,6 +675,7 @@ typedef enum {
 
 - (void)fadeDynamicEdModuleOut;
 - (void)fadeEdModuleOut:(int)index;
+- (void)fadeCurrentEdModuleOut;
 //- (void)fadeEdModule2Out;
 
 - (void)finishFadeDynamicEdModuleOut:(NSTimer*)theTimer;
@@ -753,5 +754,7 @@ typedef enum {
 - (void)setClinic:(NSString*)clinicName;
 
 - (void)createBadgeOnEdModule:(int)index;
+
+- (void)setProgressBarSlidesCompleted:(int)slidesCompletedCount;
 
 @end

@@ -397,7 +397,30 @@ static MainLoaderViewController* mViewController = NULL;
     
     NSLog(@"MainLoaderViewController.showCurrentButtonOverlay()");
     
-//    standardPageButtonOverlay.view.alpha = 0.0;
+    //    standardPageButtonOverlay.view.alpha = 0.0;
+    [self.view bringSubviewToFront:standardPageButtonOverlay.view];
+    [self.view bringSubviewToFront:readyForAppointmentButton];
+    
+    [UIView beginAnimations:nil context:nil];
+    {
+        [UIView	setAnimationDuration:0.3];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        
+        standardPageButtonOverlay.view.alpha = 1.0;
+        if (shouldShowReadyButton) {
+            readyForAppointmentButton.alpha = 1.0;
+        }
+    }
+    [UIView commitAnimations];
+}
+
+- (void)showCurrentButtonOverlayNoButtons {
+    
+    NSLog(@"MainLoaderViewController.showCurrentButtonOverlayNoButtons()");
+    
+    //    standardPageButtonOverlay.view.alpha = 0.0;
+    standardPageButtonOverlay.nextPageButton.alpha = 0;
+    standardPageButtonOverlay.previousPageButton.alpha = 0;
     [self.view bringSubviewToFront:standardPageButtonOverlay.view];
     [self.view bringSubviewToFront:readyForAppointmentButton];
     

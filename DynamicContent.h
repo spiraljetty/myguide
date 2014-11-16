@@ -13,6 +13,7 @@
 #import "GoalInfo.h"
 #import "SwitchedImageViewController.h"
 #import "EdModuleInfo.h"
+#import "DynamicModuleViewController_Pad.h"
 
 @interface DynamicContent : NSObject
 
@@ -92,5 +93,22 @@
 + (EdModuleInfo*) getEdModuleAtIndex:(int) moduleIndex;
 
 + (id) safeObjectAtIndex:(NSArray*) array index:(int)objectIndex;
++ (void) setEdModuleComplete:(int)index;
++ (bool) isEdModuleComplete:(int)index;
+
++ (int) getTbiEdModuleIndex;
++ (int) getTbiEdModulePageCount;
++ (void) setTbiEdModuleIndex:(int)index;
++ (void) setTbiEdModulePageCount:(int)index;
+
++ (int) getEdModuleCount;
++ (void) setEdModuleCount:(int)count;
+
++ (bool) areAllEdModulesComplete;
++ (void) resetEdModuleProgress;
++ (int)  edModulesCompletedCount;
+
++ (void) setCurrentEdModuleViewController:(DynamicModuleViewController_Pad*)edModuleViewController;
++ (DynamicModuleViewController_Pad*) getCurrentEdModuleViewController;
 
 @end

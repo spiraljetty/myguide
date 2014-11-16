@@ -22,12 +22,12 @@
 // setters
 
 -(void) setModuleName:(NSString *)moduleName{
-    mModuleName = moduleName;
+    mModuleName = [moduleName copy];
 }
 
 
 -(void) setModuleImage:(NSString *)moduleImage{
-    mModuleImage = moduleImage;
+    mModuleImage = [moduleImage copy];
 }
 
 
@@ -41,7 +41,7 @@
 }
 
 -(void) setClinics:(NSString *)clinics{
-    mClinics = clinics;
+    mClinics = [clinics copy];
 }
 
 //- (void) addClinic:(NSDictionary*) newClinic {

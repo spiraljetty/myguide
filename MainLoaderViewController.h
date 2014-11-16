@@ -74,6 +74,7 @@
 - (void)showButtonOverlay:(DynamicButtonOverlayViewController *)thisButtonOverlay;
 - (void)hideButtonOverlay:(DynamicButtonOverlayViewController *)thisButtonOverlay;
 - (void)showCurrentButtonOverlay;
+- (void)showCurrentButtonOverlayNoButtons;
 - (void)hideCurrentButtonOverlay;
 - (void)finishHideButtonOverlay:(NSTimer*)theTimer;
 - (void)showNextButton;

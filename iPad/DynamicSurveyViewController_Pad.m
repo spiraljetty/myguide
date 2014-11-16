@@ -841,7 +841,8 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         // sandy 7-14
         //        providerModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this information on your doctor.";
         // sandy 7-20 removed the word doctor and replaced it with provider
-        providerModuleHelpful.helpfulText = @"Please indicate how helpful you found this information about your provider.";
+        QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+        providerModuleHelpful.helpfulText =[questionInfo getClinicianInfoRatingQuestion];
         providerModuleHelpful.view.frame = backsplash.bounds;
         [surveyPageArray addObject:providerModuleHelpful];
         
@@ -860,7 +861,8 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         
         //sandy 7-14
         //        subclinicModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this clinic information.";
-        subclinicModuleHelpful.helpfulText = @"Please indicate how helpful you found this clinic information.";
+        subclinicModuleHelpful.helpfulText =[questionInfo getClinicInfoRatingQuestion];
+        //subclinicModuleHelpful.helpfulText = @"Please indicate how helpful you found this clinic information.";
         [surveyPageArray addObject:subclinicModuleHelpful];
         
         pageIndex++;
@@ -1795,6 +1797,8 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     [currentSwitchedController showModule2Badge];
 }
 
+
+
 // Transition to new view using custom segue
 - (void)switchToView:(int) newIndex goingForward:(BOOL) goesForward
 {
@@ -1972,6 +1976,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 - (SwitchedImageViewController*) createEdModulePicker:(int)pageIndex {
     NSLog(@"DynamicSurveyViewController.createEdModulePicker() pageIndex: %d", pageIndex);
     SwitchedImageViewController *edModulePicker = NULL;
+    [DynamicContent resetEdModuleProgress];
+
+
 //    bool newVersion = true;
 //    if (!newVersion){
 //        UIStoryboard *chooseModuleStoryboard = [UIStoryboard storyboardWithName:@"survey_module_choice_template" bundle:[NSBundle mainBundle]];
@@ -2013,33 +2020,104 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         edModulePicker.hideNextButton = YES;
         edModulePicker.providerTestText = @"Thank you for this information. Your provider will see you shortly.\nSelect a topic button to learn more while you wait.\n\nPress the doctor icon at the bottom to skip this section.";
         
-        
-        edModulePicker.provider1ImageThumb = @"psc_logo_withwords.png";
-        edModulePicker.provider2ImageThumb = @"psc_logo.png";
-        
-        edModulePicker.provider1Text = @"Learn about Traumatic Brain Injury";
-        edModulePicker.provider2Text = @"What's New at the Polytrauma System of Care";
-        ClinicInfo* currentClinic = [DynamicContent getCurrentClinic];
-        NSArray* edModules = [DynamicContent getAllEdModules];
-        NSString* currentClinicName = [currentClinic getClinicNameShort];
-        if ([currentClinicName isEqualToString:@"at"] && [edModules count] > 1){
-            EdModuleInfo* module0 = [DynamicContent safeObjectAtIndex:edModules index:0]; //[edModules objectAtIndex:0];
-            EdModuleInfo* module1 = [DynamicContent safeObjectAtIndex:edModules index:1];//[edModules objectAtIndex:1];
-            NSString* moduleName0 = [module0 getModuleName];
-            NSString* moduleName1 = [module1 getModuleName];
-            edModulePicker.provider3Text = moduleName0;
-            edModulePicker.provider4Text = moduleName1;
-            edModulePicker.provider3ImageThumb = [module0 getModuleImage];
-            edModulePicker.provider4ImageThumb = [module1 getModuleImage];
-        }
-        else {
-            edModulePicker.provider3Text = @"";
-            edModulePicker.provider4Text = @"";
-        }
-        edModulePicker.provider5Text = @"";
+    NSArray* edModules = [DynamicContent getEdModulesForCurrentClinic];
+    int count = [edModules count];
+    if (count > 0){
+        EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:0]; //[edModules objectAtIndex:0];
+        NSString* name = [module getModuleName];
+        edModulePicker.provider1Text = name;
+        edModulePicker.provider1ImageThumb = [module getModuleImage];
+    }
+    if (count > 1){
+        EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:1];//[edModules objectAtIndex:1];
+        NSString* name = [module getModuleName];
+        edModulePicker.provider2Text = name;
+        edModulePicker.provider2ImageThumb = [module getModuleImage];
+    }
+    if (count > 2){
+        EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:2]; //[edModules objectAtIndex:0];
+        NSString* name = [module getModuleName];
+        edModulePicker.provider3Text = name;
+        edModulePicker.provider3ImageThumb = [module getModuleImage];
+    }
+    if (count > 3){
+        EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:3];//[edModules objectAtIndex:1];
+        NSString* name = [module getModuleName];
+        edModulePicker.provider4Text = name;
+        edModulePicker.provider4ImageThumb = [module getModuleImage];
+    }
+    if (count > 4){
+        EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:4];//[edModules objectAtIndex:1];
+        NSString* name = [module getModuleName];
+        edModulePicker.provider5Text = name;
+        edModulePicker.provider5ImageThumb = [module getModuleImage];
+    }
     
-        [DynamicContent setEdModulePicker:edModulePicker];
-        
+    if (count == 0){
+        edModulePicker.provider1Text = @"Learn about Traumatic Brain Injury";
+        edModulePicker.provider1ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider2Text = @"";
+        edModulePicker.provider3Text = @"";
+        edModulePicker.provider4Text = @"";
+        edModulePicker.provider5Text = @"";
+        [DynamicContent setTbiEdModuleIndex:0];
+        [DynamicContent setEdModuleCount:count+1];
+    }
+    else if (count ==1){
+        edModulePicker.provider2Text = @"Learn about Traumatic Brain Injury";
+        edModulePicker.provider2ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider3Text = @"";
+        edModulePicker.provider4Text = @"";
+        edModulePicker.provider5Text = @"";
+        [DynamicContent setTbiEdModuleIndex:1];
+        [DynamicContent setEdModuleCount:count+1];
+    }
+    else if (count ==2){
+        edModulePicker.provider3Text = @"Learn about Traumatic Brain Injury";
+        edModulePicker.provider3ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider4Text = @"";
+        edModulePicker.provider5Text = @"";
+        [DynamicContent setTbiEdModuleIndex:2];
+        [DynamicContent setEdModuleCount:count+1];
+    }
+    else if (count ==3){
+        edModulePicker.provider4Text = @"Learn about Traumatic Brain Injury";
+        edModulePicker.provider4ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider5Text = @"";
+        [DynamicContent setTbiEdModuleIndex:3];
+        [DynamicContent setEdModuleCount:count+1];
+    }
+    else if (count ==4){
+        edModulePicker.provider5Text = @"Learn about Traumatic Brain Injury";
+        edModulePicker.provider5ImageThumb = @"psc_logo_withwords.png";
+        [DynamicContent setTbiEdModuleIndex:4];
+        [DynamicContent setEdModuleCount:count+1];
+    }
+    else
+        [DynamicContent setEdModuleCount:count];
+
+    
+
+//        ClinicInfo* currentClinic = [DynamicContent getCurrentClinic];
+//        NSString* currentClinicName = [currentClinic getClinicNameShort];
+//        if ([currentClinicName isEqualToString:@"at"] && [edModules count] > 1){
+//            EdModuleInfo* module0 = [DynamicContent safeObjectAtIndex:edModules index:0]; //[edModules objectAtIndex:0];
+//            EdModuleInfo* module1 = [DynamicContent safeObjectAtIndex:edModules index:1];//[edModules objectAtIndex:1];
+//            NSString* moduleName0 = [module0 getModuleName];
+//            NSString* moduleName1 = [module1 getModuleName];
+//            edModulePicker.provider3Text = moduleName0;
+//            edModulePicker.provider4Text = moduleName1;
+//            edModulePicker.provider3ImageThumb = [module0 getModuleImage];
+//            edModulePicker.provider4ImageThumb = [module1 getModuleImage];
+//        }
+//        else {
+//            edModulePicker.provider3Text = @"";
+//            edModulePicker.provider4Text = @"";
+//        }
+//        edModulePicker.provider5Text = @"";
+    
+    [DynamicContent setEdModulePicker:edModulePicker];
+
 //    }
     
     return edModulePicker;

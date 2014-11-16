@@ -25,33 +25,33 @@
 }
 
 - (void) setModuleName:(NSString*) moduleName {
-    mModuleName = moduleName; // the module which this page belongs to
+    mModuleName = [moduleName copy]; // the module which this page belongs to
 }
 
 - (void) setModuleImage:(NSString*) moduleImage {
-    mModuleImage = moduleImage; // the module which this page belongs to
+    mModuleImage = [moduleImage copy]; // the module which this page belongs to
 }
 
 
 - (void) setHeader:(NSString*) header {
-    mHeader = header;
+    mHeader = [header copy];
 }
 
 - (void) setBody:(NSString*) body {
-    mBody = body;
+    mBody = [body copy];
 }
 
 - (void) setImage:(NSString*) image {
-    mImage = image;
+    mImage = [image copy];
 }
 
 - (void) setClinics:(NSString*) clinics {
-    mClinics = clinics;
+    mClinics = [clinics copy];
 }
 
 
 - (void) setPageNumber:(NSString*) pageNumber {
-    mPageNumber = pageNumber;
+    mPageNumber = [pageNumber copy];
 }
 
 

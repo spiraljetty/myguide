@@ -814,30 +814,34 @@
                 [provider1ImageButton setImage:image forState:UIControlStateNormal];
                 [provider1ImageButton setContentMode: UIViewContentModeScaleAspectFit];
                 provider1ImageButton.clipsToBounds = YES;
-                provider1ImageButton.adjustsImageWhenHighlighted;
+               // provider1ImageButton.adjustsImageWhenHighlighted;
                 
                 //get provider 2 image and text
                 image = [UIImage imageNamed:provider2ImageThumb];
                 if (!image)
                     image = [DynamicContent loadImage:provider2ImageThumb];
                 [provider2ImageButton setImage:image forState:UIControlStateNormal];
-                provider2ImageButton.adjustsImageWhenHighlighted;
-                
+                //provider2ImageButton.adjustsImageWhenHighlighted;
+                [provider2ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 // get provider 3 image and text
                 image = [UIImage imageNamed:provider3ImageThumb];
                 if (!image)
                     image = [DynamicContent loadImage:provider3ImageThumb];
                 [provider3ImageButton setImage:image forState:UIControlStateNormal];
                 provider3ImageButton.adjustsImageWhenHighlighted;
-                
+                [provider3ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 // get provider 4 image and text
                 image = [UIImage imageNamed:provider4ImageThumb];
                 if (!image)
                     image = [DynamicContent loadImage:provider4ImageThumb];
                 [provider4ImageButton setImage:image forState:UIControlStateNormal];
                 provider4ImageButton.adjustsImageWhenHighlighted;
-                
+                [provider4ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 provider5ImageButton.adjustsImageWhenHighlighted;
+                [provider5ImageButton setContentMode: UIViewContentModeScaleAspectFit];
 
                 
                 //                provider1Text, provider2Text, provider3Text, provider4Text,
@@ -866,7 +870,7 @@
                 //    IBOutlet NSString *providerTestText;
                 break;
             case kEdModulePicker:
-                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for provider-test survey page with index=%d...", surveyPageIndex);
+                NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for ed module picker survey page with index=%d...", surveyPageIndex);
                 
                 // get provider 1 image and text
                 UIImage* edModImage = [UIImage imageNamed:provider1ImageThumb];
@@ -883,28 +887,32 @@
                     edModImage = [DynamicContent loadImage:provider2ImageThumb];
                 [provider2ImageButton setImage:edModImage forState:UIControlStateNormal];
                 provider2ImageButton.adjustsImageWhenHighlighted;
-                
+                [provider2ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 // get provider 3 image and text
                 edModImage = [UIImage imageNamed:provider3ImageThumb];
                 if (!edModImage)
                     edModImage = [DynamicContent loadImage:provider3ImageThumb];
                 [provider3ImageButton setImage:edModImage forState:UIControlStateNormal];
                 provider3ImageButton.adjustsImageWhenHighlighted;
-                
+                [provider3ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 // get provider 4 image and text
                 edModImage = [UIImage imageNamed:provider4ImageThumb];
                 if (!edModImage)
                     edModImage = [DynamicContent loadImage:provider4ImageThumb];
                 [provider4ImageButton setImage:edModImage forState:UIControlStateNormal];
                 provider4ImageButton.adjustsImageWhenHighlighted;
-                
+                [provider4ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 // get provider 5 image and text
                 image = [UIImage imageNamed:provider5ImageThumb];
                 if (!image)
                     image = [DynamicContent loadImage:provider5ImageThumb];
                 [provider5ImageButton setImage:image forState:UIControlStateNormal];
                 provider5ImageButton.adjustsImageWhenHighlighted;
-                
+                [provider5ImageButton setContentMode: UIViewContentModeScaleAspectFit];
+
                 //                provider1Text, provider2Text, provider3Text, provider4Text,
                 
                 //                provider1TextButton.titleLabel.text = provider1Text;
@@ -959,6 +967,10 @@
                 
                 providerTestLabel.text = providerTestText;
                 
+                WRViewController* wrVC = [WRViewController getViewController];
+                [wrVC resetProgressBar];
+                wrVC.totalSlidesInThisSection = [DynamicContent getEdModuleCount];
+                [wrVC setProgressBarSlidesCompleted:-1];
                 //    IBOutlet NSString *providerTestText;
                 break;
             case kSubclinicTest:
@@ -1693,7 +1705,8 @@
     NSLog(@"provider1ButtonPressed...");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider1Text];
-        [DynamicContent showEdModule:choice];
+        if (![DynamicContent isEdModuleComplete:0])
+            [DynamicContent showEdModule:choice];
         return;
     }
 //    [self disableAllProviderButtons];
@@ -1714,7 +1727,8 @@
     NSLog(@"provider2ButtonPressed...");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider2Text];
-        [DynamicContent showEdModule:choice];
+        if (![DynamicContent isEdModuleComplete:1])
+            [DynamicContent showEdModule:choice];
         return;
     }
 //    [self disableAllProviderButtons];
@@ -1733,10 +1747,11 @@
 
 
 - (void)provider3ButtonPressed:(id)sender {
-    NSLog(@"provider3ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.provider3ButtonPressed()");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider3Text];
-        [DynamicContent showEdModule:choice];
+        if (![DynamicContent isEdModuleComplete:2])
+            [DynamicContent showEdModule:choice];
         return;
     }
 //    [self disableAllProviderButtons];
@@ -1762,7 +1777,8 @@
     NSLog(@"provider4ButtonPressed...");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider4Text];
-        [DynamicContent showEdModule:choice];
+        if (![DynamicContent isEdModuleComplete:3])
+            [DynamicContent showEdModule:choice];
         return;
     }
 //    [self disableAllProviderButtons];
@@ -1785,7 +1801,8 @@
     NSString* dontknow = @"dont know";
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = dontknow;
-        [DynamicContent showEdModule:choice];
+        if (![DynamicContent isEdModuleComplete:4])
+            [DynamicContent showEdModule:choice];
         return;
     }
 //    [self disableAllProviderButtons];

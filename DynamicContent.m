@@ -18,7 +18,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/13/14";
+static NSString* mAppVersion = @"App Version: 11/15/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -45,6 +45,17 @@ static NSString* mClinicianTestHeaderText = NULL;
 static NSString* mGoalsHeaderText = NULL;
 static SwitchedImageViewController* mEdModulePickerVC;
 
+static bool mEdModule1Complete = false;
+static bool mEdModule2Complete = false;
+static bool mEdModule3Complete = false;
+static bool mEdModule4Complete = false;
+static bool mEdModule5Complete = false;
+
+static int mTbiEdModuleIndex = -1;
+static int mTbiEdModulePageCount = -1;
+static int mEdModuleCount = -1;
+
+static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
 @implementation DynamicContent
 
@@ -625,8 +636,10 @@ static SwitchedImageViewController* mEdModulePickerVC;
                 [newPage setBody:edModuleProperties[pageBodyIndex]];
                 [newPage setClinics:edModuleProperties[pageClinicsIndex]];
                 [newPage setImage:imageName];
-                if (imageName != NULL && [imageName length] > 0)
-                    [allImages addObject:imageName];
+                if (imageName != NULL && [imageName length] > 0){
+                    if (![allImages containsObject:imageName])
+                        [allImages addObject:imageName];
+                }
 //                NSString* clinicsText = edModuleProperties[pageClinicsIndex];
 //                NSArray* clinicList = [clinicsText componentsSeparatedByCharactersInSet:
 //                                                                         [NSCharacterSet characterSetWithCharactersInString:@","]];
@@ -644,9 +657,12 @@ static SwitchedImageViewController* mEdModulePickerVC;
         [edModule sortPages];
         EdModuleInfo* page0 = [[edModule getPages] objectAtIndex:0];
         [edModule setModuleName: [page0 getModuleName]];
-        [edModule setModuleImage: [page0 getModuleImage]];
+        NSString* moduleImage = [[page0 getModuleImage] copy];
+        [edModule setModuleImage: moduleImage];
         [edModule setClinics: [page0 getClinics]];
         [edModule writeToLog];
+        if (![allImages containsObject:moduleImage])
+            [allImages addObject:moduleImage];
     }
     if (isDownload){
         int index = 0;
@@ -663,6 +679,8 @@ static SwitchedImageViewController* mEdModulePickerVC;
         }
     }
     //    [self showAlertMsg:msg];
+    
+    //[allModules addObject:[DynamicContent createWhatsNewEdModule]];
     
     return allModules;
     //    [pool release];
@@ -791,87 +809,85 @@ static SwitchedImageViewController* mEdModulePickerVC;
 }
 
 
-+ (EdModuleInfo*) createWhatsNewEdModule {
-    NSLog(@"DynamicContent.createWhatsNewEdModule() ");
-    NSMutableArray*  allPages = [[NSMutableArray alloc] init];
-    EdModulePage* page;
-    // page 1
-    NSString* clinic = @"PNS";
-    NSString* header = @"A note from Odette Harris, MD, MPH";
-    NSString* body = @"Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC). The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care.";
-    NSString* image = @"psc_whatsnew_odette_harris.png";
-    WhatsNewInfo* whatsNewPage = [[WhatsNewInfo alloc] init];
-    [whatsNewPage setClinic:clinic];
-    [whatsNewPage setHeader:header];
-    [whatsNewPage setBody:body];
-    [whatsNewPage setImage:image];
-    [allPages addObject:whatsNewPage];
-    
-    //page 2
-    header = @"A note ...(cont.)";
-    body = @"Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission. This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program.";
-    image = @"psc_logo_withwords.png";
-    whatsNewPage = [[WhatsNewInfo alloc] init];
-    [whatsNewPage setClinic:clinic];
-    [whatsNewPage setHeader:header];
-    [whatsNewPage setBody:body];
-    [whatsNewPage setImage:image];
-    [allPages addObject:whatsNewPage];
-    
-    //page 3
-    header = @"Strategic Planning Update";
-    body = @"In an effort to incorporate all stakeholder feedback gathered during a 9-month strategic planning process, Polytrauma System of Care (PSC) leadership is moving forward with a planned expansion of the Assistive Technology Center to include a Center for Innovation and Technology (CIT).  The expanded organizational structure will provide a design, learning, and development pathway for new health care technologies while maintaining the current service delivery of assistive technologies within the PSC.";
-    image = @"psc_whatsnew_2013q4_page1.png";
-    whatsNewPage = [[WhatsNewInfo alloc] init];
-    [whatsNewPage setClinic:clinic];
-    [whatsNewPage setHeader:header];
-    [whatsNewPage setBody:body];
-    [whatsNewPage setImage:image];
-    [allPages addObject:whatsNewPage];
-    
-    //page 4
-    header = @"Strategic Planning Update..(cont.)";
-    body = @"The new Center signals a commitment to thoughtful creativity, collaborative entrepreneurialism, new project development and incubation, and continuous performance improvement in patient care. Jonathan Sills, PhD, Program Director of Assistive Technology and the main force behind the 2013-2015 strategic plan that included the conceptualization of the Center for Innovation and Technology (CIT) within the Polytrauma System of Care, will oversee the new center.";
-    image = @"at_icon.png";
-    whatsNewPage = [[WhatsNewInfo alloc] init];
-    [whatsNewPage setClinic:clinic];
-    [whatsNewPage setHeader:header];
-    [whatsNewPage setBody:body];
-    [whatsNewPage setImage:image];
-    [allPages addObject:whatsNewPage];
-    
-    //page 5
-    header = @"Setting the pace with Tech Projects!";
-    body = @"Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction.";
-    image = @"psc_whatsnew_2013q4_section2_1.png";
-    whatsNewPage = [[WhatsNewInfo alloc] init];
-    [whatsNewPage setClinic:clinic];
-    [whatsNewPage setHeader:header];
-    [whatsNewPage setBody:body];
-    [whatsNewPage setImage:image];
-    [allPages addObject:whatsNewPage];
-    
-    //page 6
-    header = @"Setting the pace...(cont.)";
-    body = @"In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established.";
-    image = @"psc_whatsnew_2013q4_section2_1.png";
-    whatsNewPage = [[WhatsNewInfo alloc] init];
-    [whatsNewPage setClinic:clinic];
-    [whatsNewPage setHeader:header];
-    [whatsNewPage setBody:body];
-    [whatsNewPage setImage:image];
-    [allPages addObject:whatsNewPage];
-    
-    NSLog(@"Loaded (%d) whatsNew pages", [allPages count]);
-    for (WhatsNewInfo* info in allPages){
-        [info writeToLog];
-    }
-    return allPages;
-}
-
-+ (NSString*) getWhatsNewModuleName{
-    return @"What's New at the Polytrauma System of Care";
-}
+//+ (EdModuleInfo*) createWhatsNewEdModule {
+//    NSLog(@"DynamicContent.createWhatsNewEdModule() ");
+//    EdModulePage* page0 = [[EdModulePage alloc] init]; // header
+//    EdModulePage* page1 = [[EdModulePage alloc] init];
+//    EdModulePage* page2 = [[EdModulePage alloc] init];
+//    EdModulePage* page3 = [[EdModulePage alloc] init];
+//    EdModulePage* page4 = [[EdModulePage alloc] init];
+//    EdModulePage* page5 = [[EdModulePage alloc] init];
+//    EdModulePage* page6 = [[EdModulePage alloc] init];
+//    
+//    // page 0 // header
+//    [page0 setClinics:@"PNS, at"];
+//    [page0 setModuleName:@"What's New at the Polytrauma System of Care"];
+//    [page0 setModuleImage:@"psc_logo.png"];
+//    [page0 setPageNumber:@"0"];
+//
+//    
+//    // page 1
+//    [page1 setHeader:@"A note from Odette Harris, MD, MPH"];
+//    [page1 setBody:@"Welcome to Fiscal Year 2013 Quarter 4 at the VA Palo Alto Health Care System, Polytrauma System of Care (PSC). The focus of this edition of our Newsletter, “38 Miles…Palo Alto to Livermore” is on Innovation and Technology initiatives in our PSC. Outstanding clinical care remains our #1 priority and is driven by our commitment to continuous improvement.  We are fortunate that Innovation and Research continue to be integral to our operation and thus significantly drive and benefit our clinical care."];
+//    [page1 setImage:@"psc_whatsnew_odette_harris.png"];
+//    [page1 setPageNumber:@"1"];
+//
+//    
+//    //page 2
+//    [page2 setHeader:@"A note ...(cont.)"];
+//    [page2 setBody:@"Our outcomes are outstanding and the benefits/impact to our patients and families is undeniable.  This is in direct support of our overall mission. This edition of our newsletter highlights the exemplary accomplishments of the PSC in the realm of Innovation and Technology. We thank you for continued support in making the VA Palo Alto Healthcare System an exceptional rehabilitation program."];
+//    [page2 setImage:@"psc_logo_withwords.png"];
+//    [page2 setPageNumber:@"2"];
+//    
+//    //page 3
+//    [page3 setHeader:@"Strategic Planning Update"];
+//    [page3 setBody:@"In an effort to incorporate all stakeholder feedback gathered during a 9-month strategic planning process, Polytrauma System of Care (PSC) leadership is moving forward with a planned expansion of the Assistive Technology Center to include a Center for Innovation and Technology (CIT).  The expanded organizational structure will provide a design, learning, and development pathway for new health care technologies while maintaining the current service delivery of assistive technologies within the PSC."];
+//    [page3 setImage:@"psc_whatsnew_2013q4_page1.png"];
+//    [page3 setPageNumber:@"3"];
+//
+//    //page 4
+//    [page4 setHeader:@"Strategic Planning Update..(cont.)"];
+//    [page4 setBody:@"The new Center signals a commitment to thoughtful creativity, collaborative entrepreneurialism, new project development and incubation, and continuous performance improvement in patient care. Jonathan Sills, PhD, Program Director of Assistive Technology and the main force behind the 2013-2015 strategic plan that included the conceptualization of the Center for Innovation and Technology (CIT) within the Polytrauma System of Care, will oversee the new center."];
+//    [page4 setImage:@"at_icon.png"];
+//    [page4 setPageNumber:@"4"];
+//
+//    //page 5
+//    [page5 setHeader:@"Setting the pace with Tech Projects!"];
+//    [page5 setBody:@"Along with the IntelaCare Project featured in this issue of the PSC newsletter, the VAPAHCS IPad Waiting Room project was recently recognized by CARF (Commission on Accreditation of Rehabilitation Facilities) International as an exemplary program during the May 2013 accreditation survey. The CARF framework encompasses rehabilitation, with an evaluation of effectiveness, efficiency, access, and patient satisfaction."];
+//    [page5 setImage:@"psc_whatsnew_2013q4_section2_1.png"];
+//    [page5 setPageNumber:@"5"];
+//
+//    
+//    //page 6
+//    [page6 setHeader:@"Setting the pace...(cont.)"];
+//    [page6 setBody:@"In total, the PSC received the following awards after a thorough review of clinical and administrative standards of which CARF has established."];
+//    [page6 setImage:@"psc_whatsnew_2013q4_section2_1.png"];
+//    [page6 setPageNumber:@"6"];
+//    
+//    EdModuleInfo* whatsNewEdModule = [[EdModuleInfo alloc] init];
+//    [whatsNewEdModule setClinics:@"PNS, at, acu"];
+//    [whatsNewEdModule setModuleName:@"What's New at the Polytrauma System of Care"];
+//    [whatsNewEdModule setModuleImage:@"psc_logo.png"];
+//    [whatsNewEdModule addPage:page0];
+//    [whatsNewEdModule addPage:page1];
+//    [whatsNewEdModule addPage:page2];
+//    [whatsNewEdModule addPage:page3];
+//    [whatsNewEdModule addPage:page4];
+//    [whatsNewEdModule addPage:page5];
+//    [whatsNewEdModule addPage:page6];
+//    
+//    NSArray* pages = [whatsNewEdModule getPages];
+//    
+//    NSLog(@"Loaded (%d) whatsNew pages", [pages count]);
+//    for (EdModulePage* p in pages){
+//        [p writeToLog];
+//    }
+//    return whatsNewEdModule;
+//}
+//
+//+ (NSString*) getWhatsNewModuleName{
+//    return @"What's New at the Polytrauma System of Care";
+//}
 
 + (NSArray*) readGoalInfo {
     NSLog(@"DynamicContent.readGoalInfo()");
@@ -1040,18 +1056,22 @@ static SwitchedImageViewController* mEdModulePickerVC;
 }
 
 + (ClinicianInfo*) getClinician:(int)clinicianIndex{
-    NSLog(@"DynamicContent.getClinician() index: %d", clinicianIndex);
-    if (clinicianIndex > 100000){
-        NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
-        NSLog(@"DynamicContent.getClinician() %@", errMsg);
-        [self showAlertMsg:errMsg];
-        return NULL;
+    @try{
+        NSLog(@"DynamicContent.getClinician() index: %d", clinicianIndex);
+        if (clinicianIndex > 100000){
+            NSString* errMsg = [NSString stringWithFormat:@"ERROR: index out of bounds: %d", clinicianIndex];
+            NSLog(@"DynamicContent.getClinician() %@", errMsg);
+            [self showAlertMsg:errMsg];
+            return NULL;
+        }
+        NSArray* allClinicians = [self getAllClinicians];
+        if (clinicianIndex < [allClinicians count])
+            return [allClinicians objectAtIndex:clinicianIndex];
+        else
+            return NULL;
+    } @catch (NSException *e){
+        NSLog(@"DynamicContent.getClinician() ERROR: %@", e.reason);
     }
-    NSArray* allClinicians = [self getAllClinicians];
-    if (clinicianIndex < [allClinicians count])
-        return [allClinicians objectAtIndex:clinicianIndex];
-    else
-        return NULL;
 }
 
 + (NSMutableArray*) getClinicNames{
@@ -1071,25 +1091,29 @@ static SwitchedImageViewController* mEdModulePickerVC;
 
 + (ClinicInfo*) getClinic:(NSString*)clinicName{
     NSLog(@"DynamicContent.getClinic() clinicName: %@", clinicName);
-    NSString* clinicNameLowerCase = [clinicName lowercaseString];
-    NSArray* allClinics = [self getAllClinics];
-    for (ClinicInfo* clinic in allClinics){
-        if ([[clinic getSubclinicName] isEqualToString:clinicName] ||
-            [[clinic getSubclinicName] isEqualToString:clinicNameLowerCase] ||
-            [[clinic getSubclinicNameShort] isEqualToString:clinicName] ||
-            [[clinic getSubclinicNameShort] isEqualToString:clinicNameLowerCase])
-            return clinic;
-        if ([[clinic getClinicName] isEqualToString:clinicName] ||
-            [[clinic getClinicName] isEqualToString:clinicNameLowerCase] ||
-            [[clinic getClinicNameShort] isEqualToString:clinicName] ||
-            [[clinic getClinicNameShort] isEqualToString:clinicNameLowerCase])
-            return clinic;
-        if ([clinicNameLowerCase hasPrefix:@"acu"] &&
-            [[clinic getClinicNameShort] hasPrefix:@"acu"])
-            return clinic;
-        if ([clinicNameLowerCase hasPrefix:@"acu"] &&
-            [[clinic getSubclinicNameShort] hasPrefix:@"acu"])
-            return clinic;
+    @try {
+        NSString* clinicNameLowerCase = [clinicName lowercaseString];
+        NSArray* allClinics = [self getAllClinics];
+        for (ClinicInfo* clinic in allClinics){
+            if ([[clinic getSubclinicName] isEqualToString:clinicName] ||
+                [[clinic getSubclinicName] isEqualToString:clinicNameLowerCase] ||
+                [[clinic getSubclinicNameShort] isEqualToString:clinicName] ||
+                [[clinic getSubclinicNameShort] isEqualToString:clinicNameLowerCase])
+                return clinic;
+            if ([[clinic getClinicName] isEqualToString:clinicName] ||
+                [[clinic getClinicName] isEqualToString:clinicNameLowerCase] ||
+                [[clinic getClinicNameShort] isEqualToString:clinicName] ||
+                [[clinic getClinicNameShort] isEqualToString:clinicNameLowerCase])
+                return clinic;
+            if ([clinicNameLowerCase hasPrefix:@"acu"] &&
+                [[clinic getClinicNameShort] hasPrefix:@"acu"])
+                return clinic;
+            if ([clinicNameLowerCase hasPrefix:@"acu"] &&
+                [[clinic getSubclinicNameShort] hasPrefix:@"acu"])
+                return clinic;
+        }
+    } @catch (NSException *e){
+        NSLog(@"DynamicContent.getClinic() ERROR: %@", e.reason);
     }
     return NULL;
 }
@@ -1191,14 +1215,21 @@ static SwitchedImageViewController* mEdModulePickerVC;
     NSArray *allEdModules = [DynamicContent getAllEdModules];
     
     for (EdModuleInfo* edModule in allEdModules){
-        NSArray* clinics = [[edModule getClinics] componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@","]];
-        for (NSString* clinic in clinics){
-            if ([[currentClinic getSubclinicNameShort] isEqualToString:clinic] ||
-                [[currentClinic getClinicNameShort] isEqualToString:clinic] ||
-                [[currentClinic getSubclinicName] isEqualToString:clinic] ||
-                [[currentClinic getClinicName] isEqualToString:clinic]){
-                
-                [clinicModules addObject:edModule];
+        NSString* clinicsString = [edModule getClinics];
+        if (clinicsString != NULL && [clinicsString length] > 0){
+            NSArray* clinics = [clinicsString componentsSeparatedByCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@","]];
+            if (clinics) {
+                for (NSString* clinic in clinics){
+                    NSString* clinicTrimmed = [clinic stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    if ([[currentClinic getSubclinicNameShort] isEqualToString:clinicTrimmed] ||
+                        [[currentClinic getClinicNameShort] isEqualToString:clinicTrimmed] ||
+                        [[currentClinic getSubclinicName] isEqualToString:clinicTrimmed] ||
+                        [[currentClinic getClinicName] isEqualToString:clinicTrimmed]){
+                        
+                        if (![clinicModules containsObject:edModule])
+                            [clinicModules addObject:edModule];
+                    }
+                }
             }
         }
     }
@@ -1501,18 +1532,15 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     NSLog(@"DynamicContent.showEdModule() module %@, index: %d", moduleName, moduleIndex);
     
     WRViewController* viewController = [WRViewController getViewController];
-    if ([moduleName hasPrefix:@"What's New"]){
-        [viewController launchDynamicWhatsNewModule];
-    } else if ([moduleName hasPrefix:@"Learn about"]){
+    if ([moduleName hasPrefix:@"Learn about"]){
         [viewController launchTbiEdModule];
     } else if (moduleIndex > 0)
         [viewController launchEdModule:moduleIndex];
 }
 
 + (int) getEdModuleIndex:(NSString*) moduleName{
-    // returns module index (1-based)
     NSArray* edModules = [DynamicContent getAllEdModules];
-    int i = 1;
+    int i = 0;
     for (EdModuleInfo* edModule in edModules){
         if ([[edModule getModuleName] isEqualToString:moduleName])
             return i;
@@ -1598,6 +1626,101 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     totalCount += 4; //add 4 pages for: clinic test, provider test, goal picker, post survey info (thank you)
     NSLog(@"DynamicContent.getTotalPreTreatmentPageCount() total pre page count: %d", totalCount);
     return totalCount;
+}
+
++ (bool) isEdModuleComplete:(int)index{
+    if (index == 0)
+        return mEdModule1Complete;
+    else if (index == 1)
+        return mEdModule2Complete;
+    else if (index == 2)
+        return mEdModule3Complete;
+    else if (index == 3)
+        return mEdModule4Complete;
+    else if (index == 4)
+        return mEdModule5Complete;
+    else return false;
+}
+
++ (void) setEdModuleComplete:(int)index {
+    NSLog(@"DynamicContent.setEdModuleComplete() index: %d", index);
+    if (index == 0)
+        mEdModule1Complete = true;
+    else if (index == 1)
+        mEdModule2Complete = true;
+    else if (index == 2)
+        mEdModule3Complete = true;
+    else if (index == 3)
+        mEdModule4Complete = true;
+    else if (index == 4)
+        mEdModule5Complete = true;
+}
+
++ (int) getTbiEdModuleIndex{
+    return mTbiEdModuleIndex;
+}
+
++ (void) setTbiEdModuleIndex:(int)index {
+    NSLog(@"DynamicContent.setTbiEdModuleIndex() index: %d", index);
+    mTbiEdModuleIndex = index;
+}
+
++ (int) getTbiEdModulePageCount{
+    return mTbiEdModulePageCount;
+}
+
++ (void) setTbiEdModulePageCount:(int)index {
+    NSLog(@"DynamicContent.setTbiEdModulePageCount() index: %d", index);
+    mTbiEdModulePageCount = index;
+}
+
++ (int) getEdModuleCount{
+    return mEdModuleCount;
+}
+
++ (void) setEdModuleCount:(int)count {
+    NSLog(@"DynamicContent.setEdModuleCount() count: %d", count);
+    mEdModuleCount = count;
+}
+
++ (bool) areAllEdModulesComplete{
+    int totalCompleted = [DynamicContent edModulesCompletedCount];
+    if (totalCompleted == mEdModuleCount)
+        return true;
+    else
+        return false;
+}
+
++ (int) edModulesCompletedCount{
+    int totalCompleted = 0;
+    if (mEdModule1Complete)
+        totalCompleted++;
+    if (mEdModule2Complete)
+        totalCompleted++;
+    if (mEdModule3Complete)
+        totalCompleted++;
+    if (mEdModule4Complete)
+        totalCompleted++;
+    if (mEdModule5Complete)
+        totalCompleted++;
+    return totalCompleted;
+}
+
++ (void) resetEdModuleProgress{
+    mEdModule1Complete = false;
+    mEdModule2Complete = false;
+    mEdModule3Complete = false;
+    mEdModule4Complete = false;
+    mEdModule5Complete = false;
+    mEdModuleCount = 0;
+}
+
++ (void) setCurrentEdModuleViewController:(DynamicModuleViewController_Pad*)edModuleViewController  {
+    mCurrentEdModuleViewController = edModuleViewController;
+}
+
++ (DynamicModuleViewController_Pad*) getCurrentEdModuleViewController {
+    return mCurrentEdModuleViewController;
 }
 
 
