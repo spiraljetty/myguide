@@ -2859,6 +2859,7 @@ static WRViewController* mViewController = NULL;
 //    [dynamicSurveyModule startOnSurveyPageWithIndex:currentSurveyPageIndex];
     [dynamicSurveyModule startingFirstPage];
     [self fadeDynamicSurveyIn];
+   // [DynamicContent disableFontSizeButton];
 }
 
 - (void)launchDynamicSurveyWithProviderHelpful {
@@ -4913,31 +4914,35 @@ static WRViewController* mViewController = NULL;
 - (void)fontsizeButtonPressed:(id)sender {
 //    [self showComingSoonAlert];
     [tbvc cycleFontSizeForAllLabels];
+    [dynamicSurveyModule cycleFontSizeForAllLabels];
+//    [dynamicSubclinicEdModule cycleFontSizeForAllLabels];
+//    [self updateAllSatisfactionLabelItems0a];
     NSLog(@"WRViewController.fontsizeButtonPressed() - current font size: %d",tbvc.currentFontSize);
 }
-//sandy still need to add this method but not sure if it will work
+////sandy still need to add this method but not sure if it will work
 //- (void)cycleFontSizeForAllLabels {
 //    CGFloat newFontSize,currentFontSize;
-    
+//    
 //    // 1 = avenir medium 30
 //    if (currentFontSize == 1) {
 //        newFontSize = 40.0f;
 //        currentFontSize = 2;
- //   } else if (currentFontSize == 2) {
- //       newFontSize = 50.0f;
+//    } else if (currentFontSize == 2) {
+//        newFontSize = 50.0f;
 //        currentFontSize = 3;
 //    } else {
 //        newFontSize = 30.0f;
 //        currentFontSize = 1;
 //    }
-//
-//    for (SwitchedImageViewController *switchedController in _newChildController)
- //   {
+////
+//    for (SwitchedImageViewController *switchedController in newChildControllers)
+//    {
 //        switchedController.currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
-        //sandy added prompt resizing
- //       switchedController.currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
-//    }
+//        //sandy added prompt resizing
+//        switchedController.currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+//   }
 //}
+
 - (void)respondentButtonPressed:(id)sender {
     if (!runningAppInDemoMode)
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton]; //7/2/14
@@ -6329,8 +6334,6 @@ static WRViewController* mViewController = NULL;
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu];
     [DynamicSpeech stopSpeaking];
     [mainTTSPlayer stopPlayer];
-//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hideNextButton];
-//    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hidePreviousButton];
     [self showMasterButtonOverlayNoButtons];
 
     [self resetProgressBar];
@@ -6496,8 +6499,9 @@ static WRViewController* mViewController = NULL;
     
 //    [[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutReadyForAppointmentButton] setEnab
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutReadyForAppointmentButton];
-    
-    [self returnToMenu];
+    [self hideMasterButtonOverlay];
+    [self showModalTreatmentIntermissionView];
+//    [self returnToMenu];
 }
 
 - (void) handleReturnToMenuTransitions {

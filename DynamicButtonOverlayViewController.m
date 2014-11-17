@@ -21,6 +21,13 @@
 @synthesize delegate, buttonOverlayType, nextPageButton, previousPageButton, voiceAssistButton, fontsizeButton, returnToMenuButton, surveyResourceBack;
 @synthesize yesButton, noButton, progressVC, readyForAppointmentButton;
 
+static DynamicButtonOverlayViewController* mViewController;
+
++ (DynamicButtonOverlayViewController*) getViewController {
+    return mViewController;
+}
+
+
 - (id)initWithButtonOverlayType:(NSString *)thisButtonOverlayType {
     self = [super init];
     if (self) {
@@ -398,6 +405,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.view.backgroundColor = [UIColor clearColor];
+    mViewController = self;
 }
 
 - (void)didReceiveMemoryWarning

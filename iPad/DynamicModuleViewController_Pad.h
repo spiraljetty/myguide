@@ -245,5 +245,6 @@
 - (void)goBackward;
 
 - (void) setCurrentPage:(int)pageIndex;
+- (void)cycleFontSizeForAllLabels;
 
 @end

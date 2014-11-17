@@ -18,7 +18,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/15/14";
+static NSString* mAppVersion = @"App Version: 11/17/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -54,6 +54,8 @@ static bool mEdModule5Complete = false;
 static int mTbiEdModuleIndex = -1;
 static int mTbiEdModulePageCount = -1;
 static int mEdModuleCount = -1;
+
+static int mCurrentFontSize = 1;
 
 static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
@@ -1723,6 +1725,44 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     return mCurrentEdModuleViewController;
 }
 
++ (float) currentFontSize{
+    float result = 30.0f;
+    if (mCurrentFontSize ==2) {
+        result = 40.0f;
+    } else if (mCurrentFontSize == 3) {
+        result = 50.0f;
+    }
+    return result;
+}
 
+
++ (float) cycleFontSizes{
+    if (mCurrentFontSize == 1) {
+        mCurrentFontSize = 2;
+    } else if (mCurrentFontSize == 2) {
+        mCurrentFontSize = 3;
+    } else {
+        mCurrentFontSize = 1;
+    }
+    return [DynamicContent currentFontSize];
+}
+
++ (void) resetFontSize{
+    mCurrentFontSize = 1;
+}
+
++ (void) enableFontSizeButton{
+    DynamicButtonOverlayViewController* buttonVC = [DynamicButtonOverlayViewController getViewController];
+    buttonVC.fontsizeButton.hidden = NO;
+    buttonVC.fontsizeButton.alpha = 1.0f;
+}
+
++ (void) disableFontSizeButton{
+    WRViewController* buttonVC = [WRViewController getViewController];
+//    DynamicButtonOverlayViewController* buttonVC = [DynamicButtonOverlayViewController getViewController];
+    buttonVC.fontsizeButton.userInteractionEnabled = NO;
+    buttonVC.fontsizeButton.hidden = YES;
+    buttonVC.fontsizeButton.alpha = 0.3f;
+}
 
 @end

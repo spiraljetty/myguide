@@ -279,5 +279,8 @@
 - (void)showOverlayNextButton;
 - (void)showOverlayPreviousButton;
 
+- (void) setCurrentPage:(int)pageIndex;
+
+- (void)cycleFontSizeForAllLabels;
 
 @end

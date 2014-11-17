@@ -108,7 +108,16 @@
 + (void) resetEdModuleProgress;
 + (int)  edModulesCompletedCount;
 
++ (float) cycleFontSizes;
++ (float) currentFontSize;
++ (void) resetFontSize;
++ (void) setCurrentFontSize:(int)fontSize;
+
 + (void) setCurrentEdModuleViewController:(DynamicModuleViewController_Pad*)edModuleViewController;
 + (DynamicModuleViewController_Pad*) getCurrentEdModuleViewController;
+
++ (void) disableFontSizeButton;
++ (void) enableFontSizeButton;
+
 
 @end

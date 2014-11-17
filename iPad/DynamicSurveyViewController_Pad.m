@@ -102,18 +102,20 @@ static SwitchedImageViewController *providerModuleHelpful = NULL;
 static SwitchedImageViewController *subclinicModuleHelpful = NULL;
 static DynamicSurveyViewController_Pad *mViewController = NULL;
 
+
 + (DynamicSurveyViewController_Pad*) getViewController{
     return mViewController;
 }
 
 
 + (void) setProviderHelpfulText:(NSString*) text {
-    providerModuleHelpful.helpfulLabel.text = text;
+    providerModuleHelpful.helpfulLabel.text = [text copy];
 }
 
 + (void) setClinicHelpfulText:(NSString*) text {
-//    subclinicModuleHelpful.helpfulLabel.text = text;
-    subclinicModuleHelpful.helpfulText = text;
+    subclinicModuleHelpful.helpfulLabel.text = [text copy];
+    //subclinicModuleHelpful.helpfulText = text;
+
 }
 
 
@@ -414,7 +416,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     NSMutableArray *surveyPageArray = [[NSMutableArray alloc] initWithObjects: nil];
     
     int pageIndex = 0;
-    
+    [DynamicContent resetFontSize];
     if (addPrePostSurveyItems) {
         
         // provider test
@@ -822,14 +824,16 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         }
         
         miniSurveyPageTransition.currentPromptLabel.text = miniSurveyPage2.currentPromptString;
-        
+        miniSurveyPageTransition.currentPromptLabel.font = [UIFont fontWithName:@"Avenir" size:[DynamicContent currentFontSize]];
         [surveyPageArray addObject:miniSurveyPageTransition];
         
         pageIndex++;
         NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages() provider module helpful uses storyboard survey_helpful_template");
-        UIStoryboard *helpfulStoryboard = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
+        UIStoryboard *helpfulStoryboard1 = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
         
-        providerModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        UIStoryboard *helpfulStoryboard2 = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
+        
+        providerModuleHelpful = [helpfulStoryboard1 instantiateViewControllerWithIdentifier:@"0"];
         [providerModuleHelpful retain];
         
         providerModuleHelpful.currentSurveyPageType = kHelpfulPainScale;
@@ -850,7 +854,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         
         //        UIStoryboard *helpfulStoryboard = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
         
-        subclinicModuleHelpful = [helpfulStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        subclinicModuleHelpful = [helpfulStoryboard2 instantiateViewControllerWithIdentifier:@"0"];
         [subclinicModuleHelpful retain];
         
         subclinicModuleHelpful.currentSurveyPageType = kHelpfulPainScale;
@@ -863,6 +867,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         //        subclinicModuleHelpful.helpfulText = @"Using the scale provided below, please indicate how helpful you found this clinic information.";
         subclinicModuleHelpful.helpfulText =[questionInfo getClinicInfoRatingQuestion];
         //subclinicModuleHelpful.helpfulText = @"Please indicate how helpful you found this clinic information.";
+        subclinicModuleHelpful.view.frame = backsplash.bounds;
         [surveyPageArray addObject:subclinicModuleHelpful];
         
         pageIndex++;
@@ -1693,6 +1698,38 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fontsizeButtonPressed:self];
 }
 
+- (void)cycleFontSizeForAllLabels {
+    CGFloat newFontSize = [DynamicContent cycleFontSizes];
+    NSLog(@"DynamicSurveyViewController.cycleFontSizeForAllLabels() newFontSize: %f", newFontSize);
+//    currentFontSize = 3;
+    // 1 = avenir medium 30
+//    int currentFontSize = [DynamicContent currentFontSize];
+//    if (currentFontSize == 1) {
+//        newFontSize = 40.0f;
+//        currentFontSize = 2;
+//    } else if (currentFontSize == 2) {
+//        newFontSize = 50.0f;
+//        currentFontSize = 3;
+//    } else {
+//        newFontSize = 30.0f;
+//        currentFontSize = 1;
+//    }
+//    [DynamicContent setCurrentFontSize:currentFontSize];
+
+    for (SwitchedImageViewController *switchedController in newChildControllers)
+    {
+        switchedController.currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+
+        switchedController.currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+    }
+    
+    providerModuleHelpful.helpfulLabel.font =  [UIFont fontWithName:@"Avenir-Medium" size:newFontSize];
+    
+    subclinicModuleHelpful.helpfulLabel.font =  [UIFont fontWithName:@"Avenir-Medium" size:[DynamicContent currentFontSize]];
+    
+}
+
+
 - (void)overlayVoicePressed {
     NSLog(@"overlayVoicePressed...");
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] voiceassistButtonPressed:self];
@@ -1803,7 +1840,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 - (void)switchToView:(int) newIndex goingForward:(BOOL) goesForward
 {
     NSLog(@"DynamicSurveyViewController_Pad.switchToView() index %d", newIndex);
-    
+    subclinicModuleHelpful.helpfulLabel.font =  [UIFont fontWithName:@"Avenir-Medium" size:[DynamicContent currentFontSize]];
     if (finishingLastItem)
     {
         if (vcIndex == 6) {

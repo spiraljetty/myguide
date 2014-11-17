@@ -757,6 +757,8 @@
                 NSLog(@"SwitchedImageViewController.viewDidLoad() sandy Verify that this is new_painscale_template and set fontsize here");
                 currentPromptLabel.text = currentPromptString;
                 currentSatisfactionLabel.text = currentSatisfactionString;
+                currentPromptLabel.font = [UIFont fontWithName:@"Avenir" size:[DynamicContent currentFontSize]];
+                currentSatisfactionLabel.font = [UIFont fontWithName:@"Avenir" size:[DynamicContent currentFontSize]];
                 break;
             case kAgreeDisagree:
                 NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for agree-disagree survey page with index=%d...", surveyPageIndex);
@@ -1176,7 +1178,8 @@
                 NSLog(@"SwitchedImageViewController.viewDidLoad() Loading view content for general survey page with index=%d...", surveyPageIndex);
                 
                 currentPromptLabel.text = currentPromptString;
-                
+                currentPromptLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:[DynamicContent currentFontSize]];
+
                 //                UILabel *currentPromptLabel;
                 //                NSString *currentPromptString;
                 break;

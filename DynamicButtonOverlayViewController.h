@@ -63,6 +63,8 @@
 @property (nonatomic, retain) IBOutlet UIButton *yesButton;
 @property (nonatomic, retain) IBOutlet UIButton *noButton;
 
++ (DynamicButtonOverlayViewController*) getViewController;
+
 - (id)initWithButtonOverlayType:(NSString *)thisButtonOverlayType;
 - (void)fadeThisObject:(id)thisObject toAlpha:(CGFloat)newAlpha afterSeconds:(double)fadeSeconds;
 - (void)fadeThisObjectIn:(id)thisObject;
@@ -72,5 +74,6 @@
 
 - (void)activateDelegateOverlayPreviousPressed;
 - (void)activateDelegateOverlayNextPressed;
+
 
 @end

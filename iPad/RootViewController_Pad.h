@@ -62,7 +62,7 @@
     
     int currentUniqueID;
     
-    int currentFontSize;
+//    int currentFontSize;
     
     NSArray *patientSatisfactionLabelItems;
     NSArray *familySatisfactionLabelItems;

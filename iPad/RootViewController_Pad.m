@@ -479,10 +479,11 @@ static RootViewController_Pad* mViewController = NULL;
         surveyItemCount = [matchingSatisfactionLabelItems count];
         for (int index = 0; index < surveyItemCount; index++) {
             SwitchedImageViewController *switchedController = [newChildControllers objectAtIndex:index];
-            NSLog(@"RootViewController.updateAllSatisfactionLabelItems() Updating %@ item # %d...",respondentType,index);
             
             switchedController.currentSatisfactionLabel.text = [matchingSatisfactionLabelItems objectAtIndex:index];
             switchedController.currentPromptLabel.text = [matchingSatisfactionPromptItems objectAtIndex:index];
+            NSLog(@"RootViewController.updateAllSatisfactionLabelItems() Updating %@ item # %d %@",respondentType,index, switchedController.currentSatisfactionLabel.text);
+
         }
         return;
     }
@@ -521,19 +522,19 @@ static RootViewController_Pad* mViewController = NULL;
 }
 
 - (void)cycleFontSizeForAllLabels {
-    CGFloat newFontSize;
-    
-    // 1 = avenir medium 30
-    if (currentFontSize == 1) {
-        newFontSize = 40.0f;
-        currentFontSize = 2;
-    } else if (currentFontSize == 2) {
-        newFontSize = 50.0f;
-        currentFontSize = 3;
-    } else {
-        newFontSize = 30.0f;
-        currentFontSize = 1;
-    }
+    CGFloat newFontSize = [DynamicContent cycleFontSizes];
+//    int textSize = [DynamicContent currentFontSize];
+//    // 1 = avenir medium 30
+//    if (textSize == 1) {
+//        newFontSize = 40.0f;
+//        textSize = 2;
+//    } else if (textSize == 2) {
+//        newFontSize = 50.0f;
+//        textSize = 3;
+//    } else {
+//        textSize = 30.0f;
+//        textSize = 1;
+//    }
 
     for (SwitchedImageViewController *switchedController in newChildControllers)
     {
