@@ -6502,6 +6502,10 @@ static WRViewController* mViewController = NULL;
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutReadyForAppointmentButton];
     [self hideMasterButtonOverlay];
     [self fadeCurrentEdModuleOut];
+    [self fadeDynamicEdModuleOut];
+    [self fadeDynamicSubclinicEdModuleOut];
+    [self fadePhysicianDetailOut];
+    [self fadePhysicianDetailVCOut];
     [self showModalTreatmentIntermissionView];
 //    [self returnToMenu];
 }
