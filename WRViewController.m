@@ -89,13 +89,12 @@ static WRViewController* mViewController = NULL;
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
         collectingPilotData = YES;
         
         // Custom initialization
         NSLog(@"WRViewController.initWithNibName()");
         runningAppInDemoMode = NO;
-        
+
         forceToDemoMode = YES;
         
         inTreatmentIntermission = NO;
@@ -222,7 +221,6 @@ static WRViewController* mViewController = NULL;
 
 - (void)completeInitialApplicationLaunch {
     NSLog(@"WRViewController.completeInitialApplicationLaunch()");
-
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     

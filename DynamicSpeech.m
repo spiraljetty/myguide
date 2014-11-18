@@ -21,7 +21,8 @@ static AVSpeechSynthesizer *mSynthesizer = NULL;
  Volume: Allowed values are in the range from 0.0 (silent) to 1.0 (loudest). The default volume is 1.0.
  */
 
-static float mDefaultVolume = 0.1;
+static float mDefaultVolume = 0.5;
+
 static float mSpeechRate = 0.20; //0.12
 static float mPitchMultiplier = 1.0; //1.5;
 static NSString* mLanguage = @"en-US";

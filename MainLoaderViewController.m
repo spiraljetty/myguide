@@ -104,7 +104,7 @@ static MainLoaderViewController* mViewController = NULL;
         
         // Hide volume display from now on
         MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
-        [self.view addSubview: volumeView];
+//        [self.view addSubview: volumeView];
         [volumeView release];
         [DynamicContent resetDynamicContent];
 
