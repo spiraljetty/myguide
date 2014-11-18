@@ -81,9 +81,12 @@ static WRViewController* mViewController = NULL;
     return mViewController;
 }
 
+// this is the main method to launch the whole app!
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    
+    // Launch app!
+    
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 
@@ -6500,6 +6503,7 @@ static WRViewController* mViewController = NULL;
 //    [[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutReadyForAppointmentButton] setEnab
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutReadyForAppointmentButton];
     [self hideMasterButtonOverlay];
+    [self fadeCurrentEdModuleOut];
     [self showModalTreatmentIntermissionView];
 //    [self returnToMenu];
 }

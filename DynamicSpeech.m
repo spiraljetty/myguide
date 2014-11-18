@@ -14,7 +14,6 @@
 
 static bool mIsSpeechEnabled = true;
 
-static float mDefaultVolume = 0.1;
 static AVSpeechSynthesizer *mSynthesizer = NULL;
 /*
  Rate: AVSpeechUtteranceMinimumSpeechRate; Lower values correspond to slower speech
@@ -22,10 +21,11 @@ static AVSpeechSynthesizer *mSynthesizer = NULL;
  Volume: Allowed values are in the range from 0.0 (silent) to 1.0 (loudest). The default volume is 1.0.
  */
 
+static float mDefaultVolume = 0.1;
 static float mSpeechRate = 0.20; //0.12
 static float mPitchMultiplier = 1.0; //1.5;
 static NSString* mLanguage = @"en-US";
-static float mLanguageIndex = 1.0;
+//static float mLanguageIndex = 1.0;
 
 
 
@@ -45,6 +45,12 @@ static float mLanguageIndex = 1.0;
      mIsSpeechEnabled = value;
 }
 
++ (void) initializeSpeech {
+    [DynamicSpeech stopSpeaking];
+    mIsSpeechEnabled = true;
+//    mDefaultVolume = 1.0;
+}
+
 
 + (void) stopSpeaking {
     if ([DynamicSpeech isEnabled] && [mSynthesizer isSpeaking]){
@@ -61,13 +67,12 @@ static float mLanguageIndex = 1.0;
 }
 
 + (void) speakList:(NSArray*)utterances {
-    NSLog(@"DynamicSpeech.speakList()");
+    NSLog(@"DynamicSpeech.speakList() count: %d", [utterances count]);
     if (!mIsSpeechEnabled)
         return;
-//    NSArray* voices = [AVSpeechSynthesisVoice speechVoices];
-//    for (AVSpeechSynthesisVoice* v in voices) {
-//        NSLog([v language]);
-//    }
+    for (NSString* ut in utterances) {
+        NSLog(ut);
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         if (mSynthesizer == NULL)
             mSynthesizer = [[AVSpeechSynthesizer alloc]init];
@@ -121,9 +126,6 @@ static float mLanguageIndex = 1.0;
     return mLanguage;
 }
 
-+ (float) getLanguageIndex {
-    return mLanguageIndex;
-}
 
 + (void) setSpeed:(float) speed{
     NSLog(@"DynamicSpeech.setSpeed() %f", speed);
@@ -143,27 +145,30 @@ static float mLanguageIndex = 1.0;
     mLanguage = language;
 }
 
-+ (void) setLanguageIndex:(float) languageIndex{
-    NSLog(@"DynamicSpeech.setLanguageIndex() %f", languageIndex);
-    //[DynamicSpeech setLanguage:@"en-GB"];
-    if (0.0 <= languageIndex && languageIndex <= 7.0f){
-        mLanguageIndex = languageIndex;
-        if (mLanguageIndex == 1.0)
-            [DynamicSpeech setLanguage:@"en-US"];
-        else if (mLanguageIndex == 2.0)
-            [DynamicSpeech setLanguage:@"en-GB"];
-        else if (mLanguageIndex == 3.0)
-            [DynamicSpeech setLanguage:@"en-AU"];
-        else if (mLanguageIndex == 4.0)
-            [DynamicSpeech setLanguage:@"en-NZ"];
-        else if (mLanguageIndex == 5.0)
-            [DynamicSpeech setLanguage:@"en-ZA"];
-        else if (mLanguageIndex == 6.0)
-            [DynamicSpeech setLanguage:@"es-MX"];
-        else if (mLanguageIndex == 7.0)
-                [DynamicSpeech setLanguage:@"es-ES"];
-    }
-}
+//+ (float) getLanguageIndex {
+//    return mLanguageIndex;
+//}
+//+ (void) setLanguageIndex:(float) languageIndex{
+//    NSLog(@"DynamicSpeech.setLanguageIndex() %f", languageIndex);
+//    //[DynamicSpeech setLanguage:@"en-GB"];
+//    if (0.0 <= languageIndex && languageIndex <= 7.0f){
+//        mLanguageIndex = languageIndex;
+//        if (mLanguageIndex == 1.0)
+//            [DynamicSpeech setLanguage:@"en-US"];
+//        else if (mLanguageIndex == 2.0)
+//            [DynamicSpeech setLanguage:@"en-GB"];
+//        else if (mLanguageIndex == 3.0)
+//            [DynamicSpeech setLanguage:@"en-AU"];
+//        else if (mLanguageIndex == 4.0)
+//            [DynamicSpeech setLanguage:@"en-NZ"];
+//        else if (mLanguageIndex == 5.0)
+//            [DynamicSpeech setLanguage:@"en-ZA"];
+//        else if (mLanguageIndex == 6.0)
+//            [DynamicSpeech setLanguage:@"es-MX"];
+//        else if (mLanguageIndex == 7.0)
+//                [DynamicSpeech setLanguage:@"es-ES"];
+//    }
+//}
 
 
 + (void) setPitch:(float) pitch{

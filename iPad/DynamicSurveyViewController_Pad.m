@@ -1460,7 +1460,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         switch (currentSurveyPage.currentSurveyPageType) {
             case kChooseGoal:
                 if ([DynamicSpeech isEnabled]){
-                    utterances = [DynamicContent getGoalStrings];
+                    utterances = [DynamicContent getGoalsForCurrentClinicAndRespondent:true];
                     [DynamicSpeech speakList:utterances];
                     return;
                 }
@@ -1470,6 +1470,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
             case kProviderTest:
                 if ([DynamicSpeech isEnabled]){
                     utterances = [DynamicContent getClinicianTestNames];
+                    [utterances addObject:@"I don't know"];
                     [DynamicSpeech speakList:utterances];
                     return;
                 }
@@ -1539,6 +1540,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
             case kSubclinicTest:
                 if ([DynamicSpeech isEnabled]){
                     utterances = [DynamicContent getClinicTestNames];
+                    [utterances addObject:@"I don't know"];
                     [DynamicSpeech speakList:utterances];
                     return;
                 }

@@ -33,4 +33,6 @@
 + (void) sayPrivacyPolicy;
 + (void) sayReturnTablet;
 
++ (void) initializeSpeech;
+
 @end

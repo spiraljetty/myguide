@@ -74,6 +74,7 @@
 + (NSString*) getClinicTestHeaderText;
 + (NSString*) getClinicianTestHeaderText;
 + (NSString*) getGoalsHeaderText;
++ (NSMutableArray*) getGoalsForCurrentClinicAndRespondent:(bool) includeHeader;
 
 + (void) setClinicianTestNames:(NSArray*)clinicianNames;
 + (void) setClinicTestNames:(NSArray*)clinicianNames;
@@ -118,6 +119,6 @@
 
 + (void) disableFontSizeButton;
 + (void) enableFontSizeButton;
-
++ (void) resetDynamicContent;
 
 @end

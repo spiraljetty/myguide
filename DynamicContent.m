@@ -7,6 +7,7 @@
 //
 
 #import "DynamicContent.h"
+#import "DynamicSpeech.h"
 #import "QuestionList.h"
 #import "ClinicianInfo.h"
 #import "GoalInfo.h"
@@ -18,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/17/14";
+static NSString* mAppVersion = @"App Version: 11/18/14";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -301,6 +302,30 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     }
 }
 
+
++ (NSMutableArray*) getGoalsForCurrentClinicAndRespondent:(bool) includeHeader {
+    GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinicName]];
+    NSString* currentRespondent = [DynamicContent getCurrentRespondent];
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+    NSArray* goals = NULL;
+    if (includeHeader && mGoalsHeaderText != NULL)
+        [result addObject: mGoalsHeaderText];
+    if (goalInfo != NULL){
+        if ([currentRespondent isEqualToString:@"family"])
+            goals = [goalInfo getFamilyGoals];
+        else
+        if ([currentRespondent isEqualToString:@"caregiver"])
+            goals = [goalInfo getCaregiverGoals];
+        else
+            goals = [goalInfo getSelfGoals];
+    }
+    [result addObjectsFromArray:goals];
+    if (includeHeader){
+        [result addObject:@"Enter my own goal"];
+        [result addObject:@"None of the Above"];
+    }
+    return result;
+}
 
 
 + (GoalInfo*) getGoalsForClinic:(NSString*) clinic {
@@ -1448,8 +1473,7 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 
 + (void) setClinicianTestNames:(NSArray*)clinicianTestNames {
     // used for speech synthesis
-    if (mClinicianTestNames == NULL)
-        mClinicianTestNames = [[NSMutableArray alloc] init];
+    mClinicianTestNames = [[NSMutableArray alloc] init];
     [mClinicianTestNames addObjectsFromArray:clinicianTestNames];
 }
 
@@ -1466,8 +1490,7 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 
 + (void) setClinicTestNames:(NSArray*)clinicTestNames {
     // used for speech synthesis
-    if (mClinicTestNames == NULL)
-        mClinicTestNames = [[NSMutableArray alloc] init];
+    mClinicTestNames = [[NSMutableArray alloc] init];
     [mClinicTestNames addObjectsFromArray:clinicTestNames];
 }
 
@@ -1708,15 +1731,6 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     return totalCompleted;
 }
 
-+ (void) resetEdModuleProgress{
-    mEdModule1Complete = false;
-    mEdModule2Complete = false;
-    mEdModule3Complete = false;
-    mEdModule4Complete = false;
-    mEdModule5Complete = false;
-    mEdModuleCount = 0;
-}
-
 + (void) setCurrentEdModuleViewController:(DynamicModuleViewController_Pad*)edModuleViewController  {
     mCurrentEdModuleViewController = edModuleViewController;
 }
@@ -1747,10 +1761,6 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     return [DynamicContent currentFontSize];
 }
 
-+ (void) resetFontSize{
-    mCurrentFontSize = 1;
-}
-
 + (void) enableFontSizeButton{
     DynamicButtonOverlayViewController* buttonVC = [DynamicButtonOverlayViewController getViewController];
     buttonVC.fontsizeButton.hidden = NO;
@@ -1764,5 +1774,25 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     buttonVC.fontsizeButton.hidden = YES;
     buttonVC.fontsizeButton.alpha = 0.3f;
 }
+
++ (void) resetDynamicContent{
+    [DynamicContent resetEdModuleProgress];
+    [DynamicContent resetFontSize];
+    [DynamicSpeech initializeSpeech];
+}
+
++ (void) resetEdModuleProgress{
+    mEdModule1Complete = false;
+    mEdModule2Complete = false;
+    mEdModule3Complete = false;
+    mEdModule4Complete = false;
+    mEdModule5Complete = false;
+    mEdModuleCount = 0;
+}
+
++ (void) resetFontSize{
+    mCurrentFontSize = 1;
+}
+
 
 @end

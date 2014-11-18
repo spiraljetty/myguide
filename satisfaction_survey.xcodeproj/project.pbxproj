@@ -453,6 +453,7 @@
 		5F65A5D819EDF18B00625905 /* new_newsletter.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F65A5D619EDF18B00625905 /* new_newsletter.png */; };
 		5F65A5D919EDF18B00625905 /* new_tbi_big.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F65A5D719EDF18B00625905 /* new_tbi_big.png */; };
 		5F65A5DB19EDF2A500625905 /* survey_module_choice_templateoriginal in Resources */ = {isa = PBXBuildFile; fileRef = 5F65A5DA19EDF2A500625905 /* survey_module_choice_templateoriginal */; };
+		5F9880491A1846BD0083A477 /* UIImage-Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F9880481A1846BD0083A477 /* UIImage-Extensions.m */; };
 		5FA5252E1973938000297423 /* survey_module_choice_template_fourchoices.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */; };
 		5FA753C119B8565100C930D3 /* ClinicInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA753C019B8565100C930D3 /* ClinicInfo.m */; };
 		5FA9981F19BE396F000C68E3 /* download_from_cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FA9981E19BE396F000C68E3 /* download_from_cloud.png */; };
@@ -1026,6 +1027,8 @@
 		5F65A5D619EDF18B00625905 /* new_newsletter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_newsletter.png; sourceTree = "<group>"; };
 		5F65A5D719EDF18B00625905 /* new_tbi_big.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = new_tbi_big.png; sourceTree = "<group>"; };
 		5F65A5DA19EDF2A500625905 /* survey_module_choice_templateoriginal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = survey_module_choice_templateoriginal; sourceTree = "<group>"; };
+		5F9880471A1846BD0083A477 /* UIImage-Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage-Extensions.h"; sourceTree = "<group>"; };
+		5F9880481A1846BD0083A477 /* UIImage-Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage-Extensions.m"; sourceTree = "<group>"; };
 		5FA5252D1973938000297423 /* survey_module_choice_template_fourchoices.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = survey_module_choice_template_fourchoices.storyboard; sourceTree = "<group>"; };
 		5FA753BF19B8565100C930D3 /* ClinicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClinicInfo.h; sourceTree = "<group>"; };
 		5FA753C019B8565100C930D3 /* ClinicInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClinicInfo.m; sourceTree = "<group>"; };
@@ -1162,6 +1165,8 @@
 		29B97317FDCFA39411CA2CEA /* iPad */ = {
 			isa = PBXGroup;
 			children = (
+				5F9880471A1846BD0083A477 /* UIImage-Extensions.h */,
+				5F9880481A1846BD0083A477 /* UIImage-Extensions.m */,
 				5FEACC8E1A131A5A00B45680 /* EdModulePage.h */,
 				5FEACC8F1A131A5A00B45680 /* EdModulePage.m */,
 				5FB0D05E1A075AC600AEE09B /* WhatsNewInfo.h */,
@@ -2573,6 +2578,7 @@
 				3D07BF9216B0314400EECE5E /* YLViewController.m in Sources */,
 				3D3EB51616B0D5DE00997C12 /* Constants.m in Sources */,
 				3D3EB51916B0D5F000997C12 /* ArcTabViewController.m in Sources */,
+				5F9880491A1846BD0083A477 /* UIImage-Extensions.m in Sources */,
 				3D3EB51E16B0D62A00997C12 /* KYArcTab.m in Sources */,
 				3D3EB51F16B0D62A00997C12 /* KYArcTabViewController.m in Sources */,
 				5FEACC8D1A13156800B45680 /* EdModuleInfo.m in Sources */,

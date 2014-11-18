@@ -1019,8 +1019,8 @@
                 // sandy 7-20 removed the word doctor and replaced it with provider
 //                GoalInfo* goalInfo = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] getGoalInfo];
                     NSString* selectedClinic = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
-                GoalInfo* goalInfo = [DynamicContent getGoalsForClinic:[DynamicContent getCurrentClinicName]];
-                if (goalInfo != NULL){
+                NSArray* goals = [DynamicContent getGoalsForCurrentClinicAndRespondent:false];
+                if (goals != NULL){
                     goal1Text = @"";
                     goal2Text = @"";
                     goal3Text = @"";
@@ -1031,14 +1031,14 @@
                     goal8Text = @"";
                     goal9Text = @"";
                     goal10Text = @"";
-                    NSArray* goals = NULL;
-                    if ([currentRespondent isEqualToString:@"family"])
-                        goals = [goalInfo getFamilyGoals];
-                    else
-                    if ([currentRespondent isEqualToString:@"caregiver"])
-                        goals = [goalInfo getCaregiverGoals];
-                    else
-                        goals = [goalInfo getSelfGoals];
+//                    NSArray* goals = NULL;
+//                    if ([currentRespondent isEqualToString:@"family"])
+//                        goals = [goalInfo getFamilyGoals];
+//                    else
+//                    if ([currentRespondent isEqualToString:@"caregiver"])
+//                        goals = [goalInfo getCaregiverGoals];
+//                    else
+//                        goals = [goalInfo getSelfGoals];
                     if (goals != NULL){
                         int count = [goals count];
                         if (count == 1){

@@ -10,6 +10,7 @@
 #import "YLViewController.h"
 #import "AppDelegate_Pad.h"
 #import "DynamicSpeech.h"
+#import "DynamicContent.h"
 
 #import <AudioToolbox/AudioToolbox.h>
 
@@ -105,6 +106,7 @@ static MainLoaderViewController* mViewController = NULL;
         MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame: CGRectZero];
         [self.view addSubview: volumeView];
         [volumeView release];
+        [DynamicContent resetDynamicContent];
 
         
     }
@@ -311,6 +313,8 @@ static MainLoaderViewController* mViewController = NULL;
 }
 
 - (void)showModalAreYouSureView {
+    NSLog(@"MainLoaderViewController.showModalAreYouSureView()");
+    [DynamicSpeech stopSpeaking];
     [self.view bringSubviewToFront:modalConfirmReadyForAppointment.view];
     
     //    [wantExtraInfo release];
@@ -327,6 +331,7 @@ static MainLoaderViewController* mViewController = NULL;
 }
 
 - (void)hideModalConfirmReady {
+    NSLog(@"MainLoaderViewController.showModalAreYouSureView()");
     [UIView beginAnimations:nil context:nil];
     {
         [UIView	setAnimationDuration:0.3];
@@ -587,7 +592,7 @@ static MainLoaderViewController* mViewController = NULL;
 
 - (void)performAppReset {
     NSLog(@"MainLoaderViewcontroller.performAppReset() Resetting app...");
-    
+    [DynamicContent resetDynamicContent];
     [currentWRViewController.mainTTSPlayer stopPlayer];
     [miniDemoVC menuButtonPressed];
     [self showWaitScreen];
