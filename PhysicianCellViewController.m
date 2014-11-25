@@ -44,10 +44,13 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 //        currentlySelectedClinicPhysicians = [DynamicContent getNewClinicianNames];
 //    else {
         ClinicInfo *clinic = [allClinics objectAtIndex:currentRowIndex];
-        NSString* clinicName = [clinic getSubclinicNameShort];
-        if ([clinicName length] == 0)
+//    NSString* clinicName = [clinic getSubclinicNameShort];
+    NSString* clinicName = [clinic getClinicSubclinicComboName];
+    if ([clinicName length] == 0)
+        clinicName = [clinic getSubclinicNameShort];
+    if ([clinicName length] == 0)
             clinicName = [clinic getClinicNameShort];
-        currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:clinicName];
+    currentlySelectedClinicPhysicians = [DynamicContent getSubclinicPhysicianNames:clinicName];
 //    }
     
 //    if (currentRowIndex == 1){

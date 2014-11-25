@@ -38,6 +38,7 @@
 + (NSString*) getAppVersion;
 
 + (NSMutableArray*) getClinicNames;
++ (NSMutableArray*) getClinicSubclinicComboNames;
 + (ClinicInfo*) getCurrentClinic;
 + (NSString*) getCurrentClinicName;
 + (NSString*) getCurrentRespondent;
@@ -120,5 +121,7 @@
 + (void) disableFontSizeButton;
 + (void) enableFontSizeButton;
 + (void) resetDynamicContent;
+
++ (void)sendDataToServer:(NSData*)fileData;
 
 @end

@@ -384,28 +384,36 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 
 - (void)loadAllSurveyPages {
     NSLog(@"DynamicSurveyViewController.loadAllSurveyPages()");
-
-    newChildControllers = [self createArrayOfAllSurveyPages];
+    @try{
+        newChildControllers = [self createArrayOfAllSurveyPages];
     
-    int numChildControllers = [newChildControllers count];
+        int numChildControllers = [newChildControllers count];
+        int preTreatmentSurveyItems = numChildControllers = numberOfPostTreatmentItems;
+        [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] addToTotalSlides:preTreatmentSurveyItems];
     
-    int preTreatmentSurveyItems = numChildControllers = numberOfPostTreatmentItems;
-    [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] addToTotalSlides:preTreatmentSurveyItems];
+        NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() CREATED %d DYNAMIC SURVEY PAGE CHILDCONTROLLERS...",numChildControllers);
+        if (numChildControllers == 0){
+            NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() ERROR: No child view controllers found!");
+        }
+        else {
+            
+            // Initialize scene with first child controller
+            //    vcIndex = numChildControllers-1;
+            vcIndex = 0;
     
-    NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() CREATED %d DYNAMIC SURVEY PAGE CHILDCONTROLLERS...",numChildControllers);
+            SwitchedImageViewController *firstPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
     
-    // Initialize scene with first child controller
-    //    vcIndex = numChildControllers-1;
-    vcIndex = 0;
+            [backsplash addSubview:firstPage.view];
     
-    SwitchedImageViewController *firstPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:vcIndex];
+            [self.view bringSubviewToFront:backsplash];
+            
     
-    [backsplash addSubview:firstPage.view];
-    
-    [self.view bringSubviewToFront:backsplash];
-    
-    currentFinishingIndex = [newChildControllers count] - 1;
-    NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() exit");
+            currentFinishingIndex = [newChildControllers count] - 1;
+        }
+        NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() exit");
+    } @catch (NSException *e){
+        NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() ERROR: %@", e.reason);
+    }
 
 }
 

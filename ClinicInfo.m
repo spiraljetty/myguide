@@ -68,6 +68,17 @@
     return mSubclinicNameShort;
 }
 
+-(NSString*) getClinicSubclinicComboName {
+    NSString* result = NULL;
+    if (mSubclinicNameShort != NULL && [mSubclinicNameShort length] > 0){
+        result = [NSString stringWithFormat:@"%@-%@", mClinicNameShort, mSubclinicNameShort];
+    }
+    else
+        result = mClinicNameShort;
+    return
+        result;
+}
+
 -(NSMutableArray*) getClinicPages {
     return mClinicPages;
 }

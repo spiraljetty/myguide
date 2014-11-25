@@ -24,6 +24,7 @@
 - (NSString*) getClinicNameShort;
 - (NSString*) getSubclinicName;
 - (NSString*) getSubclinicNameShort;
+- (NSString*) getClinicSubclinicComboName;
 - (NSString*) getClinicImage;
 - (NSString*) getPageImageFilename:(int) pageNumber;
 - (NSMutableArray*) getClinicPages;

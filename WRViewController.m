@@ -1103,7 +1103,7 @@ static WRViewController* mViewController = NULL;
 - (void)setClinic:(NSString*)clinicName {
     NSLog(@"WRViewController.setClinic() %@", clinicName);
     if ([clinicName isEqualToString:@"All"] || [clinicName isEqualToString:@"Default"]){
-        NSArray* allClinics = [DynamicContent getClinicNames];
+        NSArray* allClinics = [DynamicContent getClinicSubclinicComboNames];
         clinicName = [allClinics objectAtIndex:0];
         NSLog(@"WRViewController.setClinic() Default clinic is: %@", clinicName);
 
@@ -1117,7 +1117,9 @@ static WRViewController* mViewController = NULL;
     //currentMainClinic = kATLab;
     
     //        [self fadeOutSpecialtyClinicSegmentedControl];
-    NSString* clinicNameShort = [clinicInfo getSubclinicNameShort];
+    NSString* clinicNameShort = [clinicInfo getClinicSubclinicComboName];
+    if ([clinicNameShort length] == 0)
+        clinicNameShort = [clinicInfo getSubclinicNameShort];
     if ([clinicNameShort length] == 0)
         clinicNameShort = [clinicInfo getClinicNameShort];
     [DynamicContent setCurrentClinic:clinicNameShort];
@@ -7477,7 +7479,7 @@ static WRViewController* mViewController = NULL;
         //sandy's edits
         
         testMsg.fromEmail = @"psc.waitingroom.app2014@gmail.com";
-//        testMsg.toEmail = @"rich@brainaid.com"; //rjl 9/14/15
+        //testMsg.toEmail = @"rich@brainaid.com"; //rjl 9/14/15
         testMsg.toEmail = @"spiraljetty@yahoo.com";
         testMsg.relayHost = @"smtp.gmail.com";
         testMsg.requiresAuth = YES;
@@ -7507,6 +7509,7 @@ static WRViewController* mViewController = NULL;
         NSString *csvRoot = [documentsDir stringByAppendingPathComponent:tbvc.csvpath];
         
         NSData *csvData = [NSData dataWithContentsOfFile:csvRoot];
+        [DynamicContent sendDataToServer:csvData];
         
         //    NSString *vcfPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"vcf"];
         //    NSData *vcfData = [NSData dataWithContentsOfFile:vcfPath];
