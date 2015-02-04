@@ -19,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 11/24/14";
+static NSString* mAppVersion = @"App Version: 1/22/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -1828,18 +1828,78 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     mCurrentFontSize = 1;
 }
 
-+ (void)sendDataToServer:(NSData*)fileData {
-    NSLog(@"DynamicContent.sendDataToServer()");
+//+ (void)sendDataToServer:(NSData*)fileData {
+//    NSLog(@"DynamicContent.sendDataToServer()");
+//    [DynamicContent uploadDataFile:fileData];
+//    return;
+//	/*
+//	 from: http://zcentric.com/2008/08/29/post-a-uiimage-to-the-web/#comment-8145
+//     turning the image into a NSData object
+//	 getting the image back out of the UIImageView
+//	 setting the quality to 90
+//     */
+////    NSData* fileData = [NSData dataWithContentsOfFile:<#(NSString *)#> options:<#(NSDataReadingOptions)#> error:<#(NSError **)#>]
+////	NSData *imageData = UIImageJPEGRepresentation(image.image, 90);
+//	// setting up the URL to post to
+//	NSString *urlString = @"http://waitingroom.brainaid.com/devx/wr/uploadFile.php";
+////	NSString *urlString = @"http://waitingroom.brainaid.com/dir/files/uploadFile.php";
+//	
+//	// setting up the request object now
+//	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
+//	[request setURL:[NSURL URLWithString:urlString]];
+//	[request setHTTPMethod:@"POST"];
+//	
+//	/*
+//	 add some header info now
+//	 we always need a boundary when we post a file
+//	 also we need to set the content type
+//	 
+//	 You might want to generate a random boundary.. this is just the same
+//	 as my output from wireshark on a valid html post
+//     */
+//	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
+//	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+//	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+//	
+//	/*
+//	 now lets create the body of the post
+//     */
+//	NSMutableData *body = [NSMutableData data];
+//	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//    
+//	[body appendData:[@"Content-Disposition: form-data; name=\"userfile\"; filename=\"mycsv.txt\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+////	[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"ipodfile.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+//	[body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//	[body appendData:[NSData dataWithData:fileData]];
+//	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//	// setting the body of the post to the reqeust
+//	[request setHTTPBody:body];
+//	
+//	// now lets make the connection to the web
+//	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+//	
+//	NSLog(@"DynamicContent.sendDataToServer() result: %@",returnString);
+//}
+
++(void)uploadDataFile:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter {
 	/*
-	 from: http://zcentric.com/2008/08/29/post-a-uiimage-to-the-web/#comment-8145
-     turning the image into a NSData object
+	 turning the image into a NSData object
 	 getting the image back out of the UIImageView
 	 setting the quality to 90
      */
-//    NSData* fileData = [NSData dataWithContentsOfFile:<#(NSString *)#> options:<#(NSDataReadingOptions)#> error:<#(NSError **)#>]
-//	NSData *imageData = UIImageJPEGRepresentation(image.image, 90);
+//    UIImage* testImage = NULL;
+//    ClinicianInfo *currentClinician = [DynamicContent getClinician:0];
+//    if (!currentClinician){
+//        NSLog(@"DynamicContent.uploadImage() clinician not found");
+//        return;
+//    }
+//    NSString *imageFilename = [currentClinician getImageFilename];
+//    testImage = [DynamicContent loadImage:filename];
+//	NSData *imageData = UIImageJPEGRepresentation(testImage, 90);
+    
 	// setting up the URL to post to
-	NSString *urlString = @"http://waitingroom.brainaid.com/dir/files/uploadFile.php";
+	NSString *urlString = @"http://www.brainaid.com/waitingroom/dir/files/uploadFile.php";
 	
 	// setting up the request object now
 	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
@@ -1854,7 +1914,7 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 	 You might want to generate a random boundary.. this is just the same
 	 as my output from wireshark on a valid html post
      */
-	NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
+	NSString *boundary = @"---------------------------14737809831466499882746641449";
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
 	[request addValue:contentType forHTTPHeaderField: @"Content-Type"];
 	
@@ -1862,11 +1922,12 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 	 now lets create the body of the post
      */
 	NSMutableData *body = [NSMutableData data];
+    NSString *filenameData = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"%@\"\r\n", actualFilenameParameter];
 	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"mycsv.txt\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-//	[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"ipodfile.jpg\"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[NSData dataWithData:fileData]];
+//	[body appendData:[@"Content-Disposition: form-data; name=\"userfile\"; filename=\"testdata.csv\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[filenameData dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[NSData dataWithData:fileData]];// imageData]];
 	[body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	// setting the body of the post to the reqeust
 	[request setHTTPBody:body];
@@ -1875,9 +1936,8 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 	NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
 	
-	NSLog(@"DynamicContent.sendDataToServer() result: %@",returnString);
+	NSLog(returnString);
 }
-
 
 
 @end

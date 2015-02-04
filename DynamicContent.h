@@ -122,6 +122,7 @@
 + (void) enableFontSizeButton;
 + (void) resetDynamicContent;
 
-+ (void)sendDataToServer:(NSData*)fileData;
++ (void) sendDataToServer:(NSData*)fileData;
++ (void) uploadDataFile:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter;
 
 @end

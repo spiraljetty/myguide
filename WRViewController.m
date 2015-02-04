@@ -967,7 +967,15 @@ static WRViewController* mViewController = NULL;
     //newRow = newRow-1;
     if (newRow < 0)
         newRow = 0;
-    NSArray *newVCs = [NSArray arrayWithObjects:[splitViewController.viewControllers objectAtIndex:0], [arrayDetailVCs objectAtIndex:newRow], nil];
+    id vc = [splitViewController.viewControllers objectAtIndex:0];
+    int count = [arrayDetailVCs count];
+    if (count <= newRow){
+        NSLog(@"WRViewController.setNewDetailVCForFow() index %d exceeds count %d",newRow, count);
+        return;
+    }
+
+    id detailVc = [arrayDetailVCs objectAtIndex:newRow]; // rjl 1/27/15 newRow is 6 but list length is 6 (0-based). Bug is that list should contain seven objects
+    NSArray *newVCs = [NSArray arrayWithObjects:vc, detailVc, nil];
     
     splitViewController.viewControllers = newVCs;
     
@@ -7479,8 +7487,8 @@ static WRViewController* mViewController = NULL;
         //sandy's edits
         
         testMsg.fromEmail = @"psc.waitingroom.app2014@gmail.com";
-        //testMsg.toEmail = @"rich@brainaid.com"; //rjl 9/14/15
-        testMsg.toEmail = @"spiraljetty@yahoo.com";
+        testMsg.toEmail = @"rich@brainaid.com"; //rjl 9/14/15
+        //testMsg.toEmail = @"spiraljetty@yahoo.com";
         testMsg.relayHost = @"smtp.gmail.com";
         testMsg.requiresAuth = YES;
         testMsg.login = @"psc.waitingroom.app2014@gmail.com";
@@ -7509,7 +7517,7 @@ static WRViewController* mViewController = NULL;
         NSString *csvRoot = [documentsDir stringByAppendingPathComponent:tbvc.csvpath];
         
         NSData *csvData = [NSData dataWithContentsOfFile:csvRoot];
-        [DynamicContent sendDataToServer:csvData];
+        [DynamicContent uploadDataFile:csvData formalFilenameParameter:tbvc.csvpath];
         
         //    NSString *vcfPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"vcf"];
         //    NSData *vcfData = [NSData dataWithContentsOfFile:vcfPath];
