@@ -19,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 1/22/15";
+static NSString* mAppVersion = @"App Version: 2/8/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -27,6 +27,7 @@ static NSArray* mAllClinicians = NULL;
 static NSArray* mAllSurveyQuestions = NULL;
 static NSArray* mAllWhatsNew = NULL;
 static NSArray* mAllEdModules = NULL;
+static NSArray* mAllAdminSettings = NULL;
 
 static NSMutableArray* mProviderTestStrings = NULL;  // for provider test
 static NSMutableArray* mClinicTestStrings = NULL;  // for clinic test
@@ -117,6 +118,14 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     return mAllEdModules;
 }
 
+
++ (NSArray*) getAllAdminSettings {
+    if (mAllAdminSettings== NULL){
+        mAllAdminSettings = [DynamicContent readAdminSettings];
+    }
+    return mAllAdminSettings;
+}
+
 + (NSString*) getCurrentClinicName{
     return mCurrentClinicName;
 }
@@ -202,6 +211,13 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
         }
         [DynamicContent downloadEdModules];
         
+        //admin settings
+        if (viewController != NULL){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                viewController.downloadDataStatus.text = @"Downloading Admin Settings";
+            });
+        }
+        [DynamicContent downloadAdminSettings];
         
         // show "download complete" message
         if (viewController != NULL){
@@ -296,6 +312,23 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     else{
         NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
         NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadEdModules() %@", errorMsg];
+        NSLog(logMsg);
+        if (filePath != NULL)
+            [DynamicContent showAlertMsg:errorMsg];
+    }
+}
+
++ (void) downloadAdminSettings {
+    int count = 0;
+    NSString* filename = @"adminsettings.txt";
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    if (filePath){
+        mAllAdminSettings = [DynamicContent readAdminSettings];
+        count = [mAllAdminSettings count];
+    }
+    else{
+        NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
+        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadAdminSettings() %@", errorMsg];
         NSLog(logMsg);
         if (filePath != NULL)
             [DynamicContent showAlertMsg:errorMsg];
@@ -928,6 +961,43 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 //+ (NSString*) getWhatsNewModuleName{
 //    return @"What's New at the Polytrauma System of Care";
 //}
+
++ (NSArray*) readAdminSettings{
+    NSLog(@"DynamicContent.readAdminSettings()");
+    NSMutableArray*  allSettings = [[NSMutableArray alloc] init];
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString  *filePath = [NSString stringWithFormat:@"%@/adminsettings.txt", documentsDirectory];
+    
+    NSArray * lines = [self readFile:filePath];
+    for (NSString *line in lines) {
+        NSString* settingsLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        if (settingsLine.length > 0){
+            NSLog(@"DynamicContent.readAdminSettings() adminsettings.txt line: %@", settingsLine);
+            // parse row containing settings details
+            if([settingsLine hasPrefix:@"//"]){
+                NSLog(@"DynamicContent.readAdminSettings() comment: %@", settingsLine);
+            }
+            else {
+                if ([settingsLine hasSuffix:@";"]){
+                    int index = [settingsLine length] -1;
+                    settingsLine = [settingsLine substringToIndex: index];
+                }
+                NSArray* settingsRow = [settingsLine componentsSeparatedByCharactersInSet:
+                                    [NSCharacterSet characterSetWithCharactersInString:@";"]];
+                for (NSString* word in settingsRow){
+                    if (![word isEqualToString:@"1"] && ! [word isEqualToString:@"spiraljetty@yahoo.com"] && [word length] > 0)
+                        [allSettings addObject:word];
+                }
+            }
+        }
+    }
+    NSLog(@"Loaded (%d) settings", [allSettings count]);
+    for (NSString* info in allSettings){
+        NSLog(@"%@", info);
+    }
+    return allSettings;
+}
 
 + (NSArray*) readGoalInfo {
     NSLog(@"DynamicContent.readGoalInfo()");
@@ -1576,14 +1646,38 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     return mSelfGuideStatus;
 }
 
-+(NSMutableArray*) getPrivacyPolicy {
++(NSMutableArray*) getPrivacyPolicyForSpeech {
    NSMutableArray* lines = [[NSMutableArray alloc] init];
-    [lines addObject:@"Your participation in this survey is anonymous."];
-    [lines addObject:@"_PAUSE_"];
-    [lines addObject:@"Your responses will not be given to your treatment provider or any other clinic staff."];
-    [lines addObject:@"_PAUSE_"];
-    [lines addObject:@"Your responses will not influence the services you receive at this clinic."];
+    NSArray* adminSettings = [DynamicContent getAllAdminSettings];
+    int i = 0;
+    NSString* privacyPolicy = [adminSettings objectAtIndex:0];
+    
+    NSString* cleanLine = [privacyPolicy stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSArray *privacyLines = [cleanLine componentsSeparatedByString:@"&NEWLINE_"];
+        for (NSString* line in privacyLines){
+            line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@""];
+            if ([line length] == 0){
+                [lines addObject:@"_PAUSE_"];
+            }
+            else
+                [lines addObject:line];
+        }
+
+//    [lines addObject:@"Your participation in this survey is anonymous."];
+//    [lines addObject:@"_PAUSE_"];
+//    [lines addObject:@"Your responses will not be given to your treatment provider or any other clinic staff."];
+//    [lines addObject:@"_PAUSE_"];
+//    [lines addObject:@"Your responses will not influence the services you receive at this clinic."];
     return lines;
+}
+
++(NSString*) getPrivacyPolicyForDisplay {
+    NSArray* adminSettings = [DynamicContent getAllAdminSettings];
+    NSString* privacyPolicy = [adminSettings objectAtIndex:0];
+    NSString* line = [privacyPolicy stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    line = [line stringByReplacingOccurrencesOfString:@"&NEWLINE_" withString:@"\n"];
+    line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@"•\t "];
+    return line;
 }
 
 + (void) showEdModule:(NSString*) moduleName{

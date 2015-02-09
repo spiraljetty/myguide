@@ -3660,7 +3660,7 @@ static RootViewController_Pad* mViewController = NULL;
                 surveyName = @"Caregiver Satisfaction Survey";
             }
             [utterances addObject:surveyName];
-            [utterances addObjectsFromArray:[DynamicContent getPrivacyPolicy]];
+            [utterances addObjectsFromArray:[DynamicContent getPrivacyPolicyForSpeech]];
             [DynamicSpeech speakList:utterances];
             return;
         }

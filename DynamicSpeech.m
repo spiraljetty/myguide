@@ -190,7 +190,7 @@ static NSString* mLanguage = @"en-US";
     [welcomeStrings addObject:@"Welcome to the VA Palo Alto Healthcare System"];
     [welcomeStrings addObject:clinicName];
     [welcomeStrings addObject:@"_PAUSE_"];
-    [welcomeStrings addObjectsFromArray:[DynamicContent getPrivacyPolicy]];
+    [welcomeStrings addObjectsFromArray:[DynamicContent getPrivacyPolicyForSpeech]];
     [welcomeStrings addObject:@"_PAUSE_"];
     [welcomeStrings addObject:@"Would you like me to read the questions out loud?"];
     
@@ -199,7 +199,7 @@ static NSString* mLanguage = @"en-US";
 
 + (void) sayPrivacyPolicy{
     NSMutableArray* lines = [[NSMutableArray alloc] init];
-    [lines addObjectsFromArray:[DynamicContent getPrivacyPolicy]];
+    [lines addObjectsFromArray:[DynamicContent getPrivacyPolicyForSpeech]];
     [DynamicSpeech speakList:lines];
 }
 

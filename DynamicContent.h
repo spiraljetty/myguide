@@ -82,7 +82,8 @@
 
 + (NSMutableArray*) getClinicianTestNames;
 + (NSMutableArray*) getClinicTestNames;
-+ (NSMutableArray*) getPrivacyPolicy;
++ (NSMutableArray*) getPrivacyPolicyForSpeech;
++ (NSString*) getPrivacyPolicyForDisplay;
 
 + (void) showAlertMsg:(NSString *)msg;
 + (void) showEdModule:(NSString*) moduleName;

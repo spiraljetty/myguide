@@ -1018,7 +1018,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
             if (moduleInfo){
                 NSArray* modulePages = [moduleInfo getPages];
                 int pageIndex = 1; // skip page 0 because its a header
-                if (pageIndex < [pages count]){
+                if (pageIndex < [modulePages count]){ //[pages count]){
                     EdModulePage* page = [modulePages objectAtIndex:pageIndex];
                     NSString *pageText = [page getBody];
                     [DynamicSpeech speakText:pageText];

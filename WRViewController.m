@@ -802,9 +802,21 @@ static WRViewController* mViewController = NULL;
     PhysicianCellViewController *newDetailViewController3 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController4 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController5 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController6 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController7 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController8 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController9 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController10 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController11 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController12 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController13 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController14 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController15 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
 
     // rjl 8/16/14 here is the list of clinic detail display pages
-    arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, nil];
+    arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, newDetailViewController6, newDetailViewController7,
+        newDetailViewController8, newDetailViewController9, newDetailViewController10, newDetailViewController11, newDetailViewController12,
+        newDetailViewController13, newDetailViewController14, newDetailViewController15,  nil];
     
     masterViewController.myDetailViewController = newDetailViewController0;
     
@@ -970,11 +982,11 @@ static WRViewController* mViewController = NULL;
     id vc = [splitViewController.viewControllers objectAtIndex:0];
     int count = [arrayDetailVCs count];
     if (count <= newRow){
-        NSLog(@"WRViewController.setNewDetailVCForFow() index %d exceeds count %d",newRow, count);
+        NSLog(@"WRViewController.setNewDetailVCForRow() index %d exceeds count %d",newRow, count);
         return;
-    }
+        }
 
-    id detailVc = [arrayDetailVCs objectAtIndex:newRow]; // rjl 1/27/15 newRow is 6 but list length is 6 (0-based). Bug is that list should contain seven objects
+        id detailVc = [arrayDetailVCs objectAtIndex:newRow]; // rjl 1/27/15 newRow is 6 but list length is 6 (0-based). Bug is that list should contain seven objects
     NSArray *newVCs = [NSArray arrayWithObjects:vc, detailVc, nil];
     
     splitViewController.viewControllers = newVCs;
@@ -3817,7 +3829,8 @@ static WRViewController* mViewController = NULL;
     
     presurveyIntroLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 800, 600)];
     presurveyIntroLabel.numberOfLines = 0;
-	presurveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your treatment provider or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
+	presurveyIntroLabel.text = [DynamicContent getPrivacyPolicyForDisplay];
+//	presurveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Bob's responses will not be given to your treatment provider or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
 	presurveyIntroLabel.textColor = [UIColor blackColor];
 	presurveyIntroLabel.backgroundColor = [UIColor clearColor];
     presurveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
