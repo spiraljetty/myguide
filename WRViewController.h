@@ -176,6 +176,11 @@ typedef enum {
     DynamicModuleViewController_Pad *dynamicEdModule3;
     DynamicModuleViewController_Pad *dynamicEdModule4;
     DynamicModuleViewController_Pad *dynamicEdModule5;
+    DynamicModuleViewController_Pad *dynamicEdModule6;
+    DynamicModuleViewController_Pad *dynamicEdModule7;
+    DynamicModuleViewController_Pad *dynamicEdModule8;
+    DynamicModuleViewController_Pad *dynamicEdModule9;
+    DynamicModuleViewController_Pad *dynamicEdModule10;
 
     DynamicSurveyViewController_Pad *dynamicSurveyModule;
     
@@ -254,6 +259,11 @@ typedef enum {
     BOOL edModule3Initialized;
     BOOL edModule4Initialized;
     BOOL edModule5Initialized;
+    BOOL edModule6Initialized;
+    BOOL edModule7Initialized;
+    BOOL edModule8Initialized;
+    BOOL edModule9Initialized;
+    BOOL edModule10Initialized;
     BOOL dynamicSurveyInitialized;
     
     BOOL educationModuleCompleted;
@@ -523,6 +533,11 @@ typedef enum {
 @property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule3;
 @property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule4;
 @property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule5;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule6;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule7;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule8;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule9;
+@property (nonatomic, retain) DynamicModuleViewController_Pad *dynamicEdModule10;
 
 @property (nonatomic, retain) NSString *currentDynamicClinicEdModuleSpecFilename;
 

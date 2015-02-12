@@ -134,6 +134,11 @@
     BOOL inEdModule3;
     BOOL inEdModule4;
     BOOL inEdModule5;
+    BOOL inEdModule6;
+    BOOL inEdModule7;
+    BOOL inEdModule8;
+    BOOL inEdModule9;
+    BOOL inEdModule10;
     
     DynamicButtonOverlayViewController *standardPageButtonOverlay;
     DynamicButtonOverlayViewController *yesNoButtonOverlay;
@@ -157,6 +162,11 @@
 @property BOOL inEdModule3;
 @property BOOL inEdModule4;
 @property BOOL inEdModule5;
+@property BOOL inEdModule6;
+@property BOOL inEdModule7;
+@property BOOL inEdModule8;
+@property BOOL inEdModule9;
+@property BOOL inEdModule10;
 
 @property (nonatomic, retain) NSString *todaysGoal;
 @property (nonatomic, retain) SwitchedImageViewController *miniSurveyPage1;

@@ -312,7 +312,9 @@
 // Transition to new view using custom segue
 - (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward
 {
-    NSLog(@"PhysicianViewController.switchToView()");
+    NSLog(@"PhysicianViewController.switchToView() newIndex: %d", newIndex);
+    if (newIndex < 0)
+        finishingLastItem = YES;
     if (finishingLastItem && !goesForward)
     {
         // Back to menu
@@ -534,7 +536,8 @@
 //    int newIndex = vcIndex++;
     int newIndex = vcIndex - 1;
 
-    if (newIndex < 0) newIndex = newChildControllers.count - 1;
+    if (newIndex < 0)
+        newIndex = newChildControllers.count - 1;
 //    if (newIndex < 0) newIndex = 3 - 1;
     [self switchToView:newIndex goingForward:NO];
 }

@@ -1777,7 +1777,7 @@
 
 
 - (void)provider4ButtonPressed:(id)sender {
-    NSLog(@"provider4ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.provider4ButtonPressed...");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider4Text];
         if (![DynamicContent isEdModuleComplete:3])
@@ -1800,10 +1800,9 @@
 }
 
 - (void)provider5ButtonPressed:(id)sender {
-    NSLog(@"provider5ButtonPressed (don't know)...");
-    NSString* dontknow = @"dont know";
+    NSLog(@"SwitchedImageViewController.provider5ButtonPressed() (don't know)...");
     if ([self currentSurveyPageType] == kEdModulePicker){
-        NSString *choice = dontknow;
+        NSString *choice = [self provider5Text]; //dontknow;
         if (![DynamicContent isEdModuleComplete:4])
             [DynamicContent showEdModule:choice];
         return;
@@ -1812,8 +1811,8 @@
     // Store rating for dynamic survey item
    // int thisEquivalentSegmentIndex = 5;
     BOOL matched = FALSE;
+    NSString* dontknow = @"dont know";
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
-    
     [rootViewController  updateSurveyNumberForField:@"protest" withThisRatingNum: matched];
     [rootViewController updateSurveyTextForField:@"providernameselected" withThisText:[NSString stringWithFormat:@"%@",dontknow]];
 

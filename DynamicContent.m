@@ -19,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 2/8/15";
+static NSString* mAppVersion = @"App Version: 2/11/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -351,6 +351,22 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             goals = [goalInfo getCaregiverGoals];
         else
             goals = [goalInfo getSelfGoals];
+    }
+    if (goals == NULL){
+        NSArray* allGoals = [DynamicContent getAllGoals];
+        if ([allGoals count] > 0){
+            for (GoalInfo* goalInfo in allGoals){
+                if ([currentRespondent isEqualToString:@"family"])
+                    goals = [goalInfo getFamilyGoals];
+                else
+                if ([currentRespondent isEqualToString:@"caregiver"])
+                    goals = [goalInfo getCaregiverGoals];
+                else
+                    goals = [goalInfo getSelfGoals];
+                if (goals != NULL)
+                    break;
+            }
+        }
     }
     [result addObjectsFromArray:goals];
     if (includeHeader){
@@ -970,24 +986,27 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     NSString  *filePath = [NSString stringWithFormat:@"%@/adminsettings.txt", documentsDirectory];
     
     NSArray * lines = [self readFile:filePath];
+    int lineNumber = 0;
     for (NSString *line in lines) {
-        NSString* settingsLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
-        if (settingsLine.length > 0){
-            NSLog(@"DynamicContent.readAdminSettings() adminsettings.txt line: %@", settingsLine);
-            // parse row containing settings details
-            if([settingsLine hasPrefix:@"//"]){
-                NSLog(@"DynamicContent.readAdminSettings() comment: %@", settingsLine);
-            }
-            else {
-                if ([settingsLine hasSuffix:@";"]){
-                    int index = [settingsLine length] -1;
-                    settingsLine = [settingsLine substringToIndex: index];
+        if (lineNumber++ > 0){
+            NSString* settingsLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+            if (settingsLine.length > 0){
+                NSLog(@"DynamicContent.readAdminSettings() adminsettings.txt line: %@", settingsLine);
+                // parse row containing settings details
+                if([settingsLine hasPrefix:@"//"]){
+                    NSLog(@"DynamicContent.readAdminSettings() comment: %@", settingsLine);
                 }
-                NSArray* settingsRow = [settingsLine componentsSeparatedByCharactersInSet:
+                else {
+                    if ([settingsLine hasSuffix:@";"]){
+                        int index = [settingsLine length] -1;
+                        settingsLine = [settingsLine substringToIndex: index];
+                    }
+                    NSArray* settingsRow = [settingsLine componentsSeparatedByCharactersInSet:
                                     [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                for (NSString* word in settingsRow){
-                    if (![word isEqualToString:@"1"] && ! [word isEqualToString:@"spiraljetty@yahoo.com"] && [word length] > 0)
-                        [allSettings addObject:word];
+                    for (NSString* word in settingsRow){
+                        if (![word isEqualToString:@"1"] && ! [word isEqualToString:@"spiraljetty@yahoo.com"] && [word length] > 0)
+                            [allSettings addObject:word];
+                    }
                 }
             }
         }
@@ -1250,13 +1269,16 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             return info;
         }
     }
+    if ([questions count] > 1)
+        return [questions objectAtIndex:1];
 //    for (QuestionList* info in questions){
 //        if ([mCurrentClinicName hasSuffix:[info getClinic]] &&
 //            [mCurrentRespondent isEqualToString:[info getRespondentType]]) {
 //            return info;
 //        }
 //    }
-    return NULL;
+    else
+        return NULL;
 }
 
 + (QuestionList*) getSurveyForRespondentType:(NSString*) respondentType{

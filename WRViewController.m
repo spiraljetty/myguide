@@ -61,7 +61,7 @@
 @synthesize taperedWhiteLine, demoSwitch, demoModeLabel, clinicSelectionLabel, clinicPickerView, currentClinicName, currentSubClinicName, currentSpecialtyClinicName;
 @synthesize educationModuleCompleted, educationModuleInProgress, satisfactionSurveyCompleted, satisfactionSurveyDeclined, satisfactionSurveyInProgress, cameFromMainMenu, mainMenuInitialized, whatsNewInitialized, dynamicSurveyInitialized, dynamicEdModuleCompleted, whatsNewModuleCompleted, completedProviderSession, completedFinalSurvey, startedsurvey, finishedsurvey,completedProviderAndSubclinicSurvey, usingFullMenu;
 @synthesize initialSettingsLabel, clinicSegmentedControl, specialtyClinicSegmentedControl, switchToSectionSegmentedControl, nextSettingsButton, edModule, physicianModule, dynamicEdModule, dynamicSubclinicEdModule, currentDynamicSubClinicEdModuleSpecFilename, nextEdItemButton, previousEdItemButton, nextPhysicianDetailButton, previousPhysicianDetailButton;
-@synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, dynamicEdModule1, dynamicEdModule2, dynamicEdModule3, dynamicEdModule4, dynamicEdModule5, currentDynamicWhatsNewModuleSpecFilename;
+@synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, dynamicEdModule1, dynamicEdModule2, dynamicEdModule3, dynamicEdModule4, dynamicEdModule5, dynamicEdModule6, dynamicEdModule7, dynamicEdModule8, dynamicEdModule9, dynamicEdModule10, currentDynamicWhatsNewModuleSpecFilename;
 @synthesize agreeButton, disagreeButton, badgeImageView, badgeLabel, completedBadgeImageView, completedBadgeImageViewEdModule, completedBadgeImageViewDynEdModule, completedBadgeImageViewWhatsNewModule, edModuleCompleteLabel, edModuleIntroLabel, playMovieIcon;
 @synthesize odetteButton, calvinButton, lauraButton, clinicianLabel, doctorButton, pscButton, appointmentButton;
 @synthesize masterViewController, arrayDetailVCs, allClinicPhysicians, pmnrSubClinicPhysicians, splitViewController, allClinicPhysiciansThumbs, allClinicPhysiciansImages, allClinicPhysiciansBioPLists, attendingPhysicianSoundFile, allClinicPhysiciansSoundFiles;
@@ -271,6 +271,11 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule.inEdModule3 = NO;
     dynamicEdModule.inEdModule4 = NO;
     dynamicEdModule.inEdModule5 = NO;
+    dynamicEdModule.inEdModule6 = NO;
+    dynamicEdModule.inEdModule7 = NO;
+    dynamicEdModule.inEdModule8 = NO;
+    dynamicEdModule.inEdModule9 = NO;
+    dynamicEdModule.inEdModule10 = NO;
     
     dynamicSubclinicEdModule = [[DynamicModuleViewController_Pad alloc] init];
     dynamicSubclinicEdModule.masterTTSPlayer = mainTTSPlayer;
@@ -282,6 +287,11 @@ static WRViewController* mViewController = NULL;
     dynamicSubclinicEdModule.inEdModule3 = NO;
     dynamicSubclinicEdModule.inEdModule4 = NO;
     dynamicSubclinicEdModule.inEdModule5 = NO;
+    dynamicSubclinicEdModule.inEdModule6 = NO;
+    dynamicSubclinicEdModule.inEdModule7 = NO;
+    dynamicSubclinicEdModule.inEdModule8 = NO;
+    dynamicSubclinicEdModule.inEdModule9 = NO;
+    dynamicSubclinicEdModule.inEdModule10 = NO;
     
     dynamicWhatsNewModule = [[DynamicModuleViewController_Pad alloc] init];
     dynamicWhatsNewModule.masterTTSPlayer = mainTTSPlayer;
@@ -293,6 +303,11 @@ static WRViewController* mViewController = NULL;
     dynamicWhatsNewModule.inEdModule3 = NO;
     dynamicWhatsNewModule.inEdModule4 = NO;
     dynamicWhatsNewModule.inEdModule5 = NO;
+    dynamicWhatsNewModule.inEdModule6 = NO;
+    dynamicWhatsNewModule.inEdModule7 = NO;
+    dynamicWhatsNewModule.inEdModule8 = NO;
+    dynamicWhatsNewModule.inEdModule9 = NO;
+    dynamicWhatsNewModule.inEdModule10 = NO;
     currentDynamicWhatsNewModuleSpecFilename = @"psc_whats_new_module_test2";
     
     dynamicEdModule1 = [[DynamicModuleViewController_Pad alloc] init];
@@ -305,6 +320,11 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule1.inEdModule3 = NO;
     dynamicEdModule1.inEdModule4 = NO;
     dynamicEdModule1.inEdModule5 = NO;
+    dynamicEdModule1.inEdModule6 = NO;
+    dynamicEdModule1.inEdModule7 = NO;
+    dynamicEdModule1.inEdModule8 = NO;
+    dynamicEdModule1.inEdModule9 = NO;
+    dynamicEdModule1.inEdModule10 = NO;
     
     dynamicEdModule2 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule2.masterTTSPlayer = mainTTSPlayer;
@@ -316,6 +336,11 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule2.inEdModule3 = NO;
     dynamicEdModule2.inEdModule4 = NO;
     dynamicEdModule2.inEdModule5 = NO;
+    dynamicEdModule2.inEdModule6 = NO;
+    dynamicEdModule2.inEdModule7 = NO;
+    dynamicEdModule2.inEdModule8 = NO;
+    dynamicEdModule2.inEdModule9 = NO;
+    dynamicEdModule2.inEdModule10 = NO;
     
     dynamicEdModule3 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule3.masterTTSPlayer = mainTTSPlayer;
@@ -327,6 +352,11 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule3.inEdModule3 = YES;
     dynamicEdModule3.inEdModule4 = NO;
     dynamicEdModule3.inEdModule5 = NO;
+    dynamicEdModule3.inEdModule6 = NO;
+    dynamicEdModule3.inEdModule7 = NO;
+    dynamicEdModule3.inEdModule8 = NO;
+    dynamicEdModule3.inEdModule9 = NO;
+    dynamicEdModule3.inEdModule10 = NO;
     
     dynamicEdModule4 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule4.masterTTSPlayer = mainTTSPlayer;
@@ -338,6 +368,11 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule4.inEdModule3 = NO;
     dynamicEdModule4.inEdModule4 = YES;
     dynamicEdModule4.inEdModule5 = NO;
+    dynamicEdModule4.inEdModule6 = NO;
+    dynamicEdModule4.inEdModule7 = NO;
+    dynamicEdModule4.inEdModule8 = NO;
+    dynamicEdModule4.inEdModule9 = NO;
+    dynamicEdModule4.inEdModule10 = NO;
     
     dynamicEdModule5 = [[DynamicModuleViewController_Pad alloc] init];
     dynamicEdModule5.masterTTSPlayer = mainTTSPlayer;
@@ -349,6 +384,91 @@ static WRViewController* mViewController = NULL;
     dynamicEdModule5.inEdModule3 = NO;
     dynamicEdModule5.inEdModule4 = NO;
     dynamicEdModule5.inEdModule5 = YES;
+    dynamicEdModule5.inEdModule6 = NO;
+    dynamicEdModule5.inEdModule7 = NO;
+    dynamicEdModule5.inEdModule8 = NO;
+    dynamicEdModule5.inEdModule9 = NO;
+    dynamicEdModule5.inEdModule10 = NO;
+    
+    dynamicEdModule6 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule6.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule6.speakItemsAloud = YES;
+    dynamicEdModule6.inSubclinicMode = NO;
+    dynamicEdModule6.inWhatsNewMode = YES;
+    dynamicEdModule6.inEdModule1 = NO;
+    dynamicEdModule6.inEdModule2 = NO;
+    dynamicEdModule6.inEdModule3 = NO;
+    dynamicEdModule6.inEdModule4 = NO;
+    dynamicEdModule6.inEdModule5 = NO;
+    dynamicEdModule6.inEdModule6 = YES;
+    dynamicEdModule6.inEdModule7 = NO;
+    dynamicEdModule6.inEdModule8 = NO;
+    dynamicEdModule6.inEdModule9 = NO;
+    dynamicEdModule5.inEdModule10 = NO;
+    
+    dynamicEdModule7 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule7.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule7.speakItemsAloud = YES;
+    dynamicEdModule7.inSubclinicMode = NO;
+    dynamicEdModule7.inWhatsNewMode = YES;
+    dynamicEdModule7.inEdModule1 = NO;
+    dynamicEdModule7.inEdModule2 = NO;
+    dynamicEdModule7.inEdModule3 = NO;
+    dynamicEdModule7.inEdModule4 = NO;
+    dynamicEdModule7.inEdModule5 = NO;
+    dynamicEdModule7.inEdModule6 = NO;
+    dynamicEdModule7.inEdModule7 = YES;
+    dynamicEdModule7.inEdModule8 = NO;
+    dynamicEdModule7.inEdModule9 = NO;
+    dynamicEdModule7.inEdModule10 = NO;
+    
+    dynamicEdModule8 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule8.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule8.speakItemsAloud = YES;
+    dynamicEdModule8.inSubclinicMode = NO;
+    dynamicEdModule8.inWhatsNewMode = YES;
+    dynamicEdModule8.inEdModule1 = NO;
+    dynamicEdModule8.inEdModule2 = NO;
+    dynamicEdModule8.inEdModule3 = NO;
+    dynamicEdModule8.inEdModule4 = NO;
+    dynamicEdModule8.inEdModule5 = NO;
+    dynamicEdModule8.inEdModule6 = NO;
+    dynamicEdModule8.inEdModule7 = NO;
+    dynamicEdModule8.inEdModule8 = YES;
+    dynamicEdModule8.inEdModule9 = NO;
+    dynamicEdModule8.inEdModule10 = NO;
+    
+    dynamicEdModule9 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule9.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule9.speakItemsAloud = YES;
+    dynamicEdModule9.inSubclinicMode = NO;
+    dynamicEdModule9.inWhatsNewMode = YES;
+    dynamicEdModule9.inEdModule1 = NO;
+    dynamicEdModule9.inEdModule2 = NO;
+    dynamicEdModule9.inEdModule3 = NO;
+    dynamicEdModule9.inEdModule4 = NO;
+    dynamicEdModule9.inEdModule5 = NO;
+    dynamicEdModule9.inEdModule6 = NO;
+    dynamicEdModule9.inEdModule7 = NO;
+    dynamicEdModule9.inEdModule8 = NO;
+    dynamicEdModule9.inEdModule9 = YES;
+    dynamicEdModule9.inEdModule10 = NO;
+    
+    dynamicEdModule10 = [[DynamicModuleViewController_Pad alloc] init];
+    dynamicEdModule10.masterTTSPlayer = mainTTSPlayer;
+    dynamicEdModule10.speakItemsAloud = YES;
+    dynamicEdModule10.inSubclinicMode = NO;
+    dynamicEdModule10.inWhatsNewMode = YES;
+    dynamicEdModule10.inEdModule1 = NO;
+    dynamicEdModule10.inEdModule2 = NO;
+    dynamicEdModule10.inEdModule3 = NO;
+    dynamicEdModule10.inEdModule4 = NO;
+    dynamicEdModule10.inEdModule5 = NO;
+    dynamicEdModule10.inEdModule6 = NO;
+    dynamicEdModule10.inEdModule7 = NO;
+    dynamicEdModule10.inEdModule8 = NO;
+    dynamicEdModule10.inEdModule9 = NO;
+    dynamicEdModule10.inEdModule10 = YES;
     
     dynamicSurveyModule = [[DynamicSurveyViewController_Pad alloc] init];
     dynamicSurveyModule.masterTTSPlayer = mainTTSPlayer;
@@ -360,6 +480,11 @@ static WRViewController* mViewController = NULL;
     dynamicSurveyModule.inEdModule3 = NO;
     dynamicSurveyModule.inEdModule4 = NO;
     dynamicSurveyModule.inEdModule5 = NO;
+    dynamicSurveyModule.inEdModule6 = NO;
+    dynamicSurveyModule.inEdModule7 = NO;
+    dynamicSurveyModule.inEdModule8 = NO;
+    dynamicSurveyModule.inEdModule9 = NO;
+    dynamicSurveyModule.inEdModule10 = NO;
     
     edModule.speakItemsAloud = YES;
     physicianModule.speakItemsAloud = YES;
@@ -2610,6 +2735,14 @@ static WRViewController* mViewController = NULL;
             [self initializeEdModule4];
         if (count > 4)
             [self initializeEdModule5];
+        if (count > 5)
+            [self initializeEdModule6];
+        if (count > 6)
+            [self initializeEdModule7];
+        if (count > 7)
+            [self initializeEdModule8];
+        if (count > 9)
+            [self initializeEdModule10];
     }
 }
 
@@ -2678,6 +2811,78 @@ static WRViewController* mViewController = NULL;
     
     edModule5Initialized = YES;
 }
+
+- (void)initializeEdModule6 {
+    NSLog(@"WRViewController.initializeEdModule6()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule6 setupEdModule:5];
+    
+    dynamicEdModule6.view.alpha = 0.0;
+    dynamicEdModule6.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule6.view];
+    [self.view sendSubviewToBack:dynamicEdModule6.view];
+    
+    edModule6Initialized = YES;
+}
+
+- (void)initializeEdModule7 {
+    NSLog(@"WRViewController.initializeEdModule7()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule7 setupEdModule:4];
+    
+    dynamicEdModule7.view.alpha = 0.0;
+    dynamicEdModule7.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule7.view];
+    [self.view sendSubviewToBack:dynamicEdModule7.view];
+    
+    edModule7Initialized = YES;
+}
+
+- (void)initializeEdModule8 {
+    NSLog(@"WRViewController.initializeEdModule8()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule8 setupEdModule:4];
+    
+    dynamicEdModule8.view.alpha = 0.0;
+    dynamicEdModule8.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule8.view];
+    [self.view sendSubviewToBack:dynamicEdModule8.view];
+    
+    edModule8Initialized = YES;
+}
+
+- (void)initializeEdModule9 {
+    NSLog(@"WRViewController.initializeEdModule5()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule9 setupEdModule:4];
+    
+    dynamicEdModule9.view.alpha = 0.0;
+    dynamicEdModule9.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule9.view];
+    [self.view sendSubviewToBack:dynamicEdModule9.view];
+    
+    edModule9Initialized = YES;
+}
+
+- (void)initializeEdModule10 {
+    NSLog(@"WRViewController.initializeEdModule10()");
+    float angle =  270 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [dynamicEdModule10 setupEdModule:4];
+    
+    dynamicEdModule10.view.alpha = 0.0;
+    dynamicEdModule10.view.transform = rotateRight;
+    [self.view addSubview:dynamicEdModule10.view];
+    [self.view sendSubviewToBack:dynamicEdModule10.view];
+    
+    edModule10Initialized = YES;
+}
+
+
 
 
 - (void)setDynamicWhatsNewSoundFileDict {
@@ -3214,7 +3419,8 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.launchEdModule() index %d", index);
     [DynamicSpeech stopSpeaking];
     EdModuleInfo* moduleInfo = NULL;
-    if (0 <= index && index < 5){
+    int edModuleCount = [[DynamicContent getAllEdModules] count];
+    if (0 <= index && index < edModuleCount){
         moduleInfo = [DynamicContent getEdModuleAtIndex:index];
         if (moduleInfo){
             NSArray* pages = [moduleInfo getPages];
@@ -3275,6 +3481,16 @@ static WRViewController* mViewController = NULL;
         edModuleViewController = dynamicEdModule4;
     else if ([moduleName isEqualToString:dynamicEdModule5.moduleName])
         edModuleViewController = dynamicEdModule5;
+    else if ([moduleName isEqualToString:dynamicEdModule6.moduleName])
+        edModuleViewController = dynamicEdModule6;
+    else if ([moduleName isEqualToString:dynamicEdModule7.moduleName])
+        edModuleViewController = dynamicEdModule7;
+    else if ([moduleName isEqualToString:dynamicEdModule8.moduleName])
+        edModuleViewController = dynamicEdModule8;
+    else if ([moduleName isEqualToString:dynamicEdModule9.moduleName])
+        edModuleViewController = dynamicEdModule9;
+    else if ([moduleName isEqualToString:dynamicEdModule10.moduleName])
+        edModuleViewController = dynamicEdModule10;
     return edModuleViewController;
 }
 
@@ -5668,11 +5884,28 @@ static WRViewController* mViewController = NULL;
         
         endOfSplashTimer = [[NSTimer timerWithTimeInterval:10.0 target:self selector:@selector(returnToMenuInFiveSeconds:) userInfo:nil repeats:NO] retain];
         [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
-        int tbiEdModuleIndex = [DynamicContent getTbiEdModuleIndex];
-        if (tbiEdModuleIndex >= 0){
-            [self createBadgeOnEdModule:tbiEdModuleIndex];
-            [DynamicContent setEdModuleComplete:tbiEdModuleIndex];
+        NSArray* edModules = [DynamicContent getEdModulesForCurrentClinic];
+        int index = 0;
+        int matchingIndex = -1;
+        if ([edModules count] == 0)
+            matchingIndex = 0;
+        else
+        for (EdModuleInfo* module in edModules){
+            if ([[module getModuleName] isEqualToString:@"Learn about Traumatic Brain Injury"])
+                matchingIndex = index;
+            else
+                index++;
         }
+        if (0 <= matchingIndex && matchingIndex < 5){
+            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] createBadgeOnEdModule:matchingIndex];
+            [DynamicContent setEdModuleComplete:matchingIndex];
+        }
+
+//        int tbiEdModuleIndex = [DynamicContent getTbiEdModuleIndex];
+//        if (tbiEdModuleIndex >= 0){
+//            [self createBadgeOnEdModule:tbiEdModuleIndex];
+//            [DynamicContent setEdModuleComplete:tbiEdModuleIndex];
+//        }
 //    } else {
 //        // Didn't come from main menu, so still on track to auto-load satisfaction survey
 //        [self launchSatisfactionSurvey];

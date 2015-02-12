@@ -85,7 +85,7 @@ NSString *kTermSmallOriginCoordsKey = @"SmallOriginCoords";
 @synthesize respondentType;
 @synthesize databasePath, mainTable, csvpath, movViewController, playingMovie, animationPath, rotationViewController;
 
-@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode, inEdModule1, inEdModule2, inEdModule3, inEdModule4, inEdModule5;
+@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode, inEdModule1, inEdModule2, inEdModule3, inEdModule4, inEdModule5, inEdModule6, inEdModule7, inEdModule8, inEdModule9, inEdModule10;
 
 @synthesize dynModDict, dynModDictKeys;
 @synthesize moduleName, moduleType, createModuleDynamically, moduleImageName;
@@ -300,6 +300,28 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     NSLog(@"DynamicModuleViewController.setupEdModule() updating content for module %@", moduleName);
     NSMutableArray* newPages = [[NSMutableArray alloc] init];
     int i = 0;
+    if (modulePages != NULL && [modulePages count] == 1){
+        EdModulePage *page = [modulePages objectAtIndex:0];
+        NSString* header = [page getHeader];
+        NSString* body =  [page getBody];
+        NSString* image = [page getImage];
+        NSMutableDictionary* pageDict = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *mutablePageDict = NULL;
+        if (samplePage != NULL)
+            mutablePageDict= [samplePage mutableCopy];
+        else
+            mutablePageDict= [pageDict mutableCopy];
+        [mutablePageDict setObject:header forKey:@"HeaderText"];
+        [mutablePageDict setObject:body forKey:@"Text"];
+        if ([image length] > 0){
+            [mutablePageDict setValue:image forKey:@"ImageFilename"];
+            [mutablePageDict setValue:@"1" forKey:@"ImagePage"];
+        }
+        else
+            [mutablePageDict setValue:@"0" forKey:@"ImagePage"];
+        [newPages addObject:mutablePageDict];
+    }
+    else
     for (EdModulePage *page in modulePages) {
         if (i > 0) {
             NSString* header = [page getHeader];
@@ -1001,7 +1023,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     DynamicModulePageViewController *firstPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
     
     if ([DynamicSpeech isEnabled]){
-        if (inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5){
+        if (inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5|| inEdModule6 || inEdModule7 || inEdModule8 ||inEdModule9 || inEdModule10){
             int index = 0;
             if (inEdModule2)
                 index = 1;
@@ -1011,6 +1033,16 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 index = 3;
             else if (inEdModule5)
                 index = 4;
+            else if (inEdModule6)
+                index = 5;
+            else if (inEdModule7)
+                index = 6;
+            else if (inEdModule8)
+                index = 7;
+            else if (inEdModule9)
+                index = 8;
+            else if (inEdModule10)
+                index = 9;
             NSArray* clinicModules = [DynamicContent getEdModulesForCurrentClinic];
             EdModuleInfo* moduleInfo = NULL;
             if (clinicModules && index < [clinicModules count])
@@ -1271,8 +1303,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 // Transition to new view using custom segue
 - (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward{
     @try {
-        if (vcIndex == ([newChildControllers count] - 1))
-            finishingLastItem = YES;
+        //if (vcIndex == ([newChildControllers count] - 1))
+        //    finishingLastItem = YES;
         
         if (finishingLastItem && !goesForward)
         {
@@ -1288,7 +1320,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         }
         
         if (!inSubclinicMode) {
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] launchDynamicSubclinicEducationModule];
+           // if (!((inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5 || inEdModule6 || inEdModule7 || inEdModule8 ||inEdModule9 || inEdModule10)))
+                [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] launchDynamicSubclinicEducationModule];
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] fadeDynamicEdModuleOut];
             
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setDynamicEdModuleCompleted:YES];
@@ -1324,7 +1357,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
         DynamicModulePageViewController *newPage = (DynamicModulePageViewController *)[newChildControllers objectAtIndex:vcIndex];
         
         if ([DynamicSpeech isEnabled]){
-            if (inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5){
+            if (inEdModule1 || inEdModule2 || inEdModule3 || inEdModule4 ||inEdModule5 || inEdModule6 || inEdModule7 || inEdModule8 ||inEdModule9 || inEdModule10){
                 int index = 0;
                 if (inEdModule2)
                     index = 1;
@@ -1334,6 +1367,16 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                     index = 3;
                 else if (inEdModule5)
                     index = 4;
+                else if (inEdModule6)
+                    index = 5;
+                else if (inEdModule7)
+                    index = 6;
+                else if (inEdModule8)
+                    index = 7;
+                else if (inEdModule9)
+                    index = 8;
+                else if (inEdModule10)
+                    index = 9;
                 
                 NSArray* clinicModules = [DynamicContent getEdModulesForCurrentClinic];
                 EdModuleInfo* moduleInfo = NULL;
@@ -1394,8 +1437,10 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
                 int index = 0;
                 int matchingIndex = -1;
                 for (EdModuleInfo* edModule in edModules){
-                    if ([[edModule getModuleName] isEqualToString:moduleName])
+                    if ([[edModule getModuleName] isEqualToString:moduleName]){
                         matchingIndex = index;
+                        break;
+                    }
                     else
                         index++;
                 }

@@ -85,7 +85,7 @@
 @synthesize respondentType;
 @synthesize databasePath, mainTable, csvpath, movViewController, playingMovie, animationPath, rotationViewController;
 
-@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode, inEdModule1, inEdModule2, inEdModule3, inEdModule4, inEdModule5;
+@synthesize currentPhysicianDetails, currentPhysicianDetailSectionNames, inSubclinicMode, inWhatsNewMode, inEdModule1, inEdModule2, inEdModule3, inEdModule4, inEdModule5, inEdModule6, inEdModule7, inEdModule8, inEdModule9, inEdModule10;
 
 @synthesize dynModDict, dynModDictKeys;
 @synthesize moduleName, moduleType, createModuleDynamically, moduleImageName;
@@ -2073,31 +2073,56 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:0]; //[edModules objectAtIndex:0];
         NSString* name = [module getModuleName];
         edModulePicker.provider1Text = name;
-        edModulePicker.provider1ImageThumb = [module getModuleImage];
+        if ([[name lowercaseString] isEqualToString:[@"Learn about Traumatic Brain Injury" lowercaseString]]){
+            edModulePicker.provider1ImageThumb = @"psc_logo_withwords.png";
+            [DynamicContent setTbiEdModuleIndex:0];
+        }
+        else
+            edModulePicker.provider1ImageThumb = [module getModuleImage];
     }
     if (count > 1){
         EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:1];//[edModules objectAtIndex:1];
         NSString* name = [module getModuleName];
         edModulePicker.provider2Text = name;
-        edModulePicker.provider2ImageThumb = [module getModuleImage];
+        if ([[name lowercaseString] isEqualToString:[@"Learn about Traumatic Brain Injury" lowercaseString]]){
+            edModulePicker.provider2ImageThumb = @"psc_logo_withwords.png";
+            [DynamicContent setTbiEdModuleIndex:1];
+        }
+        else
+            edModulePicker.provider2ImageThumb = [module getModuleImage];
     }
     if (count > 2){
         EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:2]; //[edModules objectAtIndex:0];
         NSString* name = [module getModuleName];
         edModulePicker.provider3Text = name;
-        edModulePicker.provider3ImageThumb = [module getModuleImage];
+        if ([[name lowercaseString] isEqualToString:[@"Learn about Traumatic Brain Injury" lowercaseString]]){
+            edModulePicker.provider3ImageThumb = @"psc_logo_withwords.png";
+            [DynamicContent setTbiEdModuleIndex:2];
+        }
+        else
+            edModulePicker.provider3ImageThumb = [module getModuleImage];
     }
     if (count > 3){
         EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:3];//[edModules objectAtIndex:1];
         NSString* name = [module getModuleName];
         edModulePicker.provider4Text = name;
-        edModulePicker.provider4ImageThumb = [module getModuleImage];
+        if ([[name lowercaseString] isEqualToString:[@"Learn about Traumatic Brain Injury" lowercaseString]]){
+            edModulePicker.provider4ImageThumb = @"psc_logo_withwords.png";
+            [DynamicContent setTbiEdModuleIndex:3];
+        }
+        else
+            edModulePicker.provider4ImageThumb = [module getModuleImage];
     }
     if (count > 4){
         EdModuleInfo* module = [DynamicContent safeObjectAtIndex:edModules index:4];//[edModules objectAtIndex:1];
         NSString* name = [module getModuleName];
         edModulePicker.provider5Text = name;
-        edModulePicker.provider5ImageThumb = [module getModuleImage];
+        if ([[name lowercaseString] isEqualToString:[@"Learn about Traumatic Brain Injury" lowercaseString]]){
+            edModulePicker.provider5ImageThumb = @"psc_logo_withwords.png";
+            [DynamicContent setTbiEdModuleIndex:4];
+        }
+        else
+            edModulePicker.provider5ImageThumb = [module getModuleImage];
     }
     
     if (count == 0){
@@ -2111,34 +2136,34 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         [DynamicContent setEdModuleCount:count+1];
     }
     else if (count ==1){
-        edModulePicker.provider2Text = @"Learn about Traumatic Brain Injury";
-        edModulePicker.provider2ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider2Text = @"";//Learn about Traumatic Brain Injury";
+        //edModulePicker.provider2ImageThumb = @"psc_logo_withwords.png";
         edModulePicker.provider3Text = @"";
         edModulePicker.provider4Text = @"";
         edModulePicker.provider5Text = @"";
-        [DynamicContent setTbiEdModuleIndex:1];
-        [DynamicContent setEdModuleCount:count+1];
+        //[DynamicContent setTbiEdModuleIndex:1];
+        [DynamicContent setEdModuleCount:count];
     }
     else if (count ==2){
-        edModulePicker.provider3Text = @"Learn about Traumatic Brain Injury";
-        edModulePicker.provider3ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider3Text = @"";//Learn about Traumatic Brain Injury";
+        //edModulePicker.provider3ImageThumb = @"psc_logo_withwords.png";
         edModulePicker.provider4Text = @"";
         edModulePicker.provider5Text = @"";
-        [DynamicContent setTbiEdModuleIndex:2];
-        [DynamicContent setEdModuleCount:count+1];
+        //[DynamicContent setTbiEdModuleIndex:2];
+        [DynamicContent setEdModuleCount:count];
     }
     else if (count ==3){
-        edModulePicker.provider4Text = @"Learn about Traumatic Brain Injury";
-        edModulePicker.provider4ImageThumb = @"psc_logo_withwords.png";
+        edModulePicker.provider4Text = @"";//Learn about Traumatic Brain Injury";
+        //edModulePicker.provider4ImageThumb = @"psc_logo_withwords.png";
         edModulePicker.provider5Text = @"";
-        [DynamicContent setTbiEdModuleIndex:3];
-        [DynamicContent setEdModuleCount:count+1];
+        //[DynamicContent setTbiEdModuleIndex:3];
+        [DynamicContent setEdModuleCount:count];
     }
     else if (count ==4){
-        edModulePicker.provider5Text = @"Learn about Traumatic Brain Injury";
-        edModulePicker.provider5ImageThumb = @"psc_logo_withwords.png";
-        [DynamicContent setTbiEdModuleIndex:4];
-        [DynamicContent setEdModuleCount:count+1];
+        edModulePicker.provider5Text = @"";//Learn about Traumatic Brain Injury";
+        //edModulePicker.provider5ImageThumb = @"psc_logo_withwords.png";
+        //[DynamicContent setTbiEdModuleIndex:4];
+        [DynamicContent setEdModuleCount:count];
     }
     else
         [DynamicContent setEdModuleCount:count];
