@@ -119,6 +119,8 @@
 + (void) setCurrentEdModuleViewController:(DynamicModuleViewController_Pad*)edModuleViewController;
 + (DynamicModuleViewController_Pad*) getCurrentEdModuleViewController;
 
++(NSString*) cleanupTextForSpeech:(NSString*)text;
+
 + (void) disableFontSizeButton;
 + (void) enableFontSizeButton;
 + (void) resetDynamicContent;

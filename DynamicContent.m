@@ -19,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 2/11/15";
+static NSString* mAppVersion = @"App Version: 2/16/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -433,7 +433,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = msg;
             });
         }
-        NSString* clinicianLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* clinicianLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicianLine.length > 0){
             //NSLog(@"%@", line);
@@ -515,7 +515,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = msg;
             });
         }
-        NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* clinicLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicLine.length > 0){
             NSLog(@"DynamicContent.readClinicInfo() clinics.txt line: %@", line);
@@ -672,7 +672,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = msg;
             });
         }
-        NSString* moduleLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* moduleLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (moduleLine.length > 0){
             NSLog(@"DynamicContent.readEdModules() edmodules.txt line: %@", line);
@@ -683,7 +683,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             else {
                 
                 // read clinic page as triple <sub title, content, imagename>
-                NSArray* edModuleProperties = [line componentsSeparatedByCharactersInSet:
+                NSArray* edModuleProperties = [moduleLine componentsSeparatedByCharactersInSet:
                                              [NSCharacterSet characterSetWithCharactersInString:@";"]];
                 
                 //find the clinic container for all of the pages from that clinic
@@ -989,7 +989,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     int lineNumber = 0;
     for (NSString *line in lines) {
         if (lineNumber++ > 0){
-            NSString* settingsLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+            NSString* settingsLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
             if (settingsLine.length > 0){
                 NSLog(@"DynamicContent.readAdminSettings() adminsettings.txt line: %@", settingsLine);
                 // parse row containing settings details
@@ -1004,7 +1004,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                     NSArray* settingsRow = [settingsLine componentsSeparatedByCharactersInSet:
                                     [NSCharacterSet characterSetWithCharactersInString:@";"]];
                     for (NSString* word in settingsRow){
-                        if (![word isEqualToString:@"1"] && ! [word isEqualToString:@"spiraljetty@yahoo.com"] && [word length] > 0)
+                        if ( [word length] > 0 && ![word isEqualToString:@"1"] && ![word hasSuffix:@"yahoo.com"])
                             [allSettings addObject:word];
                     }
                 }
@@ -1027,7 +1027,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
-        NSString* goalLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* goalLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         if (goalLine.length > 0){
             NSLog(@"DynamicContent.readGoalInfo() goals.txt line: %@", goalLine);
             // parse row containing goal details
@@ -1103,7 +1103,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     QuestionList* questionInfo = [[QuestionList alloc] init];
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
-        NSString* cleanLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* cleanLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         if (cleanLine.length > 0){
             NSLog(@"DynamicContent.readQuestionInfo() survey_questions.txt line: %@", cleanLine);
             if([cleanLine hasPrefix:@"//"]){
@@ -1674,16 +1674,16 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     int i = 0;
     NSString* privacyPolicy = [adminSettings objectAtIndex:0];
     
-    NSString* cleanLine = [privacyPolicy stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NSArray *privacyLines = [cleanLine componentsSeparatedByString:@"&NEWLINE_"];
-        for (NSString* line in privacyLines){
-            line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@""];
-            if ([line length] == 0){
-                [lines addObject:@"_PAUSE_"];
-            }
-            else
-                [lines addObject:line];
-        }
+    //NSString* cleanLine = [privacyPolicy stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        //NSArray *privacyLines = [privacyPolicy componentsSeparatedByString:@"&NEWLINE_"];
+        //for (NSString* line in privacyLines){
+            //line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@""];
+//    if (true){//[privacyPolicy length] == 0){
+        [lines addObject:@"_PAUSE_"];
+//    }
+//    else
+        [lines addObject:privacyPolicy];
+        //}
 
 //    [lines addObject:@"Your participation in this survey is anonymous."];
 //    [lines addObject:@"_PAUSE_"];
@@ -1693,12 +1693,28 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     return lines;
 }
 
++(NSString*) cleanupText:(NSString*) text {
+    NSString* line = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    line = [line stringByReplacingOccurrencesOfString:@"&NEWLINE_" withString:@"\n"];
+    line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@"•\t "];
+    line = [line stringByReplacingOccurrencesOfString:@"&SEMICOLON_" withString:@";"];
+    return line;
+}
+
++(NSString*) cleanupTextForSpeech:(NSString*) text {
+    NSString* line = [text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    line = [line stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    line = [line stringByReplacingOccurrencesOfString:@"•\t " withString:@""];
+    return line;
+}
+
 +(NSString*) getPrivacyPolicyForDisplay {
     NSArray* adminSettings = [DynamicContent getAllAdminSettings];
     NSString* privacyPolicy = [adminSettings objectAtIndex:0];
-    NSString* line = [privacyPolicy stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    line = [line stringByReplacingOccurrencesOfString:@"&NEWLINE_" withString:@"\n"];
-    line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@"•\t "];
+    NSString* line = privacyPolicy; //[DynamicContent cleanupText:privacyPolicy];
+    //NSString* line = [privacyPolicy stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    //line = [line stringByReplacingOccurrencesOfString:@"&NEWLINE_" withString:@"\n"];
+    //line = [line stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@"•\t "];
     return line;
 }
 
@@ -1709,7 +1725,7 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
     WRViewController* viewController = [WRViewController getViewController];
     if ([moduleName hasPrefix:@"Learn about"]){
         [viewController launchTbiEdModule];
-    } else if (moduleIndex > 0)
+    } else if (moduleIndex >= 0)
         [viewController launchEdModule:moduleIndex];
 }
 

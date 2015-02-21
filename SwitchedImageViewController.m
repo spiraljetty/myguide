@@ -1705,7 +1705,7 @@
 
 
 - (void)provider1ButtonPressed:(id)sender {
-    NSLog(@"provider1ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.provider1ButtonPressed...");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider1Text];
         if (![DynamicContent isEdModuleComplete:0])
@@ -1727,7 +1727,7 @@
 
 
 - (void)provider2ButtonPressed:(id)sender {
-    NSLog(@"provider2ButtonPressed...");
+    NSLog(@"SwitchedImageViewController.provider2ButtonPressed...");
     if ([self currentSurveyPageType] == kEdModulePicker){
         NSString *choice = [self provider2Text];
         if (![DynamicContent isEdModuleComplete:1])

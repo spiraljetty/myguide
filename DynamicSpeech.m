@@ -78,6 +78,7 @@ static NSString* mLanguage = @"en-US";
         if (mSynthesizer == NULL)
             mSynthesizer = [[AVSpeechSynthesizer alloc]init];
         for (NSString *phrase in utterances) {
+            phrase = [DynamicContent cleanupTextForSpeech:phrase];
             NSLog(@"DynamicSpeech.speakList() utterance: %@", phrase);
 //            if ([phrase isEqualToString:@"_PAUSE_"]){
 //                NSLog(@"DynamicSpeech.speakList() pre pause");
