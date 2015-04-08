@@ -19,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 2/16/15";
+static NSString* mAppVersion = @"App Version: 4/8/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -383,7 +383,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     GoalInfo* match = NULL;
     for (GoalInfo* info in allGoals){
         NSString* otherClinicName = [info getClinic];
-        if ([clinicLowerCase isEqualToString:otherClinicName]){
+        if ([clinicLowerCase isEqualToString:[otherClinicName lowercaseString]]){
             match = info;
             break;
         }
@@ -515,7 +515,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = msg;
             });
         }
-        NSString* clinicLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* clinicLine = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicLine.length > 0){
             NSLog(@"DynamicContent.readClinicInfo() clinics.txt line: %@", line);
@@ -527,7 +527,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             else {
                 
                 // read clinic page as triple <sub title, content, imagename>
-                NSArray* clinicProperties = [line componentsSeparatedByCharactersInSet:
+                NSArray* clinicProperties = [clinicLine componentsSeparatedByCharactersInSet:
                                              [NSCharacterSet characterSetWithCharactersInString:@";"]];
                 
                 //find the clinic container for all of the pages from that clinic
@@ -603,7 +603,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                         case 4: [page setObject:value forKey:@"subclinicNameShort"]; break;
                         case 5: [page setObject:value forKey:@"pageNumber"]; break;
                         case 6: [page setObject:value forKey:@"pageTitle"]; break;
-                        case 7: [page setObject:value forKey:@"pageText"]; break;
+                        case 7: [page setObject:[DynamicContent cleanupText:value] forKey:@"pageText"]; break;
                         case 8: [page setObject:value forKey:@"pageImage"];
                             if ([value length] > 0)
                                 [allImages addObject:value];

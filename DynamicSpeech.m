@@ -87,12 +87,18 @@ static NSString* mLanguage = @"en-US";
 //
 //            }
 //            else {
+            NSString* cleanPhrase = [phrase stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            
+            //cleanPhrase = [phrase stringByReplacingOccurrencesOfString:@"•\t" withString:@", "];
+            //cleanPhrase = [cleanPhrase stringByReplacingOccurrencesOfString:@"&NEWLINE_" withString:@""];
+            //cleanPhrase = [cleanPhrase stringByReplacingOccurrencesOfString:@"&BULLET_" withString:@", "];
+            //cleanPhrase = [cleanPhrase stringByReplacingOccurrencesOfString:@"&SEMICOLON_" withString:@". "];
             bool isPause = false;
-                if ([phrase isEqualToString:@"_PAUSE_"]){
-                    phrase = @"   ";
+                if ([cleanPhrase isEqualToString:@"_PAUSE_"]){
+                    cleanPhrase = @"   ";
                     isPause = true;
                 }
-                AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:phrase];
+                AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:cleanPhrase];
                 //            [utterance setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
                 [utterance setRate:mSpeechRate];//0.12f];//setRate:AVSpeechUtteranceMinimumSpeechRate];//1.1f];
                 [utterance setPitchMultiplier:mPitchMultiplier];

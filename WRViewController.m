@@ -5984,7 +5984,8 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)showDataSentAlert {
-    UIAlertView *dataSentAlert = [[UIAlertView alloc] initWithTitle:@"Send Data Results" message:@"Datafile successfully emailed to: spiraljetty@yahoo.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *dataSentAlert = [[UIAlertView alloc] initWithTitle:@"Send Data Results" message:@"Data file successfully sent to server" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    UIAlertView *dataSentAlert = [[UIAlertView alloc] initWithTitle:@"Send Data Results" message:@"Datafile successfully emailed to: spiraljetty@yahoo.com" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     dataSentAlert.delegate = self;
     [dataSentAlert show];
     [dataSentAlert release];

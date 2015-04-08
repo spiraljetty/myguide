@@ -98,9 +98,14 @@
 @synthesize termPopoverViewController, hiddenPopoverButton;
 
 
+static DynamicSurveyViewController_Pad *mViewController = NULL;
+
 static SwitchedImageViewController *providerModuleHelpful = NULL;
 static SwitchedImageViewController *subclinicModuleHelpful = NULL;
-static DynamicSurveyViewController_Pad *mViewController = NULL;
+
+static SwitchedImageViewController *miniSurveyPage2 = NULL;
+static SwitchedImageViewController *miniSurveyPage3 = NULL;
+static SwitchedImageViewController *miniSurveyPage4 = NULL;
 
 
 + (DynamicSurveyViewController_Pad*) getViewController{
@@ -115,7 +120,19 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
 + (void) setClinicHelpfulText:(NSString*) text {
     subclinicModuleHelpful.helpfulLabel.text = [text copy];
     //subclinicModuleHelpful.helpfulText = text;
+    
+}
 
++ (void) setMiniSurveyPage2Text:(NSString*) text {
+    miniSurveyPage2.currentSatisfactionString = [text copy];
+}
+
++ (void) setMiniSurveyPage3Text:(NSString*) text {
+    miniSurveyPage3.currentSatisfactionString = [text copy];
+}
+
++ (void) setMiniSurveyPage4Text:(NSString*) text {
+    miniSurveyPage4.currentSatisfactionString = [text copy];
 }
 
 
@@ -388,7 +405,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         newChildControllers = [self createArrayOfAllSurveyPages];
     
         int numChildControllers = [newChildControllers count];
-        int preTreatmentSurveyItems = numChildControllers = numberOfPostTreatmentItems;
+        int preTreatmentSurveyItems = numChildControllers = numberOfPostTreatmentItems; // rjl 4/7/15 bug? 3-way assignment with 2 different values?
         [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] addToTotalSlides:preTreatmentSurveyItems];
     
         NSLog(@"DynamicSurveyViewController.loadAllSurveyPages() CREATED %d DYNAMIC SURVEY PAGE CHILDCONTROLLERS...",numChildControllers);
@@ -749,7 +766,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() using minisurveypage2 survey_new_Painscale_template");
         UIStoryboard *painScaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_template" bundle:[NSBundle mainBundle]];
         
-        SwitchedImageViewController *miniSurveyPage2 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        miniSurveyPage2 = [painScaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage2 retain];
         
         miniSurveyPage2.currentSurveyPageType = kAgreementPainScale;
@@ -774,7 +791,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         NSLog(@"DynamicSurveyViewController_Pad.createarrayofAllSurveyPages() using minisurveypage3 survey_new_Painscale_noprompt_template");
         UIStoryboard *simplePainscaleStoryboard = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
         
-        SwitchedImageViewController *miniSurveyPage3 = [simplePainscaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        miniSurveyPage3 = [simplePainscaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage3 retain];
         
         miniSurveyPage3.currentSurveyPageType = kAgreementPainScale;
@@ -792,7 +809,7 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
         
         pageIndex++;
         // sandy 7-16 using simplepainscaleStoryboard with no label
-        SwitchedImageViewController *miniSurveyPage4 = [simplePainscaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
+        miniSurveyPage4 = [simplePainscaleStoryboard instantiateViewControllerWithIdentifier:@"0"];
         [miniSurveyPage4 retain];
         
         miniSurveyPage4.currentSurveyPageType = kAgreementPainScale;
@@ -1354,7 +1371,9 @@ static DynamicSurveyViewController_Pad *mViewController = NULL;
     NSLog(@"DynamicSurveyViewController.startingFirstPage() startingFirstPage of dynamic survey module...");
     
     finishingLastItem = NO;
-    currentFinishingIndex = 6;
+    QuestionList* questionList = [DynamicContent getSurveyForCurrentClinicAndRespondent];
+    int questionSet1count = [[questionList getQuestionSet1] count];
+    currentFinishingIndex = 6; //questionSet1count + 3;
     
     [self.view bringSubviewToFront:standardPageButtonOverlay.view];
     [self fadeThisObjectIn:standardPageButtonOverlay.view];

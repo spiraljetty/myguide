@@ -52,6 +52,7 @@
     BOOL addMiniSurveyItems;
     
     SwitchedImageViewController *miniSurveyPage1;
+    
     NSString *todaysGoal;
     
     NSDictionary *currentPhysicianDetails;
@@ -238,6 +239,10 @@
 + (DynamicSurveyViewController_Pad*) getViewController;
 + (void) setProviderHelpfulText:(NSString*) text;
 + (void) setClinicHelpfulText:(NSString*) text;
+
++ (void) setMiniSurveyPage2Text:(NSString*) text;
++ (void) setMiniSurveyPage3Text:(NSString*) text;
++ (void) setMiniSurveyPage4Text:(NSString*) text;
 
 - (void)loadAllSurveyPages;
 

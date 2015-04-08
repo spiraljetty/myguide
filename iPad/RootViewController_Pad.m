@@ -66,7 +66,7 @@ static RootViewController_Pad* mViewController = NULL;
     //rjl 9/13/14 deprecated
     totalSurveyItems = 0;
     surveyItemsRemaining = 0;
-    numSurveyItems = 22;
+    numSurveyItems = 25;
     
     respondentType = [[NSString alloc] initWithString:@"patient"];
     
@@ -451,11 +451,22 @@ static RootViewController_Pad* mViewController = NULL;
     NSLog(@"RootViewController.updateAllSatisfactionLabelItems()");
     NSArray *satisfactionLabelItemArrayToUse;
     NSArray *satisfactionPromptLabelItemArrayToUse;
-    
-    
+    @try {
     QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
-    
+
     if (matchingSurvey != NULL){
+        NSArray* questionList1 = [matchingSurvey getQuestionSet1];
+        int i = 0;
+        for (NSString* question in questionList1){
+            if (i == 0)
+                [DynamicSurveyViewController_Pad setMiniSurveyPage2Text:question];
+            else if (i == 1)
+                [DynamicSurveyViewController_Pad setMiniSurveyPage3Text:question];
+            else if (i == 2)
+                [DynamicSurveyViewController_Pad setMiniSurveyPage4Text:question];
+            i++;
+        }
+        
         NSString* prompt = [matchingSurvey getHeader2];
         NSArray* questionList =[matchingSurvey getQuestionSet2];
         NSMutableArray* matchingSatisfactionLabelItems = [[NSMutableArray alloc] init];
@@ -477,6 +488,7 @@ static RootViewController_Pad* mViewController = NULL;
         [matchingSatisfactionPromptItems setObject:prompt2 atIndexedSubscript:surveyItemCount];
         
         surveyItemCount = [matchingSatisfactionLabelItems count];
+        
         for (int index = 0; index < surveyItemCount; index++) {
             SwitchedImageViewController *switchedController = [newChildControllers objectAtIndex:index];
             
@@ -517,6 +529,9 @@ static RootViewController_Pad* mViewController = NULL;
         switchedController.currentPromptLabel.text = [satisfactionPromptLabelItemArrayToUse objectAtIndex:satisfactionLabelArrayIndex];
         
         satisfactionLabelArrayIndex++;
+    }
+ }@catch(NSException *ne){
+        NSLog(@"RootViewController.updateAllSatisfactionLabelItems() ERROR too many array items");
     }
     
 }
@@ -566,7 +581,7 @@ static RootViewController_Pad* mViewController = NULL;
     // sandy 7-21 should append device name and date here
     NSString *thisdeviceName = [[UIDevice currentDevice] name];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyy_MM_dd";
+    formatter.dateFormat = @"yyyy_MM_dd_h_mm";
     NSString *datesubstring = [NSString stringWithFormat:@"%@", [formatter stringFromDate:[NSDate date]]];
     csvpathCurrentFilename = [NSString stringWithFormat:@"satisfactiondata_%@_%@.csv", datesubstring,thisdeviceName];
     csvpath = [csvpathCurrentFilename copy];
@@ -2114,8 +2129,13 @@ static RootViewController_Pad* mViewController = NULL;
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
     QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     finishingLastItem = NO;
+  @try {
     if (matchingSurvey != NULL){
         totalSurveyItems = [[matchingSurvey getQuestionSet2] count] + [[matchingSurvey getQuestionSet3] count];
+        if (totalSurveyItems > 22){
+            NSLog(@"RootViewController.showNextSurveyPage() too many survey items: %d > 22", totalSurveyItems);
+            //totalSurveyItems = 22;
+        }
         surveyItemsRemaining = totalSurveyItems - vcIndex -1;
         if (vcIndex == totalSurveyItems-1) {
             finishingLastItem = YES;
@@ -2160,6 +2180,9 @@ static RootViewController_Pad* mViewController = NULL;
         
         }
     }
+  }@catch(NSException *ne){
+      NSLog(@"RootViewController.showNextSurveyPage() ERROR");
+  }
     
 }
 
@@ -3144,9 +3167,13 @@ static RootViewController_Pad* mViewController = NULL;
     [self putNewRespondentInDB];
     
     [DynamicContent setCurrentRespondent:[respondentType copy]];
+    //WRViewController* viewController = [WRViewController getViewController];
+    //[viewController initializeDynamicSurveyPages];
+    
     QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
     [DynamicSurveyViewController_Pad setProviderHelpfulText: [questionInfo getClinicianInfoRatingQuestion]];
     [DynamicSurveyViewController_Pad setClinicHelpfulText: [questionInfo getClinicInfoRatingQuestion]];
+    
     [self updateAllSatisfactionLabelItems];
 
     // sandy thiese will have to be a variable value for new clinics -> currentclinic.totalSurveyItems
