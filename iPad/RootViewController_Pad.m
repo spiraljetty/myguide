@@ -466,6 +466,9 @@ static RootViewController_Pad* mViewController = NULL;
                 [DynamicSurveyViewController_Pad setMiniSurveyPage4Text:question];
             i++;
         }
+        int count = [questionList1 count];
+        if (count < 3)
+            [DynamicSurveyViewController_Pad setMiniSurveyPage4Text:@""];
         
         NSString* prompt = [matchingSurvey getHeader2];
         NSArray* questionList =[matchingSurvey getQuestionSet2];

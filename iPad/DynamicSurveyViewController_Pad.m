@@ -1907,6 +1907,19 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         // Segue to the new controller
         UIViewController *source = [newChildControllers objectAtIndex:vcIndex];
         UIViewController *destination = [newChildControllers objectAtIndex:newIndex];
+        //check destination.currentSurveyPageType == kAgreementPainScale, isSurveyPage, surveyPageIndex
+        SwitchedImageViewController* destVC = (SwitchedImageViewController*)destination;
+        if (destVC.isSurveyPage){
+            SwitchedImageViewController* destVC = (SwitchedImageViewController*)destination;
+            if (destVC.currentSurveyPageType == kAgreementPainScale){
+                if (([destVC.currentPromptString length] == 0) && ([destVC.currentSatisfactionString length] == 0)){
+                    newIndex++;
+                    NSLog(@"DynamicSurveyViewController_Pad.switchToView() Skipping empty survey page. New page: %d", newIndex);
+                    destination = [newChildControllers objectAtIndex:newIndex];
+                }
+            }
+        }
+        
         RotatingSegue *segue = [[RotatingSegue alloc] initWithIdentifier:@"segue" source:source destination:destination];
         segue.goesForward = goesForward;
         segue.delegate = self;

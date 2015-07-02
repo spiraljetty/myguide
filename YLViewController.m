@@ -192,7 +192,7 @@ static YLViewController* mYLViewController = NULL;
 //                networkStatus.text = @"Connected";
                 linkImage.image = [UIImage imageNamed:@"no_connection_frame1.png"];
                 
-                wanderSetting.text = @"Wander Guard disabled.";
+                //wanderSetting.text = @"Wander Guard disabled.";
                 
                 break;
             case ReachableViaWWAN:
@@ -204,7 +204,7 @@ static YLViewController* mYLViewController = NULL;
                 if (isWanderGuardEnabled) {
                     wanderSetting.text = @"Alarm will sound when traveling outside of the current clinic geofence.";
                 } else {
-                    wanderSetting.text = @"Wander Guard disabled.";
+                   // wanderSetting.text = @"Wander Guard disabled.";
                 }
                 
                 break;
@@ -218,7 +218,7 @@ static YLViewController* mYLViewController = NULL;
                     NSString *wanderGuardText = [NSString stringWithFormat:@"Alarm will sound when traveling too far away from WIFI Access Point: %@", [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] lastConnectedWIFISSIDName]];
                     wanderSetting.text = wanderGuardText;
                 } else {
-                    wanderSetting.text = @"Wander Guard disabled.";
+                  //  wanderSetting.text = @"Wander Guard disabled.";
                 }
                 
                 break;
@@ -475,10 +475,11 @@ static YLViewController* mYLViewController = NULL;
     if (wanderGuardSwitch.isOn) {
         NSLog(@"Turning wander guard ON");
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] setWanderGuardActivated:YES];
-        
+        wanderSetting.text = @"Wander Guard is ON.";
     } else {
         NSLog(@"Turning wander guard OFF");
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] setWanderGuardActivated:NO];
+        wanderSetting.text = @"Wander Guard is OFF.";
     }
 }
 

@@ -19,7 +19,7 @@
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
 
-static NSString* mAppVersion = @"App Version: 4/8/15";
+static NSString* mAppVersion = @"App Version: 4/9/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -58,6 +58,8 @@ static int mTbiEdModulePageCount = -1;
 static int mEdModuleCount = -1;
 
 static int mCurrentFontSize = 1;
+
+static bool wasNotificationSent = false;
 
 static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
@@ -2071,5 +2073,23 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 	NSLog(returnString);
 }
 
++ (void)sendNotification {
+    if (!wasNotificationSent){
+        wasNotificationSent = true;
+        NSLog(@"DynamicContent.sendNotification() ");
+    
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:5];
+        localNotification.alertBody = @"My Guide Alert";
+        localNotification.timeZone = [NSTimeZone defaultTimeZone];
+        localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
+}
+
++ (void) clearNotificationSentFlag {
+    wasNotificationSent = false;
+}
 
 @end

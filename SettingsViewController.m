@@ -15,6 +15,7 @@
 #import "AppDelegate_Pad.h"
 #import "TTSPlayer.h"
 #import "Dynamicspeech.h"
+#import "DynamicContent.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 
@@ -30,6 +31,13 @@
 @synthesize controlView, invisibleShowHideButton, soundViewController, enableOfflineVoiceModeButton, resetAllOfflineSoundfilesButton;
 @synthesize currentlyLoadingSoundFilenamePrefix, soundFilenamesRemaining, allSoundFilenamesToLoad, currentDynamicSoundFilenamesRemainingNum, fixPronunciation, substringFilenamesChunkArray, substringTextChunkArray, onlyDownloadFemaleFastForDebugging;
 @synthesize homeCoords, numUpdates, shortWaitTimer, createdSuccessfulLink, shouldDisplayAlertAndPlayWanderAlarm, shouldDisplayHeadsetAlert, headsetPluggedIn, activeAudioRouteString, connectedToWIFI, lastConnectedWIFISSIDName, wanderGuardActivated;
+
+static SettingsViewController* mViewController = NULL;
+
+
++ (SettingsViewController*) getViewController {
+    return mViewController;
+}
 
 - (void)updateThisLocation:(NSTimer*)theTimer {
     
@@ -70,6 +78,7 @@
 
 - (void)viewDidLoad{
     [super viewDidLoad];
+    mViewController = self;
     NSLog(@"SettingsViewController.viewDidLoad()");
     // Do any additional setup after loading the view from its nib.
     
@@ -1458,21 +1467,33 @@
 
 - (void)updateNetworkStatusWithConnectionType:(ConnectionType)thisConnectionType {
     NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType()");
-    currentConnectionType = thisConnectionType;
-    [soundViewController updateNetworkDisplayWithConnectionType:thisConnectionType];
+    @try {
+        currentConnectionType = thisConnectionType;
+        [soundViewController updateNetworkDisplayWithConnectionType:thisConnectionType];
     
-    NSLog(@"SSID Name:\n%@...", [self fetchSSIDName]);
+        NSLog(@"SSID Name:\n%@...", [self fetchSSIDName]);
+    } @catch (NSException *e){
+        NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType() ERROR: %@", e.reason);
+    }
 }
 
 - (void)updateLinkQuickly {
-     //NSLog(@"SettingsViewController.updateLinkQuickly()");
-    
+    //NSLog(@"SettingsViewController.updateLinkQuickly()");
     Reachability *reach = [Reachability reachabilityForLocalWiFi];
     NetworkStatus netStatus = [reach currentReachabilityStatus];
     [self updateLinkStatusWithLinkType:netStatus];
     
     shortWaitTimer = [NSTimer timerWithTimeInterval:1.0 target:self selector:@selector(updateLinkQuickly) userInfo:nil repeats:NO];
 	[[NSRunLoop currentRunLoop] addTimer:shortWaitTimer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)updateLinkQuicklyNoRepeat {
+    //NSLog(@"SettingsViewController.updateLinkQuickly()");
+    
+    Reachability *reach = [Reachability reachabilityForLocalWiFi];
+    NetworkStatus netStatus = [reach currentReachabilityStatus];
+    [self updateLinkStatusWithLinkType:netStatus];
+    [SettingsViewController playAlertSound];
 }
 
 - (void)updateLinkStatusWithLinkType:(NetworkStatus)thisLinkType {
@@ -1537,7 +1558,14 @@
     
     BOOL ssidChanged = [currentSSIDName isEqualToString:lastConnectedWIFISSIDName];
     ssidChanged = !ssidChanged;
-    
+    if (!ssidChanged && [currentSSIDName length] == 0 && [lastConnectedWIFISSIDName length] > 0){
+        NSLog(@"SettingsViewController.isDifferentSSID() lost network: %@", lastConnectedWIFISSIDName);
+        ssidChanged = YES;
+    }
+
+    if (ssidChanged)
+        NSLog(@"SettingsViewController.isDifferentSSID() old: %@ new %@", lastConnectedWIFISSIDName, currentSSIDName);
+
     return ssidChanged;
 }
 
@@ -1547,6 +1575,7 @@
         loopAlarm = YES;
         shouldDisplayAlertAndPlayWanderAlarm = NO;
         [self displayAlertAndLoopAlarmSound];
+        [DynamicContent sendNotification];
     }
 }
 
@@ -1581,11 +1610,26 @@
     if (wanderGuardActivated && loopAlarm && [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] alarmSounding]) {
         NSLog(@"Looping alarm...");
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] mainTTSPlayer] playItemsWithNames:[NSArray arrayWithObjects:@"alarm_high_pitched_beep", @"silence_half_second", nil]];
-        
+        [SettingsViewController playAlertSound];
         shortWaitTimer = [NSTimer timerWithTimeInterval:1.7 target:self selector:@selector(playAlarmInLoop) userInfo:nil repeats:NO];
         [[NSRunLoop currentRunLoop] addTimer:shortWaitTimer forMode:NSDefaultRunLoopMode];
     }
     //    }
+}
+
+
++ (void) playAlertSound {
+    NSLog(@"SettingsViewController.playAlertSound()");
+    MPMusicPlayerController *musicPlayer = [MPMusicPlayerController iPodMusicPlayer];
+    //musicPlayer.volume = 10;
+    AudioServicesPlayAlertSound(1005);
+//    NSBundle *mainBundle = [NSBundle mainBundle];
+//    NSString *filePath = [mainBundle pathForResource:@"alarm_high_pitched_beep" ofType:@"mp3"];
+//    NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+//    NSError *error = nil;
+//    AVAudioPlayer* notificationSound = [[AVAudioPlayer alloc] initWithData:fileData error:&error];
+//    [notificationSound play];
+    
 }
 
 - (void)didReceiveMemoryWarning

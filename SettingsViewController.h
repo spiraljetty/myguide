@@ -133,6 +133,10 @@ typedef enum {
 @property (nonatomic, retain) NSMutableArray *substringFilenamesChunkArray;
 @property (nonatomic, retain) NSMutableArray *substringTextChunkArray;
 
++ (SettingsViewController*) getViewController;
++ (void) playAlertSound;
+- (void)updateLinkQuicklyNoRepeat;
+
 - (void)updateThisLocation:(NSTimer*)theTimer;
 
 - (IBAction)TTSVoiceSpeedSegmentedControlChanged:(id)sender;

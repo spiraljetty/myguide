@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 #import "YLViewController.h"
 #import "SettingsViewController.h"
+#import "DynamicContent.h"
 
 @implementation AppDelegate_Pad
 
@@ -90,10 +91,15 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
     return (AppDelegate_Pad *) [UIApplication sharedApplication].delegate;
 }
 
+
 #pragma mark - CLLocationManagerDelegate Methods
+
 -(void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
     NSLog(@"in LM didUpdateToLocation");
     
+    SettingsViewController* settingsViewController = [SettingsViewController getViewController];
+    [settingsViewController updateLinkQuickly];
+    //[SettingsViewController playAlertSound];
     NSDate* eventDate = newLocation.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 5.0)
@@ -115,6 +121,7 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
 
 #pragma mark -
 #pragma mark Application delegate
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -165,6 +172,8 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
         [self.locationManager startUpdatingLocation];
     }
     
+
+    
 //    if (!loaderViewController.currentWRViewController.forceToDemoMode) {
 //        NSLog(@"Not in demo mode, initializing audio session for headphone use only...");
         [self initAudioSessionWithListener];
@@ -173,8 +182,33 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
 //    }
 //    [loaderViewController.currentWRViewController.settingsVC setHeadSetStatus];
 		
+    NSError *setCategoryErr = nil;
+    NSError *activationErr = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryErr];
+    [[AVAudioSession sharedInstance] setActive:YES error:&activationErr];
+    
+    UIRemoteNotificationType types = UIRemoteNotificationTypeBadge |
+    UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
+    
+ //   UIUserNotificationSettings *mySettings =
+   // [UIUserNotificationSettings settingsForTypes:types categories:nil];
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+    [DynamicContent clearNotificationSentFlag];
+//    UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+//    if (localNotification) {
+//        application.applicationIconBadgeNumber = 0;
+//    }
+    
 	return YES;
 }
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    NSLog(@"AppDelegate_PAD.didReceiveLocalNotification() ");
+    application.applicationIconBadgeNumber = 0;
+}
+
+
 
 - (void)updateNewAudioRoute:(NSString *)updatedAudioRouteString
 {

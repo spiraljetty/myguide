@@ -128,4 +128,7 @@
 + (void) sendDataToServer:(NSData*)fileData;
 + (void) uploadDataFile:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter;
 
++ (void)sendNotification;
++ (void) clearNotificationSentFlag;
+
 @end
