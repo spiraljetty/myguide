@@ -460,6 +460,8 @@
 		5FA9982219BE655F000C68E3 /* GoalInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FA9982119BE655F000C68E3 /* GoalInfo.m */; };
 		5FB0D05D19F8C9BB00AEE09B /* DynamicSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0D05C19F8C9BB00AEE09B /* DynamicSpeech.m */; };
 		5FB0D0601A075AC600AEE09B /* WhatsNewInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FB0D05F1A075AC600AEE09B /* WhatsNewInfo.m */; };
+		5FB7B7511B472E5E00FED7BD /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB7B7501B472E5E00FED7BD /* libz.dylib */; };
+		5FB7B7521B4746D900FED7BD /* NMSSH.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FB7B74E1B472E2B00FED7BD /* NMSSH.framework */; };
 		5FD2817119C91EE20012E07E /* at_ed_module_test1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */; };
 		5FD2817619D123FE0012E07E /* psc_whats_new_module_2012.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */; };
 		5FD2817919D12D000012E07E /* psc_whatsnew_2013q4_page1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FD2817819D12D000012E07E /* psc_whatsnew_2013q4_page1.png */; };
@@ -1040,6 +1042,8 @@
 		5FB0D05C19F8C9BB00AEE09B /* DynamicSpeech.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicSpeech.m; sourceTree = "<group>"; };
 		5FB0D05E1A075AC600AEE09B /* WhatsNewInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WhatsNewInfo.h; sourceTree = "<group>"; };
 		5FB0D05F1A075AC600AEE09B /* WhatsNewInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WhatsNewInfo.m; sourceTree = "<group>"; };
+		5FB7B74E1B472E2B00FED7BD /* NMSSH.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NMSSH.framework; path = "../../../Library/Developer/Xcode/DerivedData/NMSSH-iOS-heivrullnubdtndbgymupgjddeui/Build/Products/Debug-iphoneos/NMSSH.framework"; sourceTree = "<group>"; };
+		5FB7B7501B472E5E00FED7BD /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		5FD2817019C91EE20012E07E /* at_ed_module_test1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = at_ed_module_test1.plist; sourceTree = "<group>"; };
 		5FD2817219CF83570012E07E /* myguide_WR_v3_db_a.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = myguide_WR_v3_db_a.sql; sourceTree = "<group>"; };
 		5FD2817519D123FE0012E07E /* psc_whats_new_module_2012.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = psc_whats_new_module_2012.plist; sourceTree = "<group>"; };
@@ -1084,13 +1088,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE505D416634FC500121D8B /* CFNetwork.framework in Frameworks */,
+				5FB7B7511B472E5E00FED7BD /* libz.dylib in Frameworks */,
 				3D3E830E16EEF12E005EFF3F /* CoreLocation.framework in Frameworks */,
 				3D3E830C16EEF020005EFF3F /* MapKit.framework in Frameworks */,
 				3DE03AEB16AE10020090D399 /* CoreText.framework in Frameworks */,
 				3DE03AE916AE0FF80090D399 /* CoreImage.framework in Frameworks */,
 				3D2962651676371E00C99C1D /* libz.1.1.3.dylib in Frameworks */,
 				3D2962661676371E00C99C1D /* libz.1.2.5.dylib in Frameworks */,
-				3DE505D416634FC500121D8B /* CFNetwork.framework in Frameworks */,
 				3D48955E164F57AC006C09D5 /* libsqlite3.dylib in Frameworks */,
 				3D5D860B16472860005C9665 /* AVFoundation.framework in Frameworks */,
 				3D61926616137F4400BB488D /* MediaPlayer.framework in Frameworks */,
@@ -1100,6 +1105,7 @@
 				3D6AEE6D15D7439200502A29 /* SystemConfiguration.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				5FB7B7521B4746D900FED7BD /* NMSSH.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				28EEBFDD1118E19E00187D67 /* CoreData.framework in Frameworks */,
 			);
@@ -1312,6 +1318,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5FB7B7501B472E5E00FED7BD /* libz.dylib */,
+				5FB7B74E1B472E2B00FED7BD /* NMSSH.framework */,
 				3D3E830D16EEF12E005EFF3F /* CoreLocation.framework */,
 				3D3E830B16EEF020005EFF3F /* MapKit.framework */,
 				3DE03AEA16AE10020090D399 /* CoreText.framework */,
@@ -2618,6 +2626,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NMSSH-iOS-heivrullnubdtndbgymupgjddeui/Build/Products/Debug-iphoneos",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2642,6 +2654,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/NMSSH-iOS-heivrullnubdtndbgymupgjddeui/Build/Products/Debug-iphoneos",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = /Users/richardlevinson/Documents/iPhone/apps/three20/Build/Products/three20;

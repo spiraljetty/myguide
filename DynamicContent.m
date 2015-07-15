@@ -18,8 +18,9 @@
 #import "EdModuleInfo.h"
 #import "EdModulePage.h"
 #import <AVFoundation/AVFoundation.h>
+#import <NMSSH/NMSFTP.h>
 
-static NSString* mAppVersion = @"App Version: 4/9/15";
+static NSString* mAppVersion = @"App Version: 7/9/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -71,14 +72,14 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
 + (NSArray*) getAllClinicians {
     if (mAllClinicians == NULL){
-        mAllClinicians = [self readClinicianInfo:false];
+        mAllClinicians = [self readClinicianInfo:false session:NULL];
     }
     return mAllClinicians;
 }
 
 + (NSArray*) getAllClinics {
     if (mAllClinics == NULL){
-        mAllClinics = [self readClinicInfo:false];
+        mAllClinics = [self readClinicInfo:false session:NULL];
     }
     return mAllClinics;
 }
@@ -115,7 +116,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
 + (NSArray*) getAllEdModules {
     if (mAllEdModules == NULL){
-        mAllEdModules = [DynamicContent readEdModules:false];
+        mAllEdModules = [DynamicContent readEdModules:false  session:NULL];
     }
     return mAllEdModules;
 }
@@ -170,6 +171,12 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 }
 
 + (void) downloadAllData {
+    NMSSHSession* session = [self loginToServer];
+    if (session == NULL){
+        NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadAllData() ERROR: Cannot connect to server"];
+        NSLog(logMsg);
+        return;
+    }
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         YLViewController* viewController = [YLViewController getViewController];
         
@@ -179,7 +186,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = @"Downloading Clinicians";
             });
         }
-        int clinicianCount = [DynamicContent downloadClinicianInfo];
+        int clinicianCount = [DynamicContent downloadClinicianInfo:session];
         
         // Clinics
         if (viewController != NULL){
@@ -187,7 +194,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = @"Downloading Clinics";
             });
         }
-        int clinicCount = [DynamicContent downloadClinicInfo];
+        int clinicCount = [DynamicContent downloadClinicInfo:session];
         
         // goals
         if (viewController != NULL){
@@ -195,7 +202,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = @"Downloading Goals";
             });
         }
-        [DynamicContent downloadGoalInfo];
+        [DynamicContent downloadGoalInfo:session];
         
         //questions
         if (viewController != NULL){
@@ -203,7 +210,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = @"Downloading Questions";
             });
         }
-        [DynamicContent downloadQuestionInfo];
+        [DynamicContent downloadQuestionInfo:session];
         
         //ed modules
         if (viewController != NULL){
@@ -211,7 +218,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = @"Downloading Ed Modules";
             });
         }
-        [DynamicContent downloadEdModules];
+        [DynamicContent downloadEdModules:session];
         
         //admin settings
         if (viewController != NULL){
@@ -219,7 +226,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = @"Downloading Admin Settings";
             });
         }
-        [DynamicContent downloadAdminSettings];
+        [DynamicContent downloadAdminSettings:session];
         
         // show "download complete" message
         if (viewController != NULL){
@@ -227,6 +234,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 [viewController downloadDataRequestDone];
             });
         }
+        [self logoutFromServer:session];
         
         NSString* msg = [NSString stringWithFormat:@"Downloaded:\n%d clinics\n%d clinicians", clinicCount, clinicianCount];
         [DynamicContent showAlertMsgAndResetApp:msg];
@@ -243,12 +251,12 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     });
 }
 
-+ (int) downloadClinicianInfo { // rjl 8/16/14
++ (int) downloadClinicianInfo:(NMSSHSession*) sshSession{
     int count = 0;
     NSString* filename = @"clinicians.txt";
-    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false session:sshSession];
     if (filePath){
-        mAllClinicians = [DynamicContent readClinicianInfo:true];
+        mAllClinicians = [DynamicContent readClinicianInfo:true session:sshSession];
         count = [mAllClinicians count];
     }
     else{
@@ -260,12 +268,12 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     return count;
 }
 
-+ (int) downloadClinicInfo { // rjl 8/16/14
++ (int) downloadClinicInfo:(NMSSHSession*) sshSession{
     int count = 0;
     NSString* filename = @"clinics.txt";
-    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false session:sshSession];
     if (filePath){
-        mAllClinics = [DynamicContent readClinicInfo:true];
+        mAllClinics = [DynamicContent readClinicInfo:true session:sshSession];
         count = [mAllClinics count];
     }
     else{
@@ -277,9 +285,9 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     return count;
 }
 
-+ (void) downloadGoalInfo { // rjl 8/16/14
++ (void) downloadGoalInfo:(NMSSHSession*) sshSession{
     NSString* filename = @"goals.txt";
-    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false session:sshSession];
     if (filePath)
         mAllGoals = [DynamicContent readGoalInfo];
     else{
@@ -290,9 +298,9 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     }
 }
 
-+ (void) downloadQuestionInfo { // rjl 8/16/14
++ (void) downloadQuestionInfo:(NMSSHSession*) sshSession{
     NSString* filename = @"survey_questions.txt";
-    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false session:sshSession];
     if (filePath)
         mAllSurveyQuestions = [DynamicContent readQuestionInfo];
     else{
@@ -303,12 +311,12 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     }
 }
 
-+ (void) downloadEdModules { // rjl 8/16/14
++ (void) downloadEdModules:(NMSSHSession*) sshSession{
     int count = 0;
     NSString* filename = @"edmodules.txt";
-    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false session:sshSession];
     if (filePath){
-        mAllWhatsNew = [DynamicContent readEdModules:true];
+        mAllWhatsNew = [DynamicContent readEdModules:true session:sshSession];
         count = [mAllWhatsNew count];
     }
     else{
@@ -320,10 +328,10 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     }
 }
 
-+ (void) downloadAdminSettings {
++ (void) downloadAdminSettings:(NMSSHSession*) sshSession{
     int count = 0;
     NSString* filename = @"adminsettings.txt";
-    NSString* filePath = [DynamicContent downloadFile:filename isImage:false];
+    NSString* filePath = [DynamicContent downloadFile:filename isImage:false session:sshSession];
     if (filePath){
         mAllAdminSettings = [DynamicContent readAdminSettings];
         count = [mAllAdminSettings count];
@@ -416,7 +424,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
         return NULL;
 }
 
-+ (NSMutableArray*) readClinicianInfo:(BOOL) isDownload{
++ (NSMutableArray*) readClinicianInfo:(BOOL) isDownload  session:(NMSSHSession*) sshSession{
     YLViewController* viewController = [YLViewController getViewController];
     NSLog(@"DynamicContent.readClinicianInfo() isDownload: %d", isDownload);
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -484,7 +492,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 });
             }
             NSString* clinicianImageFilename = [clinician getImageFilename];
-            [DynamicContent downloadFile:clinicianImageFilename isImage:true];
+            [DynamicContent downloadFile:clinicianImageFilename isImage:true session:sshSession];
         }
     }
     
@@ -493,7 +501,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 }
 
 
-+ (NSArray*) readClinicInfo:(BOOL) isDownload{
++ (NSArray*) readClinicInfo:(BOOL) isDownload session:(NMSSHSession*) sshSession{
     NSLog(@"DynamicContent.readClinicInfo() isDownload: %d", isDownload);
     
     YLViewController* viewController = [YLViewController getViewController];
@@ -642,7 +650,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                     viewController.downloadDataStatus.text = msg;
                 });
             }
-            [self downloadFile:imageFilename isImage:true];
+            [self downloadFile:imageFilename isImage:true session:sshSession];
         }
     }
 //    [self showAlertMsg:msg];
@@ -650,7 +658,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     //    [pool release];
 }
 
-+ (NSArray*) readEdModules:(BOOL) isDownload{
++ (NSArray*) readEdModules:(BOOL) isDownload  session:(NMSSHSession*) sshSession{
     NSLog(@"DynamicContent.readEdModules() isDownload: %d", isDownload);
     
     YLViewController* viewController = [YLViewController getViewController];
@@ -766,7 +774,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                     viewController.downloadDataStatus.text = msg;
                 });
             }
-            [self downloadFile:imageFilename isImage:true];
+            [self downloadFile:imageFilename isImage:true session:sshSession];
         }
     }
     //    [self showAlertMsg:msg];
@@ -976,9 +984,9 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 //    return whatsNewEdModule;
 //}
 //
-//+ (NSString*) getWhatsNewModuleName{
-//    return @"What's New at the Polytrauma System of Care";
-//}
++ (NSString*) getWhatsNewModuleName{
+    return @"What's New at the Polytrauma System of Care";
+}
 
 + (NSArray*) readAdminSettings{
     NSLog(@"DynamicContent.readAdminSettings()");
@@ -1393,24 +1401,223 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
 // utilities
 
+//+ (void) getFilelist{
+//    NMSSHSession *session = [[NMSSHSession alloc] initWithHost:@"myguide.vacloud.us" andUsername:@"brainaid"];
+////    NMSSHSession *session = [[NMSSHSession alloc] initWithHost:@"127.0.0.1:22" andUsername:@"admin"];
+//    [session connect];
+//    
+//    if (session.isConnected) {
+//        [session authenticateByPassword:@"BrAi#0204"];
+//        
+//        if (session.isAuthorized) {
+//            [session.sftp connect];
+//            
+//            NSArray *remoteFileList = [session.sftp contentsOfDirectoryAtPath:@"/opt/bitnami/apps/concrete5/htdocs/files/uploads/"];
+//            for (NMSFTPFile *file in remoteFileList) {
+//                NSLog(@"%@", file.filename);
+//            }
+//        }
+//        
+//        [session disconnect];
+//    }
+//}
+//
+//
+//+ (BOOL) urlExists:(NSString* )path{
+//    [self getFilelist];
+//        //NSString *url = @"http://www.apple.com/somefile.html";
+//        
+//        NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:path] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];
+//        NSHTTPURLResponse* response = nil;
+//        NSError* error = nil;
+//        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+//        NSLog(@"url: %@ statusCode: %d", path, [response statusCode]);
+//        
+//        if ([response statusCode] == 404)
+//            return NO;
+//        else
+//            return YES;
+//}
+//
+//+(BOOL)directoryExists:(NSString *)path
+//{
+//    NSFileManager *fileManager = [[NSFileManager alloc] init];
+//    NSURL *url = [NSURL URLWithString:path];
+//    BOOL isDir;
+//    BOOL exists = [fileManager fileExistsAtPath:url isDirectory:&isDir];
+//    NSString* logMsg;
+//    if (exists) {
+//        /* file exists */
+//        logMsg = [NSString stringWithFormat:@"DynamicContent.downloadFile() file exists: %@", path];
+//        NSLog(logMsg);
+//        if (isDir) {
+//            /* file is a directory */
+//            logMsg = [NSString stringWithFormat:@"DynamicContent.downloadFile() directory exists: %@", path];
+//            NSLog(logMsg);
+//        }
+//        else {
+//            logMsg = [NSString stringWithFormat:@"DynamicContent.downloadFile() file exists: %@", path];
+//            NSLog(logMsg);
+//        }
+//    } else {
+//        logMsg = [NSString stringWithFormat:@"DynamicContent.downloadFile() file not found: %@", path];
+//        NSLog(logMsg);
+//    }
+//    return isDir;
+//}
 
-+ (NSString*) downloadFile:(NSString*)filename isImage:(BOOL) isImageFile{
++ (NMSSHSession *) loginToServer{
+    NSLog(@"DynamicContent.loginToServer()");
+    NMSSHSession *session = [[NMSSHSession alloc] initWithHost:@"myguide.vacloud.us" andUsername:@"brainaid"];
+    [session connect];
+    if (session.isConnected) {
+        [session authenticateByPassword:@"BrAi#0204"];
+        
+        if (session.isAuthorized) {
+            [session.sftp connect];
+            return session;
+        }
+    }
+    return NULL;
+}
+
++ (void) logoutFromServer:(NMSSHSession *)session{
+    NSLog(@"DynamicContent.logoutFromServer()");
+    if (session != NULL)
+        [session disconnect];
+  }
+
++ (NSData *) readFileData:(NSString *)filepath session:(NMSSHSession*)sshSession{
+    NSData* data = NULL;
+    //    NMSSHSession *session = [self loginToServer];
+    if (sshSession != NULL){
+        data = [sshSession.sftp contentsAtPath:filepath];
+    }
+    return data;
+}
+
++ (void) uploadDataToServer:(NSData*)fileData formalFilenameParameter:(NSString*)filename{
+    NMSSHSession *session = [self loginToServer];
+    //    NMSSHSession *session = [self loginToServer];
+    if (session != NULL){
+        NSString* uploadDir = @"/opt/bitnami/apps/concrete5/htdocs/files/data/";
+        NSString* filePath = [NSString stringWithFormat:@"%@%@", uploadDir,filename];
+        BOOL result = [session.sftp writeContents:fileData toFileAtPath:filePath];
+        [self logoutFromServer:session];
+        if (result)
+            NSLog(@"DynamicContent.uploadDataToServer() write file %@", filePath);
+        else
+            NSLog(@"DynamicContent.uploadDataToServer() ERROR: Failed to write file %@", filePath);
+
+    }
+    else {
+        NSLog(@"DynamicContent.uploadDataToServer() ERROR: Failed to login to server");
+    }
+}
+
++ (NSString*) downloadFile:(NSString *)filename isImage:(BOOL)isImageFile session:(NMSSHSession*)sshSession{
+    
+    bool developerEnabled = true;
+    if (!developerEnabled){
+        return [self downloadFileOld:filename isImage:isImageFile];
+    }
+   
+    NSString* downloadDir = @"/opt/bitnami/apps/concrete5/htdocs/files/uploads/";
+    NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
+    NSData *downloadData = [self readFileData:filePath session:sshSession];
+    
+    NSString* result = nil;
+    NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString  *documentsDirectory = [paths objectAtIndex:0];
+    
+    if ( downloadData ){
+        if (isImageFile){
+            UIImage *img = [UIImage imageWithData:downloadData];
+            [self saveImage:img filename:filename];
+        }
+        NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+        [downloadData writeToFile:filePath atomically:YES];
+        result = filePath;
+    }
+    else {
+        NSString* jpgFilename = [filename stringByReplacingOccurrencesOfString:@".png" withString:@".jpg"];
+        filePath = [NSString stringWithFormat:@"%@%@", downloadDir,jpgFilename];
+//        downloadUrl = [NSURL URLWithString:filePath];
+//        downloadData = [NSData dataWithContentsOfURL:downloadUrl];
+        downloadData = [self readFileData:filePath session:sshSession];
+        if ( downloadData ){
+            if (isImageFile){
+                UIImage *img = [UIImage imageWithData:downloadData];
+                [self saveImage:img filename:filename];
+            }
+            NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+            [downloadData writeToFile:filePath atomically:YES];
+            result = filePath;
+        }
+        else {
+            NSString* errorMsg = [NSString stringWithFormat:@"Failed to download file: %@", filename];
+            NSString* logMsg = [NSString stringWithFormat:@"DynamicContent.downloadFile() %@", errorMsg];
+            NSLog(logMsg);
+            //            [self showAlertMsg:errorMsg];
+        }
+        
+    }
+    //    [pool release];
+    return result;
+
+}
+
++ (NSString*) downloadFileOld:(NSString*)filename isImage:(BOOL) isImageFile{
     // rjl 8/16/14
     //    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     NSString* downloadDir = nil;
     bool developerEnabled = true;
     if (developerEnabled){
-//        if (isImageFile)
-//            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
-//        else
-//        downloadDir = @"http://www.brainaid.com/wrtestdev/";
-        downloadDir = @"http://www.brainaid.com/waitingroom/dir/files/uploads/";
+//        downloadDir = @"http://54.204.47.41/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://myguide.vacloud.us/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://brainaid@myguide.vacloud.us/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://brainaid@myguide.vacloud.us/dir/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://bitnami@myguide.vacloud.us/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://bitnami@myguide.vacloud.us/opt/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://bitnami@myguide.vacloud.us/opt/bitnami/apps/concrete5/htdocs/files/uploads/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/opt/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/opt/bitnami/apps/concrete5/htdocs/files/uploads/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/home/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/home/brainaid/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/home/brainaid/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/brainaid/dir/files/uploads/";
+//        [self urlExists:downloadDir];
+//        downloadDir = @"http://54.204.47.41/home/brainaid/dir/files/uploads/";
+//        [self urlExists:downloadDir];
+
     } else {
-        if (isImageFile)
-            downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
-        else
-            downloadDir = @"http://www.brainaid.com/wrtest/";
+        downloadDir = @"http://www.brainaid.com/waitingroom/dir/files/uploads/";
+        //[self urlExists:downloadDir];
     }
+//    if (developerEnabled){
+////        if (isImageFile)
+////            downloadDir = @"http://www.brainaid.com/wrtestdev/uploads/";
+////        else
+////        downloadDir = @"http://www.brainaid.com/wrtestdev/";
+//        downloadDir = @"http://www.brainaid.com/waitingroom/dir/files/uploads/";
+//    } else {
+//        if (isImageFile)
+//            downloadDir = @"http://www.brainaid.com/wrtest/uploads/";
+//        else
+//            downloadDir = @"http://www.brainaid.com/wrtest/";
+//    }
     NSString* filePath = [NSString stringWithFormat:@"%@%@", downloadDir,filename];
     NSURL *downloadUrl = [NSURL URLWithString:filePath];
     NSData *downloadData = [NSData dataWithContentsOfURL:downloadUrl];
@@ -2016,21 +2223,25 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 //	NSLog(@"DynamicContent.sendDataToServer() result: %@",returnString);
 //}
 
-+(void)uploadDataFile:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter {
++(void)uploadDataFile:(NSData*)fileData formalFilenameParameter:(NSString*)filename {
+    [self uploadDataToServer:fileData formalFilenameParameter:filename];
+}
+
++(void)uploadDataFileOld:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter {
 	/*
 	 turning the image into a NSData object
 	 getting the image back out of the UIImageView
 	 setting the quality to 90
      */
-//    UIImage* testImage = NULL;
-//    ClinicianInfo *currentClinician = [DynamicContent getClinician:0];
-//    if (!currentClinician){
-//        NSLog(@"DynamicContent.uploadImage() clinician not found");
-//        return;
-//    }
-//    NSString *imageFilename = [currentClinician getImageFilename];
-//    testImage = [DynamicContent loadImage:filename];
-//	NSData *imageData = UIImageJPEGRepresentation(testImage, 90);
+    //    UIImage* testImage = NULL;
+    //    ClinicianInfo *currentClinician = [DynamicContent getClinician:0];
+    //    if (!currentClinician){
+    //        NSLog(@"DynamicContent.uploadImage() clinician not found");
+    //        return;
+    //    }
+    //    NSString *imageFilename = [currentClinician getImageFilename];
+    //    testImage = [DynamicContent loadImage:filename];
+    //	NSData *imageData = UIImageJPEGRepresentation(testImage, 90);
     
 	// setting up the URL to post to
 	NSString *urlString = @"http://www.brainaid.com/waitingroom/dir/files/uploadFile.php";
@@ -2058,7 +2269,7 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 	NSMutableData *body = [NSMutableData data];
     NSString *filenameData = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"userfile\"; filename=\"%@\"\r\n", actualFilenameParameter];
 	[body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-//	[body appendData:[@"Content-Disposition: form-data; name=\"userfile\"; filename=\"testdata.csv\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    //	[body appendData:[@"Content-Disposition: form-data; name=\"userfile\"; filename=\"testdata.csv\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[filenameData dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[NSData dataWithData:fileData]];// imageData]];

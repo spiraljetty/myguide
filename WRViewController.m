@@ -7764,7 +7764,16 @@ static WRViewController* mViewController = NULL;
         NSString *csvRoot = [documentsDir stringByAppendingPathComponent:tbvc.csvpath];
         
         NSData *csvData = [NSData dataWithContentsOfFile:csvRoot];
-        [DynamicContent uploadDataFile:csvData formalFilenameParameter:tbvc.csvpath];
+        BOOL developerEnabled = YES;
+        if (developerEnabled){
+            [DynamicContent uploadDataFile:csvData formalFilenameParameter:tbvc.csvpath];
+            [self showDataSentAlert];
+            [self removeSpinner];
+            [settingsVC.soundViewController uploadDataRequestDone];
+            return;
+        }
+        else
+            [DynamicContent uploadDataFileOld:csvData formalFilenameParameter:tbvc.csvpath];
         
         //    NSString *vcfPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"vcf"];
         //    NSData *vcfData = [NSData dataWithContentsOfFile:vcfPath];
@@ -7792,7 +7801,8 @@ static WRViewController* mViewController = NULL;
             testMsg.parts = [NSArray arrayWithObjects:plainPart,nil];
         }
         
-        [testMsg send];
+        //rjl 7/9/15 disabling send email (fails with bad username or password, possibly sender account)
+        // [testMsg send];
         
     } else {
         NSLog(@"Please connect to WIFI or Cellular signal to send data...");

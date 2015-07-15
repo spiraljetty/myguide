@@ -14,6 +14,7 @@
 #import "SwitchedImageViewController.h"
 #import "EdModuleInfo.h"
 #import "DynamicModuleViewController_Pad.h"
+#import <NMSSH/NMSFTP.h>
 
 @interface DynamicContent : NSObject
 
@@ -55,7 +56,8 @@
 + (QuestionList*) getSurveyForCurrentClinicAndRespondent;
 
 + (NSArray*) readFile:(NSString*)filename;
-+ (NSString*) downloadFile:(NSString*)filename isImage:(BOOL) isImageFile;
++ (NSString*) downloadFile:(NSString *)filename isImage:(BOOL)isImageFile session:(NMSSHSession*)sshSession;
++ (NSString*) downloadFileOld:(NSString*)filename isImage:(BOOL) isImageFile;
 + (void)saveImage: (UIImage*)image filename:(NSString*)filename;
 + (UIImage*)loadImage: (NSString*)filename;
 
@@ -114,7 +116,7 @@
 + (float) cycleFontSizes;
 + (float) currentFontSize;
 + (void) resetFontSize;
-+ (void) setCurrentFontSize:(int)fontSize;
+//+ (void) setCurrentFontSize:(int)fontSize;
 
 + (void) setCurrentEdModuleViewController:(DynamicModuleViewController_Pad*)edModuleViewController;
 + (DynamicModuleViewController_Pad*) getCurrentEdModuleViewController;
@@ -125,10 +127,18 @@
 + (void) enableFontSizeButton;
 + (void) resetDynamicContent;
 
-+ (void) sendDataToServer:(NSData*)fileData;
+//+ (void) sendDataToServer:(NSData*)fileData;
 + (void) uploadDataFile:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter;
++ (void) uploadDataFileOld:(NSData*)fileData formalFilenameParameter:(NSString*)actualFilenameParameter;
 
 + (void)sendNotification;
 + (void) clearNotificationSentFlag;
+
++(BOOL)directoryExists:(NSString *)path;
++ (BOOL) urlExists:(NSString* )path;
++ (void) getFilelist;
++ (NSData *) readFileData:(NSString *)filepath session:(NMSSHSession*)sshSession;
++ (NMSSHSession *) loginToServer;
++ (void) logoutFromServer:(NMSSHSession *)session;
 
 @end
