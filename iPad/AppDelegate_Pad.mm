@@ -142,8 +142,8 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
     
     loaderViewController = [[MainLoaderViewController alloc] initWithNibName:nil bundle:nil];
     
-    [window addSubview:loaderViewController.view];
-    
+    //[window addSubview:loaderViewController.view];
+    [self.window setRootViewController:loaderViewController];
     
     [self startReachabilityNotifier];
     

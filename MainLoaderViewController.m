@@ -49,11 +49,12 @@ static MainLoaderViewController* mViewController = NULL;
         miniDemoVC.view.frame = CGRectMake(200, 200, 410, 262);
         miniDemoVC.view.backgroundColor = [UIColor clearColor];
         //sandy tried moving this over to see if it shifts like other but it didn't work and crashed compiler
-        [miniDemoVC.view setCenter:CGPointMake(-80.0f, 1109.0f)];
+        [miniDemoVC.view setCenter:CGPointMake(1109.0f, -80.0f)];
+//        [miniDemoVC.view setCenter:CGPointMake(-80.0f, 1109.0f)];
         // attempted
         //[miniDemoVC.view setCenter:CGPointMake(100.0f, 900.0f)];
         
-        miniDemoVC.view.transform = rotateRight;
+        //miniDemoVC.view.transform = rotateRight;
         
         [self.view addSubview:miniDemoVC.view];
         [self.view sendSubviewToBack:miniDemoVC.view];
@@ -71,14 +72,16 @@ static MainLoaderViewController* mViewController = NULL;
         waitLabel.backgroundColor = [UIColor clearColor];
         waitLabel.opaque = YES;
         [waitLabel sizeToFit];
-        [waitLabel setCenter:CGPointMake(412.0f, 512.0f)];
+        [waitLabel setCenter:CGPointMake(512.0f, 412.0f)];
+//        [waitLabel setCenter:CGPointMake(412.0f, 512.0f)];
         waitLabel.alpha = 0.0;
-        waitLabel.transform = rotateRight;
+        //waitLabel.transform = rotateRight;
         
         waitSpinner = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 90.0f, 90.0f)];
-        [waitSpinner setCenter:CGPointMake(412.0f, 712.0f)];
+        [waitSpinner setCenter:CGPointMake(712.0f, 412.0f)];
+//        [waitSpinner setCenter:CGPointMake(412.0f, 712.0f)];
         [waitSpinner setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        waitSpinner.transform = rotateRight;
+        //waitSpinner.transform = rotateRight;
         waitSpinner.alpha = 0.0;
         
         revealSettings = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -88,13 +91,14 @@ static MainLoaderViewController* mViewController = NULL;
         [revealSettings setImage:[UIImage imageNamed:@"GreySidebar_rotated.png"] forState:UIControlStateHighlighted];
         [revealSettings setImage:[UIImage imageNamed:@"GreySidebar_rotated.png"] forState:UIControlStateSelected];
         revealSettings.backgroundColor = [UIColor clearColor];
-        [revealSettings setCenter:CGPointMake(17.0f, 1005.0f)];
+        [revealSettings setCenter:CGPointMake(1005.0f, 17.0f)];
+//        [revealSettings setCenter:CGPointMake(17.0f, 1005.0f)];
         [revealSettings addTarget:self action:@selector(revealSettingsButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         revealSettings.enabled = YES;
         revealSettings.hidden = NO;
         revealSettings.alpha = 0.0;
         [revealSettings retain];
-        revealSettings.transform = rotateRight;
+        //revealSettings.transform = rotateRight;
         [self.view addSubview:revealSettings];
         [self.view sendSubviewToBack:revealSettings];
         
@@ -193,13 +197,14 @@ static MainLoaderViewController* mViewController = NULL;
 //	readyForAppointmentButton.backgroundColor = [UIColor clearColor];
     readyForAppointmentButton.titleLabel.text = @"Ready for Appointment";
     readyForAppointmentButton.titleLabel.textColor = [UIColor blackColor];
-	[readyForAppointmentButton setCenter:CGPointMake(725.0f, 500.0f)];
+    [readyForAppointmentButton setCenter:CGPointMake(500.0f, 725.0f)];
+//    [readyForAppointmentButton setCenter:CGPointMake(725.0f, 500.0f)];
 	[readyForAppointmentButton addTarget:self action:@selector(showModalAreYouSureView) forControlEvents:UIControlEventTouchUpInside];
 	readyForAppointmentButton.enabled = YES;
 	readyForAppointmentButton.hidden = NO;
     readyForAppointmentButton.alpha = 0.0;
 	[readyForAppointmentButton retain];
-    readyForAppointmentButton.transform = rotateRight;
+    //readyForAppointmentButton.transform = rotateRight;
     
     [self.view addSubview:readyForAppointmentButton];
 }
@@ -231,7 +236,7 @@ static MainLoaderViewController* mViewController = NULL;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     [modalConfirmReadyForAppointment.view setCenter:CGPointMake(400.0f, 512.0f)];
-    modalConfirmReadyForAppointment.view.transform = rotateRight;
+    //modalConfirmReadyForAppointment.view.transform = rotateRight;
     [self.view addSubview:modalConfirmReadyForAppointment.view];
 }
 
@@ -257,7 +262,7 @@ static MainLoaderViewController* mViewController = NULL;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     [modalEnterGoal.view setCenter:CGPointMake(400.0f, 512.0f)];
-    modalEnterGoal.view.transform = rotateRight;
+    //modalEnterGoal.view.transform = rotateRight;
     [self.view addSubview:modalEnterGoal.view];
     
 }
@@ -394,7 +399,8 @@ static MainLoaderViewController* mViewController = NULL;
     
     standardPageButtonOverlay.view.alpha = 0.0;
 //    standardPageButtonOverlay.view.transform = rotateLeft;
-    [standardPageButtonOverlay.view setCenter:CGPointMake(722.0f, 512.0f)];
+    [standardPageButtonOverlay.view setCenter:CGPointMake(512.0f, 722.0f)];
+//    [standardPageButtonOverlay.view setCenter:CGPointMake(722.0f, 512.0f)];
     [self.view addSubview:standardPageButtonOverlay.view];
 }
 

@@ -244,8 +244,12 @@
     CGFloat percentProgress = (progress - self.minProgressValue) /
     (self.maxProgressValue - self.minProgressValue);
     
-    progressImageView.image = progressFillImage;
-    
+    @try {
+        //progressImageView.image = progressFillImage;
+    }
+    @catch (NSException *e) {
+        NSLog(@"ADVPercentProgressBar.progressImageDraw() progressImageView.image ERROR: %@", e.reason);
+    }
     CGRect frame = progressImageView.frame;
     
     frame.origin.x = 2;
@@ -253,9 +257,12 @@
     frame.size.height = bgImageView.frame.size.height - 4;
     
     frame.size.width = (bgImageView.frame.size.width - 4) * percentProgress;
-    
-    progressImageView.frame = frame;
-    
+    @try {
+        //progressImageView.frame = frame;
+    }
+    @catch (NSException *e) {
+        NSLog(@"ADVPercentProgressBar.progressImageDraw() progressImageView.frame ERROR: %@", e.reason);
+    }
     CGRect percentFrame = percentView.frame;
     
     float percentViewWidth = percentView.frame.size.width;

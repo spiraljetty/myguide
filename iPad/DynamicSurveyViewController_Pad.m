@@ -258,14 +258,15 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     
     standardPageButtonOverlay.view.alpha = 0.0;
     yesNoButtonOverlay.view.alpha = 0.0;
-    standardPageButtonOverlay.view.transform = rotateLeft;
+    //standardPageButtonOverlay.view.transform = rotateLeft;
     
     //    standardPageButtonOverlay.view.backgroundColor = [UIColor redColor];
     //    [standardPageButtonOverlay.view setCenter:CGPointMake(542.0f, 0.0f)];
     
-    yesNoButtonOverlay.view.transform = rotateLeft;
+    //yesNoButtonOverlay.view.transform = rotateLeft;
     //    [standardPageButtonOverlay.view setCenter:CGPointMake(522.0f, 385.0f)];
-    [yesNoButtonOverlay.view setCenter:CGPointMake(542.0f, 400.0f)];
+    [yesNoButtonOverlay.view setCenter:CGPointMake(400.0f, 542.0f)];
+//    [yesNoButtonOverlay.view setCenter:CGPointMake(542.0f, 400.0f)];
     [self.view addSubview:standardPageButtonOverlay.view];
     [self.view addSubview:yesNoButtonOverlay.view];
     
@@ -447,6 +448,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         // provider test
         SwitchedImageViewController *providerTest = [self createProviderTestPicker:pageIndex];
         //providerTest.view.frame = backsplash.bounds;
+        [providerTest.view setCenter:CGPointMake(525.0f, 250.0f)];
         [surveyPageArray addObject:providerTest];
         pageIndex++;
         
@@ -560,7 +562,9 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         [clinicTestNames addObject:clinic4];
         [DynamicContent setClinicTestNames:clinicTestNames];// used for speech synthesis
         
-        
+        [subclinicTest.view setCenter:CGPointMake(100.0f, 50.0f)];
+       // [subclinicTest.view setCenter:CGPointMake(525.0f, 100.0f)];
+
         [surveyPageArray addObject:subclinicTest];
         
         pageIndex++;
@@ -1210,7 +1214,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     subclinicTestCorrect.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //    [subclinicTestCorrect.view setCenter:CGPointMake(512.0f, 500.0f)];
-    subclinicTestCorrect.view.transform = rotateRight;
+    //subclinicTestCorrect.view.transform = rotateRight;
     [self presentModalViewController:subclinicTestCorrect animated:YES];
     [subclinicTestCorrect release];
     
@@ -1250,7 +1254,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     subclinicTestCorrect.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //    [subclinicTestCorrect.view setCenter:CGPointMake(512.0f, 500.0f)];
-    subclinicTestCorrect.view.transform = rotateRight;
+    //subclinicTestCorrect.view.transform = rotateRight;
     [self presentModalViewController:subclinicTestCorrect animated:YES];
     [subclinicTestCorrect release];
     
@@ -1294,7 +1298,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     providerTestCorrect.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //    [providerTestCorrect.view setCenter:CGPointMake(512.0f, 500.0f)];
-    providerTestCorrect.view.transform = rotateRight;
+    //providerTestCorrect.view.transform = rotateRight;
     [self presentModalViewController:providerTestCorrect animated:YES];
     [providerTestCorrect release];
     
@@ -1337,7 +1341,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     providerTestCorrect.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //    [providerTestCorrect.view setCenter:CGPointMake(512.0f, 500.0f)];
-    providerTestCorrect.view.transform = rotateRight;
+    //providerTestCorrect.view.transform = rotateRight;
     [self presentModalViewController:providerTestCorrect animated:YES];
     [providerTestCorrect release];
     
@@ -1872,24 +1876,26 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     subclinicModuleHelpful.helpfulLabel.font =  [UIFont fontWithName:@"Avenir-Medium" size:[DynamicContent currentFontSize]];
     if (finishingLastItem)
     {
+        WRViewController* currentViewController = [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController];
         if (vcIndex == 6) {
             NSLog(@"DynamicSurveyViewController_Pad.switchToView() setCompletedProviderAndSubclinicSurvey=YES");
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setCompletedProviderAndSubclinicSurvey:YES];
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] finishedPartOfDynamicSurvey];
+            [currentViewController setCompletedProviderAndSubclinicSurvey:YES];
+            [currentViewController finishedPartOfDynamicSurvey];
             
         } else if (vcIndex == 19) {
             NSLog(@"DynamicSurveyViewController_Pad.switchToView() setCompletedFinalSurvey:YES");
             
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] setCompletedFinalSurvey:YES];
+            [currentViewController setCompletedFinalSurvey:YES];
             
             vcIndex = newIndex;
             
             newTimer = [[NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(handleSurveyFinished:) userInfo:nil repeats:NO] retain];
             [[NSRunLoop currentRunLoop] addTimer:newTimer forMode:NSDefaultRunLoopMode];
         } else {
-            [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] finishedPartOfDynamicSurvey];
+            [currentViewController finishedPartOfDynamicSurvey];
         }
-        
+        [currentViewController.view setCenter:CGPointMake(768.0f, 385.0f)];
+    
         
         
         //        [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] finishedPartOfDynamicSurvey];
@@ -1925,6 +1931,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         segue.delegate = self;
         source.view.frame = [[UIScreen mainScreen] applicationFrame];  //rjl
         destination.view.frame = [[UIScreen mainScreen] applicationFrame];  //rjl
+
         [destination.view layoutSubviews];
         [segue perform];
 
@@ -2237,6 +2244,11 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
 - (void)handleButtonOverlayForPageIndex:(int)thisPageIndex {
     NSLog(@"DynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex() thisPageIndex: %d",thisPageIndex);
     SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:thisPageIndex];
+    if (thisPageIndex <= 6)
+        [currentSwitchedController.view setCenter:CGPointMake(550.0f, 250.0f)];
+
+    else
+        [currentSwitchedController.view setCenter:CGPointMake(280.0f, 225.0f)];
     if (currentSwitchedController.hidePreviousButton) {
         //        [standardPageButtonOverlay fadeThisObjectOut:standardPageButtonOverlay.previousPageButton];
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hidePreviousButton];

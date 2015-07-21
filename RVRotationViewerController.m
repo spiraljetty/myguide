@@ -150,6 +150,8 @@
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
     
     [super viewDidAppear:animated];
     

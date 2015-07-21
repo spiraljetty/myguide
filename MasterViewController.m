@@ -53,9 +53,14 @@ Abstract: A simple view controller that manages a table view
     NSLog(@"MasterViewController.viewDidLoad()");
     [super viewDidLoad];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        @try {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+        } @catch (NSException *e){
+            NSLog(@"MasterViewController.viewDidLoad() ERROR: %@", e.reason);
+        }
       //  [self configureDetailItemForRow:0];
     }
+    NSLog(@"MasterViewController.viewDidLoad() exit");
 }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_6_0

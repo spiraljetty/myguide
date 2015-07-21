@@ -515,6 +515,10 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
     //    ClinicInfo * clinicInfo = NULL;
     NSArray * lines = [self readFile:filePath];
+    if (lines == nil){
+        NSLog(@"DynamicContent.readClinicInfo() no clinic data");
+        return allClinics;
+    }
     int index = 0;
     int total = [lines count];
     for (NSString *line in lines) {
@@ -1536,6 +1540,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             [self saveImage:img filename:filename];
         }
         NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,filename];
+        //filepath: /var/mobile/Containers/Data/Application/3733392A-E9D9-4D8B-81CB-737F5480F6D8/Documents/clinicians.txt
         [downloadData writeToFile:filePath atomically:YES];
         result = filePath;
     }

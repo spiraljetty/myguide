@@ -548,10 +548,11 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     
     standardPageButtonOverlay.view.alpha = 0.0;
     yesNoButtonOverlay.view.alpha = 0.0;
-    standardPageButtonOverlay.view.transform = rotateLeft;
-    yesNoButtonOverlay.view.transform = rotateLeft;
+    //standardPageButtonOverlay.view.transform = rotateLeft;
+    //yesNoButtonOverlay.view.transform = rotateLeft;
 //    [standardPageButtonOverlay.view setCenter:CGPointMake(522.0f, 385.0f)];
-    [yesNoButtonOverlay.view setCenter:CGPointMake(512.0f, 400.0f)];
+    [yesNoButtonOverlay.view setCenter:CGPointMake(400.0f, 512.0f)];
+//    [yesNoButtonOverlay.view setCenter:CGPointMake(512.0f, 400.0f)];
     [self.view addSubview:standardPageButtonOverlay.view];
     [self.view addSubview:yesNoButtonOverlay.view];
     

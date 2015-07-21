@@ -202,6 +202,7 @@ static WRViewController* mViewController = NULL;
         [self completeInitialApplicationLaunch];
         
         [tbvc getAllUniqueIds];
+        //[DynamicContent downloadAllData];
     }
     return self;
 }
@@ -239,7 +240,7 @@ static WRViewController* mViewController = NULL;
     
 //    self.view.rootViewController = tbvc;
     tbvc.view.alpha = 0.0;
-    tbvc.view.transform = rotateRight;
+//    tbvc.view.transform = rotateRight;
     tbvc.masterTTSPlayer = mainTTSPlayer;
     [self.view addSubview:tbvc.view];
     
@@ -250,7 +251,7 @@ static WRViewController* mViewController = NULL;
     
     //    self.view.rootViewController = tbvc;
     edModule.view.alpha = 0.0;
-    edModule.view.transform = rotateRight;
+    //edModule.view.transform = rotateRight;
     [self.view addSubview:edModule.view];
     [self.view sendSubviewToBack:edModule.view];
 
@@ -551,8 +552,9 @@ static WRViewController* mViewController = NULL;
     initialSettingsLabel.text = @"Launch Settings";
     initialSettingsLabel.textAlignment = UITextAlignmentCenter;
     initialSettingsLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:60];
-    [initialSettingsLabel setCenter:CGPointMake(100.0f, 512.0f)];
-    initialSettingsLabel.transform = rotateRight;
+    [initialSettingsLabel setCenter:CGPointMake(512.0f, 100.0f)];
+//    [initialSettingsLabel setCenter:CGPointMake(100.0f, 512.0f)];
+    //initialSettingsLabel.transform = rotateRight;
     [self.view addSubview:initialSettingsLabel];
     
 //    clinicSelectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 700, 250)];
@@ -584,8 +586,9 @@ static WRViewController* mViewController = NULL;
     
     taperedWhiteLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tapered_fade_dividing_line-horiz-lrg.png"]];
     taperedWhiteLine.frame = CGRectMake(0, 0, 700, 50);
-    [taperedWhiteLine setCenter:CGPointMake(200.0f, 512.0f)];
-    taperedWhiteLine.transform = rotateRight;
+    [taperedWhiteLine setCenter:CGPointMake(512.0f, 200.0f)];
+//    [taperedWhiteLine setCenter:CGPointMake(200.0f, 512.0f)];
+    //taperedWhiteLine.transform = rotateRight;
     [self.view addSubview:taperedWhiteLine];
     
     demoSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 26.0)];
@@ -598,9 +601,10 @@ static WRViewController* mViewController = NULL;
         [demoSwitch setOn:NO];
     }
     
-    [demoSwitch setCenter:CGPointMake(600.0f, 700.0f)];
+    [demoSwitch setCenter:CGPointMake(400.0f, 600.0f)];
+//    [demoSwitch setCenter:CGPointMake(600.0f, 700.0f)];
     [demoSwitch setBackgroundColor:[UIColor clearColor]];
-    demoSwitch.transform = rotateRight;
+    //demoSwitch.transform = rotateRight;
     [self.view addSubview:demoSwitch];
     
     demoModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
@@ -611,8 +615,9 @@ static WRViewController* mViewController = NULL;
 	demoModeLabel.backgroundColor = [UIColor clearColor];
     demoModeLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	demoModeLabel.opaque = YES;
-	[demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
-    demoModeLabel.transform = rotateRight;
+    [demoModeLabel setCenter:CGPointMake(200.0f, 600.0f)];
+//    [demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
+    //demoModeLabel.transform = rotateRight;
     
     [self.view addSubview:demoModeLabel];
     
@@ -626,13 +631,14 @@ static WRViewController* mViewController = NULL;
 	[nextSettingsButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextSettingsButton.backgroundColor = [UIColor clearColor];
     // sandy shifted this to match others. Changed to:[nextSettingsButton setCenter:CGPointMake(685.0f, 80.0f)];
-    [nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
+    [nextSettingsButton setCenter:CGPointMake(800.0f, 620.0f)];
+//    [nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
     
 	[nextSettingsButton addTarget:self action:@selector(slideVisitButtonsOut) forControlEvents:UIControlEventTouchUpInside];
 	nextSettingsButton.enabled = NO;
 	nextSettingsButton.hidden = NO;
 	[nextSettingsButton retain];
-    nextSettingsButton.transform = rotateRight;
+    //nextSettingsButton.transform = rotateRight;
     [self.view addSubview:nextSettingsButton];
     
     visitSelectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 150)];
@@ -642,8 +648,9 @@ static WRViewController* mViewController = NULL;
 	visitSelectionLabel.backgroundColor = [UIColor clearColor];
     visitSelectionLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	visitSelectionLabel.opaque = YES;
-	[visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
-    visitSelectionLabel.transform = rotateRight;
+    [visitSelectionLabel setCenter:CGPointMake(512.0f, 250.0f)];
+//    [visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
+//    visitSelectionLabel.transform = rotateRight;
     
     [self.view addSubview:visitSelectionLabel];
     
@@ -655,14 +662,15 @@ static WRViewController* mViewController = NULL;
 	[firstVisitButton setImage:[UIImage imageNamed:@"first_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[firstVisitButton setImage:[UIImage imageNamed:@"first_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	firstVisitButton.backgroundColor = [UIColor clearColor];
-	[firstVisitButton setCenter:CGPointMake(400.0f, 860.0f)];
+	[firstVisitButton setCenter:CGPointMake(400.0f, 400.0f)];
+//    [firstVisitButton setCenter:CGPointMake(400.0f, 860.0f)];
 	[firstVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	firstVisitButton.enabled = YES;
 	firstVisitButton.hidden = NO;
     firstVisitButton.selected = YES;
     //    firstVisitButton.alpha = 0.0;
 	[firstVisitButton retain];
-    firstVisitButton.transform = rotateRight;
+//    firstVisitButton.transform = rotateRight;
     
     [self.view addSubview:firstVisitButton];
     
@@ -692,14 +700,15 @@ static WRViewController* mViewController = NULL;
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	returnVisitButton.backgroundColor = [UIColor clearColor];
-	[returnVisitButton setCenter:CGPointMake(400.0f, 660.0f)];
+    [returnVisitButton setCenter:CGPointMake(660.0f, 400.0f)];
+//    [returnVisitButton setCenter:CGPointMake(400.0f, 660.0f)];
 	[returnVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	returnVisitButton.enabled = YES;
 	returnVisitButton.hidden = NO;
     returnVisitButton.selected = YES;
     //    returnVisitButton.alpha = 0.0;
 	[returnVisitButton retain];
-    returnVisitButton.transform = rotateRight;
+//    returnVisitButton.transform = rotateRight;
     
     [self.view addSubview:returnVisitButton];
     
@@ -709,14 +718,15 @@ static WRViewController* mViewController = NULL;
     settingsVC.view.backgroundColor = [UIColor clearColor];
 //    [settingsVC.view setCenter:CGPointMake(270.0f, 640.0f)];
 
-    [settingsVC.view setCenter:CGPointMake(1205.0f, 512.0f)];
+    [settingsVC.view setCenter:CGPointMake(512.0f, 1205.0f)];
+//    [settingsVC.view setCenter:CGPointMake(1205.0f, 512.0f)];
 
-    settingsVC.view.transform = rotateRight;
+//    settingsVC.view.transform = rotateRight;
     [self.view addSubview:settingsVC.view];
     
     [self createClinicSplitViewController];
     
-    splitViewController.view.transform = rotateRight;
+//    splitViewController.view.transform = rotateRight;
     splitViewController.view.alpha = 0.0;
     [self.view addSubview:splitViewController.view];
 //    [self.view sendSubviewToBack:splitViewController.view];
@@ -729,13 +739,14 @@ static WRViewController* mViewController = NULL;
 	[readyAppButton setImage:[UIImage imageNamed:@"ready_button_pressed.png"] forState:UIControlStateHighlighted];
 	[readyAppButton setImage:[UIImage imageNamed:@"ready_button_pressed.png"] forState:UIControlStateSelected];
 	readyAppButton.backgroundColor = [UIColor clearColor];
-	[readyAppButton setCenter:CGPointMake(670.0f, 130.0f)];
+   // [readyAppButton setCenter:CGPointMake(130.0f, 670.0f)];
+    [readyAppButton setCenter:CGPointMake(880.0f, 670.0f)];
 	[readyAppButton addTarget:self action:@selector(readyButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	readyAppButton.enabled = NO;
 	readyAppButton.hidden = NO;
     readyAppButton.alpha = 0.0;
 	[readyAppButton retain];
-    readyAppButton.transform = rotateRight;
+//    readyAppButton.transform = rotateRight;
     
     [self.view addSubview:readyAppButton];
     [self.view sendSubviewToBack:readyAppButton];
@@ -1838,8 +1849,9 @@ static WRViewController* mViewController = NULL;
     physicianDetailVC.view.alpha = 0.0;
 //    physicianDetailVC.view.frame = CGRectMake(0, 0, 1024, 233);
     physicianDetailVC.view.backgroundColor = [UIColor clearColor];
-    [physicianDetailVC.view setCenter:CGPointMake(500.0f, 384.0f)];
-    physicianDetailVC.view.transform = rotateRight;
+    [physicianDetailVC.view setCenter:CGPointMake(384.0f, 500.0f)];
+//    [physicianDetailVC.view setCenter:CGPointMake(500.0f, 384.0f)];
+//    physicianDetailVC.view.transform = rotateRight;
     
     [self.view addSubview:physicianDetailVC.view];
     [self.view sendSubviewToBack:physicianDetailVC.view];
@@ -1864,7 +1876,7 @@ static WRViewController* mViewController = NULL;
     
     physicianModule.currentPhysicianDetailSectionNames = [[physicianModule.currentPhysicianDetails allKeys] sortedArrayUsingSelector:@selector(compare:)];
     physicianModule.view.alpha = 0.0;
-    physicianModule.view.transform = rotateRight;
+//    physicianModule.view.transform = rotateRight;
     [self.view addSubview:physicianModule.view];
     [self.view sendSubviewToBack:physicianModule.view];
     
@@ -2707,7 +2719,7 @@ static WRViewController* mViewController = NULL;
     [dynamicWhatsNewModule setupWhatsNewContent];
     
     dynamicWhatsNewModule.view.alpha = 0.0;
-    dynamicWhatsNewModule.view.transform = rotateRight;
+//    dynamicWhatsNewModule.view.transform = rotateRight;
     [self.view addSubview:dynamicWhatsNewModule.view];
     [self.view sendSubviewToBack:dynamicWhatsNewModule.view];
     
@@ -2753,7 +2765,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule1 setupEdModule:0];
     
     dynamicEdModule1.view.alpha = 0.0;
-    dynamicEdModule1.view.transform = rotateRight;
+//    dynamicEdModule1.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule1.view];
     [self.view sendSubviewToBack:dynamicEdModule1.view];
     
@@ -2766,7 +2778,7 @@ static WRViewController* mViewController = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     [dynamicEdModule2 setupEdModule:1];
     dynamicEdModule2.view.alpha = 0.0;
-    dynamicEdModule2.view.transform = rotateRight;
+//    dynamicEdModule2.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule2.view];
     [self.view sendSubviewToBack:dynamicEdModule2.view];
     edModule2Initialized = YES;
@@ -2778,7 +2790,7 @@ static WRViewController* mViewController = NULL;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     [dynamicEdModule3 setupEdModule:2];
     dynamicEdModule3.view.alpha = 0.0;
-    dynamicEdModule3.view.transform = rotateRight;
+//    dynamicEdModule3.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule3.view];
     [self.view sendSubviewToBack:dynamicEdModule3.view];
     edModule3Initialized = YES;
@@ -2791,7 +2803,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule4 setupEdModule:3];
     
     dynamicEdModule4.view.alpha = 0.0;
-    dynamicEdModule4.view.transform = rotateRight;
+//    dynamicEdModule4.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule4.view];
     [self.view sendSubviewToBack:dynamicEdModule4.view];
     
@@ -2805,7 +2817,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule5 setupEdModule:4];
     
     dynamicEdModule5.view.alpha = 0.0;
-    dynamicEdModule5.view.transform = rotateRight;
+//    dynamicEdModule5.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule5.view];
     [self.view sendSubviewToBack:dynamicEdModule5.view];
     
@@ -2819,7 +2831,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule6 setupEdModule:5];
     
     dynamicEdModule6.view.alpha = 0.0;
-    dynamicEdModule6.view.transform = rotateRight;
+//    dynamicEdModule6.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule6.view];
     [self.view sendSubviewToBack:dynamicEdModule6.view];
     
@@ -2834,7 +2846,7 @@ static WRViewController* mViewController = NULL;
     
     dynamicEdModule7.view.alpha = 0.0;
     dynamicEdModule7.view.transform = rotateRight;
-    [self.view addSubview:dynamicEdModule7.view];
+//    [self.view addSubview:dynamicEdModule7.view];
     [self.view sendSubviewToBack:dynamicEdModule7.view];
     
     edModule7Initialized = YES;
@@ -2847,7 +2859,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule8 setupEdModule:4];
     
     dynamicEdModule8.view.alpha = 0.0;
-    dynamicEdModule8.view.transform = rotateRight;
+//    dynamicEdModule8.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule8.view];
     [self.view sendSubviewToBack:dynamicEdModule8.view];
     
@@ -2861,7 +2873,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule9 setupEdModule:4];
     
     dynamicEdModule9.view.alpha = 0.0;
-    dynamicEdModule9.view.transform = rotateRight;
+//    dynamicEdModule9.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule9.view];
     [self.view sendSubviewToBack:dynamicEdModule9.view];
     
@@ -2875,7 +2887,7 @@ static WRViewController* mViewController = NULL;
     [dynamicEdModule10 setupEdModule:4];
     
     dynamicEdModule10.view.alpha = 0.0;
-    dynamicEdModule10.view.transform = rotateRight;
+//    dynamicEdModule10.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule10.view];
     [self.view sendSubviewToBack:dynamicEdModule10.view];
     
@@ -2904,7 +2916,7 @@ static WRViewController* mViewController = NULL;
     [dynamicSubclinicEdModule setupClinicContent];
     
     dynamicSubclinicEdModule.view.alpha = 0.0;
-    dynamicSubclinicEdModule.view.transform = rotateRight;
+//    dynamicSubclinicEdModule.view.transform = rotateRight;
     [self.view addSubview:dynamicSubclinicEdModule.view];
     [self.view sendSubviewToBack:dynamicSubclinicEdModule.view];
     
@@ -2926,7 +2938,7 @@ static WRViewController* mViewController = NULL;
 //    dynamicEdModule.speakItemsAloud = YES;
     
     dynamicEdModule.view.alpha = 0.0;
-    dynamicEdModule.view.transform = rotateRight;
+//    dynamicEdModule.view.transform = rotateRight;
     [self.view addSubview:dynamicEdModule.view];
     [self.view sendSubviewToBack:dynamicEdModule.view];
     
@@ -3066,9 +3078,10 @@ static WRViewController* mViewController = NULL;
 - (void)setUpDynamicSurveyForTheFirstTime {
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    dynamicSurveyModule.view.transform = rotateRight;
+//    dynamicSurveyModule.view.transform = rotateRight;
     dynamicSurveyModule.view.alpha = 0.0;
-    [dynamicSurveyModule.view setCenter:CGPointMake(400.0f, 552.0f)];
+    [dynamicSurveyModule.view setCenter:CGPointMake(552.0f, 400.0f)];
+//    [dynamicSurveyModule.view setCenter:CGPointMake(400.0f, 552.0f)];
     [self.view addSubview:dynamicSurveyModule.view];
     [self.view sendSubviewToBack:dynamicSurveyModule.view];
     dynamicSurveyInitialized = YES;
@@ -4051,8 +4064,9 @@ static WRViewController* mViewController = NULL;
 	presurveyIntroLabel.backgroundColor = [UIColor clearColor];
     presurveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
 	presurveyIntroLabel.opaque = YES;
-	[presurveyIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
-    presurveyIntroLabel.transform = rotateRight;
+    [presurveyIntroLabel setCenter:CGPointMake(512.0f, 400.0f)];
+//    [presurveyIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
+//    presurveyIntroLabel.transform = rotateRight;
 	presurveyIntroLabel.alpha = 0.0; //rjl 7/8/14
     
     [self.view addSubview:presurveyIntroLabel];
@@ -4153,13 +4167,14 @@ static WRViewController* mViewController = NULL;
 	[nextSurveyItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[nextSurveyItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextSurveyItemButton.backgroundColor = [UIColor clearColor];
-	[nextSurveyItemButton setCenter:CGPointMake(685.0f, 80.0f)];
+    [nextSurveyItemButton setCenter:CGPointMake(80.0f, 685.0f)];
+//    [nextSurveyItemButton setCenter:CGPointMake(685.0f, 80.0f)];
 	[nextSurveyItemButton addTarget:tbvc action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
 	nextSurveyItemButton.enabled = YES;
 	nextSurveyItemButton.hidden = NO;
     nextSurveyItemButton.alpha = 0.0;
 	[nextSurveyItemButton retain];
-    nextSurveyItemButton.transform = rotateRight;
+//    nextSurveyItemButton.transform = rotateRight;
     [self.view addSubview:nextSurveyItemButton];
     [self.view sendSubviewToBack:nextSurveyItemButton];
     
@@ -4171,13 +4186,14 @@ static WRViewController* mViewController = NULL;
 	[previousSurveyItemButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[previousSurveyItemButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateSelected];
 	previousSurveyItemButton.backgroundColor = [UIColor clearColor];
-	[previousSurveyItemButton setCenter:CGPointMake(685.0f, 945.0f)];
+    [previousSurveyItemButton setCenter:CGPointMake(945.0f, 685.0f)];
+//    [previousSurveyItemButton setCenter:CGPointMake(685.0f, 945.0f)];
 	[previousSurveyItemButton addTarget:tbvc action:@selector(progress:) forControlEvents:UIControlEventTouchUpInside];
 	previousSurveyItemButton.enabled = NO;
 	previousSurveyItemButton.hidden = NO;
     previousSurveyItemButton.alpha = 0.0;
 	[previousSurveyItemButton retain];
-    previousSurveyItemButton.transform = rotateRight;
+//    previousSurveyItemButton.transform = rotateRight;
     [self.view addSubview:previousSurveyItemButton];
     [self.view sendSubviewToBack:previousSurveyItemButton];
     
@@ -4189,14 +4205,15 @@ static WRViewController* mViewController = NULL;
 	[nextEdItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[nextEdItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextEdItemButton.backgroundColor = [UIColor clearColor];
-	[nextEdItemButton setCenter:CGPointMake(685.0f, 80.0f)];
+    [nextEdItemButton setCenter:CGPointMake(80.0f, 685.0f)];
+//    [nextEdItemButton setCenter:CGPointMake(685.0f, 80.0f)];
 	[nextEdItemButton addTarget:self action:@selector(beginEducationModule:) forControlEvents:UIControlEventTouchUpInside];
 //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
 	nextEdItemButton.enabled = YES;
 	nextEdItemButton.hidden = NO;
     nextEdItemButton.alpha = 0.0;
 	[nextEdItemButton retain];
-    nextEdItemButton.transform = rotateRight;
+//    nextEdItemButton.transform = rotateRight;
     [self.view addSubview:nextEdItemButton];
     [self.view sendSubviewToBack:nextEdItemButton];
     
@@ -4208,13 +4225,14 @@ static WRViewController* mViewController = NULL;
 	[previousEdItemButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[previousEdItemButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateSelected];
 	previousEdItemButton.backgroundColor = [UIColor clearColor];
-	[previousEdItemButton setCenter:CGPointMake(685.0f, 945.0f)];
+    [previousEdItemButton setCenter:CGPointMake(945.0f, 685.0f)];
+//    [previousEdItemButton setCenter:CGPointMake(685.0f, 945.0f)];
 	[previousEdItemButton addTarget:edModule action:@selector(progress:) forControlEvents:UIControlEventTouchUpInside];
 	previousEdItemButton.enabled = NO;
 	previousEdItemButton.hidden = NO;
     previousEdItemButton.alpha = 0.0;
 	[previousEdItemButton retain];
-    previousEdItemButton.transform = rotateRight;
+//    previousEdItemButton.transform = rotateRight;
     [self.view addSubview:previousEdItemButton];
     [self.view sendSubviewToBack:previousEdItemButton];
     
@@ -4226,7 +4244,8 @@ static WRViewController* mViewController = NULL;
 	[nextPhysicianDetailButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[nextPhysicianDetailButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextPhysicianDetailButton.backgroundColor = [UIColor clearColor];
-	[nextPhysicianDetailButton setCenter:CGPointMake(685.0f, 80.0f)];
+    [nextPhysicianDetailButton setCenter:CGPointMake(80.0f, 685.0f)];
+//    [nextPhysicianDetailButton setCenter:CGPointMake(685.0f, 80.0f)];
 //	[nextPhysicianDetailButton addTarget:physicianModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
     //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
     [nextPhysicianDetailButton addTarget:physicianModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
@@ -4234,7 +4253,7 @@ static WRViewController* mViewController = NULL;
 	nextPhysicianDetailButton.hidden = NO;
     nextPhysicianDetailButton.alpha = 0.0;
 	[nextPhysicianDetailButton retain];
-    nextPhysicianDetailButton.transform = rotateRight;
+//    nextPhysicianDetailButton.transform = rotateRight;
     [self.view addSubview:nextPhysicianDetailButton];
     [self.view sendSubviewToBack:nextPhysicianDetailButton];
     
@@ -4246,14 +4265,15 @@ static WRViewController* mViewController = NULL;
 	[previousPhysicianDetailButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[previousPhysicianDetailButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateSelected];
 	previousPhysicianDetailButton.backgroundColor = [UIColor clearColor];
-	[previousPhysicianDetailButton setCenter:CGPointMake(685.0f, 945.0f)];
+    [previousPhysicianDetailButton setCenter:CGPointMake(945.0f, 685.0f)];
+//    [previousPhysicianDetailButton setCenter:CGPointMake(685.0f, 945.0f)];
 //	[previousPhysicianDetailButton addTarget:physicianModule action:@selector(progress:) forControlEvents:UIControlEventTouchUpInside];
     [previousPhysicianDetailButton addTarget:physicianModule action:@selector(progress:) forControlEvents:UIControlEventTouchUpInside];
 	previousPhysicianDetailButton.enabled = NO;
 	previousPhysicianDetailButton.hidden = NO;
     previousPhysicianDetailButton.alpha = 0.0;
 	[previousPhysicianDetailButton retain];
-    previousPhysicianDetailButton.transform = rotateRight;
+//    previousPhysicianDetailButton.transform = rotateRight;
     [self.view addSubview:previousPhysicianDetailButton];
     [self.view sendSubviewToBack:previousPhysicianDetailButton];
     
@@ -4335,8 +4355,9 @@ static WRViewController* mViewController = NULL;
 	readAloudLabel.backgroundColor = [UIColor clearColor];
     readAloudLabel.font = [UIFont fontWithName:@"Avenir" size:42];
 	readAloudLabel.opaque = YES;
-	[readAloudLabel setCenter:CGPointMake(670.0f, 512.0f)];
-    readAloudLabel.transform = rotateRight;
+    [readAloudLabel setCenter:CGPointMake(512.0f, 670.0f)];
+//    [readAloudLabel setCenter:CGPointMake(670.0f, 512.0f)];
+//    readAloudLabel.transform = rotateRight;
 	readAloudLabel.alpha = 0.0;
     
     [self.view addSubview:readAloudLabel];
@@ -4349,8 +4370,9 @@ static WRViewController* mViewController = NULL;
 	respondentLabel.backgroundColor = [UIColor clearColor];
     respondentLabel.font = [UIFont fontWithName:@"Avenir" size:45];
 	respondentLabel.opaque = YES;
-	[respondentLabel setCenter:CGPointMake(670.0f, 512.0f)];
-    respondentLabel.transform = rotateRight;
+    [respondentLabel setCenter:CGPointMake(512.0f, 670.0f)];
+//    [respondentLabel setCenter:CGPointMake(670.0f, 512.0f)];
+//    respondentLabel.transform = rotateRight;
 	respondentLabel.alpha = 0.0;
     
     [self.view addSubview:respondentLabel];
@@ -4363,8 +4385,9 @@ static WRViewController* mViewController = NULL;
 	selectActivityLabel.backgroundColor = [UIColor clearColor];
     selectActivityLabel.font = [UIFont fontWithName:@"Avenir" size:45];
 	selectActivityLabel.opaque = YES;
-	[selectActivityLabel setCenter:CGPointMake(65.0f, 512.0f)];
-    selectActivityLabel.transform = rotateRight;
+    [selectActivityLabel setCenter:CGPointMake(512.0f, 65.0f)];
+//    [selectActivityLabel setCenter:CGPointMake(65.0f, 512.0f)];
+//    selectActivityLabel.transform = rotateRight;
 	selectActivityLabel.alpha = 0.0;
     
     [self.view addSubview:selectActivityLabel];
@@ -4379,8 +4402,9 @@ static WRViewController* mViewController = NULL;
 	surveyIntroLabel.backgroundColor = [UIColor clearColor];
     surveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
 	surveyIntroLabel.opaque = YES;
-	[surveyIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
-    surveyIntroLabel.transform = rotateRight;
+    [surveyIntroLabel setCenter:CGPointMake(512.0f, 400.0f)];
+//    [surveyIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
+//    surveyIntroLabel.transform = rotateRight;
 	surveyIntroLabel.alpha = 0.0;
     
     [self.view addSubview:surveyIntroLabel];
@@ -4401,8 +4425,9 @@ static WRViewController* mViewController = NULL;
 	surveyCompleteLabel.backgroundColor = [UIColor clearColor];
     surveyCompleteLabel.font = [UIFont fontWithName:@"Avenir" size:45];
 	surveyCompleteLabel.opaque = YES;
-	[surveyCompleteLabel setCenter:CGPointMake(300.0f, 525.0f)];
-    surveyCompleteLabel.transform = rotateRight;
+    [surveyCompleteLabel setCenter:CGPointMake(525.0f, 300.0f)];
+//    [surveyCompleteLabel setCenter:CGPointMake(300.0f, 525.0f)];
+//    surveyCompleteLabel.transform = rotateRight;
 	surveyCompleteLabel.alpha = 0.0;
     
     [self.view addSubview:surveyCompleteLabel];
@@ -4415,8 +4440,9 @@ static WRViewController* mViewController = NULL;
 	edModuleIntroLabel.backgroundColor = [UIColor clearColor];
     edModuleIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
 	edModuleIntroLabel.opaque = YES;
-	[edModuleIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
-    edModuleIntroLabel.transform = rotateRight;
+    [edModuleIntroLabel setCenter:CGPointMake(512.0f, 400.0f)];
+    //    [edModuleIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
+    //    edModuleIntroLabel.transform = rotateRight;
 	edModuleIntroLabel.alpha = 0.0;
     
     [self.view addSubview:edModuleIntroLabel];
@@ -4430,8 +4456,9 @@ static WRViewController* mViewController = NULL;
 	edModuleCompleteLabel.backgroundColor = [UIColor clearColor];
     edModuleCompleteLabel.font = [UIFont fontWithName:@"Avenir" size:45];
 	edModuleCompleteLabel.opaque = YES;
-	[edModuleCompleteLabel setCenter:CGPointMake(300.0f, 525.0f)];
-    edModuleCompleteLabel.transform = rotateRight;
+    [edModuleCompleteLabel setCenter:CGPointMake(525.0f, 300.0f)];
+//    [edModuleCompleteLabel setCenter:CGPointMake(300.0f, 525.0f)];
+//    edModuleCompleteLabel.transform = rotateRight;
 	edModuleCompleteLabel.alpha = 0.0;
     
     [self.view addSubview:edModuleCompleteLabel];
@@ -4440,8 +4467,9 @@ static WRViewController* mViewController = NULL;
     //playMovieIcon
     playMovieIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"movie_play_icon.png"]];
     playMovieIcon.frame = CGRectMake(0, 0, 176, 176);
-    playMovieIcon.transform = rotateRight;
-    [playMovieIcon setCenter:CGPointMake(670.0f, 512.0f)];
+//    playMovieIcon.transform = rotateRight;
+    [playMovieIcon setCenter:CGPointMake(512.0f, 670.0f)];
+//    [playMovieIcon setCenter:CGPointMake(670.0f, 512.0f)];
     playMovieIcon.alpha = 0.0;
     
 //    [self.view addSubview:playMovieIcon];
@@ -4458,13 +4486,14 @@ static WRViewController* mViewController = NULL;
 	[yesButton setImage:[UIImage imageNamed:@"yes_button_image_pressed2.png"] forState:UIControlStateHighlighted];
 	[yesButton setImage:[UIImage imageNamed:@"yes_button_image_pressed2.png"] forState:UIControlStateSelected];
 	yesButton.backgroundColor = [UIColor clearColor];
-	[yesButton setCenter:CGPointMake(380.0f, 760.0f)];
+    [yesButton setCenter:CGPointMake(760.0f, 380.0f)];
+//    [yesButton setCenter:CGPointMake(380.0f, 760.0f)];
 	[yesButton addTarget:self action:@selector(yesNoPressed:) forControlEvents:UIControlEventTouchUpInside];
 	yesButton.enabled = YES;
 	yesButton.hidden = NO;
     yesButton.alpha = 0.0;
 	[yesButton retain];
-    yesButton.transform = rotateRight;
+//    yesButton.transform = rotateRight;
     
     [self.view addSubview:yesButton];
     [self.view sendSubviewToBack:yesButton];
@@ -4477,13 +4506,14 @@ static WRViewController* mViewController = NULL;
 	[noButton setImage:[UIImage imageNamed:@"no_button_image_pressed2.png"] forState:UIControlStateHighlighted];
 	[noButton setImage:[UIImage imageNamed:@"no_button_image_pressed2.png"] forState:UIControlStateSelected];
 	noButton.backgroundColor = [UIColor clearColor];
-	[noButton setCenter:CGPointMake(380.0f, 264.0f)];
+    [noButton setCenter:CGPointMake(264.0f, 380.0f)];
+//    [noButton setCenter:CGPointMake(380.0f, 264.0f)];
     [noButton addTarget:self action:@selector(yesNoPressed:) forControlEvents:UIControlEventTouchUpInside];
 	noButton.enabled = YES;
 	noButton.hidden = NO;
     noButton.alpha = 0.0;
 	[noButton retain];
-    noButton.transform = rotateRight;
+//    noButton.transform = rotateRight;
     
     [self.view addSubview:noButton];
     [self.view sendSubviewToBack:noButton];
@@ -4496,13 +4526,14 @@ static WRViewController* mViewController = NULL;
 	[patientButton setImage:[UIImage imageNamed:@"patient_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[patientButton setImage:[UIImage imageNamed:@"patient_button_image_pressed.png"] forState:UIControlStateSelected];
 	patientButton.backgroundColor = [UIColor clearColor];
-	[patientButton setCenter:CGPointMake(380.0f, 853.0f)];
+    [patientButton setCenter:CGPointMake(853.0f, 380.0f)];
+//    [patientButton setCenter:CGPointMake(380.0f, 853.0f)];
     [patientButton addTarget:self action:@selector(respondentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	patientButton.enabled = YES;
 	patientButton.hidden = NO;
     patientButton.alpha = 0.0;
 	[patientButton retain];
-    patientButton.transform = rotateRight;
+//    patientButton.transform = rotateRight;
     
     [self.view addSubview:patientButton];
     [self.view sendSubviewToBack:patientButton];
@@ -4515,13 +4546,14 @@ static WRViewController* mViewController = NULL;
 	[familyButton setImage:[UIImage imageNamed:@"fam_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[familyButton setImage:[UIImage imageNamed:@"fam_button_image_pressed.png"] forState:UIControlStateSelected];
 	familyButton.backgroundColor = [UIColor clearColor];
-	[familyButton setCenter:CGPointMake(380.0f, 512.0f)];
+    [familyButton setCenter:CGPointMake(512.0f, 380.0f)];
+//    [familyButton setCenter:CGPointMake(380.0f, 512.0f)];
     [familyButton addTarget:self action:@selector(respondentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	familyButton.enabled = YES;
 	familyButton.hidden = NO;
     familyButton.alpha = 0.0;
 	[familyButton retain];
-    familyButton.transform = rotateRight;
+//    familyButton.transform = rotateRight;
     
     [self.view addSubview:familyButton];
     [self.view sendSubviewToBack:familyButton];
@@ -4534,13 +4566,14 @@ static WRViewController* mViewController = NULL;
 	[caregiverButton setImage:[UIImage imageNamed:@"care_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[caregiverButton setImage:[UIImage imageNamed:@"care_button_image_pressed.png"] forState:UIControlStateSelected];
 	caregiverButton.backgroundColor = [UIColor clearColor];
-	[caregiverButton setCenter:CGPointMake(380.0f, 171.0f)];
+    [caregiverButton setCenter:CGPointMake(171.0f, 380.0f)];
+//    [caregiverButton setCenter:CGPointMake(380.0f, 171.0f)];
     [caregiverButton addTarget:self action:@selector(respondentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	caregiverButton.enabled = YES;
 	caregiverButton.hidden = NO;
     caregiverButton.alpha = 0.0;
 	[caregiverButton retain];
-    caregiverButton.transform = rotateRight;
+//    caregiverButton.transform = rotateRight;
     
     [self.view addSubview:caregiverButton];
     [self.view sendSubviewToBack:caregiverButton];
@@ -4553,13 +4586,14 @@ static WRViewController* mViewController = NULL;
 	[tbiEdButton setImage:[UIImage imageNamed:@"learntbi_image_pressed3.png"] forState:UIControlStateHighlighted];
 	[tbiEdButton setImage:[UIImage imageNamed:@"learntbi_image_pressed3.png"] forState:UIControlStateSelected];
 	tbiEdButton.backgroundColor = [UIColor clearColor];
-	[tbiEdButton setCenter:CGPointMake(227.0f, 728.0f)];
+    [tbiEdButton setCenter:CGPointMake(728.0f, 227.0f)];
+//    [tbiEdButton setCenter:CGPointMake(227.0f, 728.0f)];
     [tbiEdButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	tbiEdButton.enabled = YES;
 	tbiEdButton.hidden = NO;
     tbiEdButton.alpha = 0.0;
 	[tbiEdButton retain];
-    tbiEdButton.transform = rotateRight;
+//    tbiEdButton.transform = rotateRight;
     
     [self.view addSubview:tbiEdButton];
     [self.view sendSubviewToBack:tbiEdButton];
@@ -4572,13 +4606,14 @@ static WRViewController* mViewController = NULL;
 	[comingSoonButton setImage:[UIImage imageNamed:@"comingsoon_image_pressed.png"] forState:UIControlStateHighlighted];
 	[comingSoonButton setImage:[UIImage imageNamed:@"comingsoon_image_pressed.png"] forState:UIControlStateSelected];
 	comingSoonButton.backgroundColor = [UIColor clearColor];
-	[comingSoonButton setCenter:CGPointMake(227.0f, 728.0f)]; //sandy this must be shifted to left
+    [comingSoonButton setCenter:CGPointMake(728.0f, 227.0f)]; //sandy this must be shifted to left
+//    [comingSoonButton setCenter:CGPointMake(227.0f, 728.0f)]; //sandy this must be shifted to left
     [comingSoonButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	comingSoonButton.enabled = YES;
 	comingSoonButton.hidden = NO;
     comingSoonButton.alpha = 0.0;
 	[comingSoonButton retain];
-    comingSoonButton.transform = rotateRight;
+//    comingSoonButton.transform = rotateRight;
     
     [self.view addSubview:comingSoonButton];
     [self.view sendSubviewToBack:comingSoonButton];
@@ -4591,13 +4626,14 @@ static WRViewController* mViewController = NULL;
 	[satisfactionButton setImage:[UIImage imageNamed:@"satisfaction_survey_pressed.png"] forState:UIControlStateHighlighted];
 	[satisfactionButton setImage:[UIImage imageNamed:@"satisfaction_survey_pressed.png"] forState:UIControlStateSelected];
 	satisfactionButton.backgroundColor = [UIColor clearColor];
-	[satisfactionButton setCenter:CGPointMake(227.0f, 296.0f)];
+    [satisfactionButton setCenter:CGPointMake(296.0f, 227.0f)];
+//    [satisfactionButton setCenter:CGPointMake(227.0f, 296.0f)];
     [satisfactionButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	satisfactionButton.enabled = YES;
 	satisfactionButton.hidden = NO;
     satisfactionButton.alpha = 0.0;
 	[satisfactionButton retain];
-    satisfactionButton.transform = rotateRight;
+//    satisfactionButton.transform = rotateRight;
     
     [self.view addSubview:satisfactionButton];
     [self.view sendSubviewToBack:satisfactionButton];
@@ -4610,13 +4646,14 @@ static WRViewController* mViewController = NULL;
 	[newsButton setImage:[UIImage imageNamed:@"whatsnew_image_pressed.png"] forState:UIControlStateHighlighted];
 	[newsButton setImage:[UIImage imageNamed:@"whatsnew_image_pressed.png"] forState:UIControlStateSelected];
 	newsButton.backgroundColor = [UIColor clearColor];
-	[newsButton setCenter:CGPointMake(521.0f, 296.0f)];
+    [newsButton setCenter:CGPointMake(296.0f, 521.0f)];
+//    [newsButton setCenter:CGPointMake(521.0f, 296.0f)];
     [newsButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	newsButton.enabled = YES;
 	newsButton.hidden = NO;
     newsButton.alpha = 0.0;
 	[newsButton retain];
-    newsButton.transform = rotateRight;
+//    newsButton.transform = rotateRight;
     
     [self.view addSubview:newsButton];
     [self.view sendSubviewToBack:newsButton];
@@ -4629,13 +4666,14 @@ static WRViewController* mViewController = NULL;
 	[clinicButton setImage:[UIImage imageNamed:@"clinic_image_pressed.png"] forState:UIControlStateHighlighted];
 	[clinicButton setImage:[UIImage imageNamed:@"clinic_image_pressed.png"] forState:UIControlStateSelected];
 	clinicButton.backgroundColor = [UIColor clearColor];
-	[clinicButton setCenter:CGPointMake(521.0f, 728.0f)];
+    [clinicButton setCenter:CGPointMake(728.0f, 521.0f)];
+//    [clinicButton setCenter:CGPointMake(521.0f, 728.0f)];
     [clinicButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	clinicButton.enabled = YES;
 	clinicButton.hidden = NO;
     clinicButton.alpha = 0.0;
 	[clinicButton retain];
-    clinicButton.transform = rotateRight;
+//    clinicButton.transform = rotateRight;
     
     [self.view addSubview:clinicButton];
     [self.view sendSubviewToBack:clinicButton];
@@ -4648,13 +4686,14 @@ static WRViewController* mViewController = NULL;
 	[doctorButton setImage:[UIImage imageNamed:@"doctor_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[doctorButton setImage:[UIImage imageNamed:@"doctor_button_image_pressed.png"] forState:UIControlStateSelected];
 	doctorButton.backgroundColor = [UIColor clearColor];
-	[doctorButton setCenter:CGPointMake(521.0f, 728.0f)];
+    [doctorButton setCenter:CGPointMake(728.0f, 521.0f)];
+//    [doctorButton setCenter:CGPointMake(521.0f, 728.0f)];
     [doctorButton addTarget:self action:@selector(menuButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	doctorButton.enabled = YES;
 	doctorButton.hidden = NO;
     doctorButton.alpha = 0.0;
 	[doctorButton retain];
-    doctorButton.transform = rotateRight;
+//    doctorButton.transform = rotateRight;
     
     [self.view addSubview:clinicButton];
     [self.view sendSubviewToBack:clinicButton];
@@ -4666,13 +4705,14 @@ static WRViewController* mViewController = NULL;
 	[agreeButton setImage:[UIImage imageNamed:@"agree_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[agreeButton setImage:[UIImage imageNamed:@"agree_button_image_pressed.png"] forState:UIControlStateSelected];
 	agreeButton.backgroundColor = [UIColor clearColor];
-    [agreeButton setCenter:CGPointMake(580.0f, 760.0f)];
+    [agreeButton setCenter:CGPointMake(760.0f, 580.0f)];
+//    [agreeButton setCenter:CGPointMake(580.0f, 760.0f)];
 	[agreeButton addTarget:self action:@selector(agreeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 	agreeButton.enabled = YES;
 	agreeButton.hidden = NO;
     agreeButton.alpha = 0.0;
 	[agreeButton retain];
-    agreeButton.transform = rotateRight;
+//    agreeButton.transform = rotateRight;
     [self.view addSubview:agreeButton];
     
     disagreeButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -4682,13 +4722,14 @@ static WRViewController* mViewController = NULL;
 	[disagreeButton setImage:[UIImage imageNamed:@"disagree_button_image_pressed2.png"] forState:UIControlStateHighlighted];
 	[disagreeButton setImage:[UIImage imageNamed:@"disagree_button_image_pressed2.png"] forState:UIControlStateSelected];
 	disagreeButton.backgroundColor = [UIColor clearColor];
-    [disagreeButton setCenter:CGPointMake(580.0f, 264.0f)];
+    [disagreeButton setCenter:CGPointMake(264.0f, 580.0f)];
+//    [disagreeButton setCenter:CGPointMake(580.0f, 264.0f)];
 	[disagreeButton addTarget:self action:@selector(disagreeButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 	disagreeButton.enabled = YES;
 	disagreeButton.hidden = NO;
     disagreeButton.alpha = 0.0;
 	[disagreeButton retain];
-    disagreeButton.transform = rotateRight;
+//    disagreeButton.transform = rotateRight;
     [self.view addSubview:disagreeButton];
     
     ////// Additional Buttons
@@ -4700,13 +4741,14 @@ static WRViewController* mViewController = NULL;
 	[beginSurveyButton setImage:[UIImage imageNamed:@"begin_pressed.png"] forState:UIControlStateHighlighted];
 	[beginSurveyButton setImage:[UIImage imageNamed:@"begin_pressed.png"] forState:UIControlStateSelected];
 	beginSurveyButton.backgroundColor = [UIColor clearColor];
-	[beginSurveyButton setCenter:CGPointMake(600.0f, 200.0f)];
+    [beginSurveyButton setCenter:CGPointMake(200.0f, 600.0f)];
+//    [beginSurveyButton setCenter:CGPointMake(600.0f, 200.0f)];
     [beginSurveyButton addTarget:self action:@selector(beginSatisfactionSurvey:) forControlEvents:UIControlEventTouchUpInside];
 	beginSurveyButton.enabled = YES;
 	beginSurveyButton.hidden = NO;
     beginSurveyButton.alpha = 0.0;
 	[beginSurveyButton retain];
-    beginSurveyButton.transform = rotateRight;
+//    beginSurveyButton.transform = rotateRight;
     
     [self.view addSubview:beginSurveyButton];
     [self.view sendSubviewToBack:beginSurveyButton];
@@ -4719,13 +4761,14 @@ static WRViewController* mViewController = NULL;
 	[returnToMenuButton setImage:[UIImage imageNamed:@"back2menu_button_image_sml_pressed.png"] forState:UIControlStateHighlighted];
 	[returnToMenuButton setImage:[UIImage imageNamed:@"back2menu_button_image_sml_pressed.png"] forState:UIControlStateSelected];
 	returnToMenuButton.backgroundColor = [UIColor clearColor];
-	[returnToMenuButton setCenter:CGPointMake(725.0f, 500.0f)];
+    [returnToMenuButton setCenter:CGPointMake(500.0f, 725.0f)];
+//    [returnToMenuButton setCenter:CGPointMake(725.0f, 500.0f)];
     [returnToMenuButton addTarget:self action:@selector(returnToMenu) forControlEvents:UIControlEventTouchUpInside];
 	returnToMenuButton.enabled = YES;
 	returnToMenuButton.hidden = NO;
     returnToMenuButton.alpha = 0.0;
 	[returnToMenuButton retain];
-    returnToMenuButton.transform = rotateRight;
+//    returnToMenuButton.transform = rotateRight;
     
     [self.view addSubview:returnToMenuButton];
     [self.view sendSubviewToBack:returnToMenuButton];
@@ -4886,8 +4929,9 @@ static WRViewController* mViewController = NULL;
     [badgeImageView addSubview:badgeLabel];
     //Add your badge to the main view
     
-    badgeImageView.transform = rotateRight;
-    [badgeImageView setCenter:CGPointMake(115.0f, 165.0f)];
+//    badgeImageView.transform = rotateRight;
+    [badgeImageView setCenter:CGPointMake(165.0f, 115.0f)];
+//    [badgeImageView setCenter:CGPointMake(115.0f, 165.0f)];
     
 //    [satisfactionButton setCenter:CGPointMake(227.0f, 296.0f)];
     
@@ -4913,8 +4957,9 @@ static WRViewController* mViewController = NULL;
         
         completedBadgeImageViewDynEdModule = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green_check.png"]];
         completedBadgeImageViewDynEdModule.frame = CGRectMake(0, 0, 57, 58);
-        completedBadgeImageViewDynEdModule.transform = rotateRight;
-        [completedBadgeImageViewDynEdModule setCenter:CGPointMake(409.0f, 597.0f)];
+//        completedBadgeImageViewDynEdModule.transform = rotateRight;
+        [completedBadgeImageViewDynEdModule setCenter:CGPointMake(597.0f, 409.0f)];
+//        [completedBadgeImageViewDynEdModule setCenter:CGPointMake(409.0f, 597.0f)];
         completedBadgeImageViewDynEdModule.alpha = 0.0;
         
         [self.view addSubview:completedBadgeImageViewDynEdModule];
@@ -4962,8 +5007,9 @@ static WRViewController* mViewController = NULL;
         
         completedBadgeImageViewWhatsNewModule = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green_check.png"]];
         completedBadgeImageViewWhatsNewModule.frame = CGRectMake(0, 0, 57, 58);
-        completedBadgeImageViewWhatsNewModule.transform = rotateRight;
-        [completedBadgeImageViewWhatsNewModule setCenter:CGPointMake(409.0f, 165.0f)];
+//        completedBadgeImageViewWhatsNewModule.transform = rotateRight;
+        [completedBadgeImageViewWhatsNewModule setCenter:CGPointMake(165.0f, 409.0f)];
+//        [completedBadgeImageViewWhatsNewModule setCenter:CGPointMake(409.0f, 165.0f)];
         completedBadgeImageViewWhatsNewModule.alpha = 0.0;
 
         [self.view addSubview:completedBadgeImageViewWhatsNewModule];
@@ -4989,16 +5035,18 @@ static WRViewController* mViewController = NULL;
         
         badgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green_check.png"]];
         badgeImageView.frame = CGRectMake(0, 0, 57, 58);
-        badgeImageView.transform = rotateRight;
-        [badgeImageView setCenter:CGPointMake(115.0f, 165.0f)];
+//        badgeImageView.transform = rotateRight;
+        [badgeImageView setCenter:CGPointMake(165.0f, 115.0f)];
+//        [badgeImageView setCenter:CGPointMake(115.0f, 165.0f)];
         badgeImageView.alpha = 0.0;
         
         [self.view addSubview:badgeImageView];
         
         completedBadgeImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green_check.png"]];
         completedBadgeImageView.frame = CGRectMake(0, 0, 57, 58);
-        completedBadgeImageView.transform = rotateRight;
-        [completedBadgeImageView setCenter:CGPointMake(115.0f, 165.0f)];
+//        completedBadgeImageView.transform = rotateRight;
+        [completedBadgeImageView setCenter:CGPointMake(165.0f, 115.0f)];
+//        [completedBadgeImageView setCenter:CGPointMake(115.0f, 165.0f)];
         completedBadgeImageView.alpha = 0.0;
         
         [self.view addSubview:completedBadgeImageView];
@@ -5257,8 +5305,9 @@ static WRViewController* mViewController = NULL;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
 //    wantExtraInfo.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [wantExtraInfo.view setCenter:CGPointMake(400.0f, 512.0f)];
-    wantExtraInfo.view.transform = rotateRight;
+    [wantExtraInfo.view setCenter:CGPointMake(512.0f, 400.0f)];
+//    [wantExtraInfo.view setCenter:CGPointMake(400.0f, 512.0f)];
+//    wantExtraInfo.view.transform = rotateRight;
 //    [self presentModalViewController:wantExtraInfo animated:YES];
     [self.view addSubview:wantExtraInfo.view];
 
@@ -5301,8 +5350,9 @@ static WRViewController* mViewController = NULL;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
 //    wantMiniSurvey.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [wantMiniSurvey.view setCenter:CGPointMake(400.0f, 512.0f)];
-    wantMiniSurvey.view.transform = rotateRight;
+    [wantMiniSurvey.view setCenter:CGPointMake(512.0f, 400.0f)];
+//    [wantMiniSurvey.view setCenter:CGPointMake(400.0f, 512.0f)];
+//    wantMiniSurvey.view.transform = rotateRight;
     wantMiniSurvey.view.alpha = 0.0;
 //    [self presentModalViewController:wantMiniSurvey animated:YES];
     [self.view addSubview:wantMiniSurvey.view];
@@ -5386,8 +5436,9 @@ static WRViewController* mViewController = NULL;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     //    wantMiniSurvey.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [wantFinalSurvey.view setCenter:CGPointMake(400.0f, 512.0f)];
-    wantFinalSurvey.view.transform = rotateRight;
+    [wantFinalSurvey.view setCenter:CGPointMake(512.0f, 400.0f)];
+//    [wantFinalSurvey.view setCenter:CGPointMake(400.0f, 512.0f)];
+//    wantFinalSurvey.view.transform = rotateRight;
     wantFinalSurvey.view.alpha = 0.0;
     //    [self presentModalViewController:wantMiniSurvey animated:YES];
     [self.view addSubview:wantFinalSurvey.view];
@@ -5564,8 +5615,9 @@ static WRViewController* mViewController = NULL;
     completedBadgeImageViewEdModule = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"green_check.png"]];
     completedBadgeImageViewEdModule.frame = CGRectMake(115, 700, 58, 58);
     completedBadgeImageViewEdModule.alpha = 0.0;
-    completedBadgeImageViewEdModule.transform = rotateRight;
-    [completedBadgeImageViewEdModule setCenter:CGPointMake(115.0f, 600.0f)];
+//    completedBadgeImageViewEdModule.transform = rotateRight;
+    [completedBadgeImageViewEdModule setCenter:CGPointMake(600.0f, 115.0f)];
+//    [completedBadgeImageViewEdModule setCenter:CGPointMake(115.0f, 600.0f)];
     [self.view addSubview:completedBadgeImageViewEdModule];
     [self.view sendSubviewToBack:completedBadgeImageViewEdModule];
     
@@ -6104,7 +6156,8 @@ static WRViewController* mViewController = NULL;
 	[voiceAssistButton setImage:[UIImage imageNamed:@"sound_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[voiceAssistButton setImage:[UIImage imageNamed:@"sound_button_image_sound_off.png"] forState:UIControlStateSelected];
 	voiceAssistButton.backgroundColor = [UIColor clearColor];
-	[voiceAssistButton setCenter:CGPointMake(725.0f, 770.0f)];
+        [voiceAssistButton setCenter:CGPointMake(770.0f, 725.0f)];
+//        [voiceAssistButton setCenter:CGPointMake(725.0f, 770.0f)];
 	[voiceAssistButton addTarget:self action:@selector(voiceassistButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	voiceAssistButton.enabled = YES;
 	voiceAssistButton.hidden = NO;
@@ -6115,7 +6168,7 @@ static WRViewController* mViewController = NULL;
     }
     voiceAssistButton.alpha = 0.0;
 	[voiceAssistButton retain];
-    voiceAssistButton.transform = rotateRight;
+//    voiceAssistButton.transform = rotateRight;
     
     [self.view addSubview:voiceAssistButton];
     
@@ -6127,13 +6180,14 @@ static WRViewController* mViewController = NULL;
 	[fontsizeButton setImage:[UIImage imageNamed:@"fontsize_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[fontsizeButton setImage:[UIImage imageNamed:@"fontsize_button_image_pressed.png"] forState:UIControlStateSelected];
 	fontsizeButton.backgroundColor = [UIColor clearColor];
-	[fontsizeButton setCenter:CGPointMake(725.0f, 670.0f)];
+        [fontsizeButton setCenter:CGPointMake(670.0f, 725.0f)];
+//        [fontsizeButton setCenter:CGPointMake(725.0f, 670.0f)];
 	[fontsizeButton addTarget:self action:@selector(fontsizeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	fontsizeButton.enabled = YES;
 	fontsizeButton.hidden = NO;
     fontsizeButton.alpha = 0.0;
 	[fontsizeButton retain];
-    fontsizeButton.transform = rotateRight;
+    //fontsizeButton.transform = rotateRight;
     
     [self.view addSubview:fontsizeButton];
         
@@ -6888,7 +6942,8 @@ static WRViewController* mViewController = NULL;
     UIViewController *modalSilenceAlarmView = [[UIViewController alloc] init];
     modalSilenceAlarmView.view.frame = CGRectMake(0, 0, 1024, 768);
     modalSilenceAlarmView.view.alpha = 0.0;
-    [modalSilenceAlarmView.view setCenter:CGPointMake(350.0f, 500.0f)];
+    [modalSilenceAlarmView.view setCenter:CGPointMake(500.0f, 350.0f)];
+//    [modalSilenceAlarmView.view setCenter:CGPointMake(350.0f, 500.0f)];
     
     if (currentModalVC) {
         currentModalVC = nil;
@@ -6897,7 +6952,7 @@ static WRViewController* mViewController = NULL;
     
     UIImageView *newAllWhiteBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"all_white.png"]];
     newAllWhiteBack.frame = CGRectMake(-400, -400, 1500, 2000);
-    newAllWhiteBack.transform = rotateRight;
+//    newAllWhiteBack.transform = rotateRight;
     [modalSilenceAlarmView.view addSubview:newAllWhiteBack];
     
     KSLabel *treatmentIntermissionLable = [[KSLabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 300)];
@@ -6919,7 +6974,7 @@ static WRViewController* mViewController = NULL;
     
     //    modalTreatmentIntermissionView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //    [subclinicTestCorrect.view setCenter:CGPointMake(512.0f, 500.0f)];
-    modalSilenceAlarmView.view.transform = rotateRight;
+//    modalSilenceAlarmView.view.transform = rotateRight;
     
     DynamicStartAppButtonView *resumeAppButtonView = [[DynamicStartAppButtonView alloc] initWithFrame:CGRectMake(0, 0, modalSilenceAlarmView.view.frame.size.width, 102) type:kPopRectGreenLarge text:@"SILENCE" target:self selector:@selector(unlockToResume:)  fontsize:50];
     [resumeAppButtonView setCenter:CGPointMake(670.0f, 420.0f)];
@@ -6997,7 +7052,8 @@ static WRViewController* mViewController = NULL;
     UIViewController *modalTreatmentIntermissionView = [[UIViewController alloc] init];
     modalTreatmentIntermissionView.view.frame = CGRectMake(0, 0, 1024, 768);
     modalTreatmentIntermissionView.view.alpha = 0.0;
-    [modalTreatmentIntermissionView.view setCenter:CGPointMake(350.0f, 500.0f)];
+    [modalTreatmentIntermissionView.view setCenter:CGPointMake(500.0f, 350.0f)];
+//    [modalTreatmentIntermissionView.view setCenter:CGPointMake(350.0f, 500.0f)];
     
     if (currentModalVC) {
         currentModalVC = nil;
@@ -7006,7 +7062,7 @@ static WRViewController* mViewController = NULL;
     
     UIImageView *newAllWhiteBack = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"all_white.png"]];
     newAllWhiteBack.frame = CGRectMake(-400, -400, 1500, 2000);
-    newAllWhiteBack.transform = rotateRight;
+//    newAllWhiteBack.transform = rotateRight;
     [modalTreatmentIntermissionView.view addSubview:newAllWhiteBack];
     
     KSLabel *treatmentIntermissionLable = [[KSLabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 300)];
@@ -7028,7 +7084,7 @@ static WRViewController* mViewController = NULL;
     
 //    modalTreatmentIntermissionView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     //    [subclinicTestCorrect.view setCenter:CGPointMake(512.0f, 500.0f)];
-    modalTreatmentIntermissionView.view.transform = rotateRight;
+//    modalTreatmentIntermissionView.view.transform = rotateRight;
     
     DynamicStartAppButtonView *resumeAppButtonView = [[DynamicStartAppButtonView alloc] initWithFrame:CGRectMake(0, 0, modalTreatmentIntermissionView.view.frame.size.width, 102) type:kPopRectGreenLarge text:@"UNLOCK" target:self selector:@selector(unlockToResume:)  fontsize:50];
     [resumeAppButtonView setCenter:CGPointMake(670.0f, 420.0f)];
@@ -7087,7 +7143,8 @@ static WRViewController* mViewController = NULL;
     UIViewController *modalUnlockSettingsView = [[UIViewController alloc] init];
     modalUnlockSettingsView.view.frame = CGRectMake(0, 0, 1024, 768);
     modalUnlockSettingsView.view.alpha = 0.0;
-    [modalUnlockSettingsView.view setCenter:CGPointMake(350.0f, 500.0f)];
+    [modalUnlockSettingsView.view setCenter:CGPointMake(500.0f, 350.0f)];
+//    [modalUnlockSettingsView.view setCenter:CGPointMake(350.0f, 500.0f)];
     
     if (currentModalVC) {
         currentModalVC = nil;
@@ -7114,7 +7171,7 @@ static WRViewController* mViewController = NULL;
         
         [returnTabletView.view addSubview:modalUnlockSettingsView.view];
     } else {
-        modalUnlockSettingsView.view.transform = rotateRight;
+//        modalUnlockSettingsView.view.transform = rotateRight;
         
         keycodeField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 135, 30)];
         keycodeField.borderStyle = UITextBorderStyleBezel;
@@ -7371,8 +7428,9 @@ static WRViewController* mViewController = NULL;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     returnTabletView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [returnTabletView.view setCenter:CGPointMake(512.0f, 500.0f)];
-    returnTabletView.view.transform = rotateRight;
+    [returnTabletView.view setCenter:CGPointMake(500.0f, 512.0f)];
+//    [returnTabletView.view setCenter:CGPointMake(512.0f, 500.0f)];
+//    returnTabletView.view.transform = rotateRight;
     [self presentModalViewController:returnTabletView animated:YES];
     [returnTabletView release];
     if ([DynamicSpeech isEnabled]){

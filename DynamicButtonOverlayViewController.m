@@ -44,7 +44,7 @@ static DynamicButtonOverlayViewController* mViewController;
     CGAffineTransform rotateLeft = CGAffineTransformMakeRotation(leftAngle);
     
     self.view.frame = CGRectMake(0, 0, 1024, 233);
-    self.view.transform = rotateRight;
+    //self.view.transform = rotateRight;
     
     if ([thisButtonOverlayType isEqualToString:@"previousnext"]) {
         
@@ -90,7 +90,8 @@ static DynamicButtonOverlayViewController* mViewController;
         [previousPageButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateHighlighted];
         [previousPageButton setImage:[UIImage imageNamed:@"previous_button_image_pressed.png"] forState:UIControlStateSelected];
         previousPageButton.backgroundColor = [UIColor clearColor];
-        [previousPageButton setCenter:CGPointMake(75.0f, 85.0f)];
+        [previousPageButton setCenter:CGPointMake(85.0f, 75.0f)];
+//        [previousPageButton setCenter:CGPointMake(75.0f, 85.0f)];
 //        [previousPageButton setCenter:CGPointMake(685.0f, 945.0f)];
         //	[previousPageButton addTarget:physicianModule action:@selector(progress:) forControlEvents:UIControlEventTouchUpInside];
         [previousPageButton addTarget:delegate action:@selector(overlayPreviousPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -283,7 +284,7 @@ static DynamicButtonOverlayViewController* mViewController;
         previousPageButton.hidden = NO;
         previousPageButton.alpha = 1.0;
         [previousPageButton retain];
-        previousPageButton.transform = rotateLeft;
+        //previousPageButton.transform = rotateLeft;
         [self.view addSubview:previousPageButton];
 //        [self.view sendSubviewToBack:previousPageButton];
         

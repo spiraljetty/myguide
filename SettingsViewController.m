@@ -1213,7 +1213,7 @@ static SettingsViewController* mViewController = NULL;
     if (buttonOpen == FALSE)
     {
 //        frame.origin.x -= (controlView.contentHeight * 2);
-        frame.origin.x -= (768 - 65);
+        frame.origin.y -= (768 - 65);
 //        [_barImageView setTransform:_barImageViewRotation];
         buttonOpen = TRUE;
         //downloadImageView.hidden = NO;
@@ -1223,7 +1223,7 @@ static SettingsViewController* mViewController = NULL;
     else
     {
 //        frame.origin.x += (controlView.contentHeight * 2);
-        frame.origin.x += (768 - 65);
+        frame.origin.y += (768 - 65);
 //        [_barImageView setTransform:CGAffineTransformIdentity];
         buttonOpen = FALSE;
         //downloadImageView.hidden = YES;

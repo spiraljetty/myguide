@@ -49,7 +49,8 @@
             int divideOriginalInstitutionImageBy = 2;
             UIImageView *institutionImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vapachs_launch-ipad_landscape_trim.png"]];
             institutionImageView.frame = CGRectMake(0, 0, institutionImageView.frame.size.width/divideOriginalInstitutionImageBy, institutionImageView.frame.size.height/divideOriginalInstitutionImageBy);
-            [institutionImageView setCenter:CGPointMake(700.0f, 512.0f)];
+            [institutionImageView setCenter:CGPointMake(460.0f, 670.0f)];
+            institutionImageView.transform = rotateLeft;
             [self addSubview:institutionImageView];
         }
         
@@ -60,19 +61,21 @@
         welcomeToMainAndSubClinicLabel.textAlignment = UITextAlignmentCenter;
         welcomeToMainAndSubClinicLabel.font = [UIFont fontWithName:@"Avenir-Medium" size:60];
         welcomeToMainAndSubClinicLabel.numberOfLines = 0;
-        [welcomeToMainAndSubClinicLabel setCenter:CGPointMake(150.0f, 512.0f)];
-        welcomeToMainAndSubClinicLabel.transform = rotateRight;
+        [welcomeToMainAndSubClinicLabel setCenter:CGPointMake(512.0f, 150.0f)];
+//        [welcomeToMainAndSubClinicLabel setCenter:CGPointMake(150.0f, 512.0f)];
+        //welcomeToMainAndSubClinicLabel.transform = rotateRight;
         [self addSubview:welcomeToMainAndSubClinicLabel];
         
         UIImageView *taperedWhiteLine = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tapered_fade_dividing_line-horiz-lrg.png"]];
         taperedWhiteLine.frame = CGRectMake(0, 0, 700, 50);
-        [taperedWhiteLine setCenter:CGPointMake(300.0f, 512.0f)];
-        taperedWhiteLine.transform = rotateRight;
+        [taperedWhiteLine setCenter:CGPointMake(512.0f, 300.0f)];
+//        [taperedWhiteLine setCenter:CGPointMake(300.0f, 512.0f)];
+        //taperedWhiteLine.transform = rotateRight;
         [self addSubview:taperedWhiteLine];
         
         DynamicStartAppButtonView *startAppButtonView = [[DynamicStartAppButtonView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 102) type:kPopRectGreenLarge text:@"START" target:aTarget selector:aSelector fontsize:50];
-        [startAppButtonView setCenter:CGPointMake(420.0f, 330.0f)];
-        startAppButtonView.transform = rotateRight;
+        [startAppButtonView setCenter:CGPointMake(800.0f, 400.0f)];
+        //startAppButtonView.transform = rotateRight;
         [self addSubview:startAppButtonView];
         
     }

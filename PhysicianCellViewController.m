@@ -40,6 +40,9 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 - (void)initNumberOfCellsForCurrentlySelectedRowWithIndex:(int)currentRowIndex {
     NSLog(@"PhysicianCellViewController.initNumberOfCellsForCurrentlySelectedRowWithIndex() currentRowIndex: %d", currentRowIndex);
     NSArray* allClinics = [DynamicContent getAllClinics];
+    if ([allClinics count] == 0){
+        return;
+    }
 //    if (currentRowIndex == 0)
 //        currentlySelectedClinicPhysicians = [DynamicContent getNewClinicianNames];
 //    else {

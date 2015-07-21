@@ -27,7 +27,7 @@
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     
-    moviePlayerController.view.transform = rotateRight;
+    //moviePlayerController.view.transform = rotateRight;
     
 	[self.view addSubview:moviePlayerController.view];
     //moviePlayerController.fullscreen = YES;
