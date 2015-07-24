@@ -950,7 +950,6 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         
         resumePageTransition.currentPromptString = @"Now that you have finished your visit with your treatment provider, please press NEXT on the bottom row to move on to the satisfaction survey.";
         resumePageTransition.currentPromptLabel.text = resumePageTransition.currentPromptString;
-        
         [surveyPageArray addObject:resumePageTransition];
         
         pageIndex++;
@@ -1881,6 +1880,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
             NSLog(@"DynamicSurveyViewController_Pad.switchToView() setCompletedProviderAndSubclinicSurvey=YES");
             [currentViewController setCompletedProviderAndSubclinicSurvey:YES];
             [currentViewController finishedPartOfDynamicSurvey];
+            [DynamicContent setProviderAndSubclinicSurveyComplete];
             
         } else if (vcIndex == 19) {
             NSLog(@"DynamicSurveyViewController_Pad.switchToView() setCompletedFinalSurvey:YES");
@@ -1933,8 +1933,8 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         destination.view.frame = [[UIScreen mainScreen] applicationFrame];  //rjl
 
         [destination.view layoutSubviews];
-        [segue perform];
 
+        [segue perform];
         vcIndex = newIndex;
         
         [self handleButtonOverlayForPageIndex:vcIndex];
@@ -2244,7 +2244,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
 - (void)handleButtonOverlayForPageIndex:(int)thisPageIndex {
     NSLog(@"DynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex() thisPageIndex: %d",thisPageIndex);
     SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:thisPageIndex];
-    if (thisPageIndex <= 6)
+    if ((thisPageIndex <= 6 || thisPageIndex > 9) && ![DynamicContent isProviderAndSubclinicSurveyComplete])
         [currentSwitchedController.view setCenter:CGPointMake(550.0f, 250.0f)];
 
     else

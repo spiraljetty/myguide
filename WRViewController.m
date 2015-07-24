@@ -3958,9 +3958,15 @@ static WRViewController* mViewController = NULL;
     
     splashImageViewBb = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"vapachs_prc_splash1-ipad_landscape2.png"]];
 	
+    float angle =  90 * M_PI  / 180;
+    CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
+    [splashImageViewB setCenter:CGPointMake(500.0f, 400.0f)];
+    [splashImageViewBb setCenter:CGPointMake(500.0f, 375.0f)];
     
     splashImageViewB.alpha = 0.0;
     splashImageViewBb.alpha = 0.0;
+    splashImageViewB.transform = rotateRight;
+    splashImageViewBb.transform = rotateRight;
     presurveyIntroLabel.alpha = 0.0; //rjl 7/8/14
     initialSettingsLabel.alpha = 0.0;// sandy 7/13
     taperedWhiteLine.alpha = 0.0;// sandy 7/13
@@ -4355,7 +4361,7 @@ static WRViewController* mViewController = NULL;
 	readAloudLabel.backgroundColor = [UIColor clearColor];
     readAloudLabel.font = [UIFont fontWithName:@"Avenir" size:42];
 	readAloudLabel.opaque = YES;
-    [readAloudLabel setCenter:CGPointMake(512.0f, 670.0f)];
+    [readAloudLabel setCenter:CGPointMake(512.0f, 690.0f)];
 //    [readAloudLabel setCenter:CGPointMake(670.0f, 512.0f)];
 //    readAloudLabel.transform = rotateRight;
 	readAloudLabel.alpha = 0.0;
@@ -4486,7 +4492,7 @@ static WRViewController* mViewController = NULL;
 	[yesButton setImage:[UIImage imageNamed:@"yes_button_image_pressed2.png"] forState:UIControlStateHighlighted];
 	[yesButton setImage:[UIImage imageNamed:@"yes_button_image_pressed2.png"] forState:UIControlStateSelected];
 	yesButton.backgroundColor = [UIColor clearColor];
-    [yesButton setCenter:CGPointMake(760.0f, 380.0f)];
+    [yesButton setCenter:CGPointMake(264.0f, 380.0f)];
 //    [yesButton setCenter:CGPointMake(380.0f, 760.0f)];
 	[yesButton addTarget:self action:@selector(yesNoPressed:) forControlEvents:UIControlEventTouchUpInside];
 	yesButton.enabled = YES;
@@ -4506,7 +4512,7 @@ static WRViewController* mViewController = NULL;
 	[noButton setImage:[UIImage imageNamed:@"no_button_image_pressed2.png"] forState:UIControlStateHighlighted];
 	[noButton setImage:[UIImage imageNamed:@"no_button_image_pressed2.png"] forState:UIControlStateSelected];
 	noButton.backgroundColor = [UIColor clearColor];
-    [noButton setCenter:CGPointMake(264.0f, 380.0f)];
+    [noButton setCenter:CGPointMake(760.0f, 380.0f)];
 //    [noButton setCenter:CGPointMake(380.0f, 264.0f)];
     [noButton addTarget:self action:@selector(yesNoPressed:) forControlEvents:UIControlEventTouchUpInside];
 	noButton.enabled = YES;
@@ -4526,7 +4532,8 @@ static WRViewController* mViewController = NULL;
 	[patientButton setImage:[UIImage imageNamed:@"patient_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[patientButton setImage:[UIImage imageNamed:@"patient_button_image_pressed.png"] forState:UIControlStateSelected];
 	patientButton.backgroundColor = [UIColor clearColor];
-    [patientButton setCenter:CGPointMake(853.0f, 380.0f)];
+    [patientButton setCenter:CGPointMake(171.0f, 380.0f)];
+//    [patientButton setCenter:CGPointMake(853.0f, 380.0f)];
 //    [patientButton setCenter:CGPointMake(380.0f, 853.0f)];
     [patientButton addTarget:self action:@selector(respondentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	patientButton.enabled = YES;
@@ -4547,6 +4554,7 @@ static WRViewController* mViewController = NULL;
 	[familyButton setImage:[UIImage imageNamed:@"fam_button_image_pressed.png"] forState:UIControlStateSelected];
 	familyButton.backgroundColor = [UIColor clearColor];
     [familyButton setCenter:CGPointMake(512.0f, 380.0f)];
+//    [familyButton setCenter:CGPointMake(512.0f, 380.0f)];
 //    [familyButton setCenter:CGPointMake(380.0f, 512.0f)];
     [familyButton addTarget:self action:@selector(respondentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	familyButton.enabled = YES;
@@ -4566,7 +4574,8 @@ static WRViewController* mViewController = NULL;
 	[caregiverButton setImage:[UIImage imageNamed:@"care_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[caregiverButton setImage:[UIImage imageNamed:@"care_button_image_pressed.png"] forState:UIControlStateSelected];
 	caregiverButton.backgroundColor = [UIColor clearColor];
-    [caregiverButton setCenter:CGPointMake(171.0f, 380.0f)];
+    [caregiverButton setCenter:CGPointMake(853.0f, 380.0f)];
+//    [caregiverButton setCenter:CGPointMake(171.0f, 380.0f)];
 //    [caregiverButton setCenter:CGPointMake(380.0f, 171.0f)];
     [caregiverButton addTarget:self action:@selector(respondentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	caregiverButton.enabled = YES;
@@ -6246,6 +6255,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.showSatisfactionIntro()");
     beginSurveyButton.alpha = 0.0;
     tbvc.view.alpha = 0.0;
+    
     [self.view bringSubviewToFront:tbvc.view];
     
 //    [self.view bringSubviewToFront:surveyResourceBack];
@@ -6258,6 +6268,7 @@ static WRViewController* mViewController = NULL;
     allWhiteBack.alpha = 0.0;
     
     //    [self.view bringSubviewToFront:splashImageViewC];
+
     [self.view bringSubviewToFront:allWhiteBack];
     [self.view bringSubviewToFront:beginSurveyButton];
     [self.view bringSubviewToFront:surveyIntroLabel];
@@ -6280,6 +6291,10 @@ static WRViewController* mViewController = NULL;
     [self.view bringSubviewToFront:initialSettingsLabel];
     [self.view bringSubviewToFront:taperedWhiteLine];
     
+    [self.initialSettingsLabel setCenter:CGPointMake(250.0f, 100.0f)];
+    [self.taperedWhiteLine setCenter:CGPointMake(250.0f, 200.0f)];
+    [self.surveyIntroLabel setCenter:CGPointMake(250.0f, 385.0f)];
+    [self.nextSettingsButton setCenter:CGPointMake(675.0f, 675.0f)];
     
     //    [self.view bringSubviewToFront:aWebView];
     
@@ -6425,6 +6440,7 @@ static WRViewController* mViewController = NULL;
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
     
 //    if (satisfactionSurveyInProgress) {
+        [tbvc.view setCenter:CGPointMake(378.0f, 250.0f)];
         [self.view bringSubviewToFront:tbvc.view];
 //        [self.view bringSubviewToFront:surveyResourceBack];
 //        [self.view bringSubviewToFront:nextSurveyItemButton];
@@ -7034,7 +7050,7 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)showModalTreatmentIntermissionView {
-    NSLog(@"In showModalTreatmentIntermissionView...");
+    NSLog(@"WRViewController.showModalTreatmentIntermissionView()");
     
     inTreatmentIntermission = YES;
     
@@ -7052,7 +7068,11 @@ static WRViewController* mViewController = NULL;
     UIViewController *modalTreatmentIntermissionView = [[UIViewController alloc] init];
     modalTreatmentIntermissionView.view.frame = CGRectMake(0, 0, 1024, 768);
     modalTreatmentIntermissionView.view.alpha = 0.0;
-    [modalTreatmentIntermissionView.view setCenter:CGPointMake(500.0f, 350.0f)];
+    if ([DynamicContent isProviderAndSubclinicSurveyComplete])
+        [modalTreatmentIntermissionView.view setCenter:CGPointMake(280.0f, 350.0f)];
+    else
+        [modalTreatmentIntermissionView.view setCenter:CGPointMake(512.0f, 350.0f)];
+
 //    [modalTreatmentIntermissionView.view setCenter:CGPointMake(350.0f, 500.0f)];
     
     if (currentModalVC) {
@@ -7072,7 +7092,8 @@ static WRViewController* mViewController = NULL;
     treatmentIntermissionLable.textAlignment = UITextAlignmentCenter;
     treatmentIntermissionLable.font = [UIFont fontWithName:@"Avenir-Medium" size:60];
     treatmentIntermissionLable.numberOfLines = 0;
-    [treatmentIntermissionLable setCenter:CGPointMake(512.0f, 150.0f)];
+    [treatmentIntermissionLable setCenter:CGPointMake(510.0f, 175.0f)];
+//    [treatmentIntermissionLable setCenter:CGPointMake(512.0f, 150.0f)];
 //    treatmentIntermissionLable.transform = rotateRight;
     [modalTreatmentIntermissionView.view addSubview:treatmentIntermissionLable];
     
@@ -7087,7 +7108,8 @@ static WRViewController* mViewController = NULL;
 //    modalTreatmentIntermissionView.view.transform = rotateRight;
     
     DynamicStartAppButtonView *resumeAppButtonView = [[DynamicStartAppButtonView alloc] initWithFrame:CGRectMake(0, 0, modalTreatmentIntermissionView.view.frame.size.width, 102) type:kPopRectGreenLarge text:@"UNLOCK" target:self selector:@selector(unlockToResume:)  fontsize:50];
-    [resumeAppButtonView setCenter:CGPointMake(670.0f, 420.0f)];
+    [resumeAppButtonView setCenter:CGPointMake(800.0f, 420.0f)];
+//    [resumeAppButtonView setCenter:CGPointMake(670.0f, 420.0f)];
 //    resumeAppButtonView.demoButton.enabled = NO;
 //    resumeAppButtonView.transform = rotateRight;
     [modalTreatmentIntermissionView.view addSubview:resumeAppButtonView];

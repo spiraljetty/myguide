@@ -1247,7 +1247,7 @@ static SettingsViewController* mViewController = NULL;
     CGRect frame = self.view.frame;
     
 //    frame.origin.x += (controlView.contentHeight * 2);
-        frame.origin.x += (768 - 65);
+        frame.origin.y += (768 - 65);
 
     self.view.frame = frame;
     }

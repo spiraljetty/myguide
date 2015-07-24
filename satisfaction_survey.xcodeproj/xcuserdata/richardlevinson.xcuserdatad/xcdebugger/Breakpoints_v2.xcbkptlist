@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iPad/DynamicModuleViewController_Pad.m"
-            timestampString = "459134361.963329"
+            filePath = "iPad/DynamicSurveyViewController_Pad.m"
+            timestampString = "459300101.668415"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "852"
-            endingLineNumber = "852"
-            landmarkName = "-updateViewContents"
+            startingLineNumber = "2247"
+            endingLineNumber = "2247"
+            landmarkName = "-handleButtonOverlayForPageIndex:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WRViewController.m"
-            timestampString = "459138733.321776"
+            timestampString = "459363278.759956"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2915"
-            endingLineNumber = "2915"
-            landmarkName = "-initializeDynamicSubClinicEducationModule"
+            startingLineNumber = "6256"
+            endingLineNumber = "6256"
+            landmarkName = "-showSatisfactionIntro"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MainLoaderViewController.m"
+            timestampString = "459454734.359305"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "665"
+            endingLineNumber = "665"
+            landmarkName = "-showMiniDemoMenu"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

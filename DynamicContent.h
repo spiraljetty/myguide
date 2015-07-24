@@ -134,6 +134,10 @@
 + (void)sendNotification;
 + (void) clearNotificationSentFlag;
 
++ (void) setProviderAndSubclinicSurveyComplete;
++ (void) clearProviderAndSubclinicSurveyComplete;
++ (BOOL) isProviderAndSubclinicSurveyComplete;
+
 +(BOOL)directoryExists:(NSString *)path;
 + (BOOL) urlExists:(NSString* )path;
 + (void) getFilelist;

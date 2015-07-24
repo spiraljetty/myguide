@@ -61,6 +61,7 @@ static int mEdModuleCount = -1;
 static int mCurrentFontSize = 1;
 
 static bool wasNotificationSent = false;
+static bool providerAndSubclinicSurveyComplete = false;
 
 static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
@@ -2306,6 +2307,18 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 
 + (void) clearNotificationSentFlag {
     wasNotificationSent = false;
+}
+
++ (void) setProviderAndSubclinicSurveyComplete {
+    providerAndSubclinicSurveyComplete = true;
+}
+
++ (void) clearProviderAndSubclinicSurveyComplete {
+    providerAndSubclinicSurveyComplete = false;
+}
+
++ (BOOL) isProviderAndSubclinicSurveyComplete {
+    return providerAndSubclinicSurveyComplete;
 }
 
 @end
