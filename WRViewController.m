@@ -631,7 +631,7 @@ static WRViewController* mViewController = NULL;
 	[nextSettingsButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextSettingsButton.backgroundColor = [UIColor clearColor];
     // sandy shifted this to match others. Changed to:[nextSettingsButton setCenter:CGPointMake(685.0f, 80.0f)];
-    [nextSettingsButton setCenter:CGPointMake(800.0f, 620.0f)];
+    [nextSettingsButton setCenter:CGPointMake(940.0f, 620.0f)];
 //    [nextSettingsButton setCenter:CGPointMake(620.0f, 80.0f)];
     
 	[nextSettingsButton addTarget:self action:@selector(slideVisitButtonsOut) forControlEvents:UIControlEventTouchUpInside];
@@ -641,6 +641,7 @@ static WRViewController* mViewController = NULL;
     //nextSettingsButton.transform = rotateRight;
     [self.view addSubview:nextSettingsButton];
     
+//    visitSelectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 1000)];
     visitSelectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 1000, 150)];
 	visitSelectionLabel.text = @"Patient's first visit or a return visit?";
 	visitSelectionLabel.textAlignment = UITextAlignmentCenter;
@@ -648,7 +649,8 @@ static WRViewController* mViewController = NULL;
 	visitSelectionLabel.backgroundColor = [UIColor clearColor];
     visitSelectionLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	visitSelectionLabel.opaque = YES;
-    [visitSelectionLabel setCenter:CGPointMake(512.0f, 250.0f)];
+//    [visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
+    [visitSelectionLabel setCenter:CGPointMake(512.0f, 320.0f)];
 //    [visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
 //    visitSelectionLabel.transform = rotateRight;
     
@@ -700,7 +702,7 @@ static WRViewController* mViewController = NULL;
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	returnVisitButton.backgroundColor = [UIColor clearColor];
-    [returnVisitButton setCenter:CGPointMake(660.0f, 400.0f)];
+    [returnVisitButton setCenter:CGPointMake(620.0f, 400.0f)];
 //    [returnVisitButton setCenter:CGPointMake(400.0f, 660.0f)];
 	[returnVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	returnVisitButton.enabled = YES;
@@ -1629,6 +1631,7 @@ static WRViewController* mViewController = NULL;
     }
     
     [settingsVC hideSettingsFrame];
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeOutMiniDemoMenu];
 }
 
 - (void)activateLaunchButton {
@@ -6523,7 +6526,7 @@ static WRViewController* mViewController = NULL;
     NSLog(@"WRViewController.completeFadeOutSatisfactionSurvey()");
     [self.view sendSubviewToBack:tbvc.view];
     
-    
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton];
     [theTimer release];
 	theTimer = nil;
 }
@@ -7034,7 +7037,7 @@ static WRViewController* mViewController = NULL;
 		
 	}
 	[UIView commitAnimations];
-    
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton];
     //    [self presentModalViewController:modalTreatmentIntermissionView animated:YES];
     //    [modalTreatmentIntermissionView release];
     
@@ -7435,7 +7438,7 @@ static WRViewController* mViewController = NULL;
     NSString *returnTabletSoundfile;
     
     [self hideMasterButtonOverlay];
-    
+
 //    if (satisfactionSurveyCompleted) {
         returnTabletText = @"Thank you for your feedback.\nPlease return this iPad tablet to the receptionist.";
         returnTabletSoundfile = @"~thank_you_please_return_ipad-survey_completed";
@@ -7446,7 +7449,7 @@ static WRViewController* mViewController = NULL;
     
     returnTabletView = [[ReturnTabletViewController alloc] init];
     returnTabletView.textToShow = returnTabletText;
-    returnTabletView.view.frame = CGRectMake(0, 0, 384, 512);
+    returnTabletView.view.frame = CGRectMake(0, 20, 364, 512);
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
     returnTabletView.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
@@ -7454,7 +7457,7 @@ static WRViewController* mViewController = NULL;
 //    [returnTabletView.view setCenter:CGPointMake(512.0f, 500.0f)];
 //    returnTabletView.view.transform = rotateRight;
     [self presentModalViewController:returnTabletView animated:YES];
-    [returnTabletView release];
+    //[returnTabletView release];
     if ([DynamicSpeech isEnabled]){
         [DynamicSpeech sayReturnTablet];
     }
@@ -7465,7 +7468,7 @@ static WRViewController* mViewController = NULL;
     // update database value
     finishedsurvey = true;
     [tbvc updateSurveyNumberForField:@"finishedsurvey" withThisRatingNum:1];
-    
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInRevealSettingsButton];
 }
 
 - (BOOL)didSplashAnimationsFinish {

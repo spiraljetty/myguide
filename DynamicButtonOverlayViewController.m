@@ -69,7 +69,7 @@ static DynamicButtonOverlayViewController* mViewController;
         nextPageButton.backgroundColor = [UIColor clearColor];
        // sandy shifted [nextPageButton setCenter:CGPointMake(950.0f, 85.0f)];
         // this button is on the lower nav bar
-                [nextPageButton setCenter:CGPointMake(945.0f, 80.0f)];
+        [nextPageButton setCenter:CGPointMake(945.0f, 80.0f)];
 //        [nextPageButton setCenter:CGPointMake(385.0f, 80.0f)];
         //	[nextPageButton addTarget:physicianModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
         //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];

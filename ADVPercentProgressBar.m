@@ -245,7 +245,12 @@
     (self.maxProgressValue - self.minProgressValue);
     
     @try {
-        //progressImageView.image = progressFillImage;
+        if (progressImageView.image == nil)
+            NSLog(@"ADVPercentProgressBar.progressImageDraw() ERROR: progressImageView.image is nil");
+        else {
+            progressImageView.image = progressFillImage;
+            NSLog(@"ADVPercentProgressBar.progressImageDraw() progressImageView.image is NOT nil");
+        }
     }
     @catch (NSException *e) {
         NSLog(@"ADVPercentProgressBar.progressImageDraw() progressImageView.image ERROR: %@", e.reason);
@@ -255,10 +260,10 @@
     frame.origin.x = 2;
     frame.origin.y = 2;
     frame.size.height = bgImageView.frame.size.height - 4;
-    
     frame.size.width = (bgImageView.frame.size.width - 4) * percentProgress;
+    
     @try {
-        //progressImageView.frame = frame;
+        progressImageView.frame = frame;
     }
     @catch (NSException *e) {
         NSLog(@"ADVPercentProgressBar.progressImageDraw() progressImageView.frame ERROR: %@", e.reason);

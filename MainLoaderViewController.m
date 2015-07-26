@@ -49,7 +49,8 @@ static MainLoaderViewController* mViewController = NULL;
         miniDemoVC.view.frame = CGRectMake(200, 200, 410, 262);
         miniDemoVC.view.backgroundColor = [UIColor clearColor];
         //sandy tried moving this over to see if it shifts like other but it didn't work and crashed compiler
-        [miniDemoVC.view setCenter:CGPointMake(1109.0f, -80.0f)];
+        [miniDemoVC.view setCenter:CGPointMake(-80.0f, -80.0f)];
+//        [miniDemoVC.view setCenter:CGPointMake(1109.0f, -80.0f)];
 //        [miniDemoVC.view setCenter:CGPointMake(-80.0f, 1109.0f)];
         // attempted
         //[miniDemoVC.view setCenter:CGPointMake(100.0f, 900.0f)];
@@ -263,7 +264,8 @@ static MainLoaderViewController* mViewController = NULL;
     modalEnterGoal.view.alpha = 0.0;
     float angle =  270 * M_PI  / 180;
     CGAffineTransform rotateRight = CGAffineTransformMakeRotation(angle);
-    [modalEnterGoal.view setCenter:CGPointMake(400.0f, 512.0f)];
+    [modalEnterGoal.view setCenter:CGPointMake(512.0f, 400.0f)];
+//    [modalEnterGoal.view setCenter:CGPointMake(400.0f, 512.0f)];
     //modalEnterGoal.view.transform = rotateRight;
     [self.view addSubview:modalEnterGoal.view];
     
@@ -603,6 +605,9 @@ static MainLoaderViewController* mViewController = NULL;
     [DynamicContent resetDynamicContent];
     [currentWRViewController.mainTTSPlayer stopPlayer];
     [miniDemoVC menuButtonPressed];
+    standardPageButtonOverlay.view.alpha = 0.0;
+    [self.view sendSubviewToBack:standardPageButtonOverlay.view];
+    [DynamicContent clearProviderAndSubclinicSurveyComplete];
     [self showWaitScreen];
     [self fadeOutWRVC];
     
@@ -659,8 +664,12 @@ static MainLoaderViewController* mViewController = NULL;
 //    miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
 //    miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
     //sandy
-    miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50; //rjl miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
-    miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130; //rjl miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
+//    miniFrame.origin.x = miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50; //rjl miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
+//    miniFrame.origin.y = miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130; //rjl miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
+    NSInteger originalX = miniFrame.origin.x; //-285
+    NSInteger originalY = miniFrame.origin.y; //-211
+    miniFrame.origin.y = 0;//miniFrame.origin.y + miniDemoVC.view.frame.size.height - 50; //rjl miniFrame.origin.x + miniDemoVC.view.frame.size.width - 50;
+    miniFrame.origin.x = 0;//miniFrame.origin.x - miniDemoVC.view.frame.size.width + 130; //rjl miniFrame.origin.y - miniDemoVC.view.frame.size.height + 130;
     
     [UIView beginAnimations:nil context:NULL];
     {
@@ -679,8 +688,8 @@ static MainLoaderViewController* mViewController = NULL;
     //miniFrame.origin.x = miniFrame.origin.x - miniDemoVC.view.frame.size.width + 50;
     //miniFrame.origin.y = miniFrame.origin.y + miniDemoVC.view.frame.size.height - 130;
     //sandy
-    miniFrame.origin.x = miniFrame.origin.x - miniDemoVC.view.frame.size.width + 50;
-    miniFrame.origin.y = miniFrame.origin.y + miniDemoVC.view.frame.size.height - 130;
+    miniFrame.origin.x = -285; //miniFrame.origin.x - miniDemoVC.view.frame.size.width + 50;
+    miniFrame.origin.y = -211; //miniFrame.origin.y + miniDemoVC.view.frame.size.height - 130;
     
     [UIView beginAnimations:nil context:NULL];
     {
