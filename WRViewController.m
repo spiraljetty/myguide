@@ -4214,8 +4214,8 @@ static WRViewController* mViewController = NULL;
 	[nextEdItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[nextEdItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextEdItemButton.backgroundColor = [UIColor clearColor];
-    [nextEdItemButton setCenter:CGPointMake(80.0f, 685.0f)];
-//    [nextEdItemButton setCenter:CGPointMake(685.0f, 80.0f)];
+//    [nextEdItemButton setCenter:CGPointMake(80.0f, 685.0f)];
+    [nextEdItemButton setCenter:CGPointMake(680.0f, 570.0f)];
 	[nextEdItemButton addTarget:self action:@selector(beginEducationModule:) forControlEvents:UIControlEventTouchUpInside];
 //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
 	nextEdItemButton.enabled = YES;
@@ -4449,8 +4449,8 @@ static WRViewController* mViewController = NULL;
 	edModuleIntroLabel.backgroundColor = [UIColor clearColor];
     edModuleIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
 	edModuleIntroLabel.opaque = YES;
-    [edModuleIntroLabel setCenter:CGPointMake(512.0f, 400.0f)];
-    //    [edModuleIntroLabel setCenter:CGPointMake(400.0f, 512.0f)];
+//    [edModuleIntroLabel setCenter:CGPointMake(512.0f, 400.0f)];
+    [edModuleIntroLabel setCenter:CGPointMake(275.0f, 400.0f)];
     //    edModuleIntroLabel.transform = rotateRight;
 	edModuleIntroLabel.alpha = 0.0;
     
@@ -4465,7 +4465,8 @@ static WRViewController* mViewController = NULL;
 	edModuleCompleteLabel.backgroundColor = [UIColor clearColor];
     edModuleCompleteLabel.font = [UIFont fontWithName:@"Avenir" size:45];
 	edModuleCompleteLabel.opaque = YES;
-    [edModuleCompleteLabel setCenter:CGPointMake(525.0f, 300.0f)];
+    [edModuleCompleteLabel setCenter:CGPointMake(300.0f, 250.0f)];
+//    [edModuleCompleteLabel setCenter:CGPointMake(525.0f, 300.0f)];
 //    [edModuleCompleteLabel setCenter:CGPointMake(300.0f, 525.0f)];
 //    edModuleCompleteLabel.transform = rotateRight;
 	edModuleCompleteLabel.alpha = 0.0;
@@ -4773,7 +4774,7 @@ static WRViewController* mViewController = NULL;
 	[returnToMenuButton setImage:[UIImage imageNamed:@"back2menu_button_image_sml_pressed.png"] forState:UIControlStateHighlighted];
 	[returnToMenuButton setImage:[UIImage imageNamed:@"back2menu_button_image_sml_pressed.png"] forState:UIControlStateSelected];
 	returnToMenuButton.backgroundColor = [UIColor clearColor];
-    [returnToMenuButton setCenter:CGPointMake(500.0f, 725.0f)];
+    [returnToMenuButton setCenter:CGPointMake(300.0f, 625.0f)];
 //    [returnToMenuButton setCenter:CGPointMake(725.0f, 500.0f)];
     [returnToMenuButton addTarget:self action:@selector(returnToMenu) forControlEvents:UIControlEventTouchUpInside];
 	returnToMenuButton.enabled = YES;
@@ -5736,9 +5737,11 @@ static WRViewController* mViewController = NULL;
     [self.view bringSubviewToFront:nextEdItemButton];
     
     initialSettingsLabel.text = @"Learn about TBI and the Brain";
-    
+    [initialSettingsLabel setCenter:CGPointMake(250.0f, 100.0f)];
+    [taperedWhiteLine setCenter:CGPointMake(250.0f, 200.0f)];
     initialSettingsLabel.alpha = 0.0;
     taperedWhiteLine.alpha = 0.0;
+    nextSettingsButton.alpha = 0.0;
     [self.view bringSubviewToFront:initialSettingsLabel];
     [self.view bringSubviewToFront:taperedWhiteLine];
     
@@ -5763,6 +5766,7 @@ static WRViewController* mViewController = NULL;
         taperedWhiteLine.alpha = 1.0;
         
         playMovieIcon.alpha = 1.0;
+        nextSettingsButton.alpha = 0.0;
 		
 	}
 	[UIView commitAnimations];
@@ -5826,7 +5830,7 @@ static WRViewController* mViewController = NULL;
     voiceAssistButton.alpha = 0.0;
     fontsizeButton.alpha = 0.0;
 //    returnToMenuButton.alpha = 0.0;
-    
+    [edModule.view setCenter:CGPointMake(380.0f, 250.0f)];
     [self.view bringSubviewToFront:edModule.view];
 //    [self.view bringSubviewToFront:surveyResourceBack];
 //    [self.view bringSubviewToFront:nextEdItemButton];

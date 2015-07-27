@@ -100,7 +100,8 @@
     [fileman release];
     
     rotationViewController.view.alpha = 0.0;
-    [rotationViewController.view setCenter:CGPointMake(512.0f, 362.0f)];
+    //[rotationViewController.view setCenter:CGPointMake(512.0f, 362.0f)];
+    [rotationViewController.view setCenter:CGPointMake(200.0f, 600.0f)];
     
     [self.view addSubview:rotationViewController.view];
     [self.view sendSubviewToBack:rotationViewController.view];
@@ -439,8 +440,9 @@
             finishingLastItem = YES;
             [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] activateEdBackButton];
             rotationViewController.view.frame = [[UIScreen mainScreen] applicationFrame]; //rjl set the 3D brain view frame to the application frame
+            [rotationViewController.view setCenter:CGPointMake(375.0f, 470.0f)]; //rjl 7/26/15
             [self.view bringSubviewToFront:rotationViewController.view]; //rjl this line shows the 3D brain
-            
+
             [UIView beginAnimations:nil context:nil];
             {
                 [UIView	setAnimationDuration:0.6];

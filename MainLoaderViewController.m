@@ -403,7 +403,7 @@ static MainLoaderViewController* mViewController = NULL;
     
     standardPageButtonOverlay.view.alpha = 0.0;
 //    standardPageButtonOverlay.view.transform = rotateLeft;
-    [standardPageButtonOverlay.view setCenter:CGPointMake(512.0f, 722.0f)];
+    [standardPageButtonOverlay.view setCenter:CGPointMake(509.0f, 722.0f)];
 //    [standardPageButtonOverlay.view setCenter:CGPointMake(722.0f, 512.0f)];
     [self.view addSubview:standardPageButtonOverlay.view];
 }
