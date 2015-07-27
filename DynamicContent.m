@@ -20,7 +20,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <NMSSH/NMSFTP.h>
 
-static NSString* mAppVersion = @"App Version: 7/9/15";
+static NSString* mAppVersion = @"App Version: 7/26/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;

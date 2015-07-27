@@ -23,7 +23,7 @@ static AVSpeechSynthesizer *mSynthesizer = NULL;
 
 static float mDefaultVolume = 0.1;//0.5;  // * Default should be 0.5 *
 
-static float mSpeechRate = 0.20; //0.12
+static float mSpeechRate = 0.10; //0.12
 static float mPitchMultiplier = 1.0; //1.5;
 static NSString* mLanguage = @"en-US";
 //static float mLanguageIndex = 1.0;

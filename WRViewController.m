@@ -3449,6 +3449,7 @@ static WRViewController* mViewController = NULL;
             }
         }
     }
+    [DynamicContent fadeEdModulePickerOut];
     
     [self fadeEdModuleIn:[moduleInfo getModuleName]];
     //sandy 10-15-14
