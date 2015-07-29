@@ -423,7 +423,7 @@
     int segmentedControlEquivalentIndexSelected;
     
     if ([sender isEqual:stronglyDisagreeButton]) {
-        NSLog(@"Strongly disagree pressed...");
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() Strongly disagree");
         stronglyDisagreeButton.alpha = 1.0;
         disagreeButton.alpha = 0.7;
         neutralButton.alpha = 0.7;
@@ -432,6 +432,7 @@
         doesNotApplyButton.alpha = 0.7;
         segmentedControlEquivalentIndexSelected = 0;
     } else if (sender == disagreeButton) {
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() Disagree");
         segmentedControlEquivalentIndexSelected = 1;
         stronglyDisagreeButton.alpha = 0.7;
         disagreeButton.alpha = 1.0;
@@ -440,6 +441,7 @@
         stronglyAgreeButton.alpha = 0.7;
         doesNotApplyButton.alpha = 0.7;
     } else if (sender == neutralButton) {
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() Neutral");
         segmentedControlEquivalentIndexSelected = 2;
         stronglyDisagreeButton.alpha = 0.7;
         disagreeButton.alpha = 0.7;
@@ -448,6 +450,7 @@
         stronglyAgreeButton.alpha = 0.7;
         doesNotApplyButton.alpha = 0.7;
     } else if (sender == agreeButton) {
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() Agree");
         segmentedControlEquivalentIndexSelected = 3;
         stronglyDisagreeButton.alpha = 0.7;
         disagreeButton.alpha = 0.7;
@@ -456,6 +459,7 @@
         stronglyAgreeButton.alpha = 0.7;
         doesNotApplyButton.alpha = 0.7;
     } else if (sender == stronglyAgreeButton) {
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() Strongly Agree");
         segmentedControlEquivalentIndexSelected = 4;
         stronglyDisagreeButton.alpha = 0.7;
         disagreeButton.alpha = 0.7;
@@ -464,6 +468,7 @@
         stronglyAgreeButton.alpha = 1.0;
         doesNotApplyButton.alpha = 0.7;
     } else {
+        NSLog(@"SwitchedImageViewController.faceButtonPressed() Super Strongly Agree (shouldn't happen)");
         segmentedControlEquivalentIndexSelected = 5;
         stronglyDisagreeButton.alpha = 0.7;
         disagreeButton.alpha = 0.7;

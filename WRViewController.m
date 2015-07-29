@@ -605,7 +605,7 @@ static WRViewController* mViewController = NULL;
 //    [demoSwitch setCenter:CGPointMake(600.0f, 700.0f)];
     [demoSwitch setBackgroundColor:[UIColor clearColor]];
     //demoSwitch.transform = rotateRight;
-    [self.view addSubview:demoSwitch];
+    //[self.view addSubview:demoSwitch];
     
     demoModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
     // sandy removed mode to fit was "Demo Mode:"
@@ -619,7 +619,7 @@ static WRViewController* mViewController = NULL;
 //    [demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
     //demoModeLabel.transform = rotateRight;
     
-    [self.view addSubview:demoModeLabel];
+    //[self.view addSubview:demoModeLabel];
     
     
     
@@ -4216,7 +4216,7 @@ static WRViewController* mViewController = NULL;
 	[nextEdItemButton setImage:[UIImage imageNamed:@"next_button_image_pressed.png"] forState:UIControlStateSelected];
 	nextEdItemButton.backgroundColor = [UIColor clearColor];
 //    [nextEdItemButton setCenter:CGPointMake(80.0f, 685.0f)];
-    [nextEdItemButton setCenter:CGPointMake(680.0f, 570.0f)];
+    [nextEdItemButton setCenter:CGPointMake(880.0f, 670.0f)];
 	[nextEdItemButton addTarget:self action:@selector(beginEducationModule:) forControlEvents:UIControlEventTouchUpInside];
 //    [nextEdItemButton addTarget:edModule action:@selector(regress:) forControlEvents:UIControlEventTouchUpInside];
 	nextEdItemButton.enabled = YES;
@@ -4451,7 +4451,7 @@ static WRViewController* mViewController = NULL;
     edModuleIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
 	edModuleIntroLabel.opaque = YES;
 //    [edModuleIntroLabel setCenter:CGPointMake(512.0f, 400.0f)];
-    [edModuleIntroLabel setCenter:CGPointMake(275.0f, 400.0f)];
+    [edModuleIntroLabel setCenter:CGPointMake(550.0f, 400.0f)];
     //    edModuleIntroLabel.transform = rotateRight;
 	edModuleIntroLabel.alpha = 0.0;
     
@@ -4466,7 +4466,7 @@ static WRViewController* mViewController = NULL;
 	edModuleCompleteLabel.backgroundColor = [UIColor clearColor];
     edModuleCompleteLabel.font = [UIFont fontWithName:@"Avenir" size:45];
 	edModuleCompleteLabel.opaque = YES;
-    [edModuleCompleteLabel setCenter:CGPointMake(300.0f, 250.0f)];
+    [edModuleCompleteLabel setCenter:CGPointMake(550.0f, 250.0f)];
 //    [edModuleCompleteLabel setCenter:CGPointMake(525.0f, 300.0f)];
 //    [edModuleCompleteLabel setCenter:CGPointMake(300.0f, 525.0f)];
 //    edModuleCompleteLabel.transform = rotateRight;
@@ -4775,7 +4775,7 @@ static WRViewController* mViewController = NULL;
 	[returnToMenuButton setImage:[UIImage imageNamed:@"back2menu_button_image_sml_pressed.png"] forState:UIControlStateHighlighted];
 	[returnToMenuButton setImage:[UIImage imageNamed:@"back2menu_button_image_sml_pressed.png"] forState:UIControlStateSelected];
 	returnToMenuButton.backgroundColor = [UIColor clearColor];
-    [returnToMenuButton setCenter:CGPointMake(300.0f, 625.0f)];
+    [returnToMenuButton setCenter:CGPointMake(512.0f, 675.0f)];
 //    [returnToMenuButton setCenter:CGPointMake(725.0f, 500.0f)];
     [returnToMenuButton addTarget:self action:@selector(returnToMenu) forControlEvents:UIControlEventTouchUpInside];
 	returnToMenuButton.enabled = YES;
@@ -5738,8 +5738,9 @@ static WRViewController* mViewController = NULL;
     [self.view bringSubviewToFront:nextEdItemButton];
     
     initialSettingsLabel.text = @"Learn about TBI and the Brain";
-    [initialSettingsLabel setCenter:CGPointMake(250.0f, 100.0f)];
-    [taperedWhiteLine setCenter:CGPointMake(250.0f, 200.0f)];
+    [initialSettingsLabel setCenter:CGPointMake(550.0f, 100.0f)];
+    [taperedWhiteLine setCenter:CGPointMake(550.0f, 200.0f)];
+//    [nextSettingsButton setCenter:CGPointMake(750.0f, 00.0f)];
     initialSettingsLabel.alpha = 0.0;
     taperedWhiteLine.alpha = 0.0;
     nextSettingsButton.alpha = 0.0;
@@ -5804,6 +5805,13 @@ static WRViewController* mViewController = NULL;
 - (void)beginEducationModule:(id)sender {
     
     NSLog(@"WRViewController.beginEducationModule()");
+    [UIView beginAnimations:nil context:nil];
+    {
+        [UIView	setAnimationDuration:0.3];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        nextEdItemButton.alpha = 0.0;
+    }
+    [UIView commitAnimations];
     
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] setActiveViewControllerTo:edModule];
     [self showMasterButtonOverlay];
@@ -5831,7 +5839,7 @@ static WRViewController* mViewController = NULL;
     voiceAssistButton.alpha = 0.0;
     fontsizeButton.alpha = 0.0;
 //    returnToMenuButton.alpha = 0.0;
-    [edModule.view setCenter:CGPointMake(380.0f, 250.0f)];
+    [edModule.view setCenter:CGPointMake(680.0f, 250.0f)];
     [self.view bringSubviewToFront:edModule.view];
 //    [self.view bringSubviewToFront:surveyResourceBack];
 //    [self.view bringSubviewToFront:nextEdItemButton];
@@ -6299,10 +6307,10 @@ static WRViewController* mViewController = NULL;
     [self.view bringSubviewToFront:initialSettingsLabel];
     [self.view bringSubviewToFront:taperedWhiteLine];
     
-    [self.initialSettingsLabel setCenter:CGPointMake(250.0f, 100.0f)];
-    [self.taperedWhiteLine setCenter:CGPointMake(250.0f, 200.0f)];
-    [self.surveyIntroLabel setCenter:CGPointMake(250.0f, 385.0f)];
-    [self.nextSettingsButton setCenter:CGPointMake(675.0f, 675.0f)];
+    [self.initialSettingsLabel setCenter:CGPointMake(512.0f, 100.0f)];
+    [self.taperedWhiteLine setCenter:CGPointMake(512.0f, 200.0f)];
+    [self.surveyIntroLabel setCenter:CGPointMake(512.0f, 385.0f)];
+    [self.nextSettingsButton setCenter:CGPointMake(875.0f, 675.0f)];
     
     //    [self.view bringSubviewToFront:aWebView];
     
@@ -6448,7 +6456,7 @@ static WRViewController* mViewController = NULL;
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] showNextButton];
     
 //    if (satisfactionSurveyInProgress) {
-        [tbvc.view setCenter:CGPointMake(378.0f, 250.0f)];
+        [tbvc.view setCenter:CGPointMake(640.0f, 250.0f)];
         [self.view bringSubviewToFront:tbvc.view];
 //        [self.view bringSubviewToFront:surveyResourceBack];
 //        [self.view bringSubviewToFront:nextSurveyItemButton];
@@ -7076,9 +7084,9 @@ static WRViewController* mViewController = NULL;
     UIViewController *modalTreatmentIntermissionView = [[UIViewController alloc] init];
     modalTreatmentIntermissionView.view.frame = CGRectMake(0, 0, 1024, 768);
     modalTreatmentIntermissionView.view.alpha = 0.0;
-    if ([DynamicContent isProviderAndSubclinicSurveyComplete])
-        [modalTreatmentIntermissionView.view setCenter:CGPointMake(280.0f, 350.0f)];
-    else
+//    if ([DynamicContent isProviderAndSubclinicSurveyComplete])
+//        [modalTreatmentIntermissionView.view setCenter:CGPointMake(280.0f, 350.0f)];
+//    else
         [modalTreatmentIntermissionView.view setCenter:CGPointMake(512.0f, 350.0f)];
 
 //    [modalTreatmentIntermissionView.view setCenter:CGPointMake(350.0f, 500.0f)];

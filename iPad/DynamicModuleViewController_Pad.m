@@ -864,6 +864,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
             dynamicPageSubDetailVC.needsImage = YES;
             //            dynamicPageSubDetailVC.dynamicImageView.image = [UIImage imageNamed:thisPage.imageFilename];
             dynamicPageSubDetailVC.currentImageFilename = thisPage.imageFilename;
+           //[dynamicPageSubDetailVC.dynamicImageView setCenter:CGPointMake(1000.0f,100.0f)];
         }
         
         dynamicPageSubDetailVC.view.tag = 1066;

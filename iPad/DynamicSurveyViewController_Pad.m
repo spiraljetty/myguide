@@ -858,6 +858,7 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         
         pageIndex++;
         NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages() provider module helpful uses storyboard survey_helpful_template");
+//        UIStoryboard *helpfulStoryboard1 = [UIStoryboard storyboardWithName:@"survey_new_painscale_noprompt_template" bundle:[NSBundle mainBundle]];
         UIStoryboard *helpfulStoryboard1 = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
         
         UIStoryboard *helpfulStoryboard2 = [UIStoryboard storyboardWithName:@"survey_helpful_template" bundle:[NSBundle mainBundle]];
@@ -876,7 +877,9 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         // sandy 7-20 removed the word doctor and replaced it with provider
         QuestionList* questionInfo = [DynamicContent getSurveyForCurrentClinicAndRespondent];
         providerModuleHelpful.helpfulText =[questionInfo getClinicianInfoRatingQuestion];
-        providerModuleHelpful.view.frame = backsplash.bounds;
+        CGRect surveyFrame = providerModuleHelpful.view.frame; //CGRectMake(-200, -200, 1024, 748);
+        NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages() %f,%f, %f,%f", surveyFrame.origin.x, surveyFrame.origin.y, surveyFrame.size.width, surveyFrame.size.height);
+//        providerModuleHelpful.view.frame = surveyFrame; //[[UIScreen mainScreen] applicationFrame];//backsplash.bounds;
         [surveyPageArray addObject:providerModuleHelpful];
         
         pageIndex++;
@@ -1000,6 +1003,8 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         }
         
         miniSurveyPage1.currentSatisfactionLabel.text = miniSurveyPage1.currentSatisfactionString;
+        CGRect surveyFrame = miniSurveyPage1.view.frame; //CGRectMake(-200, -200, 1024, 748);
+        NSLog(@"DynamicSurveyViewController.createarrayofAllSurveyPages(1) %f,%f, %f,%f", surveyFrame.origin.x, surveyFrame.origin.y, surveyFrame.size.width, surveyFrame.size.height);
         [surveyPageArray addObject:miniSurveyPage1];
         
         pageIndex++;
@@ -1403,7 +1408,8 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     
     SwitchedImageViewController *thisSurveyPage = (SwitchedImageViewController *)[newChildControllers objectAtIndex:pageIndex];
     
-    [self handleButtonOverlayForPageIndex:pageIndex];
+   //rjl 7.27.15
+    //[self handleButtonOverlayForPageIndex:pageIndex];
     if (![DynamicSpeech isEnabled]){
         [masterTTSPlayer playItemsWithNames:[NSArray arrayWithObjects:@"silence_quarter_second", nil]];
         [self playSoundForSurveyPage:thisSurveyPage];
@@ -1894,7 +1900,8 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
         } else {
             [currentViewController finishedPartOfDynamicSurvey];
         }
-        [currentViewController.view setCenter:CGPointMake(768.0f, 385.0f)];
+       // if (vcIndex != 7)
+            //[currentViewController.view setCenter:CGPointMake(768.0f, 385.0f)];
     
         
         
@@ -2244,11 +2251,21 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
 - (void)handleButtonOverlayForPageIndex:(int)thisPageIndex {
     NSLog(@"DynamicSurveyViewController_iPad.handleButtonOverlayForPageIndex() thisPageIndex: %d",thisPageIndex);
     SwitchedImageViewController *currentSwitchedController = (SwitchedImageViewController *)[newChildControllers objectAtIndex:thisPageIndex];
+    CGRect f = currentSwitchedController.view.frame;
     if ((thisPageIndex <= 6 || thisPageIndex > 9) && ![DynamicContent isProviderAndSubclinicSurveyComplete])
         [currentSwitchedController.view setCenter:CGPointMake(550.0f, 250.0f)];
-
     else
-        [currentSwitchedController.view setCenter:CGPointMake(280.0f, 225.0f)];
+    if (currentSwitchedController.currentSurveyPageType == kHelpfulPainScale){
+        NSLog(@"DynamicSurveyViewController.handleButtonOverlayForPageIndex() %f,%f, %f,%f", f.origin.x, f.origin.y, f.size.width, f.size.height);
+//        [currentSwitchedController.view setCenter:CGPointMake(550.0f, 250.0f)];
+//        currentSwitchedController.view.frame = CGRectMake(-300, 0, 1024, 748);
+//        f = currentSwitchedController.view.frame;
+//        [self.view bringSubviewToFront:currentSwitchedController.view];
+        [currentSwitchedController.view setCenter:CGPointMake(550.0f, 225.0f)];//250.0f)];
+    }
+    else //rjl 7/27/15
+//        [currentSwitchedController.view setCenter:CGPointMake(280.0f, 225.0f)];
+        [currentSwitchedController.view setCenter:CGPointMake(525.0f, 225.0f)];
     if (currentSwitchedController.hidePreviousButton) {
         //        [standardPageButtonOverlay fadeThisObjectOut:standardPageButtonOverlay.previousPageButton];
         [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] hidePreviousButton];

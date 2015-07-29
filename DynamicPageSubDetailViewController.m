@@ -55,7 +55,7 @@
         
         // rjl 11/14/14 Adjust position of image for clinic and ed modules here:
         //[currentSubdetailImageView setCenter:CGPointMake(550.0f, 560.0f)];
-        [currentSubdetailImageView setCenter:CGPointMake(550.0f, 285.0f)];
+        [currentSubdetailImageView setCenter:CGPointMake(820.0f, 285.0f)];
         [self.view addSubview:currentSubdetailImageView];
         
         [dynamicPageSubDetailSectionLabel setFrame:CGRectMake(dynamicPageSubDetailSectionLabel.frame.origin.x, dynamicPageSubDetailSectionLabel.frame.origin.y-35, dynamicPageSubDetailSectionLabel.frame.size.width-300, dynamicPageSubDetailSectionLabel.frame.size.height+80)];

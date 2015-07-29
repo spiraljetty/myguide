@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DynamicPageSubDetailViewController">
@@ -19,32 +18,43 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="Header Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="908" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                    <rect key="frame" x="-209" y="84" width="908" height="41"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Header Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="908" translatesAutoresizingMaskIntoConstraints="NO" id="4">
+                    <rect key="frame" x="40" y="84" width="196" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="j8N-0E-fLw"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="30"/>
                     <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="600" translatesAutoresizingMaskIntoConstraints="NO" id="12">
-                    <rect key="frame" x="-221" y="138" width="605" height="365"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="TopLeft" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="600" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                    <rect key="frame" x="40" y="138" width="605" height="365"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="365" id="eKS-vv-ng7"/>
+                        <constraint firstAttribute="width" constant="605" id="mlO-Ud-YMM"/>
+                    </constraints>
                     <string key="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</string>
                     <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="24"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="227">
-                    <rect key="frame" x="615" y="31" width="300" height="327"/>
+                <imageView opaque="NO" userInteractionEnabled="NO" alpha="0.45000000000000001" contentMode="right" translatesAutoresizingMaskIntoConstraints="NO" id="227">
+                    <rect key="frame" x="653" y="138" width="302" height="327"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="327" id="MTg-Ld-xBh"/>
-                        <constraint firstAttribute="width" constant="300" id="ork-l9-1mB"/>
+                        <constraint firstAttribute="height" constant="327" id="cAX-Wq-McC"/>
+                        <constraint firstAttribute="width" constant="302" id="jW4-LR-ZqV"/>
                     </constraints>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="227" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="8" id="HxM-Gx-8tY"/>
-                <constraint firstItem="227" firstAttribute="top" secondItem="2" secondAttribute="centerY" id="RSk-x7-3FU"/>
+                <constraint firstItem="12" firstAttribute="top" secondItem="227" secondAttribute="top" id="9U4-ec-aEM"/>
+                <constraint firstItem="12" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="9jq-Nw-Mj6"/>
+                <constraint firstItem="12" firstAttribute="top" secondItem="4" secondAttribute="bottom" constant="13" id="Iu3-Tc-ghO"/>
+                <constraint firstItem="12" firstAttribute="top" secondItem="2" secondAttribute="top" constant="138" id="NDZ-jt-jsz"/>
+                <constraint firstItem="12" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="40" id="NNc-iS-XoN"/>
+                <constraint firstItem="227" firstAttribute="leading" secondItem="12" secondAttribute="trailing" constant="8" symbolic="YES" id="aDf-WL-jrk"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
