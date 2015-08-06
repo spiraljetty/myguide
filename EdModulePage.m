@@ -93,7 +93,19 @@
 }
 
 - (NSComparisonResult) compareWithAnotherPage:(EdModulePage*) anotherPage{
-    return [[self getPageNumber] compare:[anotherPage getPageNumber]];
+    NSString* thisPage = [self getPageNumber];
+    NSString* otherPage = [anotherPage getPageNumber];
+    int thisPageNumber = thisPage.intValue;
+    int otherPageNumber = otherPage.intValue;
+    int result = -1;
+    if (thisPageNumber > otherPageNumber)
+        result = 1;
+    else
+    if (thisPageNumber == otherPageNumber)
+        result = 0;
+    NSComparisonResult comparisonResult = result; //[thisPageNumber compare:otherPageNumber];
+    NSLog(@"EdModulePage.compareWithAnotherPage() thisPage: %d, otherPage: %d, result: %ld", thisPageNumber, otherPageNumber, comparisonResult);
+    return comparisonResult;//[[self getPageNumber] compare:[anotherPage getPageNumber]];
 }
 
 

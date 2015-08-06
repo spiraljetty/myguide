@@ -294,7 +294,7 @@
     } else {
         
         
-        NSLog(@"SWITCHING from ed Module item %d to item %d", vcIndex, newIndex);
+        NSLog(@"EdViewController.switchToView() SWITCHING from ed Module item %d to item %d", vcIndex, newIndex);
         
         // Prepare for segue by disabling bar buttons
         item.rightBarButtonItem.enabled = NO;
@@ -492,13 +492,13 @@
 }
 
 - (void)goForward {
-    NSLog(@"goForward edModule...");
+    NSLog(@"EdViewController.goForward() edModule...");
     [self regress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] incrementProgressBar];
 }
 
 - (void)goBackward {
-    NSLog(@"goBackward edModule...");
+    NSLog(@"EdViewController.goBackward() edModule...");
     finishingLastItem = NO; // rjl enable previous button from 3D brain view
     [self progress:self];
     [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] decrementProgressBar];

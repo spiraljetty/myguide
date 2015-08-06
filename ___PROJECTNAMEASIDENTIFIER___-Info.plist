@@ -12,6 +12,10 @@
 	<string></string>
 	<key>CFBundleIconFile</key>
 	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string></string>
+	</array>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>
@@ -35,7 +39,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.1</string>
+	<string>3.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
@@ -44,6 +48,8 @@
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHumanReadableCopyright</key>
+	<string></string>
 	<key>NSMainNibFile</key>
 	<string>MainView_Pad</string>
 	<key>NSMainNibFile~ipad</key>
@@ -55,12 +61,6 @@
 		<string>audio</string>
 		<string>location</string>
 	</array>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string></string>
-	</array>
-	<key>NSHumanReadableCopyright</key>
-	<string></string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>

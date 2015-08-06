@@ -3548,6 +3548,29 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void)fadeCurrentEdModuleOut{
+    [UIView beginAnimations:nil context:nil];
+    {
+        [UIView	setAnimationDuration:0.3];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        
+        //        splashImageViewC.alpha = 1.0;
+        allWhiteBack.alpha = 0.0;
+        
+        //        beginSurveyButton.alpha = 1.0;
+        
+        nextEdItemButton.alpha = 0.0;
+        
+        edModuleIntroLabel.alpha = 0.0;
+        
+        initialSettingsLabel.alpha = 0.0;
+        taperedWhiteLine.alpha = 0.0;
+        
+        playMovieIcon.alpha = 0.0;
+        nextSettingsButton.alpha = 0.0;
+        edModule.view.alpha = 0.0;
+        
+    }
+    [UIView commitAnimations];
     DynamicModuleViewController_Pad* edModuleViewController = [DynamicContent getCurrentEdModuleViewController];
     if (!edModuleViewController)
         return;
@@ -3562,6 +3585,7 @@ static WRViewController* mViewController = NULL;
         
 	}
 	[UIView commitAnimations];
+
     
     endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.4 target:self selector:@selector(finishFadeCurrentEdModuleOut:) userInfo:nil repeats:NO] retain];
     [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
@@ -5775,6 +5799,7 @@ static WRViewController* mViewController = NULL;
     
     [edModule sayTBIEdModuleIntro];
 }
+
 
 //- (void)fadeToEducationModuleStart:(id)sender {
 //

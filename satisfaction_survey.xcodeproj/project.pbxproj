@@ -2637,7 +2637,7 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = /Users/richardlevinson/Documents/iPhone/apps/three20/Build/Products/three20;
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Waiting Room";
 				PROVISIONING_PROFILE = "";
@@ -2663,7 +2663,7 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = /Users/richardlevinson/Documents/iPhone/apps/three20/Build/Products/three20;
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Waiting Room";
 				PROVISIONING_PROFILE = "";

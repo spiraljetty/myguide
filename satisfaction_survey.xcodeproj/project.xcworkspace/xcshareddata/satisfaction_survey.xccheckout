@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>EF47EBD0-0472-45B9-8B3B-EF9697A05072</string>
 	<key>IDESourceControlProjectName</key>
-	<string>satisfaction_survey</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>38ED3EA3BCE72EAC51BABAF855922B848D3BBDEB</key>
 		<string>https://github.com/spiraljetty/myguide.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>satisfaction_survey.xcodeproj</string>
+	<string>satisfaction_survey.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>38ED3EA3BCE72EAC51BABAF855922B848D3BBDEB</key>
