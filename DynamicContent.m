@@ -20,7 +20,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <NMSSH/NMSFTP.h>
 
-static NSString* mAppVersion = @"App Version: 8/6/15";
+static NSString* mAppVersion = @"App Version: 8/13/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -62,6 +62,8 @@ static int mCurrentFontSize = 1;
 
 static bool wasNotificationSent = false;
 static bool providerAndSubclinicSurveyComplete = false;
+static bool finalSurveyOnly = false;
+
 
 static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
@@ -1279,8 +1281,25 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 + (QuestionList*) getSurveyForCurrentClinicAndRespondent {
     NSArray* questions = [self getAllSurveyQuestions];
     for (QuestionList* info in questions){
-        if ([mCurrentClinicName isEqualToString:[info getClinic]] &&
+        NSString* clinic = [info getClinic];
+        NSLog(@"DynamicContent.getSurveyForCurrentClinicAndRespondent() clinic: %@", clinic);
+        if ([mCurrentClinicName isEqualToString:clinic] &&
             [mCurrentRespondent isEqualToString:[info getRespondentType]]) {
+            return info;
+        }
+    }
+    for (QuestionList* info in questions){
+        NSString* defaultClinic = @"at";
+        if ([defaultClinic isEqualToString:[info getClinic]] &&
+            [mCurrentRespondent isEqualToString:[info getRespondentType]]) {
+            return info;
+        }
+    }
+    for (QuestionList* info in questions){
+        NSString* defaultClinic = @"at";
+        NSString* defaultRespondentType = @"patient";
+        if ([defaultClinic isEqualToString:[info getClinic]] &&
+            [defaultRespondentType isEqualToString:[info getRespondentType]]) {
             return info;
         }
     }
@@ -2319,6 +2338,18 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 
 + (BOOL) isProviderAndSubclinicSurveyComplete {
     return providerAndSubclinicSurveyComplete;
+}
+
++ (void) setFinalSurveyOnly {
+    finalSurveyOnly = true;
+}
+
++ (void) clearFinalSurveyOnly {
+    finalSurveyOnly = false;
+}
+
++ (BOOL) isFinalSurveyOnly {
+    return finalSurveyOnly;
 }
 
 @end

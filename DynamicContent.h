@@ -138,6 +138,10 @@
 + (void) clearProviderAndSubclinicSurveyComplete;
 + (BOOL) isProviderAndSubclinicSurveyComplete;
 
++ (void) setFinalSurveyOnly;
++ (void) clearFinalSurveyOnly;
++ (BOOL) isFinalSurveyOnly;
+
 +(BOOL)directoryExists:(NSString *)path;
 + (BOOL) urlExists:(NSString* )path;
 + (void) getFilelist;

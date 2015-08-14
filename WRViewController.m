@@ -593,33 +593,36 @@ static WRViewController* mViewController = NULL;
     
     demoSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 26.0)];
     [demoSwitch addTarget:self action:@selector(demoSwitchFlipped:) forControlEvents:UIControlEventTouchUpInside];
-    if (forceToDemoMode) {
-        if (!collectingPilotData) {
-            [demoSwitch setOn:YES];
-        }
-    } else {
-        [demoSwitch setOn:NO];
-    }
+//    if (forceToDemoMode) {
+//        if (!collectingPilotData) {
+//            [demoSwitch setOn:YES];
+//        }
+//    } else {
+//        [demoSwitch setOn:NO];
+//    }
     
-    [demoSwitch setCenter:CGPointMake(400.0f, 600.0f)];
+    [demoSwitch setCenter:CGPointMake(500.0f, 600.0f)];
 //    [demoSwitch setCenter:CGPointMake(600.0f, 700.0f)];
     [demoSwitch setBackgroundColor:[UIColor clearColor]];
     //demoSwitch.transform = rotateRight;
-    //[self.view addSubview:demoSwitch];
+    [self.view addSubview:demoSwitch];
     
-    demoModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 150)];
+    demoModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 450, 450)];
     // sandy removed mode to fit was "Demo Mode:"
-	demoModeLabel.text = @"Demo:";
+    if ([DynamicContent isFinalSurveyOnly])
+        demoModeLabel.text = @"Final survey only: YES";
+    else
+        demoModeLabel.text = @"Final survey only: NO";
 	demoModeLabel.textAlignment = UITextAlignmentCenter;
 	demoModeLabel.textColor = [UIColor blackColor];
 	demoModeLabel.backgroundColor = [UIColor clearColor];
     demoModeLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	demoModeLabel.opaque = YES;
-    [demoModeLabel setCenter:CGPointMake(200.0f, 600.0f)];
+    [demoModeLabel setCenter:CGPointMake(250.0f, 600.0f)];
 //    [demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
     //demoModeLabel.transform = rotateRight;
     
-    //[self.view addSubview:demoModeLabel];
+    [self.view addSubview:demoModeLabel];
     
     
     
@@ -944,17 +947,64 @@ static WRViewController* mViewController = NULL;
     PhysicianCellViewController *newDetailViewController7 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController8 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController9 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    
     PhysicianCellViewController *newDetailViewController10 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController11 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController12 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController13 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController14 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
     PhysicianCellViewController *newDetailViewController15 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController16 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController17 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController18 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController19 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    
+    PhysicianCellViewController *newDetailViewController20 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController21 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController22 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController23 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController24 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController25 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController26 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController27 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController28 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController29 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    
+    PhysicianCellViewController *newDetailViewController30 = [[PhysicianCellViewController alloc]initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController31 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController32 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController33 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController34 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController35 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController36 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController37 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController38 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController39 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    
+    PhysicianCellViewController *newDetailViewController40 = [[PhysicianCellViewController alloc]initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController41 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController42 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController43 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController44 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController45 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController46 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController47 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController48 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController49 = [[PhysicianCellViewController alloc] initWithCollectionViewLayout:layout];
+    PhysicianCellViewController *newDetailViewController50 = [[PhysicianCellViewController alloc]initWithCollectionViewLayout:layout];
 
     // rjl 8/16/14 here is the list of clinic detail display pages
     arrayDetailVCs = [[NSArray alloc]initWithObjects:newDetailViewController0, newDetailViewController1, newDetailViewController2, newDetailViewController3, newDetailViewController4, newDetailViewController5, newDetailViewController6, newDetailViewController7,
-        newDetailViewController8, newDetailViewController9, newDetailViewController10, newDetailViewController11, newDetailViewController12,
-        newDetailViewController13, newDetailViewController14, newDetailViewController15,  nil];
+        newDetailViewController8, newDetailViewController9, newDetailViewController10,newDetailViewController11, newDetailViewController12,
+            newDetailViewController13, newDetailViewController14,
+                      newDetailViewController15, newDetailViewController16, newDetailViewController17,
+                      newDetailViewController18, newDetailViewController19, newDetailViewController20, newDetailViewController21, newDetailViewController22,
+                      newDetailViewController23, newDetailViewController24, newDetailViewController25, newDetailViewController26, newDetailViewController27,
+                      newDetailViewController28, newDetailViewController29, newDetailViewController30,newDetailViewController31, newDetailViewController32,
+                      newDetailViewController33, newDetailViewController34, newDetailViewController35, newDetailViewController36, newDetailViewController37,
+                      newDetailViewController38, newDetailViewController39, newDetailViewController40,newDetailViewController41, newDetailViewController42,
+                      newDetailViewController43, newDetailViewController44, newDetailViewController45, newDetailViewController46, newDetailViewController47,
+                      newDetailViewController48, newDetailViewController49, newDetailViewController50, nil];
     
     masterViewController.myDetailViewController = newDetailViewController0;
     
@@ -1441,6 +1491,26 @@ static WRViewController* mViewController = NULL;
 //}
 
 - (void)demoSwitchFlipped:(id)sender {
+    
+    if (![DynamicContent isFinalSurveyOnly]) {
+        [DynamicContent setFinalSurveyOnly];
+    }  else {
+        [DynamicContent clearFinalSurveyOnly];
+    }
+    bool finalSurvey = [DynamicContent isFinalSurveyOnly];
+    if (finalSurvey){
+        demoModeLabel.text = @"Final survey only: YES";
+        [demoSwitch setOn:YES];
+    }
+    else {
+        demoModeLabel.text = @"Final survey only: NO";
+        [demoSwitch setOn:NO];
+    }
+    NSLog(@"WRViewController.demoSwitchFlipped() finalSurveyOnly = %d", finalSurvey);
+
+}
+
+- (void)demoSwitchFlippedOld:(id)sender {
     
     if (demoSwitch.isOn) {
         runningAppInDemoMode = YES;
@@ -3097,6 +3167,11 @@ static WRViewController* mViewController = NULL;
 
 - (void)launchDynamicSurveyWithProviderAndSubclinicTest {
     NSLog(@"WRViewController.launchDynamicSurveyWithProviderAndSubclinicTest()");
+    if ([DynamicContent isFinalSurveyOnly]){
+        [self beginSatisfactionSurvey:beginSurveyButton];
+        return;
+    }
+
     [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] fadeInReadyForAppointmentButton];
     
 //    int currentSurveyPageIndex = 0;
@@ -3966,7 +4041,7 @@ static WRViewController* mViewController = NULL;
 - (void)launchAppWithSplashView {
     
     if (skipToPhysicianDetail && runningAppInDemoMode) {
-        endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(fadeSplashOutAndSlideButtonsIn:) userInfo:nil repeats:NO] retain];
+        endOfSplashTimer = [[NSTimer timerWithTimeInterval:0.3 target:self selector:@selector(fadeSplashOutAndSlideButtonsIn:) userInfo:nil repeats:NO] retain];
         [[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
         
         [tbvc setRespondentToPatient:self];
@@ -4054,7 +4129,7 @@ static WRViewController* mViewController = NULL;
 	}
 	[UIView commitAnimations];
 	
-	middleOfSplashTimer = [[NSTimer timerWithTimeInterval:3.0 target:self selector:@selector(middleSplashAnimation:) userInfo:nil repeats:NO] retain];
+	middleOfSplashTimer = [[NSTimer timerWithTimeInterval:3.5 target:self selector:@selector(middleSplashAnimation:) userInfo:nil repeats:NO] retain];
 	[[NSRunLoop currentRunLoop] addTimer:middleOfSplashTimer forMode:NSDefaultRunLoopMode];
 }
 
@@ -4140,7 +4215,7 @@ static WRViewController* mViewController = NULL;
 	[theTimer release];
 	theTimer = nil;
     // sandy reset view to match length of sound was 20
-    endOfSplashTimer = [[NSTimer timerWithTimeInterval:14.0 target:self selector:@selector(fadeSplashOutAndSlideButtonsIn:) userInfo:nil repeats:NO] retain];
+    endOfSplashTimer = [[NSTimer timerWithTimeInterval:8.5 target:self selector:@selector(fadeSplashOutAndSlideButtonsIn:) userInfo:nil repeats:NO] retain];
 	[[NSRunLoop currentRunLoop] addTimer:endOfSplashTimer forMode:NSDefaultRunLoopMode];
 }
 
@@ -4431,7 +4506,8 @@ static WRViewController* mViewController = NULL;
     surveyIntroLabel.numberOfLines = 0;
 	// sandy original 
     //surveyIntroLabel.text = @"Your participation in this survey is anonymous. Your responses will not be given to your physician or any other clinic staff. Your responses will not influence the services you receive at this clinic. By participating, you can help us provide a better rehabilitation experience.";
-    surveyIntroLabel.text = @"•\t Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your treatment provider or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
+    surveyIntroLabel.text = [DynamicContent getPrivacyPolicyForDisplay];
+    //surveyIntroLabel.text = @"•\t Hey! Your participation in this survey is anonymous. \n\n•\t Your responses will not be given to your treatment provider or any other clinic staff. \n\n•\t Your responses will not influence the services you receive at this clinic. ";
 	surveyIntroLabel.textColor = [UIColor blackColor];
 	surveyIntroLabel.backgroundColor = [UIColor clearColor];
     surveyIntroLabel.font = [UIFont fontWithName:@"Avenir" size:34];
@@ -6468,7 +6544,7 @@ static WRViewController* mViewController = NULL;
 
 - (void)beginSatisfactionSurvey:(id)sender {
     
-    NSLog(@"WRViewController.beginSatisfactionSurvey()");
+    NSLog(@"WRViewController.beginSatisfactionSurvey() id: %@", sender);
     
     // sandy 10_8_14 I think this should be added here or else just write new value to posttxdurstart
      [self resumeAppAfterTreatmentIntermission];

@@ -567,6 +567,8 @@ static RootViewController_Pad* mViewController = NULL;
 - (NSString*) getDeviceName {
     NSString *thisdeviceName = [[UIDevice currentDevice] name];
     thisdeviceName = [thisdeviceName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+    thisdeviceName = [thisdeviceName stringByReplacingOccurrencesOfString:@"#" withString:@"_"];
+    thisdeviceName = [thisdeviceName stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     thisdeviceName = [thisdeviceName stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     return thisdeviceName;
 }

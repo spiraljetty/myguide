@@ -608,6 +608,7 @@ static MainLoaderViewController* mViewController = NULL;
     standardPageButtonOverlay.view.alpha = 0.0;
     [self.view sendSubviewToBack:standardPageButtonOverlay.view];
     [DynamicContent clearProviderAndSubclinicSurveyComplete];
+    [DynamicContent clearFinalSurveyOnly];
     [self showWaitScreen];
     [self fadeOutWRVC];
     

@@ -475,14 +475,16 @@ static YLViewController* mYLViewController = NULL;
 
 - (void)wanderGuardSwitchFlipped:(id)sender {
     if (wanderGuardSwitch.isOn) {
-        NSLog(@"Turning wander guard ON");
+        NSLog(@"YLViewController.wanderGuardSwitchFlipped() Turning wander guard ON");
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] setWanderGuardActivated:YES];
         wanderSetting.text = @"Wander Guard is ON.";
     } else {
-        NSLog(@"Turning wander guard OFF");
+        NSLog(@"YLViewController.wanderGuardSwitchFlipped() Turning wander guard OFF");
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] setWanderGuardActivated:NO];
         wanderSetting.text = @"Wander Guard is OFF.";
     }
+    bool wanderGuard =         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] wanderGuardActivated];
+    NSLog(@"YLViewController.wanderGuardSwitchFlipped() wanderGuard: %d", wanderGuard);
 }
 
 - (void) setUploadDataStatusText:(NSString*) text{
