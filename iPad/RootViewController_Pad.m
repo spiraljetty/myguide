@@ -455,6 +455,8 @@ static RootViewController_Pad* mViewController = NULL;
     QuestionList* matchingSurvey = [DynamicContent getSurveyForCurrentClinicAndRespondent];
 
     if (matchingSurvey != NULL){
+        NSString* header1 = [matchingSurvey getHeader1];
+        [DynamicSurveyViewController_Pad setMiniSurveyPage2HeaderText:header1];
         NSArray* questionList1 = [matchingSurvey getQuestionSet1];
         int i = 0;
         for (NSString* question in questionList1){

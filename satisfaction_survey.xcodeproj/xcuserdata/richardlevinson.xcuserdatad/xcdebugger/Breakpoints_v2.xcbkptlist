@@ -10,60 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DynamicContent.m"
-            timestampString = "460962669.309948"
+            timestampString = "461720501.48111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1291"
-            endingLineNumber = "1291"
-            landmarkName = "+getSurveyForCurrentClinicAndRespondent"
+            startingLineNumber = "743"
+            endingLineNumber = "743"
+            landmarkName = "+readEdModules:session:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DynamicContent.m"
-            timestampString = "460963026.490992"
+            timestampString = "461720564.77144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1306"
-            endingLineNumber = "1306"
-            landmarkName = "+getSurveyForCurrentClinicAndRespondent"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "DynamicContent.m"
-            timestampString = "460962883.355284"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1295"
-            endingLineNumber = "1295"
-            landmarkName = "+getSurveyForCurrentClinicAndRespondent"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WRViewController.m"
-            timestampString = "461215726.659881"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1170"
-            endingLineNumber = "1170"
-            landmarkName = "-setNewDetailVCForRow:"
+            startingLineNumber = "744"
+            endingLineNumber = "744"
+            landmarkName = "+readEdModules:session:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

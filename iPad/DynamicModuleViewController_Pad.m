@@ -1305,8 +1305,8 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
 // Transition to new view using custom segue
 - (void)switchToView:(int)newIndex goingForward:(BOOL)goesForward{
     @try {
-        //if (vcIndex == ([newChildControllers count] - 1))
-        //    finishingLastItem = YES;
+        if (vcIndex == ([newChildControllers count] - 1))
+            finishingLastItem = YES;
         
         if (finishingLastItem && !goesForward)
         {
@@ -1518,7 +1518,7 @@ static DynamicModuleViewController_Pad* mViewController = NULL;
     if (playingMovie) {
         [self stopMoviePlayback];
     }
-    int newIndex = ((vcIndex + 1) % newChildControllers.count);
+    int newIndex = ((vcIndex + 1) % newChildControllers.count); //wrap around if necessary
     //    int newIndex = vcIndex--;
     [self switchToView:newIndex goingForward:NO];
     if (speakItemsAloud) {

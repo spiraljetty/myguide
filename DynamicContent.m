@@ -20,7 +20,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <NMSSH/NMSFTP.h>
 
-static NSString* mAppVersion = @"App Version: 8/13/15";
+static NSString* mAppVersion = @"App Version: 8/19/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -446,7 +446,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = msg;
             });
         }
-        NSString* clinicianLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* clinicianLine = line;//[DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (clinicianLine.length > 0){
             //NSLog(@"%@", line);
@@ -459,6 +459,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             for (int i=0; i<[clinicianProperties count]; i++) {
                 NSString* value = clinicianProperties[i];
                 value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                value = [DynamicContent cleanupText:value];
                 NSLog(@"%d: %@", i, value);
                 switch (i) {
                     case 0: [clinicianInfo setClinicianId:[value copy]]; break;
@@ -611,6 +612,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 for (int i=0; i<[clinicProperties count]; i++) {
                     NSString* value = clinicProperties[i];
                     value = [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+                    value = [DynamicContent cleanupText:value];
                     NSLog(@"clinic %@ prop %d: %@", [currentClinic getClinicName], i, value);
                     switch (i) {
                         case 0: [page setObject:value forKey:@"clinicId"]; break;
@@ -620,7 +622,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                         case 4: [page setObject:value forKey:@"subclinicNameShort"]; break;
                         case 5: [page setObject:value forKey:@"pageNumber"]; break;
                         case 6: [page setObject:value forKey:@"pageTitle"]; break;
-                        case 7: [page setObject:[DynamicContent cleanupText:value] forKey:@"pageText"]; break;
+                        case 7: [page setObject:value forKey:@"pageText"]; break;
                         case 8: [page setObject:value forKey:@"pageImage"];
                             if ([value length] > 0)
                                 [allImages addObject:value];
@@ -689,7 +691,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 viewController.downloadDataStatus.text = msg;
             });
         }
-        NSString* moduleLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* moduleLine = line; //[DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         
         if (moduleLine.length > 0){
             NSLog(@"DynamicContent.readEdModules() edmodules.txt line: %@", line);
@@ -702,7 +704,10 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 // read clinic page as triple <sub title, content, imagename>
                 NSArray* edModuleProperties = [moduleLine componentsSeparatedByCharactersInSet:
                                              [NSCharacterSet characterSetWithCharactersInString:@";"]];
-                
+                for (int i = 0; i < [edModuleProperties count]; i++){
+                    NSString* prop = [edModuleProperties objectAtIndex:i];
+                    prop = [DynamicContent cleanupText:prop];
+                }
                 //find the clinic container for all of the pages from that clinic
                 NSString* moduleName  = [edModuleProperties objectAtIndex:1];
                 NSString* moduleImage = [edModuleProperties objectAtIndex:2];
@@ -735,6 +740,8 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 int pageImageIndex  = 6;
                 int pageClinicsIndex =7;
                 NSString* imageName = edModuleProperties[pageImageIndex];
+                if ([imageName hasPrefix:@"nophotoyet."])
+                    imageName = @"";
                 [newPage setModuleName: edModuleProperties[moduleNameIndex]];
                 [newPage setModuleImage: edModuleProperties[moduleImageIndex]];
                 [newPage setPageNumber:edModuleProperties[pageNumberIndex]];
@@ -755,7 +762,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
         } // end if line length > 0
     }// end for line in lines
     
-    NSString* msg = [NSString stringWithFormat:@"Loaded %d modules", [allModules count]];
+    NSString* msg = [NSString stringWithFormat:@"Loaded %lu modules", (unsigned long)[allModules count]];
     NSLog(msg);
     
     // download the image file for each ed module page
@@ -1006,7 +1013,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     int lineNumber = 0;
     for (NSString *line in lines) {
         if (lineNumber++ > 0){
-            NSString* settingsLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+            NSString* settingsLine = line;//[DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
             if (settingsLine.length > 0){
                 NSLog(@"DynamicContent.readAdminSettings() adminsettings.txt line: %@", settingsLine);
                 // parse row containing settings details
@@ -1022,13 +1029,13 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                                     [NSCharacterSet characterSetWithCharactersInString:@";"]];
                     for (NSString* word in settingsRow){
                         if ( [word length] > 0 && ![word isEqualToString:@"1"] && ![word hasSuffix:@"yahoo.com"])
-                            [allSettings addObject:word];
+                            [allSettings addObject:[DynamicContent cleanupText:word]];
                     }
                 }
             }
         }
     }
-    NSLog(@"Loaded (%d) settings", [allSettings count]);
+    NSLog(@"Loaded (%lu) settings", (unsigned long)[allSettings count]);
     for (NSString* info in allSettings){
         NSLog(@"%@", info);
     }
@@ -1044,7 +1051,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
-        NSString* goalLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* goalLine = line;//[DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         if (goalLine.length > 0){
             NSLog(@"DynamicContent.readGoalInfo() goals.txt line: %@", goalLine);
             // parse row containing goal details
@@ -1066,6 +1073,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                 NSMutableArray* caregiverGoals =  [[NSMutableArray alloc] init];
                 for (int i=2; i<[goalRow count]; i++) {
                     NSString* goal = goalRow[i];
+                    goal = [DynamicContent cleanupText:goal];
                     goal = [goal stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
                     NSLog(@"goal %@ prop %d: %@", respondent, i, goal);
                     
@@ -1103,7 +1111,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
             }
         }
     }
-    NSLog(@"Loaded (%d) goals", [allGoals count]);
+    NSLog(@"Loaded (%lu) goals", (unsigned long)[allGoals count]);
     for (GoalInfo* info in allGoals){
         [info writeToLog];
     }
@@ -1120,17 +1128,19 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
     QuestionList* questionInfo = [[QuestionList alloc] init];
     NSArray * lines = [self readFile:filePath];
     for (NSString *line in lines) {
-        NSString* cleanLine = [DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
+        NSString* cleanLine = line;//[DynamicContent cleanupText:line];//[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ];
         if (cleanLine.length > 0){
             NSLog(@"DynamicContent.readQuestionInfo() survey_questions.txt line: %@", cleanLine);
             if([cleanLine hasPrefix:@"//"]){
                 NSLog(@"DynamicContent.readQuestionInfo() comment: %@", cleanLine);
             }
             else {
-                if ([cleanLine hasSuffix:@";"]){
+                
+                 if ([cleanLine hasSuffix:@";"]){
                     int index = [cleanLine length] -1;
                     cleanLine = [cleanLine substringToIndex: index];
                 }
+                
                 NSArray* row = [cleanLine componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@";"]];
                 
@@ -1141,11 +1151,13 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                                         stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
                 // pre-survey header plus 3 questions
-                NSString* header1 = [[row objectAtIndex:2]
-                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString* header1 = [row objectAtIndex:2];
+                header1 = [DynamicContent cleanupText:header1];
+                header1 = [header1 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSMutableArray* questionList1 = [[NSMutableArray alloc] init];
                 for (int i=3; i<6; i++) {
                     NSString* question = row[i];
+                    question = [DynamicContent cleanupText:question];
                     question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     [questionList1 addObject:question];
                 }
@@ -1157,21 +1169,25 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
                                                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 
                 // post-survey header plus 15 questions
-                NSString* header2 = [[row objectAtIndex:8]
-                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString* header2 = [row objectAtIndex:8];
+                header2 = [DynamicContent cleanupText:header2];
+                header2 = [header2 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSMutableArray* questionList2 = [[NSMutableArray alloc] init];
                 for (int i=9; i<24; i++) {
                     NSString* question = row[i];
+                    question = [DynamicContent cleanupText:question];
                     question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     [questionList2 addObject:question];
                 }
                 
                 // mini post-survey header plus 10 questions
-                NSString* header3 = [[row objectAtIndex:24]
-                                     stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                NSString* header3 = [row objectAtIndex:24];
+                header3 = [DynamicContent cleanupText:header3];
+                header3 = [header3 stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                 NSMutableArray* questionList3 = [[NSMutableArray alloc] init];
                 for (int i=25; i<35; i++) {
                     NSString* question = row[i];
+                    question = [DynamicContent cleanupText:question];
                     question = [question stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                     [questionList3 addObject:question];
                 }
@@ -1194,7 +1210,7 @@ static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
         }
     }
 
-    NSLog(@"Loaded questions (%d)", [allQuestions count]);
+    NSLog(@"Loaded questions (%lu)", (unsigned long)[allQuestions count]);
     for (QuestionList* info in allQuestions){
         [info writeToLog];
     }

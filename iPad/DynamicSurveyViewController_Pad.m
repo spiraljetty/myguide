@@ -123,6 +123,14 @@ static SwitchedImageViewController *miniSurveyPage4 = NULL;
     
 }
 
+//+ (void) setMiniSurveyPage1HeaderText:(NSString*) text {
+//    miniSurveyPage1.currentPromptString = [text copy];
+//}
+
++ (void) setMiniSurveyPage2HeaderText:(NSString*) text {
+    miniSurveyPage2.currentPromptString = [text copy];
+}
+
 + (void) setMiniSurveyPage2Text:(NSString*) text {
     miniSurveyPage2.currentSatisfactionString = [text copy];
 }
