@@ -3,7 +3,7 @@
 //  satisfaction_survey
 //
 //  Created by Richard Levinson on 9/13/14.
-//
+////
 //
 
 #import "DynamicContent.h"
@@ -20,7 +20,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <NMSSH/NMSFTP.h>
 
-static NSString* mAppVersion = @"App Version: 8/19/15";
+static NSString* mAppVersion = @"App Version: 11/13/15";
 
 static NSArray* mAllGoals = NULL;
 static NSArray* mAllClinics = NULL;
@@ -64,6 +64,7 @@ static bool wasNotificationSent = false;
 static bool providerAndSubclinicSurveyComplete = false;
 static bool finalSurveyOnly = false;
 
+static bool defaultWanderguardActivatedSetting = NO;
 
 static DynamicModuleViewController_Pad* mCurrentEdModuleViewController = NULL;
 
@@ -2366,6 +2367,10 @@ NSString *readLineAsNSString(FILE *file) // rjl 8/16/14
 
 + (BOOL) isFinalSurveyOnly {
     return finalSurveyOnly;
+}
+
++ (BOOL) getDefaultWanderguardActivatedSetting {
+    return defaultWanderguardActivatedSetting;
 }
 
 @end

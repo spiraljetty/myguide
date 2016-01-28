@@ -179,6 +179,8 @@ static YLViewController* mYLViewController = NULL;
     
 //    AppDelegate_Pad *appDelegate=(AppDelegate_Pad *)[AppDelegate_Pad sharedAppDelegate];
     [appDelegate.loaderViewController.currentWRViewController.settingsVC updateSoundSettingsBasedOnHeadsetStatus];
+    //[wanderGuardSwitch setOn:[SettingsViewController getViewController].wanderGuardActivated];
+    [wanderGuardSwitch setHidden:true];
 }
 
 - (void)updateLinkDisplayWithLinkType:(NetworkStatus)thisNetworkStatus {
@@ -189,9 +191,9 @@ static YLViewController* mYLViewController = NULL;
             case NotReachable:
                 linkStatus.text = @"No Link";
 //                NSLog(@"====== Updating link type to: NotReachable ========");
-//                networkStatus.text = @"Connected";
+                //networkStatus.text = @"Not Connected1";
                 linkImage.image = [UIImage imageNamed:@"no_connection_frame1.png"];
-                
+                [SettingsViewController.getViewController updateNetworkStatusWithConnectionType:kConnectionFailed];
                 //wanderSetting.text = @"Wander Guard disabled.";
                 
                 break;
@@ -213,9 +215,11 @@ static YLViewController* mYLViewController = NULL;
 //                NSLog(@"====== Updating link type to: ReachableViaWiFi ========");
 //                networkStatus.text = @"Connection Failed";
                 linkImage.image = [UIImage imageNamed:@"Airport.png"];
-                
+                [SettingsViewController.getViewController updateNetworkStatusWithConnectionType:kConnected];
+                NSString* networkName = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] lastConnectedWIFISSIDName];
+                [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController].wiFiNetworkName.text = [NSString stringWithFormat:@"Network: %@", networkName];
                 if (isWanderGuardEnabled) {
-                    NSString *wanderGuardText = [NSString stringWithFormat:@"Alarm will sound when traveling too far away from WIFI Access Point: %@", [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] lastConnectedWIFISSIDName]];
+                    NSString *wanderGuardText = [NSString stringWithFormat:@"Alarm will sound when traveling too far away from WIFI Access Point: %@", networkName];
                     wanderSetting.text = wanderGuardText;
                 } else {
                   //  wanderSetting.text = @"Wander Guard disabled.";
@@ -225,14 +229,17 @@ static YLViewController* mYLViewController = NULL;
                 
             default:
                 linkStatus.text = @"No Link";
-//                networkStatus.text = @"Not Connected";
+                //networkStatus.text = @"Not Connected2";
                 linkImage.image = [UIImage imageNamed:@"no_connection_frame1.png"];
+                [SettingsViewController.getViewController updateNetworkStatusWithConnectionType:kConnectionFailed];
                 break;
         }
-    //    NSLog(@"YLViewController.updateLinkDisplayWithLinkType() link type %u", thisNetworkStatus);
+       // NSLog(@"YLViewController.updateLinkDisplayWithLinkType() link type %u", thisNetworkStatus);
 }
 
 - (void)updateNetworkDisplayWithConnectionType:(ConnectionType)thisConnectionType {
+    //NSLog(@"YLViewController.updateNetworkDisplayWithConnectionType() connectionType %u", thisConnectionType);
+
     switch (thisConnectionType) {
         case kConnected:            
                 networkStatus.text = @"Connected";

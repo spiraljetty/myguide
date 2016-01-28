@@ -142,6 +142,8 @@
 + (void) clearFinalSurveyOnly;
 + (BOOL) isFinalSurveyOnly;
 
++(BOOL) getDefaultWanderguardActivatedSetting;
+
 +(BOOL)directoryExists:(NSString *)path;
 + (BOOL) urlExists:(NSString* )path;
 + (void) getFilelist;

@@ -107,6 +107,7 @@ typedef enum {
     BOOL checkingForFinalSurvey;
     
     UISwitch *demoSwitch;
+    UISwitch *leashSwitch;
     
     NSString *mainClinicName;
     NSString *subClinicName;
@@ -240,6 +241,8 @@ typedef enum {
     KSLabel *initialSettingsLabel;
     
     IBOutlet UILabel *demoModeLabel;
+    IBOutlet UILabel *wanderguardModeLabel;
+    IBOutlet UILabel *wiFiNetworkName;
     IBOutlet UILabel *clinicSelectionLabel;
     IBOutlet V8HorizontalPickerView *clinicPickerView;
     UISegmentedControl *clinicSegmentedControl;
@@ -426,7 +429,10 @@ typedef enum {
 @property (nonatomic, retain) NSString *deviceName;
 
 @property (nonatomic, retain) UISwitch *demoSwitch;
+@property (nonatomic, retain) UISwitch *leashSwitch;
 @property (nonatomic, retain) UILabel *demoModeLabel;
+@property (nonatomic, retain) UILabel *wanderguardModeLabel;
+@property (nonatomic, retain) UILabel *wiFiNetworkName;
 @property (nonatomic, retain) UILabel *clinicSelectionLabel;
 @property (nonatomic, retain) V8HorizontalPickerView *clinicPickerView;
 @property (nonatomic, retain) UISegmentedControl *clinicSegmentedControl;

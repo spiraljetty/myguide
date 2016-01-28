@@ -97,7 +97,9 @@ static SettingsViewController* mViewController = NULL;
     shouldDisplayAlertAndPlayWanderAlarm = NO;
     connectedToWIFI = NO;
     lastConnectedWIFISSIDName = @"None";
-    wanderGuardActivated = NO;
+    
+    // INITIAL WanderGuard Setting
+    wanderGuardActivated = [DynamicContent getDefaultWanderguardActivatedSetting];
     
     shouldDisplayHeadsetAlert = NO;
 //    headsetPluggedIn = [self isHeadsetPluggedIn];
@@ -1466,12 +1468,13 @@ static SettingsViewController* mViewController = NULL;
 }
 
 - (void)updateNetworkStatusWithConnectionType:(ConnectionType)thisConnectionType {
-    NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType()");
+    //NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType()");
     @try {
-        currentConnectionType = thisConnectionType;
-        [soundViewController updateNetworkDisplayWithConnectionType:thisConnectionType];
-    
-        NSLog(@"SSID Name:\n%@...", [self fetchSSIDName]);
+        if (thisConnectionType != currentConnectionType){
+            currentConnectionType = thisConnectionType;
+            [soundViewController updateNetworkDisplayWithConnectionType:thisConnectionType];
+            NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType() SSID Name:\n%@...", [self fetchSSIDName]);
+        }
     } @catch (NSException *e){
         NSLog(@"SettingsViewController.updateNetworkStatusWithConnectionType() ERROR: %@", e.reason);
     }
@@ -1504,7 +1507,7 @@ static SettingsViewController* mViewController = NULL;
             connectedToWIFI = YES;
             
             
-            if (wanderGuardActivated) {
+            if (false){ //wanderGuardActivated) {
                 if ([self isDifferentSSID]) {
                     if (!loopAlarm) {
                         shouldDisplayAlertAndPlayWanderAlarm = YES;
@@ -1518,6 +1521,8 @@ static SettingsViewController* mViewController = NULL;
             
             lastConnectedWIFISSIDName = [self fetchSSIDName];
             soundViewController.wifiSSIDName.text = lastConnectedWIFISSIDName;
+            WRViewController* wrViewController = [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController];
+            wrViewController.wiFiNetworkName.text = [NSString stringWithFormat:@"Network: %@",lastConnectedWIFISSIDName];
             
             break;
         case ReachableViaWWAN:

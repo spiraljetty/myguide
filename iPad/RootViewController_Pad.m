@@ -823,7 +823,10 @@ static RootViewController_Pad* mViewController = NULL;
 //    BOOL inDemoMode = [[AppDelegate_Pad sharedAppDelegate] isAppRunningInDemoMode];
     BOOL inDemoMode = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] isAppRunningInDemoMode];
 //    NSString *currentAppVersion = [[AppDelegate_Pad sharedAppDelegate] appVersion];
-    NSString *currentAppVersion = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
+    NSString *currentAppVersion = [DynamicContent getAppVersion];
+    if ([currentAppVersion hasPrefix:@"App Version:"])
+        currentAppVersion = [currentAppVersion substringFromIndex:[@"App Version:" length]];
+    //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] appVersion];
     
 //    NSString *currentDeviceName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] deviceName];
 //    NSString *currentDeviceName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] deviceName];
@@ -844,6 +847,8 @@ static RootViewController_Pad* mViewController = NULL;
     BOOL hasFinishedSurvey = FALSE; //[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] finishedsurvey];
     
     NSString *accesspointName = [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] settingsVC] lastConnectedWIFISSIDName];
+    [NSString stringWithFormat:@"Network: %@",accesspointName];
+    [[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController].wiFiNetworkName.text = [NSString stringWithFormat:@"Network: %@",accesspointName];
     
     NSString *thisClinicName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentClinicName];
     NSString *thisSpecialtyClinicName = [[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] currentWRViewController] currentSpecialtyClinicName];
@@ -875,7 +880,7 @@ static RootViewController_Pad* mViewController = NULL;
     NSString *goalchoices = @"none";
     NSString *typedGoal = @"none";
     NSString *selfguideselected = @"none";
-    NSString* addToSelfGuideStatus  = @"-"; // initialize this array
+    NSString* addToSelfGuideStatus  = @""; // initialize this array
     NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
     [mySelfGuideStatusArray removeAllObjects];
     [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
@@ -1799,6 +1804,7 @@ static RootViewController_Pad* mViewController = NULL;
                 q30Tmp = q30Tmp +1;
                 
                 NSDate *now = [NSDate dateWithTimeIntervalSince1970:yearTmp];
+                NSDate *timeStamp = [NSDate dateWithTimeIntervalSince1970:Tmp_timestamp];
                 NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
                 NSDateComponents *components = [calendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit) fromDate:now];
                 //
@@ -1814,12 +1820,11 @@ static RootViewController_Pad* mViewController = NULL;
                 //[dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
                 [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
                 NSString *strDateTime   = [dateFormatter stringFromDate:now];
-    
+                NSString *strTimestamp = [dateFormatter stringFromDate:timeStamp];
                 
+               NSLog(@"logged values %d,%d,'%@',%d,'%@','%@',%d,%d,'%@',%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@'",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,strTimestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_typedGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,Tmp_selfguideselected);
                 
-               NSLog(@"logged values %d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@'",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,Tmp_timestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_typedGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,Tmp_selfguideselected);
-                
-                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@'",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,Tmp_timestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_typedGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,Tmp_selfguideselected], nil];
+                rowArray = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%d,%d,'%@',%d,'%@','%@',%d,%d,'%@',%d,%d,%@,%@,%@,%@,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@'",Tmp_currentUniqueID,Tmp_pilot,Tmp_accesspoint,Tmp_wanderON,Tmp_currentAppVersion,Tmp_ipadname,Tmp_demo,Tmp_month,strTimestamp,Tmp_startedsurvey,Tmp_finishedsurvey,Tmp_pretxdur,Tmp_selfguidedur,Tmp_treatmentdur,Tmp_posttxdur,Tmp_totaldur,Tmp_pretxcompleteper,Tmp_selfcompleteper,Tmp_posttxcompleteper,Tmp_totalcompleteper,Tmp_thisVisitString,Tmp_thisClinicName,Tmp_thisSpecialtyClinicName,Tmp_thisProviderName,Tmp_respondentType,Tmp_voiceassist,Tmp_fontsize,Tmp_providertest,Tmp_selectedname,Tmp_clinictest,Tmp_selectedclinic,Tmp_goalchoices,Tmp_typedGoal,Tmp_ps1reason,Tmp_ps2prepared,Tmp_ps3looking,Tmp_ps4prohelp,Tmp_ps5clinichelp,Tmp_presurvey6,Tmp_presurvey7,Tmp_presurvey8,Tmp_presurvey9,Tmp_presurvey10,q1Tmp,q2Tmp,q3Tmp,q4Tmp,q5Tmp,q6Tmp,q7Tmp,q8Tmp,q9Tmp,q10Tmp,q11Tmp,q12Tmp,q13Tmp,q14Tmp,q15Tmp,q16Tmp,q17Tmp,q18Tmp,q19Tmp,q20Tmp,q21Tmp,q22Tmp,q23Tmp,q24Tmp,q25Tmp,q26Tmp,q27Tmp,q28Tmp,q29Tmp,q30Tmp,Tmp_selfguideselected], nil];
 
   // 10-14-14 version of DB              sqlStatementString = [NSString stringWithFormat:@"insert into sessiondata values(%d,%d,'%@',%d,'%@','%@',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%@','%@','%@','%@','%@',%d,%d,%d,'%@',%d,'%@','%@','%@',-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,'%@')",currentUniqueID,[[NSNumber numberWithBool:inPilotPhase]intValue],accesspointName,[[NSNumber numberWithBool:wanderGuardIsON]intValue],currentAppVersion,[[UIDevice currentDevice] name],[[NSNumber numberWithBool:inDemoMode]intValue],[self getCurrentMonth],[self getCurrentDateTime],[[NSNumber numberWithBool:hasStartedSurvey]intValue],[[NSNumber numberWithBool:hasFinishedSurvey]intValue],pretxdur,selfguidedur,treatmentdur,posttxdur,totaldur,pretxcompleteper,selfcompleteper,posttxcompleteper,totalcompleteper,thisVisitString,thisClinicName,thisSpecialtyClinicName,thisProviderName,respondentType,[[NSNumber numberWithBool:speakItemsAloud]intValue],fontsize,providertest,selectedname,clinictest,selectedclinic,goalchoices,typedGoal,selfguideselected];
    //             NSLog(@"sqlStatement values %@",sqlStatementString);

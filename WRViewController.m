@@ -58,7 +58,7 @@
 @synthesize firstVisitButton, returnVisitButton, readyAppButton, voiceAssistButton, fontsizeButton;
 @synthesize readAloudLabel, respondentLabel, selectActivityLabel, surveyIntroLabel, presurveyIntroLabel, surveyCompleteLabel, visitSelectionLabel, selectedClinic, selectedVisit, selectedSubclinic;
 @synthesize popoverViewController;
-@synthesize taperedWhiteLine, demoSwitch, demoModeLabel, clinicSelectionLabel, clinicPickerView, currentClinicName, currentSubClinicName, currentSpecialtyClinicName;
+@synthesize taperedWhiteLine, demoSwitch, demoModeLabel, wiFiNetworkName, leashSwitch, clinicSelectionLabel, clinicPickerView, currentClinicName, currentSubClinicName, currentSpecialtyClinicName;
 @synthesize educationModuleCompleted, educationModuleInProgress, satisfactionSurveyCompleted, satisfactionSurveyDeclined, satisfactionSurveyInProgress, cameFromMainMenu, mainMenuInitialized, whatsNewInitialized, dynamicSurveyInitialized, dynamicEdModuleCompleted, whatsNewModuleCompleted, completedProviderSession, completedFinalSurvey, startedsurvey, finishedsurvey,completedProviderAndSubclinicSurvey, usingFullMenu;
 @synthesize initialSettingsLabel, clinicSegmentedControl, specialtyClinicSegmentedControl, switchToSectionSegmentedControl, nextSettingsButton, edModule, physicianModule, dynamicEdModule, dynamicSubclinicEdModule, currentDynamicSubClinicEdModuleSpecFilename, nextEdItemButton, previousEdItemButton, nextPhysicianDetailButton, previousPhysicianDetailButton;
 @synthesize currentDynamicClinicEdModuleSpecFilename, dynamicWhatsNewModule, dynamicEdModule1, dynamicEdModule2, dynamicEdModule3, dynamicEdModule4, dynamicEdModule5, dynamicEdModule6, dynamicEdModule7, dynamicEdModule8, dynamicEdModule9, dynamicEdModule10, currentDynamicWhatsNewModuleSpecFilename;
@@ -601,7 +601,7 @@ static WRViewController* mViewController = NULL;
 //        [demoSwitch setOn:NO];
 //    }
     
-    [demoSwitch setCenter:CGPointMake(500.0f, 600.0f)];
+    [demoSwitch setCenter:CGPointMake(425.0f, 640.0f)];
 //    [demoSwitch setCenter:CGPointMake(600.0f, 700.0f)];
     [demoSwitch setBackgroundColor:[UIColor clearColor]];
     //demoSwitch.transform = rotateRight;
@@ -618,13 +618,63 @@ static WRViewController* mViewController = NULL;
 	demoModeLabel.backgroundColor = [UIColor clearColor];
     demoModeLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	demoModeLabel.opaque = YES;
-    [demoModeLabel setCenter:CGPointMake(250.0f, 600.0f)];
+    [demoModeLabel setCenter:CGPointMake(225.0f, 640.0f)];
 //    [demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
     //demoModeLabel.transform = rotateRight;
     
     [self.view addSubview:demoModeLabel];
     
+    leashSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 26.0)];
+    [leashSwitch addTarget:self action:@selector(wanderguardSwitchFlipped:) forControlEvents:UIControlEventTouchUpInside];
+    //    if (forceToDemoMode) {
+    //        if (!collectingPilotData) {
+    //            [demoSwitch setOn:YES];
+    //        }
+    //    } else {
+    //        [demoSwitch setOn:NO];
+    //    }
     
+    [leashSwitch setCenter:CGPointMake(425.0f, 540.0f)];
+    //    [demoSwitch setCenter:CGPointMake(600.0f, 700.0f)];
+    [leashSwitch setBackgroundColor:[UIColor clearColor]];
+    //demoSwitch.transform = rotateRight;
+    [self.view addSubview:leashSwitch];
+    bool isWanderguardOn = [DynamicContent getDefaultWanderguardActivatedSetting];
+    
+    if (isWanderguardOn)
+        [leashSwitch setOn:YES];
+    else
+        [leashSwitch setOn:NO];
+    [SettingsViewController getViewController].wanderGuardActivated = isWanderguardOn;
+    wanderguardModeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 450, 450)];
+
+    if (isWanderguardOn)
+        wanderguardModeLabel.text = @"Wanderguard: ON";
+    else
+        wanderguardModeLabel.text = @"Wanderguard: OFF";
+    wanderguardModeLabel.textAlignment = UITextAlignmentCenter;
+    wanderguardModeLabel.textColor = [UIColor blackColor];
+    wanderguardModeLabel.backgroundColor = [UIColor clearColor];
+    wanderguardModeLabel.font = [UIFont fontWithName:@"Avenir" size:30];
+    wanderguardModeLabel.opaque = YES;
+    [wanderguardModeLabel setCenter:CGPointMake(250.0f, 540.0f)];
+    //    [demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
+    //demoModeLabel.transform = rotateRight;
+    
+    [self.view addSubview:wanderguardModeLabel];
+    
+    wiFiNetworkName = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 450, 450)];
+    wiFiNetworkName.text = @"Network: None";
+    wiFiNetworkName.textAlignment = UITextAlignmentCenter;
+    wiFiNetworkName.textColor = [UIColor blackColor];
+    wiFiNetworkName.backgroundColor = [UIColor clearColor];
+    wiFiNetworkName.font = [UIFont fontWithName:@"Avenir" size:30];
+    wiFiNetworkName.opaque = YES;
+    [wiFiNetworkName setCenter:CGPointMake(625.0f, 540.0f)];
+    //    [demoModeLabel setCenter:CGPointMake(600.0f, 900.0f)];
+    //demoModeLabel.transform = rotateRight;
+    
+    [self.view addSubview:wiFiNetworkName];
     
     nextSettingsButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	nextSettingsButton.frame = CGRectMake(0, 0, 150, 139);
@@ -653,7 +703,7 @@ static WRViewController* mViewController = NULL;
     visitSelectionLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	visitSelectionLabel.opaque = YES;
 //    [visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
-    [visitSelectionLabel setCenter:CGPointMake(512.0f, 320.0f)];
+    [visitSelectionLabel setCenter:CGPointMake(512.0f, 280.0f)];
 //    [visitSelectionLabel setCenter:CGPointMake(330.0f, 755.0f)];
 //    visitSelectionLabel.transform = rotateRight;
     
@@ -667,7 +717,7 @@ static WRViewController* mViewController = NULL;
 	[firstVisitButton setImage:[UIImage imageNamed:@"first_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[firstVisitButton setImage:[UIImage imageNamed:@"first_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	firstVisitButton.backgroundColor = [UIColor clearColor];
-	[firstVisitButton setCenter:CGPointMake(400.0f, 400.0f)];
+	[firstVisitButton setCenter:CGPointMake(400.0f, 360.0f)];
 //    [firstVisitButton setCenter:CGPointMake(400.0f, 860.0f)];
 	[firstVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	firstVisitButton.enabled = YES;
@@ -705,7 +755,7 @@ static WRViewController* mViewController = NULL;
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateHighlighted];
 	[returnVisitButton setImage:[UIImage imageNamed:@"return_visit_button_image_pressed.png"] forState:UIControlStateSelected];
 	returnVisitButton.backgroundColor = [UIColor clearColor];
-    [returnVisitButton setCenter:CGPointMake(620.0f, 400.0f)];
+    [returnVisitButton setCenter:CGPointMake(620.0f, 360.0f)];
 //    [returnVisitButton setCenter:CGPointMake(400.0f, 660.0f)];
 	[returnVisitButton addTarget:self action:@selector(visitButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	returnVisitButton.enabled = YES;
@@ -1550,6 +1600,24 @@ static WRViewController* mViewController = NULL;
     [self updateMiniDemoSettings];
 }
 
+- (void) wanderguardSwitchFlipped:(id)sender {
+    SettingsViewController *settingsView = [SettingsViewController getViewController];
+    settingsView.wanderGuardActivated = !settingsView.wanderGuardActivated;
+    if (settingsView.wanderGuardActivated){
+        wanderguardModeLabel.text = @"Wanderguard: ON";
+        [leashSwitch setOn:YES];
+    }
+    else {
+        wanderguardModeLabel.text = @"Wanderguard: OFF";
+        [leashSwitch setOn:NO];
+    }
+    wiFiNetworkName.text =
+        [NSString stringWithFormat:@"Network: %@", settingsView.lastConnectedWIFISSIDName];
+
+    NSLog(@"wanderguardSwitchFlipped() Wanderguard = %d", settingsView.wanderGuardActivated);
+    
+}
+
 - (void)updateMiniDemoSettings {
     NSLog(@"WRViewController.updateMiniDemoSettings()");
 
@@ -1689,6 +1757,9 @@ static WRViewController* mViewController = NULL;
         taperedWhiteLine.alpha = 0.0;
         demoSwitch.alpha = 0.0;
         demoModeLabel.alpha = 0.0;
+        leashSwitch.alpha = 0.0;
+        wanderguardModeLabel.alpha = 0.0;
+        wiFiNetworkName.alpha = 0.0;
         switchToSectionSegmentedControl.alpha = 0.0;
         nextSettingsButton.alpha = 0.0;
     }
@@ -3525,11 +3596,11 @@ static WRViewController* mViewController = NULL;
         }
     }
     [DynamicContent fadeEdModulePickerOut];
-    
-    [self fadeEdModuleIn:[moduleInfo getModuleName]];
+    NSString* moduleName = [moduleInfo getModuleName];
+    [self fadeEdModuleIn:moduleName];
     //sandy 10-15-14
     //TBD add code to indicate that this module was started in the db
-    NSString* addToSelfGuideStatus  = @"WhatNewStart";
+    NSString* addToSelfGuideStatus  = moduleName; //@"WhatNewStart";
     
     NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
     //    [mySelfGuideStatusArray insertObject:addToSelfGuideStatus atIndex: 0];
@@ -3539,7 +3610,10 @@ static WRViewController* mViewController = NULL;
     for (int i = 0; i < count; i++)
         NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
     NSString *appendedSelfGuideStatusString;
-    appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@-%@", existingSelfGuideString  , addToSelfGuideStatus];
+    if ([existingSelfGuideString length] == 0)
+        appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@", addToSelfGuideStatus];
+    else
+        appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@; %@", existingSelfGuideString  , addToSelfGuideStatus];
     [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
     [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
     RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
@@ -6123,6 +6197,25 @@ static WRViewController* mViewController = NULL;
 }
 
 - (void) launchTbiEdModule {
+    NSString* moduleName = @"Learn about Traumatic Brain Injury";
+    NSString* addToSelfGuideStatus  = moduleName;
+    
+    NSMutableArray* mySelfGuideStatusArray = [DynamicContent getSelfGuideStatus];
+    NSString* existingSelfGuideString  = [mySelfGuideStatusArray objectAtIndex:0];
+    NSLog(@"WRViewController.launchTbiEdModule() existing SelfGuideString%@",existingSelfGuideString);
+    NSUInteger count = [mySelfGuideStatusArray count];
+    for (int i = 0; i < count; i++)
+        NSLog (@"%@,", [mySelfGuideStatusArray objectAtIndex: i]);
+    NSString *appendedSelfGuideStatusString;
+    if ([existingSelfGuideString length] == 0)
+        appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@", addToSelfGuideStatus];
+    else
+        appendedSelfGuideStatusString = [NSString stringWithFormat:@"%@; %@", existingSelfGuideString  , addToSelfGuideStatus];
+    [mySelfGuideStatusArray addObject:addToSelfGuideStatus];
+    [mySelfGuideStatusArray insertObject:appendedSelfGuideStatusString atIndex: 0];
+    RootViewController_Pad* rootViewController = [RootViewController_Pad getViewController];
+    [rootViewController updateSurveyTextForField:@"selfguideselected" withThisText:[NSString stringWithFormat:@"%@",appendedSelfGuideStatusString]];
+
     [DynamicContent fadeEdModulePickerOut];
     [self resetProgressBar];
     totalSlidesInThisSection = [DynamicContent getTbiEdModulePageCount];
@@ -7075,7 +7168,7 @@ static WRViewController* mViewController = NULL;
     UIViewController *modalSilenceAlarmView = [[UIViewController alloc] init];
     modalSilenceAlarmView.view.frame = CGRectMake(0, 0, 1024, 768);
     modalSilenceAlarmView.view.alpha = 0.0;
-    [modalSilenceAlarmView.view setCenter:CGPointMake(500.0f, 350.0f)];
+    [modalSilenceAlarmView.view setCenter:CGPointMake(600.0f, 350.0f)];
 //    [modalSilenceAlarmView.view setCenter:CGPointMake(350.0f, 500.0f)];
     
     if (currentModalVC) {
@@ -7095,7 +7188,7 @@ static WRViewController* mViewController = NULL;
     treatmentIntermissionLable.textAlignment = UITextAlignmentCenter;
     treatmentIntermissionLable.font = [UIFont fontWithName:@"Avenir-Medium" size:60];
     treatmentIntermissionLable.numberOfLines = 0;
-    [treatmentIntermissionLable setCenter:CGPointMake(512.0f, 150.0f)];
+    [treatmentIntermissionLable setCenter:CGPointMake(450.0f, 150.0f)];
     //    treatmentIntermissionLable.transform = rotateRight;
     [modalSilenceAlarmView.view addSubview:treatmentIntermissionLable];
     
@@ -7123,13 +7216,13 @@ static WRViewController* mViewController = NULL;
 	pleaseHoldiPadLabel.backgroundColor = [UIColor clearColor];
     pleaseHoldiPadLabel.font = [UIFont fontWithName:@"Avenir" size:30];
 	pleaseHoldiPadLabel.opaque = YES;
-	[pleaseHoldiPadLabel setCenter:CGPointMake(512.0f, 680.0f)];
+	[pleaseHoldiPadLabel setCenter:CGPointMake(450.0f, 680.0f)];
     //    pleaseHoldiPadLabel.transform = rotateRight;
     
     keycodeField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0, 135, 30)];
     keycodeField.borderStyle = UITextBorderStyleBezel;
     keycodeField.textAlignment = UITextAlignmentLeft;
-    [keycodeField setCenter:CGPointMake(150.0f, 550.0f)];
+    [keycodeField setCenter:CGPointMake(100.0f, 550.0f)];
     keycodeField.alpha = 0.0;
     [modalSilenceAlarmView.view addSubview:keycodeField];
     
@@ -7931,7 +8024,6 @@ static WRViewController* mViewController = NULL;
         //sandy's edits
         
         testMsg.fromEmail = @"psc.waitingroom.app2014@gmail.com";
-        testMsg.toEmail = @"rich@brainaid.com"; //rjl 9/14/15
         //testMsg.toEmail = @"spiraljetty@yahoo.com";
         testMsg.relayHost = @"smtp.gmail.com";
         testMsg.requiresAuth = YES;
@@ -8051,6 +8143,8 @@ static WRViewController* mViewController = NULL;
         [[[[[AppDelegate_Pad sharedAppDelegate] loaderViewController] miniDemoVC] view] setAlpha:1.0];
         
     }
+    wiFiNetworkName.text =
+        [NSString stringWithFormat:@"Network: %@", [SettingsViewController getViewController].lastConnectedWIFISSIDName];
 }
 
 - (void)dealloc {

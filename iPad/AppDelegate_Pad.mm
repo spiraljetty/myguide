@@ -166,6 +166,9 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
         //The distance in meters a device must move before an update event is triggered
         _locationManager.distanceFilter=5;
         self.locationManager=_locationManager;
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+            [self.locationManager requestAlwaysAuthorization];
+        }
     }
     
     if([CLLocationManager locationServicesEnabled]){
@@ -187,13 +190,16 @@ static void propertyListener(void *inClientData, AudioSessionPropertyID inID, UI
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&setCategoryErr];
     [[AVAudioSession sharedInstance] setActive:YES error:&activationErr];
     
-    UIRemoteNotificationType types = UIRemoteNotificationTypeBadge |
-    UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeSound |UIUserNotificationTypeAlert;
+    UIUserNotificationSettings *mySettings = [UIUserNotificationSettings settingsForTypes:types categories:nil];
+//    UIRemoteNotificationType types = UIRemoteNotificationTypeBadge |
+//    UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
     
  //   UIUserNotificationSettings *mySettings =
    // [UIUserNotificationSettings settingsForTypes:types categories:nil];
     
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:mySettings];
+//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:types];
     [DynamicContent clearNotificationSentFlag];
 //    UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
 //    if (localNotification) {

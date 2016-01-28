@@ -9,13 +9,45 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DynamicContent.m"
-            timestampString = "461720501.48111"
+            filePath = "iPad/RootViewController_Pad.m"
+            timestampString = "469071849.984509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "743"
-            endingLineNumber = "743"
-            landmarkName = "+readEdModules:session:"
+            startingLineNumber = "1825"
+            endingLineNumber = "1825"
+            landmarkName = "-writeLocalDbToCSVFile"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WRViewController.m"
+            timestampString = "469069736.375667"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3617"
+            endingLineNumber = "3617"
+            landmarkName = "-launchEdModule:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WRViewController.m"
+            timestampString = "469069745.047626"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "3610"
+            endingLineNumber = "3610"
+            landmarkName = "-launchEdModule:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +58,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DynamicContent.m"
-            timestampString = "461720564.77144"
+            timestampString = "469070457.966702"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
-            landmarkName = "+readEdModules:session:"
+            startingLineNumber = "1977"
+            endingLineNumber = "1977"
+            landmarkName = "+showEdModule:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WRViewController.m"
+            timestampString = "469070617.692479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "6205"
+            endingLineNumber = "6205"
+            landmarkName = "-launchTbiEdModule"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
